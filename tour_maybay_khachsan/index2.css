@@ -1,0 +1,529 @@
+/* Booking form */
+.booking-form { 
+  max-width:720px; 
+  margin:18px auto 40px; 
+  background:#fff; 
+  padding:16px; 
+  border-radius:10px; 
+  box-shadow:0 4px 12px rgba(0,0,0,0.06); 
+}
+
+label {
+  display:block;
+  margin-top:8px
+}
+
+input, select { 
+  width:100%; 
+  padding:8px; 
+  margin-top:6px; 
+  border-radius:6px; 
+  border:1px solid #ddd; 
+}
+.listing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px; /* khoảng cách giữa các card */
+    margin-top: 20px;
+}
+
+.tour-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    overflow: hidden;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.tour-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.tour-card h3 {
+    margin: 12px 0 8px;
+    font-size: 18px;
+}
+
+.tour-card p {
+    font-size: 14px;
+    padding: 0 10px;
+    color: #555;
+}
+
+.price {
+    margin: 8px 0;
+    font-size: 15px;
+    color: #e74c3c;
+}
+
+.btn-primary {
+    background: #0077cc;
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 16px;
+    margin: 12px auto;
+    border-radius: 8px;
+    transition: 0.3s;
+    display: inline-block;
+}
+.btn-primary:hover {
+    background: #005fa3;
+}
+/* Reset và Base Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family:'Times New Roman', Times, serif;
+    line-height: 1.6;
+    color: #333;
+    overflow-x: hidden;
+}
+
+
+/* Header Styles */
+.header {
+    position: fixed;
+    /* cố đinh khi kéo xuống */
+    top: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(201, 196, 196, 0.95);
+    backdrop-filter: blur(10px);
+    /* làm mờ phần nền (background) phía sau phần tử */
+    padding: 1rem 0;
+    z-index: 1000;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    /* tạo đường viền bên dưới */
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: 700;
+    font-weight: bold;
+    text-decoration: none;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #01346a;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-link {
+    text-decoration: none;
+    color:#f5faff;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    position: relative;
+    border-radius: 15px;
+    background-color: #01346a;
+    padding: 10px;
+}
+
+.nav-link:hover {
+    color:#eedf09;
+}
+
+.mobile-menu-toggle {
+    display: none;
+}
+
+/* Hero Section */
+.hero {
+    height: 100vh;
+    background:linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)) /* lớp màu đen mờ phủ lên */
+    ,url('ảnh/img_main.jpg') center/cover;
+    display: flex;
+    align-items: center;
+    /* căn giữa trục dọc */
+    justify-content: center;
+    /* căn giữa trục ngang */
+    text-align: center;
+    /* các chữ nằm ngang theo chiều ngang của phần tử con */
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: rgb(255, 255, 255);
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    color: #ffffff;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background:#EA580C;
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    transition: 0.3s ease !important;
+}
+
+.cta-button:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* About Section */
+.about {
+    margin: 5rem 0;
+    padding: 3rem 0;
+    background: lightblue;
+    min-height: 100vh;
+    background: lightblue;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+    color: #021e56;
+    font-weight: 800;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.about-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+
+.about-text{
+    background-color: aliceblue;
+    padding: 15px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgb(97, 97, 97);
+}
+.about-text h3 {
+    font-size: 2rem;
+    color:#001bc9;
+    margin-bottom: 1rem;
+}
+
+.about-text p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    text-align: justify;
+}
+
+.about-image {
+    border-radius: 15px;
+    overflow: hidden;
+    /* nội dung tràn sẽ bị ẩn đi */
+    box-shadow: 0 10px 30px rgb(97, 97, 97);
+}
+
+.about-image img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    /* ảnh/video sẽ phóng to vừa đủ để lấp kín khung chứa, nhưng vẫn giữ đúng tỉ lệ gốc. */
+    transition: transform 0.3s ease;
+    display: block; 
+}
+
+.about-image:hover img {
+    transform: scale(1.05);
+    /* phóng to 5%. */
+}
+
+/* Destinations Section */
+.destinations {
+    padding: 5rem 0;
+}
+
+.destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    /* cột tự giãn xo với kich thước màn hình, mỗi cột cao tối thiểu 350px,chiếm 1fr */
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.destination-card {
+    background: rgb(0, 0, 0);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgb(97, 97, 97);
+    /* đổ bóng */
+    transition: all 0.3s ease;
+}
+
+.destination-card:hover {
+    transform: translateY(-10px);
+}
+
+.destination-card img {
+    width: 100%;
+    /* co giãn 100% khung chứa */
+    height: 250px;
+    object-fit: cover;
+    /* phóng to cắt xén sao cho đầy kín khung */
+}
+
+.card-content {
+    padding: 1.5rem;
+    color: #f5faff;
+}
+
+.card-content h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-content p {
+    margin-bottom: 1rem;
+}
+
+.price {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+/* Services Section */
+.services {
+    padding: 5rem 0;
+    background:#fffbfb;
+}
+
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+}
+
+.service-card {
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+    align-items: center;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    margin: 0 auto;
+}
+
+.service-card.tour{
+    background:linear-gradient(rgba(0,0,0,0.5), rgba(255, 255, 255, 0.743)) /* lớp màu đen mờ phủ lên */
+    ,url('ảnh/tour_travel.jpg') center/cover;
+}
+
+.service-card.hotel{
+    background:linear-gradient(rgba(0,0,0,0.5), rgba(255, 255, 255, 0.743)) /* lớp màu đen mờ phủ lên */
+    ,url('ảnh/hotel.jpg') center/cover;
+}
+
+.service-card.plane{
+    background:linear-gradient(rgba(0,0,0,0.5), rgba(255, 255, 255, 0.743)) /* lớp màu đen mờ phủ lên */
+    ,url('ảnh/plane.jpg') center/cover;
+}
+
+.service-card.car{
+    background:linear-gradient(rgba(0,0,0,0.5), rgba(255, 255, 255, 0.743)) /* lớp màu đen mờ phủ lên */
+    ,url('ảnh/car.webp') center/cover;
+}
+
+.service-card.visa{
+    background:linear-gradient(rgba(0,0,0,0.5), rgba(255, 255, 255, 0.743)) /* lớp màu đen mờ phủ lên */
+    ,url('ảnh/visa.jpg') center/cover;
+}
+
+.service-card.consultant{
+    background:linear-gradient(rgba(0,0,0,0.5), rgba(255, 255, 255, 0.743)) /* lớp màu đen mờ phủ lên */
+    ,url('ảnh/contrultant.jpg') center/cover;
+}
+
+.service-card h3 {
+    font-size: 1.3rem;
+    background-color: #8a0808;
+    margin: 0 30px;
+    border-radius: 20px;
+    margin-bottom: 1rem;
+    color:  #f3f0f0;
+    transition: all 0.3s ease !important;
+}
+
+.service-card:hover h3{
+    transform: translateY(-3px) !important;
+    box-shadow: 0 10px 10px rgb(189, 188, 188);
+}
+
+.service-card p {
+    color: rgb(0, 0, 0);
+    background-color: #f3f0f0;
+    border-radius: 15px;
+    max-width: 250px;
+    padding: 10px 0;
+}
+
+/* Contact Section */
+.contact {
+    padding: 5rem 0;
+}
+
+.contact-form {
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    padding: 1rem;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: rgb(0, 0, 0);
+    font-weight: 700;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid #E5E7EB;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: rgb(0, 0, 61);
+}
+
+.form-group textarea {
+    resize: vertical;
+    /* chỉ cho thay đổi kích thước dọc */
+    height: 120px;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: rgb(37, 154, 226);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    /* thay bằng bàn tay khi nhấp vào ô */
+    transition: background 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #0284C7;
+}
+
+/* Footer */
+.footer {
+    background: rgb(0, 0, 0);
+    color: white;
+    padding: 3rem 0 1rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+    margin-bottom: 1rem;
+    font-size: 20px;
+}
+
+.footer-section p,
+.footer-section a {
+    color: #9CA3AF;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    display: block;
+    text-align: justify;
+}
+
+.footer-section p i{
+    margin: 5px;
+}
+.footer-section a:hover {
+    color: var(--white);
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #374151;
+    color: #9CA3AF;
+}
+.service-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
+.service-card-link:hover .service-card {
+    transform: scale(1.05);
+    transition: 0.3s;
+}
+.service-card-link {
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+}
+
+.service-card-link:hover .service-card {
+    transform: scale(1.05);
+    transition: 0.3s;
+    cursor: pointer;
+}
