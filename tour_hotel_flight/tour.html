@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tour Du Lịch - Travel Explorer</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="main.html" class="logo">🌍 Travel Explorer</a>
+            <div>
+                <ul class="nav-menu">
+                    <li><a href="main.html#home" class="nav-link">Trang Chủ</a></li>
+                    <li><a href="main.html#destinations" class="nav-link">Điểm Đến</a></li>
+                    <li><a href="main.html#services" class="nav-link">Dịch Vụ</a></li>
+                    <li><a href="main.html#contact" class="nav-link">Liên Hệ</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <section class="tour-page-hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('ảnh/img-travel.jpg') center/cover;">
+        <div class="hero-content">
+            <h1>Khám Phá Tour Du Lịch Tuyệt Vời</h1>
+        </div>
+    </section>
+
+    <section class="tour-search">
+        <div class="container">
+            <form class="search-form">
+                <div class="form-group">
+                    <label for="destination">Điểm Đến</label>
+                    <input type="text" id="destination" placeholder="Ví dụ: Đà Lạt, Sapa" />
+                </div>
+                <div class="form-group">
+                    <label for="date">Ngày Khởi Hành</label>
+                    <input type="date" id="date" />
+                </div>
+                <div class="form-group">
+                    <label for="duration">Số Ngày</label>
+                    <input type="number" id="duration" placeholder="Ví dụ: 3" min="1" />
+                </div>
+                <div class="form-group">
+                    <label for="price-range">Ngân Sách</label>
+                    <select id="price-range">
+                        <option value="">Chọn khoảng giá</option>
+                        <option value="low">Dưới 3 Triệu</option>
+                        <option value="medium">3 - 5 Triệu</option>
+                        <option value="high">Trên 5 Triệu</option>
+                    </select>
+                </div>
+                <button type="submit" class="cta-button" style="align-self: flex-end; padding: 0.8rem 1.5rem;">Tìm Tour</button>
+            </form>
+        </div>
+    </section>
+
+   <section class="tour-list" id="tourListSection">
+    <div class="container">
+        <h2 class="section-title" id="tourSectionTitle">Tour Nổi Bật</h2>
+        <div class="destinations-grid" id="tourListGrid">
+            </div>
+    </div>
+</section>
+<div id="tourModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button" onclick="closeModal('tourModal')">&times;</span>
+        <h3 class="modal-title">ĐẶT TOUR DU LỊCH</h3>
+        <form class="booking-form" action="#" method="POST">
+            <input type="hidden" id="tourName" name="tour_name" value="">
+            
+            <div class="form-group">
+                <label for="fullName">Họ và Tên (*)</label>
+                <input type="text" id="fullName" name="full_name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email (*)</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Số điện thoại (*)</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="adults">Số lượng người lớn (*)</label>
+                <input type="number" id="adults" name="adults" min="1" value="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="children">Số lượng trẻ em (dưới 12 tuổi)</label>
+                <input type="number" id="children" name="children" min="0" value="0">
+            </div>
+
+            <div class="form-group">
+                <label for="startDate">Ngày khởi hành mong muốn (*)</label>
+                <input type="date" id="startDate" name="start_date" required>
+            </div>
+
+            <div class="form-group">
+                <label for="message">Yêu cầu đặc biệt (nếu có)</label>
+                <textarea id="message" name="message" rows="3"></textarea>
+            </div>
+
+            <button type="submit" class="submit-btn" style="width: 100%;">Gửi Yêu Cầu Đặt Tour</button>
+        </form>
+        <p class="note">(*): Thông tin bắt buộc</p>
+    </div>
+</div>
+
+    <script>
+    const allTours = [
+        { name: "Tour 4N3Đ Đà Nẵng - Hội An", image: "ảnh/hoi_an.jpeg", duration: "4 Ngày 3 Đêm", price: "4.500.000đ", description: "Khám phá Phố cổ Hội An và các danh thắng nổi tiếng Đà Nẵng." },
+        { name: "Tour 3N2Đ Đà Lạt Ngàn Hoa", image: "ảnh/da_lat.jpg", duration: "3 Ngày 2 Đêm", price: "2.900.000đ", description: "Trải nghiệm săn mây, khám phá các điểm check-in độc đáo tại Đà Lạt." },
+        { name: "Tour 5N4Đ Nha Trang - Đảo Bình Ba", image: "ảnh/nha_trang.jpg", duration: "5 Ngày 4 Đêm", price: "5.800.000đ", description: "Thành phố biển sôi động, tắm biển và lặn ngắm san hô." },
+        { name: "Tour 5N4Đ Phú Quốc Lặn Biển", image: "ảnh/img-main.jpg", duration: "5 Ngày 4 Đêm", price: "6.500.000đ", description: "Thiên đường đảo ngọc, thư giãn và khám phá đại dương." },
+        { name: "Tour 2N1Đ Sapa Mù Sương", image: "ảnh/hoi_an.jpeg", duration: "2 Ngày 1 Đêm", price: "1.800.000đ", description: "Săn mây và khám phá bản làng dân tộc thiểu số." }
+    ];
+
+    const tourGrid = document.getElementById('tourListGrid');
+    const searchForm = document.querySelector('.tour-search .search-form');
+    const tourSectionTitle = document.getElementById('tourSectionTitle');
+    function renderTours(tours) {
+        tourGrid.innerHTML = ''; 
+        
+        if (tours.length === 0) {
+            tourGrid.innerHTML = '<p style="text-align: center; width: 100%; font-size: 1.2rem; color: #EA580C;">Xin lỗi, không tìm thấy tour nào phù hợp với yêu cầu của bạn.</p>';
+            return;
+        }
+
+        tours.forEach(tour => {
+            const card = document.createElement('div');
+            card.className = 'tour-card';
+            card.innerHTML = `
+                <img src="${tour.image}" alt="${tour.name}">
+                <div class="tour-content">
+                    <h4>${tour.name}</h4>
+                    <p>${tour.description}</p>
+                    <div class="tour-info">
+                        <span class="tour-duration"><i class="fa-regular fa-clock"></i> ${tour.duration}</span>
+                        <span class="tour-price">${tour.price}</span>
+                    </div>
+                    <div style="margin-top: 1rem; text-align: right;">
+                        <button class="cta-button open-modal-tour" data-service="${tour.name}" style="padding: 0.6rem 1.2rem;">Đặt Ngay</button>
+                    </div>
+                </div>
+            `;
+            tourGrid.appendChild(card);
+        });
+        attachModalEvents();
+    }
+    function searchTours(e) {
+        e.preventDefault();
+        
+        const destination = document.getElementById('destination').value.toLowerCase();
+        
+        let filteredTours = allTours.filter(tour => {
+            return tour.name.toLowerCase().includes(destination) || 
+                   tour.description.toLowerCase().includes(destination);
+        });
+        
+        const results = filteredTours.length > 0 ? filteredTours : allTours.slice(0, 3);
+        
+        if (destination) {
+             tourSectionTitle.textContent = `Kết Quả Tìm Kiếm cho: "${destination}"`;
+        } else {
+             tourSectionTitle.textContent = `Tour Nổi Bật`;
+        }
+
+        renderTours(results);
+        
+        document.getElementById('tourListSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    searchForm.addEventListener('submit', searchTours);
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderTours(allTours.slice(0, 3));
+    });
+
+    function openModal(modalId, serviceName) {
+        document.getElementById(modalId).style.display = 'flex';
+        if (serviceName && document.getElementById('tourName')) {
+            document.getElementById('tourName').value = serviceName;
+        }
+    }
+
+    function closeModal(modalId) {
+        document.getElementById(modalId).style.display = 'none';
+    }
+
+    function attachModalEvents() {
+        document.querySelectorAll('.open-modal-tour').forEach(button => {
+            button.onclick = function(e) {
+                e.preventDefault();
+                const serviceName = this.getAttribute('data-service');
+                openModal('tourModal', serviceName);
+            };
+        });
+    }
+
+    document.getElementById('tourModal').addEventListener('click', function(e) {
+        if (e.target.id === 'tourModal') {
+            closeModal('tourModal');
+        }
+    });
+    
+</script>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Travel Explorer</h3>
+                    <p>Đối tác tin cậy cho mọi chuyến du lịch của bạn.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Liên Kết Nhanh</h3>
+                    <a href="main.html#home">Trang Chủ</a>
+                    <a href="main.html#destinations">Điểm Đến</a>
+                    <a href="main.html#services">Dịch Vụ</a>
+                    <a href="main.html#contact">Liên Hệ</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Thông Tin Liên Hệ</h3>
+                    <p><i class="fa-solid fa-location-dot 1"></i> 12/5D Đường Lê Lợi, Quận 1</p>
+                    <p><i class="fa-solid fa-phone-volume"></i> (028) 1234 5678</p>
+                    <p><i class="fa-solid fa-envelope"></i> info@travelexplorer.vn</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Theo Dõi Chúng Tôi</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Travel Explorer. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
