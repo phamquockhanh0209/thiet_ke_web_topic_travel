@@ -140,7 +140,7 @@ body {
 .hero {
     min-height: 100vh;
     background:linear-gradient(135deg, rgba(6, 6, 6, 0.7)),
-    url('ảnh/img_main.jpg') center/cover no-repeat;
+    url('Images/img_main.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -694,3 +694,4 @@ body {
     0%, 100% { opacity: 1; }
     50% { opacity: 0.5; }
 }
+
