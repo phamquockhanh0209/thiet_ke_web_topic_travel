@@ -105,6 +105,69 @@ body {
     width: 100%;
 }
 
+/* Dropdown Menu */
+.dropdown {
+    position: relative;
+}
+
+.dropdown > .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.dropdown > .nav-link i {
+    font-size: 0.7rem;
+    transition: var(--transition);
+}
+
+.dropdown:hover > .nav-link i {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--white);
+    box-shadow: var(--shadow-lg);
+    list-style: none;
+    min-width: 150px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+    border-radius: 8px;
+    padding: 0.5rem 0;
+    margin-top: 10px;
+    z-index: 1000;
+}
+
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu li {
+    margin: 0;
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    color: var(--text-dark);
+    text-decoration: none;
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.dropdown-menu a:hover {
+    background: var(--bg-light);
+    color: var(--primary-color);
+    padding-left: 2rem;
+}
+
 /* Mobile Menu Toggle */
 .mobile-menu-toggle {
     display: none;
@@ -140,7 +203,7 @@ body {
 .hero {
     min-height: 100vh;
     background:linear-gradient(135deg, rgba(6, 6, 6, 0.7)),
-    url('Images/img_main.jpg') center/cover no-repeat;
+    url('../Images/img_main.jpg') center/cover no-repeat;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -603,6 +666,32 @@ body {
         font-size: 1.2rem;
         padding: 1rem 0;
         border-bottom: 1px solid #e5e7eb;
+    }
+
+    /* Dropdown in mobile */
+    .dropdown-menu {
+        position: static;
+        opacity: 1;
+        visibility: visible;
+        transform: none;
+        box-shadow: none;
+        background: rgba(0, 0, 0, 0.05);
+        margin-top: 0;
+        padding-left: 1rem;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        border: none;
+        border-radius: 0;
+    }
+
+    .dropdown.active .dropdown-menu {
+        max-height: 200px;
+    }
+
+    .dropdown-menu a {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
     }
 
     .hero {
