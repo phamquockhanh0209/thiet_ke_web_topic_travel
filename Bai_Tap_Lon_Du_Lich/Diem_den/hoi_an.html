@@ -5,22 +5,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tour du lịch Hội An 3N2Đ - Khám phá phố cổ Hội An với kiến trúc độc đáo, nền ẩm thực phong phú, làng gốm Thanh Hà và nhiều di tích lịch sử văn hóa.">
+    <meta name="keywords" content="du lịch Hội An, tour Hội An, phố cổ Hội An, chùa Cầu, làng gốm Thanh Hà, ẩm thực Hội An, di sản văn hóa thế giới">
+    <meta name="author" content="Travel Explorer">
     <title>HỘI AN</title>
-    <link rel="stylesheet" href="Styles/style_head_footer.css">
-    <link rel="stylesheet" href="Styles/style_diem_den.css">
+    <link rel="stylesheet" href="../Styles/style_head_footer.css">
+    <link rel="stylesheet" href="../Styles/style_diem_den.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
 </head>
 
 <body>
     <header class="header">
         <nav class="nav-container">
-            <a href="#" class="logo">🌍 Travel Explorer</a>
+            <a href="../main.html" class="logo">🌍 Travel Explorer</a>
             <div>
                 <ul class="nav-menu">
-                    <li><a href="#home" class="nav-link">Trang Chủ</a></li>
-                    <li><a href="#destinations" class="nav-link">Điểm Đến</a></li>
-                    <li><a href="#services" class="nav-link">Dịch Vụ</a></li>
-                    <li><a href="#contact" class="nav-link">Liên Hệ</a></li>
+                    <li><a href="../main.html" class="nav-link">Trang Chủ</a></li>
+                    <li class="dropdown">
+                        <a href="../main.html#destinations" class="nav-link">Điểm Đến <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../main.html#destinations">Trong Nước</a></li>
+                            <li><a href="../main.html#international-destinations">Quốc Tế</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#section2" class="nav-link">Giới Thiệu</a></li>
+                    <li><a href="javascript:void(0)" class="nav-link" onclick="openPopup(); return false;">Đăng ký</a></li>
+                    <li><a href="#section3" class="nav-link">Tour khác</a></li>
                 </ul>
                 <button class="mobile-menu-toggle">
                     <span class="hamburger"></span>
@@ -33,28 +43,28 @@
     <section id="section1" class="homepage">
         <div class="container">
             <div id="slide">
-                <div class="item" style="background-image: url(Images/hoi_an_1.jpg);">
+                <div class="item" style="background-image: url(../Images/hoi_an_1.jpg);">
                     <div class="content">
                         <div class="name">Hội An</div>
                         <div class="des">Dòng sông Hoài dịu dàng, thuyền xuôi mái chèo trôi lững lờ.</div>
                         <button class="see-more-btn">Xem thêm</button>
                     </div>
                 </div>
-                <div class="item" style="background-image: url(Images/hoi_an_2.jpg);">
+                <div class="item" style="background-image: url(../Images/hoi_an_2.jpg);">
                     <div class="content">
                         <div class="name">Hội An</div>
                         <div class="des">Thơ mộng với những nét đẹp cổ kính.</div>
                         <button class="see-more-btn">Xem thêm</button>
                     </div>
                 </div>
-                <div class="item" style="background-image: url(Images/hoi_an_3.jpg);">
+                <div class="item" style="background-image: url(../Images/hoi_an_3.jpg);">
                     <div class="content">
                         <div class="name">Hội An</div>
                         <div class="des">Phố cổ rực rỡ ánh đèn lồng, yên bình từng con phố.</div>
                         <button class="see-more-btn">Xem thêm</button>
                     </div>
                 </div>
-                <div class="item" style="background-image: url(Images/hoi_an_4.jpg);">
+                <div class="item" style="background-image: url(../Images/hoi_an_4.jpg);">
                     <div class="content">
                         <div class="name">Hội An</div>
                         <div class="des">Ngôi nhà cổ kính, hòa quyện văn hóa Việt, Trung, Nhật.
@@ -62,14 +72,14 @@
                         <button class="see-more-btn">Xem thêm</button>
                     </div>
                 </div>
-                <div class="item" style="background-image: url(Images/hoi_an_5.jpg);">
+                <div class="item" style="background-image: url(../Images/hoi_an_5.jpg);">
                     <div class="content">
                         <div class="name">Hội An</div>
                         <div class="des">Từng chiếc thuyền xuôi dòng, mang theo câu chuyện xưa cũ.</div>
                         <button class="see-more-btn">Xem thêm</button>
                     </div>
                 </div>
-                <div class="item" style="background-image: url(Images/hoi_an_6.jpg);">
+                <div class="item" style="background-image: url(../Images/hoi_an_6.jpg);">
                     <div class="content">
                         <div class="name">Hội An</div>
                         <div class="des">Những con phố nhỏ, đầy màu sắc, thu hút bước chân du khách.</div>
@@ -160,12 +170,91 @@
                 <div id="popupForm" class="popup">
                     <div class="popup-content">
                         <span class="close" onclick="closePopup()">&times;</span>
-                        <h2>THÔNG TIN TƯ VẤN</h2>
+                        <div class="popup-header">
+                            <h2>ĐĂNG KÝ TOUR DU LỊCH</h2>
+                            <p>Vui lòng điền đầy đủ thông tin để chúng tôi có thể tư vấn tốt nhất cho bạn</p>
+                        </div>
                         <form id="registerForm" onsubmit="return validateForm()">
-                            <input type="text" id="name" placeholder="Nhập họ và tên">
-                            <input type="text" id="phone" placeholder="Nhập số điện thoại">
-                            <textarea id="note" placeholder="Ghi chú thêm..."></textarea>
-                            <button type="submit">GỬI THÔNG TIN</button>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Họ và Tên <span class="required">*</span></label>
+                                    <input type="text" id="name" name="name" placeholder="Nhập họ và tên đầy đủ" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Số Điện Thoại <span class="required">*</span></label>
+                                    <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email <span class="required">*</span></label>
+                                    <input type="email" id="email" name="email" placeholder="Nhập địa chỉ email" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Địa Chỉ</label>
+                                    <input type="text" id="address" name="address" placeholder="Nhập địa chỉ nơi ở">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="people">Số Lượng Người <span class="required">*</span></label>
+                                    <select id="people" name="people" required>
+                                        <option value="">Chọn số lượng</option>
+                                        <option value="1">1 người</option>
+                                        <option value="2">2 người</option>
+                                        <option value="3">3 người</option>
+                                        <option value="4">4 người</option>
+                                        <option value="5+">5 người trở lên</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="departure">Ngày Khởi Hành Dự Kiến</label>
+                                    <input type="date" id="departure" name="departure">
+                                </div>
+                            </div>
+                            
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="budget">Ngân Sách Dự Kiến</label>
+                                    <select id="budget" name="budget">
+                                        <option value="">Chọn mức ngân sách</option>
+                                        <option value="under-5m">Dưới 5 triệu</option>
+                                        <option value="5-10m">5 - 10 triệu</option>
+                                        <option value="10-20m">10 - 20 triệu</option>
+                                        <option value="20-30m">20 - 30 triệu</option>
+                                        <option value="over-30m">Trên 30 triệu</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="duration">Thời Gian Du Lịch</label>
+                                    <select id="duration" name="duration">
+                                        <option value="">Chọn thời gian</option>
+                                        <option value="2-3days">2 - 3 ngày</option>
+                                        <option value="4-5days">4 - 5 ngày</option>
+                                        <option value="6-7days">6 - 7 ngày</option>
+                                        <option value="over-7days">Trên 7 ngày</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group full-width">
+                                <label for="note">Ghi Chú / Yêu Cầu Đặc Biệt</label>
+                                <textarea id="note" name="note" rows="4" placeholder="Nhập các yêu cầu đặc biệt, dịch vụ mong muốn hoặc câu hỏi của bạn..."></textarea>
+                            </div>
+                            
+                            <div class="form-group full-width checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="agree" name="agree" required>
+                                    <span>Tôi đồng ý với <a href="#" class="link">chính sách bảo mật</a> và <a href="#" class="link">điều khoản sử dụng</a> <span class="required">*</span></span>
+                                </label>
+                            </div>
+                            
+                            <div class="form-actions">
+                                <button type="button" class="btn-cancel" onclick="closePopup()">HỦY</button>
+                                <button type="submit" class="btn-submit">GỬI ĐĂNG KÝ</button>
+                            </div>
                         </form>
                     </div>
                 </div>
@@ -176,34 +265,34 @@
                 <ul>
                     <a href="404.html">
                         <li>
-                            <img src="Images/sa_pa_1.jpg" alt="Du Lịch SaPa">
+                            <img src="../Images/sa_pa_1.jpg" alt="Du Lịch SaPa">
                             <span>Du Lịch SaPa</span>
+                            <p>3.000.000</p>
+                        </li>
+                        <li>
+                            <img src="../Images/ha_long_1.jpg" alt="Du Lịch Hạ Long">
+                            <span>Du Lịch Hạ Long</span>
                             <p>2.500.000</p>
                         </li>
                         <li>
-                            <img src="Images/ha_long_1.jpg" alt="Du Lịch Hạ Long">
-                            <span>Du Lịch Hạ Long</span>
-                            <p>3.500.000</p>
+                            <img src="../Images/hoi_an_1.jpg" alt="Du Lịch Hội An">
+                            <span>Du Lịch Hội An</span>
+                            <p>2.800.000</p>
                         </li>
                         <li>
-                            <img src="Images/hoi_an_1.jpg" alt="Du Lịch Hội An">
-                            <span>Du Lịch Hội An</span>
+                            <img src="../Images/da_lat_1.jpg" alt="Du Lịch Đà Lạt">
+                            <span>Du Lịch Đà Lạt</span>
                             <p>2.000.000</p>
                         </li>
                         <li>
-                            <img src="Images/da_lat_1.jpg" alt="Du Lịch Đà Lạt">
-                            <span>Du Lịch Đà Lạt</span>
-                            <p>4.500.000</p>
-                        </li>
-                        <li>
-                            <img src="Images/phu_quoc_1.jpg" alt="Du Lịch Phú Quốc">
+                            <img src="../Images/phu_quoc_1.jpg" alt="Du Lịch Phú Quốc">
                             <span>Du Lịch Phú Quốc</span>
                             <p>5.000.000</p>
                         </li>
                         <li>
-                            <img src="Images/nha_trang_1.jpg" alt="Du Lịch Nha Trang">
+                            <img src="../Images/nha_trang_1.jpg" alt="Du Lịch Nha Trang">
                             <span>Du Lịch Nha Trang</span>
-                            <p>2.900.000</p>
+                            <p>3.500.000</p>
                         </li>
                     </a>
                 </ul>
@@ -216,51 +305,87 @@
 
  <section id="section3">
         <h2>CÁC TOUR KHÁC</h2>
-        <a
-            href="nha_trang.html">
-            <div class="tour-list">
+        <div class="tour-list">
+            <a href="nha_trang.html">
                 <div class="tour-item">
-                    <img src="Images/eo_gio.jpg" alt="Tour 1">
+                    <img src="../Images/eo_gio.jpg" alt="Tour 1">
                     <h3>Du Lịch Nha Trang</h3>
-                    <p class="price"> <span class="old-price">5.000.000đ</span></p>
+                    <p class="price"> <span class="old-price">3.500.000đ</span></p>
                     <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
                     <p><i class="fa fa-calendar"></i> Thời gian: 6 ngày 5 đêm</p>
                 </div>
-        </a>
+            </a>
 
-        <a
-            href="ha_long.html">
-            <div class="tour-item">
-                <img src="Images/ha_long_4.jpg" alt="Tour 2">
-                <h3>Du Lịch Hạ Long</h3>
-                <p class="price"><span class="old-price">1.500.000đ</span></p>
-                <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
-                <p><i class="fa fa-calendar"></i> Thời gian: 6 ngày 5 đêm</p>
-            </div>
-        </a>
+            <a href="ha_long.html">
+                <div class="tour-item">
+                    <img src="../Images/ha_long_4.jpg" alt="Tour 2">
+                    <h3>Du Lịch Hạ Long</h3>
+                    <p class="price"><span class="old-price">2.500.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 3 ngày 2 đêm</p>
+                </div>
+            </a>
 
-        <a
-            href="da_lat.html">
-            <div class="tour-item">
-                <img src="Images/da_lat_4.jpg" alt="Tour 3">
-                <h3>Du Lịch Đà Lạt</h3>
-                <p class="price"> <span class="old-price">3.000.000đ</span></p>
-                <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
-                <p><i class="fa fa-calendar"></i> Thời gian: 6 ngày 5 đêm</p>
-            </div>
-        </a>
+            <a href="da_lat.html">
+                <div class="tour-item">
+                    <img src="../Images/da_lat_4.jpg" alt="Tour 3">
+                    <h3>Du Lịch Đà Lạt</h3>
+                    <p class="price"> <span class="old-price">2.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 4 ngày 3 đêm</p>
+                </div>
+            </a>
 
-        <a
-            href="phu_quoc.html">
-            <div class="tour-item">
-                <img src="Images/phu_quoc_1.jpg" alt="Tour 4">
-                <h3>Du Lịch Phú Quốc</h3>
-                <p class="price"> <span class="old-price">9.000.000đ</span></p>
-                <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
-                <p><i class="fa fa-calendar"></i> Thời gian: 6 ngày 5 đêm</p>
-            </div>
-            </div>
-        </a>
+            <a href="phu_quoc.html">
+                <div class="tour-item">
+                    <img src="../Images/phu_quoc_1.jpg" alt="Tour 4">
+                    <h3>Du Lịch Phú Quốc</h3>
+                    <p class="price"> <span class="old-price">5.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 3 ngày 2 đêm</p>
+                </div>
+            </a>
+
+            <a href="sa_pa.html">
+                <div class="tour-item">
+                    <img src="../Images/sa_pa_1.jpg" alt="Tour 5">
+                    <h3>Du Lịch Sa Pa</h3>
+                    <p class="price"> <span class="old-price">3.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 3 ngày 2 đêm</p>
+                </div>
+            </a>
+
+            <a href="nhat_ban.html">
+                <div class="tour-item">
+                    <img src="../Images/img-travel.jpg" alt="Tour 6">
+                    <h3>Du Lịch Nhật Bản</h3>
+                    <p class="price"> <span class="old-price">25.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 7 ngày 6 đêm</p>
+                </div>
+            </a>
+
+            <a href="han_quoc.html">
+                <div class="tour-item">
+                    <img src="../Images/img-travel.jpg" alt="Tour 7">
+                    <h3>Du Lịch Hàn Quốc</h3>
+                    <p class="price"> <span class="old-price">22.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 6 ngày 5 đêm</p>
+                </div>
+            </a>
+
+            <a href="trung_quoc.html">
+                <div class="tour-item">
+                    <img src="../Images/img-travel.jpg" alt="Tour 8">
+                    <h3>Du Lịch Trung Quốc</h3>
+                    <p class="price"> <span class="old-price">18.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 7 ngày 6 đêm</p>
+                </div>
+            </a>
+        </div>
     </section>
 
     <section id="section4">
@@ -275,10 +400,10 @@
 
                     <div class="footer-section">
                         <h3>Liên Kết Nhanh</h3>
-                        <a href="#home">Trang Chủ</a>
-                        <a href="#destinations">Điểm Đến</a>
-                        <a href="#services">Dịch Vụ</a>
-                        <a href="#contact">Liên Hệ</a>
+                        <a href="../main.html">Trang Chủ</a>
+                        <a href="../main.html#destinations">Điểm Đến</a>
+                        <a href="../main.html#services">Dịch Vụ</a>
+                        <a href="../main.html#contact">Liên Hệ</a>
                     </div>
 
                     <div class="footer-section">
@@ -324,7 +449,7 @@
 
     </section>
 
-    <script src="Scripts/script_diem_den.js"></script>
+    <script src="../Scripts/script_diem_den.js"></script>
 </body>
 
 

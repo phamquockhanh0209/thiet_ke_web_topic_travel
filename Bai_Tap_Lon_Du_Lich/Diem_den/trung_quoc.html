@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Tour du lịch Trung Quốc 7N6Đ - Khám phá quốc gia rộng lớn với lịch sử lâu đời, văn hóa phong phú, Vạn Lý Trường Thành, Tử Cấm Thành, Thượng Hải và nhiều kỳ quan thế giới.">
+    <meta name="keywords" content="du lịch Trung Quốc, tour Trung Quốc, Vạn Lý Trường Thành, Tử Cấm Thành, Bắc Kinh, Thượng Hải, Tây Tạng, ẩm thực Trung Quốc">
+    <meta name="author" content="Travel Explorer">
+    <title>TRUNG QUỐC</title>
+    <link rel="stylesheet" href="../Styles/style_head_footer.css">
+    <link rel="stylesheet" href="../Styles/style_diem_den.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="../main.html" class="logo">🌍 Travel Explorer</a>
+            <div>
+                <ul class="nav-menu">
+                    <li><a href="../main.html" class="nav-link">Trang Chủ</a></li>
+                    <li class="dropdown">
+                        <a href="../main.html#destinations" class="nav-link">Điểm Đến <i class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../main.html#destinations">Trong Nước</a></li>
+                            <li><a href="../main.html#international-destinations">Quốc Tế</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#section2" class="nav-link">Giới Thiệu</a></li>
+                    <li><a href="javascript:void(0)" class="nav-link" onclick="openPopup(); return false;">Đăng ký</a></li>
+                    <li><a href="#section3" class="nav-link">Tour khác</a></li>
+                </ul>
+                <button class="mobile-menu-toggle">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <section id="section1" class="homepage">
+        <div class="container">
+            <div id="slide">
+                <div class="item" style="background-image: url(../Images/trung_quoc_1.jpg);">
+                    <div class="content">
+                        <div class="name">Trung Quốc</div>
+                        <div class="des">Quốc gia rộng lớn với lịch sử lâu đời và văn hóa phong phú.</div>
+                        <button class="see-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url(../Images/trung_quoc_2.jpg);">
+                    <div class="content">
+                        <div class="name">Trung Quốc</div>
+                        <div class="des">Khám phá Vạn Lý Trường Thành, kỳ quan thế giới vĩ đại.</div>
+                        <button class="see-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url(../Images/trung_quoc_3.jpg);">
+                    <div class="content">
+                        <div class="name">Trung Quốc</div>
+                        <div class="des">Tham quan Tử Cấm Thành, di sản văn hóa thế giới tại Bắc Kinh.</div>
+                        <button class="see-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url(../Images/trung_quoc_4.jpg);">
+                    <div class="content">
+                        <div class="name">Trung Quốc</div>
+                        <div class="des">Thưởng thức ẩm thực đa dạng từ dimsum đến món Tứ Xuyên.</div>
+                        <button class="see-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url(../Images/trung_quoc_5.jpg);">
+                    <div class="content">
+                        <div class="name">Trung Quốc</div>
+                        <div class="des">Khám phá Thượng Hải hiện đại, thành phố không ngủ.</div>
+                        <button class="see-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url(../Images/trung_quoc_6.jpg);">
+                    <div class="content">
+                        <div class="name">Trung Quốc</div>
+                        <div class="des">Ngắm cảnh đẹp tại Tây Tạng, vùng đất huyền bí.</div>
+                        <button class="see-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
+                <button id="next"><i class="fa-solid fa-angle-right"></i></button>
+            </div>
+        </div>
+    </section>
+    <section id="section2">
+        <h2>Tour Du Lịch Trung Quốc - 7N6Đ</h2>
+
+        <div class="container">
+            <section class="tour-content">
+                <h2>Giới Thiệu</h2>
+
+                <div class="block">
+                    <p>
+                        Trung Quốc – Quốc gia rộng lớn nhất châu Á với lịch sử hơn 5000 năm, là điểm đến lý tưởng 
+                        cho những ai muốn khám phá nền văn minh cổ đại và văn hóa phong phú. Từ Vạn Lý Trường Thành 
+                        hùng vĩ đến Tử Cấm Thành lộng lẫy, Trung Quốc mang đến những trải nghiệm độc đáo và đáng nhớ.
+                    </p>
+                    <p>
+                        Bắc Kinh – Thủ đô của Trung Quốc, nơi lưu giữ những di sản văn hóa quý giá như Tử Cấm Thành, 
+                        Thiên An Môn, và Vạn Lý Trường Thành. Thượng Hải – Thành phố hiện đại với những tòa nhà chọc trời, 
+                        khu phố cổ và cuộc sống đêm sôi động. Tây An – Nơi có đội quân đất nung nổi tiếng thế giới.
+                    </p>
+                    <p>
+                        Ẩm thực Trung Quốc vô cùng đa dạng và phong phú, từ món dimsum tinh tế của Quảng Đông, 
+                        món cay nồng của Tứ Xuyên, đến món vịt quay Bắc Kinh nổi tiếng. Du khách sẽ được thưởng thức 
+                        những món ăn đặc sắc và trải nghiệm văn hóa ẩm thực độc đáo.
+                    </p>
+                    <p>
+                        Với cảnh quan thiên nhiên đa dạng từ núi non hùng vĩ, sông hồ thơ mộng đến sa mạc rộng lớn, 
+                        cùng với hệ thống giao thông hiện đại và dịch vụ du lịch chuyên nghiệp, Trung Quốc là điểm đến 
+                        không thể bỏ qua cho mọi du khách.
+                    </p>
+                </div>
+                <h2>Lịch Trình Tour Trung Quốc 7N6Đ</h2>
+                <div class="block">
+                    <h3>Ngày 1: Việt Nam – Bắc Kinh</h3>
+                    <ul>
+                        <li>Khởi hành từ sân bay đi Bắc Kinh.</li>
+                        <li>Đến sân bay Bắc Kinh, làm thủ tục nhập cảnh.</li>
+                        <li>Xe đón và đưa về khách sạn, nhận phòng và nghỉ ngơi.</li>
+                        <li>Tối: Dùng bữa tối với món vịt quay Bắc Kinh nổi tiếng.</li>
+                    </ul>
+
+                    <h3>Ngày 2: Bắc Kinh – Vạn Lý Trường Thành</h3>
+                    <ul>
+                        <li>Sáng: Tham quan Vạn Lý Trường Thành tại Badaling, kỳ quan thế giới vĩ đại.</li>
+                        <li>Trưa: Dùng bữa trưa tại nhà hàng địa phương.</li>
+                        <li>Chiều: Tham quan Lăng mộ Minh Thập Tam Lăng, di tích lịch sử quan trọng.</li>
+                        <li>Tối: Xem biểu diễn Kungfu Show, dùng bữa tối.</li>
+                    </ul>
+
+                    <h3>Ngày 3: Bắc Kinh – Tử Cấm Thành</h3>
+                    <ul>
+                        <li>Sáng: Tham quan Quảng trường Thiên An Môn, Tử Cấm Thành.</li>
+                        <li>Trưa: Thưởng thức bữa trưa với món ăn truyền thống Bắc Kinh.</li>
+                        <li>Chiều: Tham quan Đền Thiên Đàn, Cung điện Mùa Hè.</li>
+                        <li>Tối: Dùng bữa tối và tự do khám phá phố cổ Hutong.</li>
+                    </ul>
+
+                    <h3>Ngày 4: Bắc Kinh – Tây An</h3>
+                    <ul>
+                        <li>Sáng: Ăn sáng, khởi hành đi Tây An bằng máy bay.</li>
+                        <li>Đến Tây An, nhận phòng khách sạn.</li>
+                        <li>Trưa: Dùng bữa trưa tại nhà hàng địa phương.</li>
+                        <li>Chiều: Tham quan Bảo tàng Đội quân đất nung, kỳ quan thế giới.</li>
+                        <li>Tối: Thưởng thức món mì Tây An nổi tiếng, tự do khám phá.</li>
+                    </ul>
+
+                    <h3>Ngày 5: Tây An – Thượng Hải</h3>
+                    <ul>
+                        <li>Sáng: Tham quan Tháp Đại Nhạn, tường thành cổ Tây An.</li>
+                        <li>Trưa: Dùng bữa trưa, khởi hành đi Thượng Hải bằng máy bay.</li>
+                        <li>Đến Thượng Hải, nhận phòng khách sạn.</li>
+                        <li>Chiều: Tham quan Bến Thượng Hải, khu phố cổ Yuyuan.</li>
+                        <li>Tối: Ngắm cảnh đêm tại Tháp Ngọc Châu, dùng bữa tối.</li>
+                    </ul>
+
+                    <h3>Ngày 6: Thượng Hải – Tham Quan Thành Phố</h3>
+                    <ul>
+                        <li>Sáng: Tham quan khu phố cổ, chợ địa phương, mua sắm.</li>
+                        <li>Trưa: Thưởng thức dimsum và các món ăn đặc sắc.</li>
+                        <li>Chiều: Tham quan Bảo tàng Thượng Hải, khu phố Tân Thiên Địa.</li>
+                        <li>Tối: Dùng bữa tối và tự do khám phá đời sống đêm tại Thượng Hải.</li>
+                    </ul>
+
+                    <h3>Ngày 7: Thượng Hải – Việt Nam</h3>
+                    <ul>
+                        <li>Sáng: Ăn sáng tại khách sạn, tự do mua sắm quà lưu niệm.</li>
+                        <li>Trưa: Làm thủ tục trả phòng, khởi hành ra sân bay.</li>
+                        <li>Bay về Việt Nam, kết thúc chuyến du lịch Trung Quốc.</li>
+                    </ul>
+                </div>
+<section class="contact-box">
+    <div class="contact-container">
+        <div class="contact-title">
+            <strong>VUI LÒNG ĐỂ LẠI THÔNG TIN CHÚNG TÔI SẼ LIÊN HỆ TƯ VẤN</strong>
+        </div>
+        <button class="register-btn" onclick="openPopup()">ĐĂNG KÝ NGAY</button>
+    </div>
+</section>
+
+<div id="popupForm" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closePopup()">&times;</span>
+        <div class="popup-header">
+            <h2>ĐĂNG KÝ TOUR DU LỊCH</h2>
+            <p>Vui lòng điền đầy đủ thông tin để chúng tôi có thể tư vấn tốt nhất cho bạn</p>
+        </div>
+        <form id="registerForm" onsubmit="return validateForm()">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="name">Họ và Tên <span class="required">*</span></label>
+                    <input type="text" id="name" name="name" placeholder="Nhập họ và tên đầy đủ" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Số Điện Thoại <span class="required">*</span></label>
+                    <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="email">Email <span class="required">*</span></label>
+                    <input type="email" id="email" name="email" placeholder="Nhập địa chỉ email" required>
+                </div>
+                <div class="form-group">
+                    <label for="address">Địa Chỉ</label>
+                    <input type="text" id="address" name="address" placeholder="Nhập địa chỉ nơi ở">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="people">Số Lượng Người <span class="required">*</span></label>
+                    <select id="people" name="people" required>
+                        <option value="">Chọn số lượng</option>
+                        <option value="1">1 người</option>
+                        <option value="2">2 người</option>
+                        <option value="3">3 người</option>
+                        <option value="4">4 người</option>
+                        <option value="5+">5 người trở lên</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="departure">Ngày Khởi Hành Dự Kiến</label>
+                    <input type="date" id="departure" name="departure">
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="budget">Ngân Sách Dự Kiến</label>
+                    <select id="budget" name="budget">
+                        <option value="">Chọn mức ngân sách</option>
+                        <option value="under-5m">Dưới 5 triệu</option>
+                        <option value="5-10m">5 - 10 triệu</option>
+                        <option value="10-20m">10 - 20 triệu</option>
+                        <option value="20-30m">20 - 30 triệu</option>
+                        <option value="over-30m">Trên 30 triệu</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="duration">Thời Gian Du Lịch</label>
+                    <select id="duration" name="duration">
+                        <option value="">Chọn thời gian</option>
+                        <option value="2-3days">2 - 3 ngày</option>
+                        <option value="4-5days">4 - 5 ngày</option>
+                        <option value="6-7days">6 - 7 ngày</option>
+                        <option value="over-7days">Trên 7 ngày</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group full-width">
+                <label for="note">Ghi Chú / Yêu Cầu Đặc Biệt</label>
+                <textarea id="note" name="note" rows="4" placeholder="Nhập các yêu cầu đặc biệt, dịch vụ mong muốn hoặc câu hỏi của bạn..."></textarea>
+            </div>
+            
+            <div class="form-group full-width checkbox-group">
+                <label class="checkbox-label">
+                    <input type="checkbox" id="agree" name="agree" required>
+                    <span>Tôi đồng ý với <a href="#" class="link">chính sách bảo mật</a> và <a href="#" class="link">điều khoản sử dụng</a> <span class="required">*</span></span>
+                </label>
+            </div>
+            
+            <div class="form-actions">
+                <button type="button" class="btn-cancel" onclick="closePopup()">HỦY</button>
+                <button type="submit" class="btn-submit">GỬI ĐĂNG KÝ</button>
+            </div>
+        </form>
+    </div>
+</div>
+</section>
+
+            <aside class="tour-suggestion">
+                <h3>Ưu Đãi Hot Trong Tháng</h3>
+                <ul>
+                    <a href="404.html">
+                        <li>
+                            <img src="../Images/sa_pa_1.jpg" alt="Du Lịch SaPa">
+                            <span>Du Lịch SaPa</span>
+                            <p>3.000.000</p>
+                        </li>
+                        <li>
+                            <img src="../Images/ha_long_1.jpg" alt="Du Lịch Hạ Long">
+                            <span>Du Lịch Hạ Long</span>
+                            <p>2.500.000</p>
+                        </li>
+                        <li>
+                            <img src="../Images/hoi_an_1.jpg" alt="Du Lịch Hội An">
+                            <span>Du Lịch Hội An</span>
+                            <p>2.800.000</p>
+                        </li>
+                        <li>
+                            <img src="../Images/da_lat_1.jpg" alt="Du Lịch Đà Lạt">
+                            <span>Du Lịch Đà Lạt</span>
+                            <p>2.000.000</p>
+                        </li>
+                        <li>
+                            <img src="../Images/phu_quoc_1.jpg" alt="Du Lịch Phú Quốc">
+                            <span>Du Lịch Phú Quốc</span>
+                            <p>5.000.000</p>
+                        </li>
+                        <li>
+                            <img src="../Images/nha_trang_1.jpg" alt="Du Lịch Nha Trang">
+                            <span>Du Lịch Nha Trang</span>
+                            <p>3.500.000</p>
+                        </li>
+                    </a>
+                </ul>
+            </aside>
+        </div>
+    </section>
+
+    <section id="section3">
+        <h2>CÁC TOUR KHÁC</h2>
+        <div class="tour-list">
+            <a href="nhat_ban.html">
+                <div class="tour-item">
+                    <img src="../Images/img-travel.jpg" alt="Tour 1">
+                    <h3>Du Lịch Nhật Bản</h3>
+                    <p class="price"> <span class="old-price">25.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 7 ngày 6 đêm</p>
+                </div>
+            </a>
+
+            <a href="han_quoc.html">
+                <div class="tour-item">
+                    <img src="../Images/img-travel.jpg" alt="Tour 2">
+                    <h3>Du Lịch Hàn Quốc</h3>
+                    <p class="price"><span class="old-price">22.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 6 ngày 5 đêm</p>
+                </div>
+            </a>
+
+            <a href="an_do.html">
+                <div class="tour-item">
+                    <img src="../Images/img-travel.jpg" alt="Tour 3">
+                    <h3>Du Lịch Ấn Độ</h3>
+                    <p class="price"> <span class="old-price">20.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 8 ngày 7 đêm</p>
+                </div>
+            </a>
+
+            <a href="nga.html">
+                <div class="tour-item">
+                    <img src="../Images/img-travel.jpg" alt="Tour 4">
+                    <h3>Du Lịch Nga</h3>
+                    <p class="price"> <span class="old-price">28.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 7 ngày 6 đêm</p>
+                </div>
+            </a>
+
+            <a href="chau_phi.html">
+                <div class="tour-item">
+                    <img src="../Images/img-travel.jpg" alt="Tour 5">
+                    <h3>Du Lịch Châu Phi</h3>
+                    <p class="price"> <span class="old-price">30.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 10 ngày 9 đêm</p>
+                </div>
+            </a>
+
+            <a href="ha_long.html">
+                <div class="tour-item">
+                    <img src="../Images/ha_long_6.jpg" alt="Tour 6">
+                    <h3>Du Lịch Hạ Long</h3>
+                    <p class="price"> <span class="old-price">2.500.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 3 ngày 2 đêm</p>
+                </div>
+            </a>
+
+            <a href="phu_quoc.html">
+                <div class="tour-item">
+                    <img src="../Images/phu_quoc_1.jpg" alt="Tour 7">
+                    <h3>Du Lịch Phú Quốc</h3>
+                    <p class="price"> <span class="old-price">5.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 3 ngày 2 đêm</p>
+                </div>
+            </a>
+
+            <a href="sa_pa.html">
+                <div class="tour-item">
+                    <img src="../Images/sa_pa_1.jpg" alt="Tour 8">
+                    <h3>Du Lịch Sa Pa</h3>
+                    <p class="price"> <span class="old-price">3.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 3 ngày 2 đêm</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section id="section4">
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Travel Explorer</h3>
+                        <p>Đối tác tin cậy cho mọi chuyến du lịch của bạn. Chúng tôi cam kết mang đến những trải nghiệm
+                            tuyệt vời nhất.</p>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Liên Kết Nhanh</h3>
+                        <a href="../main.html">Trang Chủ</a>
+                        <a href="../main.html#destinations">Điểm Đến</a>
+                        <a href="../main.html#services">Dịch Vụ</a>
+                        <a href="../main.html#contact">Liên Hệ</a>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Thông Tin Liên Hệ</h3>
+                        <p>
+                            <i class="fa-solid fa-location-dot 1"></i>
+                            12/5D Đường Lê Lợi, Quận 1
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-phone-volume"></i>
+                            (028) 1234 5678
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-envelope"></i>
+                            info@travelexplorer.vn
+                        </p>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Theo Dõi Chúng Tôi</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link">
+                                <i class="fa-brands fa-facebook"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fa-brands fa-telegram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Travel Explorer. Tất cả quyền được bảo lưu.</p>
+                </div>
+            </div>
+        </footer>
+    </section>
+
+    <script src="../Scripts/script_diem_den.js"></script>
+</body>
+
+</html>
+
