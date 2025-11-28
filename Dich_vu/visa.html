@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<head>
+  <title>Visa & Thủ Tục - 🌍 Travel Explorer</title>
+  <meta name="description" content="Dịch vụ tư vấn Visa và thủ tục du lịch quốc tế. Hỗ trợ giấy tờ, dịch thuật, đặt lịch lãnh sự nhanh chóng.">
+  <link rel="stylesheet" href="../Styles/dich_vu_2_style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+<body>
+
+  <header class="header">
+    <div class="container nav">
+      <a href="../main.html" class="logo">🌍 Travel <span>Explorer</span></a>
+      <nav class="nav-links">
+        <a href="../main.html">Trang chủ</a>
+        <a href="#visa" class="active">Visa & Thủ Tục</a>
+        <a href="#faq">Hỏi đáp</a>
+        <a href="#lien-he">Liên hệ</a>
+      </nav>
+      <button class="hamburger" aria-label="Mở menu"><span></span><span></span><span></span></button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-inner">
+      <div class="hero-text">
+        <h1>Dịch Vụ Visa & Thủ Tục</h1>
+        <p>Hỗ trợ nhanh chóng - chính xác - chuyên nghiệp. Tư vấn các loại visa du lịch, công tác, du học.</p>
+        <div class="hero-cta">
+          <a href="#form-visa" class="btn btn-primary"><i class="fa-solid fa-passport"></i> Yêu cầu tư vấn visa</a>
+          <a href="tel:0900000000" class="btn btn-ghost"><i class="fa-solid fa-phone-volume"></i> (028) 1234 5678</a>
+        </div>
+      </div>
+      <div class="hero-card">
+        <div class="badge">Hot</div>
+        <ul>
+          <li><i class="fa-solid fa-check"></i> Miễn phí tư vấn hồ sơ</li>
+          <li><i class="fa-solid fa-check"></i> Xử lý nhanh trong <b>5 ngày</b></li>
+          <li><i class="fa-solid fa-check"></i> Tỷ lệ đậu cao</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="services container">
+    <h2 class="section-title">Chúng tôi hỗ trợ</h2>
+    <div class="cards">
+      <article class="card">
+        <img src="../Images/visa du lịch.png" alt="Visa du lịch" width="300%" height="150%">
+        <div class="card-body">
+          <h3>Visa du lịch</h3>
+          <p>Hỗ trợ xin visa ngắn hạn cho các nước: Mỹ, Nhật, Hàn, EU... với tỷ lệ đậu cao.</p>
+        </div>
+      </article>
+      <article class="card">
+        <img src="../Images/visa công tác.webp" alt="Visa công tác" width="300%" height="150%">
+        <div class="card-body">
+          <h3>Visa công tác</h3>
+          <p>Chuẩn bị hồ sơ mời công tác, thư bảo lãnh, lịch trình làm việc đầy đủ.</p>
+        </div>
+      </article>
+      <article class="card">
+        <img src="../Images/visa du học.png" alt="Visa du học" width="300%" height="150%">
+        <div class="card-body">
+          <h3>Visa du học</h3>
+          <p>Tư vấn chọn trường, chuẩn bị hồ sơ học tập và hướng dẫn phỏng vấn chi tiết.</p>
+        </div>
+      </article>
+      <article class="card">
+        <img src="../Images/dịch thuật.jpg" alt="Dịch thuật công chứng" width="300%" height="150%">
+        <div class="card-body">
+          <h3>Dịch thuật & công chứng</h3>
+          <p>Dịch hồ sơ sang tiếng Anh, Nhật, Hàn, Pháp... kèm công chứng hợp pháp.</p>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="visa" class="booking">
+    <div class="container">
+      <h2 class="section-title">Đăng ký hỗ trợ Visa</h2>
+      <form class="form" id="visaForm" novalidate>
+        <div class="grid-2">
+          <label>Họ tên
+            <input type="text" name="name" placeholder="Nguyễn Văn A" required />
+          </label>
+          <label>Số điện thoại
+            <input type="tel" name="phone" placeholder="VD: 0901234567" required />
+          </label>
+        </div>
+        <div class="grid-2">
+          <label>Loại visa
+            <select name="type" required>
+              <option value="">-- Chọn loại visa --</option>
+              <option>Du lịch</option>
+              <option>Công tác</option>
+              <option>Du học</option>
+              <option>Khác</option>
+            </select>
+          </label>
+          <label>Quốc gia
+            <input type="text" name="country" placeholder="Nhật Bản, Hàn Quốc, Mỹ..." required />
+          </label>
+        </div>
+        <label>Ghi chú
+          <textarea name="note" rows="3" placeholder="Yêu cầu khác: dịch thuật, công chứng..."></textarea>
+        </label>
+        <div class="form-actions">
+          <button class="btn btn-primary" type="submit"><i class="fa-solid fa-paper-plane"></i> Gửi yêu cầu</button>
+          <a class="btn btn-ghost" href="mailto:visa@travelexplorer.vn">Email: visa@travelexplorer.vn</a>
+        </div>
+        <p class="form-success" id="formSuccess" hidden>✅ Yêu cầu của bạn đã được ghi nhận, chúng tôi sẽ liên hệ sớm nhất.</p>
+      </form>
+    </div>
+  </section>
+
+  <section id="faq" class="faq container">
+    <h2 class="section-title">Câu hỏi thường gặp</h2>
+    <div class="accordion">
+      <div class="item">
+        <button class="acc-btn">Thời gian làm visa mất bao lâu? <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-panel"><p>Tùy từng nước, thường từ 5–15 ngày làm việc.</p></div>
+      </div>
+      <div class="item">
+        <button class="acc-btn">Nếu bị từ chối visa có được hoàn phí không? <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-panel"><p>Một số khoản phí lãnh sự sẽ không hoàn lại, nhưng phí dịch vụ có thể hỗ trợ.</p></div>
+      </div>
+      <div class="item">
+        <button class="acc-btn">Có nhận hồ sơ gấp không? <i class="fa-solid fa-chevron-down"></i></button>
+        <div class="acc-panel"><p>Có. Chúng tôi cung cấp dịch vụ visa khẩn từ 2–3 ngày.</p></div>
+      </div>
+    </div>
+  </section>
+    <section id="lien-he" class="contact">
+    <div class="container contact-inner">
+      <div class="contact-card">
+        <h3><i class="fa-solid fa-building"></i> Travel Pro Co., Ltd</h3>
+        <p><i class="fa-solid fa-location-dot"></i> 12/5D Lê Lợi, Quận 1, TP.HCM</p>
+        <p><i class="fa-solid fa-phone-volume"></i> Hotline: <a href="tel:0900000000">(028) 1234 5678</a></p>
+        <p><i class="fa-solid fa-envelope"></i> Email: <a href="mailto:info@travelexplorer.vn">info@travelexplorer.vn</a></p>
+        <div class="contact-actions">
+          <a class="btn btn-primary" href="#dat-xe">Đặt xe ngay</a>
+          <a class="btn btn-ghost" href="https://zalo.me/" target="_blank" rel="noopener">Chat Zalo</a>
+        </div>
+      </div>
+       <div class="map-embed">
+        <iframe title="Bản đồ" src="https://www.openstreetmap.org/export/embed.html?bbox=106.689%2C10.77%2C106.71%2C10.79&layer=mapnik" loading="lazy"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Travel Explorer</h3>
+                    <p>Đối tác tin cậy cho mọi chuyến du lịch của bạn. Chúng tôi cam kết mang đến những trải nghiệm
+                        tuyệt vời nhất.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Liên Kết Nhanh</h3>
+                    <a href="#home">Trang Chủ</a>
+                    <a href="#destinations">Điểm Đến</a>
+                    <a href="#services">Dịch Vụ</a>
+                    <a href="#contact">Liên Hệ</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Thông Tin Liên Hệ</h3>
+                    <p>
+                        <i class="fa-solid fa-location-dot 1"></i>
+                        12/5D Đường Lê Lợi, Quận 1</p>
+                    <p>
+                        <i class="fa-solid fa-phone-volume"></i>
+                        (028) 1234 5678</p>
+                    <p>
+                        <i class="fa-solid fa-envelope"></i>
+                        info@travelexplorer.vn</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Theo Dõi Chúng Tôi</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fa-brands fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fa-brands fa-tiktok"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fa-brands fa-telegram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Travel Explorer. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+  <script src="../Scripts/Dich_vu.js"></script>
+</body>
+</html>
+
