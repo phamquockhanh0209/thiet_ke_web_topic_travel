@@ -5,26 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đặt Vé Máy Bay - Travel Explorer</title>
-    <link rel="stylesheet" href="../Styles/dich_vu_1_style.css">
+    <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
-    <header class="header">
-        <nav class="nav-container">
-            <a href="../main.html" class="logo">🌍 Travel Explorer</a>
-            <div>
-                <ul class="nav-menu">
-                    <li><a href="../main.html#home" class="nav-link">Trang Chủ</a></li>
-                    <li><a href="../main.html#destinations" class="nav-link">Điểm Đến</a></li>
-                    <li><a href="../main.html#services" class="nav-link">Dịch Vụ</a></li>
-                    <li><a href="../main.html#contact" class="nav-link">Liên Hệ</a></li>
-                </ul>
+<header class="header">
+    <nav class="nav-container">
+        <a href="main.html" class="logo">🌍 Travel Explorer</a>
+        <div>
+            <ul class="nav-menu">
+                <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
+                <li><a href="main.html#destinations" class="nav-link">Điểm Đến</a></li>
+                <li><a href="main.html#services" class="nav-link">Dịch Vụ</a></li>
+                <li><a href="main.html#contact" class="nav-link">Liên Hệ</a></li>
+            </ul>
+            
+            <div class="hamburger-menu">
+                <i class="fas fa-bars"></i>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
-    <section class="flight-page-hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../Images/img-travel.jpg') center/cover;">
+    <section class="flight-page-hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('ảnh/img-travel.jpg') center/cover;">
         <div class="hero-content">
             <h1>Săn Vé Máy Bay Giá Tốt Nhất</h1>
         </div>
@@ -99,11 +103,11 @@
 </div>
 <script>
     const allFlights = [
-        { id: 1, airline: "Vietnam Airlines", flightNumber: "VN7729", departureTime: "07:00", arrivalTime: "09:00", price: "2.500.000đ", rawPrice: "2.500.000đ", class: "Phổ thông", image: "../Images/plane.jpg", duration: "2h00" },
-        { id: 2, airline: "Bamboo Airways", flightNumber: "QH1001", departureTime: "10:30", arrivalTime: "12:30", price: "2.350.000đ", rawPrice: "2.350.000đ", class: "Phổ thông", image: "../Images/plane.jpg", duration: "2h00" },
-        { id: 3, airline: "Vietjet Air", flightNumber: "VJ334", departureTime: "14:45", arrivalTime: "16:45", price: "1.900.000đ", rawPrice: "1.900.000đ", class: "Tiết kiệm", image: "../Images/plane.jpg", duration: "2h00" },
-        { id: 4, airline: "Vietnam Airlines", flightNumber: "VN7221", departureTime: "18:00", arrivalTime: "20:00", price: "2.750.000đ", rawPrice: "2.750.000đ", class: "Thương gia", image: "../Images/plane.jpg", duration: "2h00" },
-        { id: 5, airline: "Bamboo Airways", flightNumber: "QH1009", departureTime: "21:15", arrivalTime: "23:15", price: "2.200.000đ", rawPrice: "2.200.000đ", class: "Phổ thông", image: "../Images/plane.jpg", duration: "2h00" }
+        { id: 1, airline: "Vietnam Airlines", flightNumber: "VN7729", departureTime: "07:00", arrivalTime: "09:00", price: "2.500.000đ", rawPrice: "2.500.000đ", class: "Phổ thông", image: "ảnh/vna.jpg", duration: "2h00" },
+        { id: 2, airline: "Bamboo Airways", flightNumber: "QH1001", departureTime: "10:30", arrivalTime: "12:30", price: "2.350.000đ", rawPrice: "2.350.000đ", class: "Phổ thông", image: "ảnh/bamboo.png", duration: "2h00" },
+        { id: 3, airline: "Vietjet Air", flightNumber: "VJ334", departureTime: "14:45", arrivalTime: "16:45", price: "1.900.000đ", rawPrice: "1.900.000đ", class: "Tiết kiệm", image: "ảnh/vietjet.png", duration: "2h00" },
+        { id: 4, airline: "Vietnam Airlines", flightNumber: "VN7221", departureTime: "18:00", arrivalTime: "20:00", price: "2.750.000đ", rawPrice: "2.750.000đ", class: "Thương gia", image: "ảnh/vna.jpg", duration: "2h00" },
+        { id: 5, airline: "Bamboo Airways", flightNumber: "QH1009", departureTime: "21:15", arrivalTime: "23:15", price: "2.200.000đ", rawPrice: "2.200.000đ", class: "Phổ thông", image: "ảnh/bamboo.png", duration: "2h00" }
     ];
 
     let selectedFlightDetails = null;
@@ -162,7 +166,7 @@
             card.className = 'flight-card';
             card.innerHTML = `
                 <div class="flight-header">
-                    <img src="${flight.image || '../Images/plane.jpg'}" alt="${flight.airline}" class="airline-logo">
+                    <img src="${flight.image || 'ảnh/plane.jpg'}" alt="${flight.airline}" class="airline-logo">
                     <span class="airline-name">${flight.airline}</span>
                 </div>
                 <div class="flight-details">
@@ -291,10 +295,10 @@
 
                 <div class="footer-section">
                     <h3>Liên Kết Nhanh</h3>
-                    <a href="../main.html#home">Trang Chủ</a>
-                    <a href="../main.html#destinations">Điểm Đến</a>
-                    <a href="../main.html#services">Dịch Vụ</a>
-                    <a href="../main.html#contact">Liên Hệ</a>
+                    <a href="main.html#home">Trang Chủ</a>
+                    <a href="main.html#destinations">Điểm Đến</a>
+                    <a href="main.html#services">Dịch Vụ</a>
+                    <a href="main.html#contact">Liên Hệ</a>
                 </div>
 
                 <div class="footer-section">
@@ -320,6 +324,24 @@
             </div>
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Bật/Tắt class 'active' khi nhấn vào icon
+        $('.hamburger-menu').click(function() {
+            $('.nav-menu').toggleClass('active');
+        });
+
+        // Tắt menu khi nhấn vào link (trên mobile)
+        $('.nav-link').click(function() {
+            if ($('.nav-menu').hasClass('active')) {
+                $('.nav-menu').removeClass('active');
+            }
+        });
+    });
+</script>
+</body>
 </body>
 
 </html>
