@@ -5,24 +5,28 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đặt Vé Máy Bay - Travel Explorer</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
-    <header class="header">
-        <nav class="nav-container">
-            <a href="main.html" class="logo">🌍 Travel Explorer</a>
-            <div>
-                <ul class="nav-menu">
-                    <li><a href="main.html#home" class="nav-link">Trang Chủ</a></li>
-                    <li><a href="main.html#destinations" class="nav-link">Điểm Đến</a></li>
-                    <li><a href="main.html#services" class="nav-link">Dịch Vụ</a></li>
-                    <li><a href="main.html#contact" class="nav-link">Liên Hệ</a></li>
-                </ul>
+<header class="header">
+    <nav class="nav-container">
+        <a href="main.html" class="logo">🌍 Travel Explorer</a>
+        <div>
+            <ul class="nav-menu">
+                <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
+                <li><a href="main.html#destinations" class="nav-link">Điểm Đến</a></li>
+                <li><a href="main.html#services" class="nav-link">Dịch Vụ</a></li>
+                <li><a href="main.html#contact" class="nav-link">Liên Hệ</a></li>
+            </ul>
+            
+            <div class="hamburger-menu">
+                <i class="fas fa-bars"></i>
             </div>
-        </nav>
-    </header>
+        </div>
+    </nav>
+</header>
 
     <section class="flight-page-hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('ảnh/img-travel.jpg') center/cover;">
         <div class="hero-content">
@@ -320,6 +324,24 @@
             </div>
         </div>
     </footer>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        // Bật/Tắt class 'active' khi nhấn vào icon
+        $('.hamburger-menu').click(function() {
+            $('.nav-menu').toggleClass('active');
+        });
+
+        // Tắt menu khi nhấn vào link (trên mobile)
+        $('.nav-link').click(function() {
+            if ($('.nav-menu').hasClass('active')) {
+                $('.nav-menu').removeClass('active');
+            }
+        });
+    });
+</script>
+</body>
 </body>
 
 </html>
