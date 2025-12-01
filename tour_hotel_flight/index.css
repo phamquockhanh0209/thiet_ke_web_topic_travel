@@ -942,8 +942,7 @@ body {
     color: #555;
     margin-bottom: 0.5rem;
 }
-
-/* Responsive cho Flight Card */
+/*MEDIA*/
 @media (max-width: 768px) {
     .flight-card {
         grid-template-columns: 1fr;
@@ -957,5 +956,235 @@ body {
     .flight-booking-info {
         align-items: center;
         text-align: center;
+    }
+}
+.hamburger-menu {
+    display: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+}
+@media (max-width: 768px) {
+    
+    .hamburger-menu {
+        display: block;
+    }
+
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #1a202c;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+        padding: 1rem 0;
+    }
+    .nav-menu.active {
+        display: flex; 
+    }
+
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+    }
+
+    .nav-menu .nav-link {
+        padding: 0.8rem 1rem;
+        display: block;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
+   /* MEDIA*/
+@media (max-width: 600px) {
+    .tour-search .search-form {
+        grid-template-columns: 1fr; 
+        gap: 1rem; 
+    }
+    .tour-search .cta-button {
+        width: 100%;
+        align-self: center !important;
+    }
+}
+@media (max-width: 500px) {
+    .destinations-grid {
+        grid-template-columns: 1fr; 
+    }
+    .tour-card img {
+        height: 250px;
+    }
+}
+@media (max-width: 768px) {
+    
+    html {
+        font-size: 15px;
+    }
+    .header .logo {
+        font-size: 1.2rem;
+    }
+    .tour-page-hero h1 {
+        font-size: 2.2rem;
+        padding: 0 1rem;
+    }
+    .tour-search .form-group label {
+        font-size: 0.95rem; 
+    }
+
+    .tour-search input,
+    .tour-search select {
+        padding: 0.6rem;
+    }
+    .tour-search .search-form {
+        grid-template-columns: 1fr; 
+        gap: 1rem;
+    }
+
+    .cta-button {
+        font-size: 0.95rem; 
+        padding: 0.8rem 1.2rem !important;
+    }
+    .section-title {
+        font-size: 1.7rem;
+    }
+    .tour-card h4 {
+        font-size: 1.2rem; 
+    }
+    
+    .tour-price {
+        font-size: 1.05rem; 
+    }
+}
+@media (max-width: 480px) {
+    .tour-page-hero h1 {
+        font-size: 1.8rem; 
+    }
+}
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #1A202C; /* Màu icon */
+}
+
+/* --- MEDIA QUERY CHO MOBILE (Dưới 768px) --- */
+@media (max-width: 768px) {
+    
+    .nav-container > div {
+        /* Cần thiết để căn chỉnh icon và menu */
+        display: flex;
+        align-items: center;
+    }
+
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #1A202C; /* Màu icon */
+}
+
+/* --- MEDIA QUERY CHO MOBILE (Dưới 768px) --- */
+@media (max-width: 768px) {
+    
+    .nav-container > div {
+        /* Cần thiết để căn chỉnh icon và menu */
+        display: flex;
+        align-items: center;
+    }
+
+    /* Hiển thị icon hamburger trên mobile */
+    .hamburger-menu {
+        display: block;
+        margin-left: 1rem;
+    }
+
+    /* Ẩn menu mặc định trên mobile */
+    .nav-menu {
+        position: fixed;
+        top: 60px; /* Độ cao của header */
+        left: 0;
+        width: 100%;
+        height: 0; /* Mặc định ẩn bằng cách setting height = 0 */
+        overflow: hidden;
+        flex-direction: column;
+        background-color: #333; /* Nền menu khi bung ra */
+        transition: all 0.3s ease-in-out;
+        z-index: 99;
+    }
+
+    /* Hiển thị menu khi class 'active' được thêm vào bằng JS */
+    .nav-menu.active {
+        height: auto; /* Bung menu ra */
+        min-height: 100vh; /* Kéo dài full screen */
+    }
+
+    .nav-menu li {
+        text-align: center;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-menu .nav-link {
+        color: white; /* Màu chữ link */
+        padding: 1rem 0;
+        display: block;
+        width: 100%;
+    }
+}
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #1A202C; /* Màu icon */
+}
+
+/* 🔹 MEDIA QUERY CHO MOBILE (Dưới 768px) */
+@media (max-width: 768px) {
+    
+    .nav-container > div {
+        /* Căn chỉnh icon và menu */
+        display: flex;
+        align-items: center;
+    }
+
+    /* 1. Hiển thị icon hamburger trên mobile */
+    .hamburger-menu {
+        display: block;
+        margin-left: 1rem;
+    }
+
+    /* 2. Ẩn menu mặc định và chuẩn bị cho việc bung ra */
+    .nav-menu {
+        position: fixed;
+        top: 60px; /* Bằng với chiều cao của header */
+        left: 0;
+        width: 100%;
+        height: 0; /* Ẩn menu bằng cách set height = 0 */
+        overflow: hidden;
+        flex-direction: column;
+        background-color: #333; /* Nền đen/xám cho menu bung ra */
+        transition: all 0.3s ease-in-out;
+        z-index: 99;
+    }
+
+    /* 3. Hiển thị menu khi class 'active' được kích hoạt bằng JS */
+    .nav-menu.active {
+        height: auto; 
+        min-height: 100vh; /* Kéo dài full screen */
+    }
+
+    .nav-menu li {
+        text-align: center;
+        width: 100%;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    .nav-menu .nav-link {
+        color: white; /* Màu chữ link khi menu bung ra */
+        padding: 1rem 0;
+        display: block;
+        width: 100%;
     }
 }
