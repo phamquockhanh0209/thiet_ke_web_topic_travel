@@ -1,0 +1,212 @@
+.tour-results-hero {
+    background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('../ảnh/img-travel.jpg') center/cover;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+}
+
+.tour-results-hero h1 {
+    font-size: 2.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.tour-list {
+    padding: 4rem 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+.section-title {
+    text-align: center;
+    font-size: 2rem;
+    color: #1A202C; 
+    margin-bottom: 3rem;
+}
+
+.modal {
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+    display: flex; 
+    justify-content: center;
+    align-items: center;
+}
+
+.destinations-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+.hamburger-menu {
+    display: none;
+    font-size: 1.5rem;
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    
+    .hamburger-menu {
+        display: block;
+    }
+    .nav-menu {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        background-color: #1a202c;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+        padding: 1rem 0;
+    }
+
+    .nav-menu.active {
+        display: flex; 
+    }
+
+    .nav-menu li {
+        width: 100%;
+        text-align: center;
+        margin: 0;
+    }
+
+    .nav-menu .nav-link {
+        padding: 0.8rem 1rem;
+        display: block;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+}
+@media (max-width: 600px) {
+    .tour-search .search-form {
+        grid-template-columns: 1fr; 
+        gap: 1rem;
+    }
+    .tour-search .cta-button {
+        width: 100%;
+        align-self: center !important;
+    }
+}
+@media (max-width: 500px) {
+    .destinations-grid {
+        grid-template-columns: 1fr; 
+    }
+    .tour-card img {
+        height: 250px; 
+    }
+}
+
+@media (max-width: 768px) {
+    
+    html {
+        font-size: 15px;
+    }
+
+    .header .logo {
+        font-size: 1.2rem;
+    }
+
+    .tour-page-hero h1 {
+        font-size: 2.2rem;
+        padding: 0 1rem; 
+    }
+
+    .tour-search .form-group label {
+        font-size: 0.95rem; 
+    }
+
+    .tour-search input,
+    .tour-search select {
+        padding: 0.6rem;
+    }
+        .tour-search .search-form {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+
+    .cta-button {
+        font-size: 0.95rem;
+        padding: 0.8rem 1.2rem !important;
+    }
+    
+    .section-title {
+        font-size: 1.7rem; 
+    }
+    
+      .tour-card h4 {
+        font-size: 1.2rem; 
+    }
+    
+    .tour-price {
+        font-size: 1.05rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .tour-page-hero h1 {
+        font-size: 1.8rem; 
+    }
+}
+.hotel-search-form-section .search-form {
+    display: grid;
+    grid-template-columns: 2fr repeat(3, 1fr) auto; 
+    gap: 1.5rem;
+    align-items: flex-end;
+    padding: 1.5rem;
+    background-color: #f7f7f7;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: -50px;
+    position: relative;
+    z-index: 10;
+}
+
+@media (max-width: 1024px) {
+    .hotel-search-form-section .search-form {
+        grid-template-columns: repeat(4, 1fr); 
+        padding: 1rem;
+    }
+    .hotel-search-form-section .cta-button {
+        grid-column: 4 / 5;
+    }
+}
+
+@media (max-width: 768px) {
+    .hotel-search-form-section .search-form {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.2rem;
+    }
+    .hotel-search-form-section .cta-button {
+        grid-column: 1 / -1; 
+        width: 100%;
+        align-self: center !important;
+        margin-top: 0.5rem;
+    }
+    .hotel-search-form-section h2 {
+        text-align: center;
+    }
+}
+
+@media (max-width: 600px) {
+    .hotel-search-form-section .search-form {
+        grid-template-columns: 1fr;
+    }
+    .hotel-search-form-section {
+        padding: 1rem;
+    }
+}
