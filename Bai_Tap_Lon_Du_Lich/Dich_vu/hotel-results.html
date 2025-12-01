@@ -1,1 +1,468 @@
+<!DOCTYPE html>
+<html lang="vi">
 
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết Quả Tìm Kiếm Khách Sạn - Travel Explorer</title>
+    <link rel="stylesheet" href="assets/css/index.css"> 
+    <link rel="stylesheet" href="assets/css/tour-results.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+<header class="header">
+    <nav class="nav-container">
+        <a href="main.html" class="logo">🌍 Travel Explorer</a>
+        <div>
+            <ul class="nav-menu">
+                <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
+                <li><a href="main.html#destinations" class="nav-link">Điểm Đến</a></li>
+                <li><a href="main.html#services" class="nav-link">Dịch Vụ</a></li>
+                <li><a href="main.html#contact" class="nav-link">Liên Hệ</a></li>
+            </ul>
+            
+            <div class="hamburger-menu">
+                <i class="fas fa-bars"></i>
+            </div>
+        </div>
+    </nav>
+</header>
+
+    <section class="tour-results-hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('ảnh/hotel.jpg') center/cover;">
+        <div class="hero-content">
+            <h1>Khách Sạn & Chỗ ở Chất Lượng</h1>
+        </div>
+    </section>
+
+    <section class="hotel-search-form-section">
+        <div class="container">
+            <form class="search-form" action="hotel-results.html" method="GET" id="reSearchHotelForm">
+                <div class="form-group">
+                    <label for="location">Điểm Đến</label>
+                    <input type="text" id="location" name="location" placeholder="Nhập thành phố, khu vực..." required />
+                </div>
+                <div class="form-group">
+                    <label for="checkin">Ngày Nhận Phòng</label>
+                    <input type="date" id="checkin" name="checkin" required />
+                </div>
+                <div class="form-group">
+                    <label for="checkout">Ngày Trả Phòng</label>
+                    <input type="date" id="checkout" name="checkout" required />
+                </div>
+                <div class="form-group">
+                    <label for="guests">Số Khách</label>
+                    <input type="number" id="guests" name="guests" placeholder="1" min="1" required />
+                </div>
+                <div class="form-group">
+                    <label for="price-range">Ngân Sách</label>
+                    <select id="price-range" name="price-range">
+                        <option value="">Chọn khoảng giá</option>
+                        <option value="low">Dưới 3 Triệu</option>
+                        <option value="medium">3 - 5 Triệu</option>
+                        <option value="high">Trên 5 Triệu</option>
+                    </select>
+                </div>
+                <button type="submit" class="cta-button" style="align-self: flex-end; padding: 0.8rem 1.5rem;">Tìm Khách Sạn</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="hotel-list" id="hotelListSection">
+        <div class="container">
+            <h2 class="section-title" id="hotelSectionTitle">Kết Quả Tìm Kiếm Khách Sạn</h2>
+            <div class="destinations-grid" id="hotelListGrid">
+            </div>
+        </div>
+    </section>
+    
+    <div class="modal-overlay" id="hotelModal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal('hotelModal')">&times;</button>
+            <h3>ĐẶT PHÒNG KHÁCH SẠN</h3>
+            <form class="modal-form">
+                <input type="hidden" id="hotelName" name="hotel_name" value=""> 
+    
+                <div class="form-group">
+                    <label for="guestName">Họ và Tên (*)</label>
+                    <input type="text" id="guestName" placeholder="Nhập họ và tên của bạn" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="guestPhone">Số Điện Thoại (*)</label>
+                    <input type="tel" id="guestPhone" placeholder="Nhập số điện thoại" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="guestEmail">Email (*)</label>
+                    <input type="email" id="guestEmail" placeholder="Nhập địa chỉ email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="roomCount">Số Lượng Phòng</label>
+                    <input type="number" id="roomCount" value="1" min="1">
+                </div>
+    
+                <div class="form-group">
+                    <label for="notes">Yêu Cầu Đặc Biệt</label>
+                    <textarea id="notes" rows="3" placeholder="Yêu cầu về phòng, giường, hoặc dịch vụ..."></textarea>
+                </div>
+                <button type="submit">Xác Nhận Đặt Phòng</button>
+            </form>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Travel Explorer</h3>
+                    <p>Đối tác tin cậy cho mọi chuyến du lịch của bạn.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Liên Kết Nhanh</h3>
+                    <a href="main.html#home">Trang Chủ</a>
+                    <a href="main.html#destinations">Điểm Đến</a>
+                    <a href="main.html#services">Dịch Vụ</a>
+                    <a href="main.html#contact">Liên Hệ</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Thông Tin Liên Hệ</h3>
+                    <p><i class="fa-solid fa-location-dot"></i> 12/5D Đường Lê Lợi, Quận 1</p>
+                    <p><i class="fa-solid fa-phone-volume"></i> (028) 1234 5678</p>
+                    <p><i class="fa-solid fa-envelope"></i> info@travelexplorer.vn</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Theo Dõi Chúng Tôi</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-tiktok"></i></a>
+                        <a href="#" class="social-link"><i class="fa-brands fa-telegram"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Travel Explorer. Tất cả quyền được bảo lưu.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
+    <script>
+        const allHotels = [
+            { id: 1, name: "The Luxury Hotel Đà Lạt", location: "Đà Lạt", rating: 4.5, price: "2.200.000đ", rawPrice: 2200000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/159361040.jpg?k=c6332c2f16461afc65076fe23188b98792bb5ca166553a7b714b8e2a9768fd14&o=", description: "Khách sạn 5 sao sang trọng, tọa lạc ngay trung tâm thành phố." },
+            { id: 2, name: "Nha Trang Beach Resort", location: "Nha Trang", rating: 4.0, price: "1.550.000đ", rawPrice: 1550000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/141332160.jpg?k=83acc51b2e4775786128b7d77f704c791e0a9e0410152934a2c0b9ff007350eb&o=", description: "Resort sát biển Nha Trang, phòng hướng biển tuyệt đẹp." },
+            { id: 3, name: "Phố Cổ Silk Marina Hotel", location: "Hội An", rating: 4.2, price: "1.800.000đ", rawPrice: 1800000, image: "https://product.hstatic.net/200000036994/product/2_178f0842e55c4a3cb1c1a4cb31b832e9.jpg", description: "Vị trí tuyệt vời bên sông Hoài, kiến trúc cổ kính." },
+            { id: 4, name: "Sapa Legend Hotel & Spa", location: "Sapa", rating: 4.7, price: "2.500.000đ", rawPrice: 2500000, image: "https://cdn1.ivivu.com/iVivu/2018/09/19/15/silk-marina-resort--2.webp?o=png", description: "Khách sạn cao cấp với view núi Fansipan tuyệt đẹp." },
+            { id: 5, name: "Paradise Elegance Cruise", location: "Vịnh Hạ Long", rating: 4.9, price: "6.800.000đ", rawPrice: 6800000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/226433525.jpg?k=bf571ea6d4b18c09bab955c4e7488166706f146e551b37aa3c1714716e2da7bc&o=", description: "Du thuyền sang trọng nhất" },
+            { id: 6, name: "InterContinental Phú Quốc Long Beach Resort", location: "Phú Quốc", rating: 4.8, price: "4.500.000đ", rawPrice: 4500000, image: "https://phuquoc.intercontinental.com/uploads/phuquoc/homepage/Sunset%20View%20from%20Resort%20%26%20Ombra%20-%2016x9.jpg", description: "Resort đẳng cấp quốc tế, bãi biển riêng tư." },
+            // Sapa 
+            { name: "Topas Ecolodge Sapa", location: "Sapa", rating: 4.9, price: "4.200.000đ", rawPrice: 4200000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/524727377.jpg?k=d3c403e7f295ea90b1af83ce61d46e71ad88c95bb8c7f755c36c979dbe38a31e&o=", description: "View ruộng bậc thang đẹp nhất VN" },
+            { name: "Hotel de la Coupole – MGallery", location: "Sapa", rating: 5.0, price: "5.800.000đ", rawPrice: 5800000, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/16/78/f1/5e/hotel-de-la-coupole-mgallery.jpg?w=900&h=500&s=1", description: "5 sao phong cách Pháp" },
+            { name: "Silk Path Grand Sapa Resort", location: "Sapa", rating: 4.8, price: "3.900.000đ", rawPrice: 3900000, image: "https://silkpathhotel.com/wp-content/uploads/2024/03/Then-Yard-332-scaled.jpg", description: "Hồ bơi vô cực giữa mây" },
+            { name: "Sapa Jade Hill Resort & Spa", location: "Sapa", rating: 4.7, price: "3.200.000đ", rawPrice: 3200000, image: "https://ik.imagekit.io/tvlk/blog/2022/06/sapa-jade-hill-2.jpg", description: "Bungalow riêng, view thung lũng" },
+            { name: "P'apiu Resort Sapa", location: "Sapa", rating: 4.9, price: "5.200.000đ", rawPrice: 5200000, image: "https://eholiday.vn/wp-content/uploads/2024/06/Khu-nghi-duong-Papiu-Ha-Giang-biet-thu-superior.jpg", description: "Thiết kế hiện đại, view Fansipan" },
+            { name: "KK Sapa Hotel", location: "Sapa", rating: 4.8, price: "2.800.000đ", rawPrice: 2800000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/225822633.jpg?k=6e6f207fed2c976e518436a47f6a48539a6fc1939fa19e7186c32acb9eca15ad&o=", description: "Giá tốt, gần trung tâm" },
+            { name: "Sapa Relax Hotel & Spa", location: "Sapa", rating: 4.7, price: "2.500.000đ", rawPrice: 2500000, image: "https://q-xx.bstatic.com/xdata/images/hotel/max500/387099209.jpg?k=e9eeee6e063990f66a2cd520bcf188bf072b6ceebe0bd1f9cff00d0959a9a012&o=", description: "Spa xông hơi đá muối" },
+            { name: "Bamboo Sapa Hotel", location: "Sapa", rating: 4.6, price: "2.200.000đ", rawPrice: 2200000, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/19/19/6e/ae/infinity-pool.jpg?w=900&h=500&s=1", description: "View núi, gần nhà thờ đá" },
+            { name: "Sapa Charm Hotel", location: "Sapa", rating: 4.8, price: "2.900.000đ", rawPrice: 2900000, image: "https://du-lich.chudu24.com/f/m/1708/04/khach-san-sapa-charm-31.jpg", description: "Nội thất gỗ ấm cúng" },
+            { name: "Eco Palms House – Maison Chance", location: "Sapa", rating: 4.9, price: "4.500.000đ", rawPrice: 4500000, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRErqfUygNTvva40zZzwWcGb6YDp2_keKtwlQ&s", description: "Boutique xanh, từ thiện" },
+
+            // ĐÀ LẠT
+            { name: "Ana Mandara Villas Dalat", location: "Đà Lạt", rating: 4.9, price: "6.200.000đ", rawPrice: 6200000, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQSS8sJY3OeNkXyeGZTiFix_ZX4n5mn5gXIA&s", description: "Biệt thự Pháp cổ kính" },
+            { name: "Dalat Palace Heritage Hotel", location: "Đà Lạt", rating: 4.8, price: "4.500.000đ", rawPrice: 4500000, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRBRAwiuINR-OSnn_c-Zwtd9BcEjfVk5oxASw&s", description: "Di sản 100 năm tuổi" },
+            { name: "Swiss-Belresort Tuyền Lâm", location: "Đà Lạt", rating: 4.7, price: "3.800.000đ", rawPrice: 3800000, image: "https://q-xx.bstatic.com/xdata/images/hotel/max500/727381408.jpg?k=d8829d00cfe24778eca54bd7494eeccc0deff3d4f7b5dfeac0d6ec24d89f8471&o=", description: "Sân golf 18 lỗ" },
+            { name: "Terracotta Hotel & Resort", location: "Đà Lạt", rating: 4.8, price: "3.100.000đ", rawPrice: 3100000, image: "https://www.vn.kayak.com/rimg/himg/a5/ae/80/expedia_group-2272019-69222991-961613.jpg?width=836&height=607&crop=true", description: "Hồ bơi nước mặn lớn nhất" },
+            { name: "Dalat Edensee Lake Resort", location: "Đà Lạt", rating: 4.9, price: "5.500.000đ", rawPrice: 5500000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/611668207.jpg?k=346ca166d527b760a2b31969af71d20dd9667ed2297ffce94f853617bbe0254b&o=", description: "View hồ Tuyền Lâm" },
+            { name: "Binh An Village Resort", location: "Đà Lạt", rating: 4.8, price: "4.200.000đ", rawPrice: 4200000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/46593096.jpg?k=99cc0206344484047a92d7645c18b72c6e196da422fce6be665568a24dd28919&o=", description: "Village yên bình" },
+            { name: "TTC Hotel – Ngoc Lan", location: "Đà Lạt", rating: 4.6, price: "2.200.000đ", rawPrice: 2200000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/239407455.jpg?k=52076b0cd9265790ee2639f4eb9ac1f68d6f9b70ebefa39a6377306bf3a96eff&o=", description: "Trung tâm, view thành phố" },
+            { name: "Ladalat Hotel", location: "Đà Lạt", rating: 4.9, price: "4.800.000đ", rawPrice: 4800000, image: "https://du-lich.chudu24.com/f/m/2105/19/khach-san-la-da-lat-ladalat-hotel.jpg?w=800&h=500", description: "Thiết kế tối giản sang trọng" },
+            { name: "Dalat Wonder Resort", location: "Đà Lạt", rating: 4.7, price: "3.500.000đ", rawPrice: 3500000, image: "https://saithanhtourist.vn/public/thumbs/1134x945x1/100_dl-wonder-750x563-vsZkYm69Av.webp", description: "Hồ bơi ngoài trời" },
+            { name: "Zen Valley Dalat", location: "Đà Lạt", rating: 5.0, price: "6.800.000đ", rawPrice: 6800000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/246885417.jpg?k=3efed151178a3c51f0bb5276afcaa5118909f50ced2ba9d8fcab3f4f9458052a&o=", description: "Yoga retreat, view rừng thông" },
+
+            // Nha Trang
+            { name: "Vinpearl Resort & Spa Nha Trang Bay", location: "Nha Trang", rating: 4.9, price: "5.800.000đ", rawPrice: 5800000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/416501080.jpg?k=4349a0f4626d4702954c68c83b5c0af1f8ab0bdde327f0988b554667e1a6b926&o=", description: "Đảo riêng, VinWonders" },
+            { name: "Amiana Resort Nha Trang", location: "Nha Trang", rating: 5.0, price: "7.200.000đ", rawPrice: 7200000, image: "https://amianaresort.com/wp-content/uploads/2024/05/5-1.jpg", description: "Hồ bơi nước mặn tự nhiên" },
+            { name: "Six Senses Ninh Van Bay", location: "Nha Trang", rating: 5.0, price: "18.500.000đ", rawPrice: 18500000, image: "https://letsflytravel.vn/wp-content/uploads/2024/10/ninh-van-bay-six-senses.webp", description: "Resort 6 sao đẳng cấp thế giới" },
+            { name: "Mia Resort Nha Trang", location: "Nha Trang", rating: 4.9, price: "6.800.000đ", rawPrice: 6800000, image: "https://mianhatrang.com/wp-content/uploads/2023/02/MNT_Beachfront-Villa_1.jpg", description: "Villa trên vách đá" },
+            { name: "InterContinental Nha Trang", location: "Nha Trang", rating: 4.9, price: "6.500.000đ", rawPrice: 6500000, image: "https://digital.ihg.com/is/image/ihg/intercontinental-nha-trang-4040346411-2x1", description: "Trung tâm thành phố" },
+            { name: "MerPerle Hon Tam Resort", location: "Nha Trang", rating: 4.8, price: "4.200.000đ", rawPrice: 4200000, image: "https://pix10.agoda.net/hotelImages/108920/-1/7af9094d76f84745ed3a8e1edffc1052.jpg?ca=21&ce=0&s=414x232", description: "Đảo Hòn Tằm xanh mượt" },
+            { name: "An Lâm Retreats Ninh Vân Bay", location: "Nha Trang", rating: 5.0, price: "14.500.000đ", rawPrice: 14500000, image: "https://product.hstatic.net/200000504041/product/an-lam-retreats-ninh-van-bay-nha-trang-107_4e1f5ec2dd914f7db75f53896c2a2925_master.jpg", description: "Villa tre sang trọng" },
+            { name: "Diamonds Bay Resort", location: "Nha Trang", rating: 4.7, price: "3.500.000đ", rawPrice: 3500000, image: "https://luhanhvietnam.com.vn/du-lich/vnt_upload/news/10_2022/gioi-thieu-khu-du-lich-diamond-bay-nha-trang.jpg", description: "Giá tốt, bãi biển riêng" },
+            { name: "Sunrise Nha Trang Beach", location: "Nha Trang", rating: 4.8, price: "4.800.000đ", rawPrice: 4800000, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/68/27/23/khach-s-n-spa-bai-bi.jpg?w=900&h=500&s=1", description: "Phong cách châu Âu" },
+            { name: "Evason Ana Mandara Nha Trang", location: "Nha Trang", rating: 4.9, price: "8.900.000đ", rawPrice: 8900000, image: "https://mia.vn/media/uploads/blog-du-lich/evason-ana-mandara-nha-trang-diem-den-hoan-hao-cho-ki-nghi-lang-mang-1646938113.jpg", description: "Khu vườn nhiệt đới" },
+
+            // Hội An
+            { name: "Four Seasons The Nam Hai Hội An", location: "Hội An", rating: 5.0, price: "16.800.000đ", rawPrice: 16800000, image: "https://pix10.agoda.net/hotelImages/163/1639502/1639502_17021518150051048237.jpg?ca=6&ce=1&s=414x232", description: "Top 10 resort thế giới" },
+            { name: "Almanity Wellness Resort", location: "Hội An", rating: 4.8, price: "3.900.000đ", rawPrice: 3900000, image: "https://pix10.agoda.net/hotelImages/686575/-1/b1faa72f831740ee51c573c8885a9a3c.jpg?ce=0&s=414x232", description: "Spa miễn phí hàng ngày" },
+            { name: "Anantara Hoi An Resort", location: "Hội An", rating: 4.9, price: "6.500.000đ", rawPrice: 6500000, image: "https://pix10.agoda.net/hotelImages/48367/-1/37cbe069eab3cdff1fe09a27ac5bb1ee.jpg?ca=7&ce=1&s=414x232", description: "Sông Thu Bồn thơ mộng" },
+            { name: "Palm Garden Beach Resort", location: "Hội An", rating: 4.7, price: "4.200.000đ", rawPrice: 4200000, image: "https://du-lich.chudu24.com/f/m/2412/30/palm-garden-hoi-an-resort-2.jpg?w=800&h=500", description: "Bãi biển Cửa Đại" },
+            { name: "La Siesta Hoi An Resort", location: "Hội An", rating: 4.9, price: "4.800.000đ", rawPrice: 4800000, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/12/22/23/81/new-wing-a-luxurious.jpg?w=900&h=500&s=1", description: "Gần phố cổ 5 phút" },
+            { name: "Hoi An Historic Hotel", location: "Hội An", rating: 4.8, price: "3.200.000đ", rawPrice: 3200000, image: "https://images.trvl-media.com/lodging/2000000/1530000/1522100/1522071/c5c4ea58.jpg?impolicy=resizecrop&rw=575&rh=575&ra=fill", description: "Managed by Elegance" },
+            { name: "Allegro Hoi An – A Little Luxury", location: "Hội An", rating: 5.0, price: "6.200.000đ", rawPrice: 6200000, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/11/fc/0d/0f/outdoor-pool.jpg?w=900&h=500&s=1", description: "Boutique siêu xinh" },
+            { name: "Vinpearl Resort & Spa Hoi An", location: "Hội An", rating: 4.9, price: "5.800.000đ", rawPrice: 5800000, image: "https://mia.vn/media/uploads/blog-du-lich/vinpearl-resort-spa-hoi-an-dang-cap-khu-nghi-duong-5-sao-sang-trong-dinh-cao-2-1617796653.jpg", description: "Bãi biển riêng" },
+            { name: "Cozy Hoi An Villa", location: "Hội An", rating: 4.8, price: "2.900.000đ", rawPrice: 2900000, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0a/58/64/15/exterior.jpg?w=900&h=500&s=1", description: "Phong cách Nhật Bản" },
+            { name: "Belle Maison Hadana Hoi An", location: "Hội An", rating: 4.7, price: "3.500.000đ", rawPrice: 3500000, image: "https://pix10.agoda.net/hotelImages/1401634/-1/2b4b51315be295295b3eb3b9f6d35365.jpg?ca=6&ce=1&s=414x232", description: "Hồ bơi rooftop" },
+
+            // Vịnh Hạ Long
+            { name: "Vinpearl Resort & Spa Hạ Long", location: "Vịnh Hạ Long", rating: 4.9, price: "6.200.000đ", rawPrice: 6200000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/492868833.jpg?k=97eab5872f2c0d2bf66584024bd1f6109d60f76cd8bedca25af5358118c87803&o=", description: "Đảo Rêu riêng" },
+            { name: "Heritage Line Violet Cruise", location: "Vịnh Hạ Long", rating: 5.0, price: "9.500.000đ", rawPrice: 9500000, image: "https://heritage-line.com/wp-content/uploads/2021/03/heritage-line-vietnam-halong-bay-ship-violet-banner.jpg", description: "Phong cách Đông Dương" },
+            { name: "FLC Hạ Long Bay Luxury", location: "Vịnh Hạ Long", rating: 4.8, price: "4.500.000đ", rawPrice: 4500000, image: "https://pix10.agoda.net/hotelImages/6492371/-1/91498acc8a5f61391bbfbcdf77626331.jpg?ca=8&ce=1&s=414x232", description: "Sân golf trên cao" },
+            { name: "Muong Thanh Luxury Quang Ninh", location: "Vịnh Hạ Long", rating: 4.7, price: "2.800.000đ", rawPrice: 2800000, image: "https://booking.muongthanh.com/upload_images/images/H%60/M%C6%B0%E1%BB%9Dng%20Thanh%20Luxury%20H%E1%BA%A1%20Long%20Centre.jpg", description: "Giá tốt, view vịnh" },
+            { name: "Novotel Ha Long Bay", location: "Vịnh Hạ Long", rating: 4.8, price: "3.900.000đ", rawPrice: 3900000, image: "https://cf.bstatic.com/xdata/images/hotel/max500/763688633.jpg?k=4fcd435be6626be73c1b5bc0cb9a6e837fd0ccb1206ec7f0b09a13e2d7a295d1&o=&hp=1", description: "Chuẩn quốc tế" },
+            { name: "Wyndham Legend Halong", location: "Vịnh Hạ Long", rating: 4.8, price: "3.500.000đ", rawPrice: 3500000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/650451000.jpg?k=da4cf397c5bbf743abdab38e6809257ee8b4d4ad1d348720ee0cea3c175e696c&o=", description: "Hồ bơi vô cực" },
+            { name: "Royal Lotus Halong Resort", location: "Vịnh Hạ Long", rating: 4.7, price: "3.200.000đ", rawPrice: 3200000, image: "https://hkh.vn/wp-content/uploads/2019/09/37546060804_1af2ab6cd8_o-e1568977339375.jpg", description: "Villa ven biển" },
+            { name: "Halong Plaza Hotel", location: "Vịnh Hạ Long", rating: 4.6, price: "2.500.000đ", rawPrice: 2500000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/304536900.jpg?k=f3c1643cf1716a516fd11ef9ba4c72f19b5150ced31bfe58e76c5eee41beb052&o=", description: "Gần bãi Cháy" },
+            { name: "Athena Luxury Cruise", location: "Vịnh Hạ Long", rating: 4.9, price: "5.800.000đ", rawPrice: 5800000, image: "https://hanoitoursexpert.com/wp-content/uploads/2019/04/Athena-Luxury-Cruise-21.jpg", description: "Du thuyền hiện đại" },
+
+            // Phú Quốc
+            { name: "JW Marriott Phu Quoc Emerald Bay", location: "Phú Quốc", rating: 5.0, price: "14.500.000đ", rawPrice: 14500000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/490645960.jpg?k=9972c3434e640814a45b0f5d5cb24b0bede60bc4bab2296e2754c55bf6863565&o=", description: "Thiết kế Bill Bensley" },
+            { name: "Premier Village Phu Quoc", location: "Phú Quốc", rating: 5.0, price: "11.800.000đ", rawPrice: 11800000, image: "https://duan-sungroup.com/wp-content/uploads/2019/09/du-an-sun-premier-village-phu-quoc-resort.jpg", description: "Villa 2 hồ bơi riêng" },
+            { name: "InterContinental Phu Quoc", location: "Phú Quốc", rating: 4.9, price: "8.900.000đ", rawPrice: 8900000, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2d/11/27/32/hotel-exterior.jpg?w=900&h=500&s=1", description: "Long Beach đẳng cấp" },
+            { name: "New World Phu Quoc Resort", location: "Phú Quốc", rating: 4.9, price: "7.500.000đ", rawPrice: 7500000, image: "https://i0.wp.com/phuquoc.newworldhotels.com/wp-content/uploads/2025/07/DJI_0764.jpg?fit=2000%2C1198&ssl=1", description: "Phong cách làng chài" },
+            { name: "Salinda Resort Phu Quoc", location: "Phú Quốc", rating: 4.9, price: "6.800.000đ", rawPrice: 6800000, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/6d/8e/4b/overview-to-the-pool.jpg?w=900&h=-1&s=1", description: "Bãi Dài đẹp nhất" },
+            { name: "La Veranda Resort MGallery", location: "Phú Quốc", rating: 4.8, price: "6.200.000đ", rawPrice: 6200000, image: "https://laverandaresorts.com/wp-content/uploads/2021/07/Hero-Shot-Edited.jpg", description: "Phong cách Pháp cổ" },
+            { name: "Fusion Resort Phu Quoc", location: "Phú Quốc", rating: 5.0, price: "9.800.000đ", rawPrice: 9800000, image: "https://fusionhotelgroup.com/wp-content/uploads/2018/07/Fusion-Resort-Phu-Quoc-Flycam-view_01-2-1.jpg", description: "Spa miễn phí cả ngày" },
+            { name: "Peppercorns Beach Resort", location: "Phú Quốc", rating: 4.8, price: "5.500.000đ", rawPrice: 5500000, image: "https://mia.vn/media/uploads/blog-du-lich/peppercorn-beach-resort-phu-quoc-resort-3-sao-co-khu-vuon-mac-vong-%C4%91oc-%C4%91ao-4-1617190941.jpg", description: "Boutique ấm cúng" },
+            { name: "Dusit Princess Moonrise", location: "Phú Quốc", rating: 4.9, price: "6.500.000đ", rawPrice: 6500000, image: "https://du-lich.chudu24.com/f/m/2105/12/dusit-princess-moonrise-beach-resort-phu-quoc-0.jpg?w=800&h=500", description: "Thái Lan quản lý" },
+            { name: "Movenpick Resort Waverly", location: "Phú Quốc", rating: 4.9, price: "7.200.000đ", rawPrice: 7200000, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2f/fb/13/b8/exterior.jpg?w=900&h=500&s=1", description: "Gần Sunset Town" }
+        ];
+
+        // Danh sách địa điểm hợp lệ
+        const validLocations = [
+            "sapa", "sa pa",
+            "da lat", "dalat", "đà lạt", "da lạt", "đa lat",
+            "nha trang", "nhatrang",
+            "hoi an", "hoian", "hội an",
+            "vinh ha long", "ha long", "halong", "vịnh hạ long", "hạ long", "vinhhalong",
+            "phu quoc", "phuquoc", "phú quốc", "phu quốc"
+        ];
+
+        // Hàm chuẩn hóa chuỗi
+        function normalize(str) {
+            if (!str) return '';
+            return str.toLowerCase()
+                      .normalize("NFD")
+                      .replace(/[\u0300-\u036f]/g, "")
+                      .replace(/đ/g, "d")
+                      .replace(/Đ/g, "d")
+                      .trim();
+        }
+
+        // Hàm tạo sao đánh giá
+        function getStars(rating) {
+            let starsHtml = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 !== 0;
+
+            for (let i = 0; i < fullStars; i++) {
+                starsHtml += '<i class="fa-solid fa-star"></i>';
+            }
+            if (hasHalfStar) {
+                starsHtml += '<i class="fa-solid fa-star-half-stroke"></i>';
+            }
+            return starsHtml;
+        }
+
+        // Hàm tạo thẻ khách sạn
+        function createHotelCard(hotel) {
+            const card = document.createElement('div');
+            card.className = 'tour-card'; 
+            card.innerHTML = `
+                <img src="${hotel.image}" alt="${hotel.name}">
+                <div class="tour-content">
+                    <div>
+                        <h4>${hotel.name}</h4>
+                        <div class="hotel-rating" style="color: #FFC107; font-size: 1rem; margin-bottom: 0.5rem;">
+                            ${getStars(hotel.rating)} 
+                            <span style="color: #6B7280; font-size: 0.9rem;">(${hotel.rating}/5)</span>
+                        </div>
+                        <p>${hotel.description}</p>
+                    </div>
+                    <div class="tour-info">
+                        <span class="tour-duration" style="font-size: 0.9rem; color: #6B7280;">Giá/Đêm từ</span>
+                        <span class="tour-price" style="color: #EA580C; font-weight: 700;">${hotel.price}</span>
+                    </div>
+                    <div style="margin-top: 1rem; text-align: right;">
+                        <button class="cta-button open-modal-hotel" 
+                                data-service="${hotel.name} (${hotel.location})" 
+                                style="padding: 0.6rem 1.2rem;">
+                            Đặt Ngay
+                        </button>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        // Hàm mở modal
+        function openModal(modalId, serviceName) {
+            document.getElementById(modalId).style.display = 'flex'; 
+            if (serviceName && document.getElementById('hotelName')) {
+                document.getElementById('hotelName').value = serviceName;
+            }
+        }
+
+        // Hàm đóng modal
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none'; 
+            if (modalId === 'hotelModal') {
+                document.querySelector(`#${modalId} .modal-form`).reset();
+            }
+        }
+
+        // Hàm gắn sự kiện modal
+        function attachModalEvents() {
+            document.querySelectorAll('.open-modal-hotel').forEach(button => {
+                button.onclick = null; 
+                button.onclick = function(e) {
+                    e.preventDefault();
+                    const serviceName = this.getAttribute('data-service');
+                    openModal('hotelModal', serviceName);
+                };
+            });
+        }
+
+        // Hàm render danh sách khách sạn
+        function renderHotels(hotels, location, priceRange) {
+            const grid = document.getElementById('hotelListGrid');
+            const title = document.getElementById('hotelSectionTitle');
+            grid.innerHTML = '';
+
+            // Tạo tiêu đề mô tả tìm kiếm
+            let searchDescription = '';
+            if (location) {
+                searchDescription = `tại ${location}`;
+            }
+            if (priceRange) {
+                const priceText = priceRange === 'low' ? 'Dưới 3 Triệu' : 
+                                  priceRange === 'medium' ? '3-5 Triệu' : 'Trên 5 Triệu';
+                searchDescription += location ? ` - Giá ${priceText}` : `Giá ${priceText}`;
+            }
+
+            if (hotels.length === 0) {
+                title.textContent = `Không tìm thấy khách sạn ${searchDescription || 'phù hợp'}`;
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; margin: 2rem 0;">
+                        <p style="font-size: 1.2rem; color: #EA580C; margin-bottom: 1rem;">
+                            ${location ? `Không tìm thấy khách sạn tại "${location}"` : 'Không tìm thấy khách sạn phù hợp'}
+                            ${priceRange ? ' với mức giá bạn chọn' : ''}
+                        </p>
+                        <p style="font-size: 1rem; color: #6B7280; margin-bottom: 2rem;">
+                            Hãy thử tìm kiếm với địa điểm khác hoặc thay đổi khoảng giá
+                        </p>
+                    </div>
+                `;
+                
+                const suggestionsTitle = document.createElement('h3');
+                suggestionsTitle.className = 'section-title';
+                suggestionsTitle.style.marginTop = '2rem';
+                suggestionsTitle.textContent = 'Khách Sạn Nổi Bật Khác';
+                grid.appendChild(suggestionsTitle);
+                
+                const suggestionGrid = document.createElement('div');
+                suggestionGrid.className = 'destinations-grid';
+                
+              
+                allHotels.slice(0, 6).forEach(hotel => {
+                    const card = createHotelCard(hotel);
+                    suggestionGrid.appendChild(card);
+                });
+                
+                grid.appendChild(suggestionGrid);
+            } else {
+                title.textContent = `Khách Sạn ${searchDescription} (${hotels.length} kết quả)`;
+                hotels.forEach(hotel => {
+                    const card = createHotelCard(hotel);
+                    grid.appendChild(card);
+                });
+            }
+            
+            attachModalEvents();
+        }
+
+        // Xử lý khi trang load
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const locationQuery = urlParams.get('location');
+            const checkin = urlParams.get('checkin');
+            const checkout = urlParams.get('checkout');
+            const guests = urlParams.get('guests');
+            const priceRange = urlParams.get('price-range');
+
+            // Cập nhật giá trị vào form
+            if (locationQuery) document.getElementById('location').value = locationQuery;
+            if (checkin) document.getElementById('checkin').value = checkin;
+            if (checkout) document.getElementById('checkout').value = checkout;
+            if (guests) document.getElementById('guests').value = guests;
+            if (priceRange) document.getElementById('price-range').value = priceRange;
+
+            // Lọc khách sạn
+            let filteredHotels = allHotels;
+            
+            // Lọc theo địa điểm
+            if (locationQuery) {
+                const normQuery = normalize(locationQuery);
+                const matched = validLocations.find(loc => {
+                    const normLoc = normalize(loc);
+                    return normQuery.includes(normLoc) || normLoc.includes(normQuery);
+                });
+                
+                if (matched) {
+                    filteredHotels = filteredHotels.filter(h => {
+                        const normHotelLoc = normalize(h.location);
+                        const normMatched = normalize(matched);
+                        return normHotelLoc.includes(normMatched) || normMatched.includes(normHotelLoc);
+                    });
+                } else {
+                    filteredHotels = [];
+                }
+            }
+
+            // Lọc theo giá
+            if (priceRange && filteredHotels.length > 0) {
+                filteredHotels = filteredHotels.filter(hotel => {
+                    if (priceRange === 'low') return hotel.rawPrice < 3000000;
+                    if (priceRange === 'medium') return hotel.rawPrice >= 3000000 && hotel.rawPrice <= 5000000;
+                    if (priceRange === 'high') return hotel.rawPrice > 5000000;
+                    return true;
+                });
+            }
+
+            renderHotels(filteredHotels, locationQuery, priceRange);
+        });
+
+        // Đóng modal khi click bên ngoài
+        const hotelModal = document.getElementById('hotelModal');
+        if (hotelModal) {
+            hotelModal.addEventListener('click', function(e) {
+                if (e.target === hotelModal) {
+                    closeModal('hotelModal');
+                }
+            });
+        }
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            // Bật/Tắt menu mobile
+            $('.hamburger-menu').click(function() {
+                $('.nav-menu').toggleClass('active');
+            });
+
+            // Tắt menu khi nhấn vào link
+            $('.nav-link').click(function() {
+                if ($('.nav-menu').hasClass('active')) {
+                    $('.nav-menu').removeClass('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
