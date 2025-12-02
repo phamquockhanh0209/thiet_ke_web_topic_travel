@@ -1,210 +1,108 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tour Du Lịch - Travel Explorer</title>
+    <title>Đặt Khách Sạn - Travel Explorer</title>
     <link rel="stylesheet" href="assets/css/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
-   <header class="header">
-    <nav class="nav-container">
-        <a href="main.html" class="logo">🌍 Travel Explorer</a>
-        <div>
-            <ul class="nav-menu">
-                <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
-                <li><a href="main.html#destinations" class="nav-link">Điểm Đến</a></li>
-                <li><a href="main.html#services" class="nav-link">Dịch Vụ</a></li>
-                <li><a href="main.html#contact" class="nav-link">Liên Hệ</a></li>
-            </ul>
-            
-            <div class="hamburger-menu">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </nav>
-</header>
-    <section class="tour-page-hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('ảnh/img-travel.jpg') center/cover;">
-        <div class="hero-content">
-            <h1>Khám Phá Tour Du Lịch Tuyệt Vời</h1>
-        </div>
-    </section>
-
-    <section class="tour-search">
-        <div class="container">
-           <form class="search-form" action="tour-results.html" method="GET">
-    <div class="form-group">
-        <label for="destination">Điểm Đến</label>
-        <input type="text" id="destination" name="destination" placeholder="Ví dụ: Đà Lạt, Sapa" />
-    </div>
-    <div class="form-group">
-        <label for="date">Ngày Khởi Hành</label>
-        <input type="date" id="date" name="date" />
-    </div>
-    <div class="form-group">
-        <label for="duration">Số Ngày</label>
-        <input type="number" id="duration" name="duration" placeholder="Ví dụ: 3" min="1" />
-    </div>
-    <div class="form-group">
-        <label for="price-range">Ngân Sách</label>
-        <select id="price-range" name="price-range">
-            <option value="">Chọn khoảng giá</option>
-            <option value="low">Dưới 3 Triệu</option>
-            <option value="medium">3 - 5 Triệu</option>
-            <option value="high">Trên 5 Triệu</option>
-        </select>
-    </div>
-    <button type="submit" class="cta-button" style="align-self: flex-end; padding: 0.8rem 1.5rem;">Tìm Tour</button>
-</form>
-        </div>
-    </section>
-
-   <section class="tour-list" id="tourListSection">
-    <div class="container">
-        <h2 class="section-title" id="tourSectionTitle">Tour Nổi Bật</h2>
-        <div class="destinations-grid" id="tourListGrid">
-            </div>
-    </div>
-</section>
-<div id="tourModal" class="modal">
-    <div class="modal-content">
-        <span class="close-button" onclick="closeModal('tourModal')">&times;</span>
-        <h3 class="modal-title">ĐẶT TOUR DU LỊCH</h3>
-        <form class="booking-form" action="#" method="POST">
-            <input type="hidden" id="tourName" name="tour_name" value="">
-            
-            <div class="form-group">
-                <label for="fullName">Họ và Tên (*)</label>
-                <input type="text" id="fullName" name="full_name" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="email">Email (*)</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-
-            <div class="form-group">
-                <label for="phone">Số điện thoại (*)</label>
-                <input type="tel" id="phone" name="phone" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="adults">Số lượng người lớn (*)</label>
-                <input type="number" id="adults" name="adults" min="1" value="1" required>
-            </div>
-
-            <div class="form-group">
-                <label for="children">Số lượng trẻ em (dưới 12 tuổi)</label>
-                <input type="number" id="children" name="children" min="0" value="0">
-            </div>
-
-            <div class="form-group">
-                <label for="startDate">Ngày khởi hành mong muốn (*)</label>
-                <input type="date" id="startDate" name="start_date" required>
-            </div>
-
-            <div class="form-group">
-                <label for="message">Yêu cầu đặc biệt (nếu có)</label>
-                <textarea id="message" name="message" rows="3"></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn" style="width: 100%;">Gửi Yêu Cầu Đặt Tour</button>
-        </form>
-        <p class="note">(*): Thông tin bắt buộc</p>
-    </div>
-</div>
-
-    <script>
-    const allTours = [
-        { name: "Tour 4N3Đ Đà Nẵng - Hội An - Bà Nà", image: "https://vietnamfamilytourhcm.com/wp-content/uploads/2020/06/travelmart-danang-banahills-4-jpg-1080x720-FIT-311aac116da59c24d9b842ef183799f0.jpg", duration: "4 Ngày 3 Đêm", price: "4.500.000đ", description: "Khám phá Phố cổ Hội An và các danh thắng nổi tiếng Đà Nẵng." },
-        { name: "Tour 3N2Đ Đà Lạt Ngàn Hoa", image: "https://1.bp.blogspot.com/-K_dwkb40TU0/XzXcrAl7t0I/AAAAAAAAXBc/C-Pe3qkh5AUBfvNOUCpUWK-G082hVk5QQCNcBGAsYHQ/s1920/Da%2BLat4.jpg", duration: "3 Ngày 2 Đêm", price: "2.900.000đ", description: "Trải nghiệm săn mây, khám phá các điểm check-in độc đáo tại Đà Lạt." },
-         { name: "Tour 4N3Đ Nha Trang – Đảo Bình Ba – Tôm Hùm", location: "Nha Trang", image: "https://booking.muongthanh.com/upload_images/images/H%60/binh-ba-nha-trang.jpg", duration: "4 Ngày 3 Đêm", price: 5250000, priceDisplay: "5.250.000đ", description: "Tôm hùm nướng, hải sản tươi sống" },
-        { name: "Tour 3N2Đ Phú Quốc – Lặn Ngắm San Hô", location: "Phú Quốc", image: "https://www.vietrekking.com/wp-content/uploads/2021/03/kham-pha-day-bien.png", duration: "3 Ngày 2 Đêm", price: 5850000, priceDisplay: "5.850.000đ", description: "Resort 4-5 sao, chợ đêm" },
-        { name: "Tour 2N1Đ Sapa – Fansipan Legend", location: "Sapa", image: "https://duan-sungroup.com/wp-content/uploads/2022/10/Dai-tuong-Phat-A-Di-Da-o-Sun-World-Fansipan-Legend.jpg", duration: "2 Ngày 1 Đêm", price: 1950000, priceDisplay: "1.950.000đ", description: "Cáp treo chinh phục Fansipan, bản Cát Cát" },
-        { name: "Tour 2N1Đ Hạ Long – Paradise Luxury Cruise", location: "Vịnh Hạ Long", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/60092679.jpg?k=1f9077c9d888da23c776d6c9bcd0d0620d0612e9c863a78b52c8d7ecd91c97dc&o=", duration: "2 Ngày 1 Đêm", price: 3950000, priceDisplay: "3.950.000đ", description: "Du thuyền cao cấp nhất" },
-        
-    ];
-
-    const tourGrid = document.getElementById('tourListGrid');
-    function renderTours(tours) {
-        tourGrid.innerHTML = ''; 
-        
-        if (tours.length === 0) {
-            tourGrid.innerHTML = '<p style="text-align: center; width: 100%; font-size: 1.2rem; color: #EA580C;">Xin lỗi, không tìm thấy tour nào phù hợp với yêu cầu của bạn.</p>';
-            return;
-        }
-
-        tours.forEach(tour => {
-            const card = document.createElement('div');
-            card.className = 'tour-card';
-            card.innerHTML = `
-                <img src="${tour.image}" alt="${tour.name}">
-                <div class="tour-content">
-                    <h4>${tour.name}</h4>
-                    <p>${tour.description}</p>
-                    <div class="tour-info">
-                        <span class="tour-duration"><i class="fa-regular fa-clock"></i> ${tour.duration}</span>
-                        <span class="tour-price">${tour.price}</span>
-                    </div>
-                    <div style="margin-top: 1rem; text-align: right;">
-                        <button class="cta-button open-modal-tour" data-service="${tour.name}" style="padding: 0.6rem 1.2rem;">Đặt Ngay</button>
-                    </div>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="main.html" class="logo">🌍 Travel Explorer</a>
+            <div>
+                <ul class="nav-menu">
+                    <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
+                    <li><a href="main.html#destinations" class="nav-link">Điểm Đến</a></li>
+                    <li><a href="main.html#services" class="nav-link">Dịch Vụ</a></li>
+                    <li><a href="main.html#contact" class="nav-link">Liên Hệ</a></li>
+                </ul>
+                <div class="hamburger-menu">
+                    <i class="fas fa-bars"></i>
                 </div>
-            `;
-            tourGrid.appendChild(card);
-        });
-        attachModalEvents();
-    }
-   document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const destination = urlParams.get('destination') ? urlParams.get('destination').toLowerCase() : '';
-    const duration = urlParams.get('duration');
-    const priceRange = urlParams.get('price-range');
+                </div>
+        </nav>
+    </header>
 
-    let filteredTours = allTours.filter(tour => {
-        return tour.name.toLowerCase().includes(destination) || 
-               tour.description.toLowerCase().includes(destination);
-    });
-    const tourSectionTitle = document.getElementById('tourSectionTitle');
-    if (destination) {
-        tourSectionTitle.textContent = `Kết Quả Tìm Kiếm cho: "${destination}"`;
-    } else {
-        tourSectionTitle.textContent = `Tour gợi ý`;
-    }
+    <section class="hotel-page-hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('ảnh/hotel.jpg') center/cover;">
+        <div class="hero-content">
+            <h1>Khám phá và Đặt Khách Sạn Tốt Nhất</h1>
+            <p>Chọn địa điểm, ngày tháng và số khách để tìm ngay chỗ ở lý tưởng của bạn.</p>
 
-    renderTours(filteredTours);
-});
+            <form class="search-form" action="hotel-results.html" method="GET">
+                <div class="form-group">
+                    <label for="location">Điểm Đến</label>
+                    <input type="text" id="location" name="location" placeholder="Nhập thành phố, khu vực..." required />
+                </div>
+                <div class="form-group">
+                    <label for="checkin">Ngày Nhận Phòng</label>
+                    <input type="date" id="checkin" name="checkin" required />
+                </div>
+                <div class="form-group">
+                    <label for="checkout">Ngày Trả Phòng</label>
+                    <input type="date" id="checkout" name="checkout" required />
+                </div>
+                <div class="form-group">
+                    <label for="guests">Số Khách</label>
+                    <input type="number" id="guests" name="guests" placeholder="1" min="1" required />
+                </div>
+                <select id="price-range" name="price-range">
+    <option value="">Chọn khoảng giá</option>
+    <option value="low">Dưới 3 Triệu</option>
+    <option value="medium">3 - 5 Triệu</option>
+    <option value="high">Trên 5 Triệu</option>
+</select>
+                
+                <button type="submit" class="cta-button">Tìm Khách Sạn</button>
+            </form>
+            </div>
+    </section>
 
-    function openModal(modalId, serviceName) {
-        document.getElementById(modalId).style.display = 'flex';
-        if (serviceName && document.getElementById('tourName')) {
-            document.getElementById('tourName').value = serviceName;
-        }
-    }
+    <section class="suggestions" id="hotelSuggestions">
+        <div class="container">
+            <h2 class="section-title">Khách Sạn Nổi Bật Gợi Ý</h2>
+            <div class="destinations-grid" id="hotelListGrid">
+                </div>
+        </div>
+    </section>
+    <div class="modal-overlay" id="hotelModal">
+        <div class="modal-content">
+            <button class="close-button" onclick="closeModal('hotelModal')">&times;</button>
+            <h3>ĐẶT PHÒNG KHÁCH SẠN</h3>
+            <form class="modal-form">
+                <input type="hidden" id="hotelName" name="hotel_name" value="">
 
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-    }
+                <div class="form-group">
+                    <label for="guestName">Họ và Tên (*)</label>
+                    <input type="text" id="guestName" placeholder="Nhập họ và tên của bạn" required>
+                </div>
 
-    function attachModalEvents() {
-        document.querySelectorAll('.open-modal-tour').forEach(button => {
-            button.onclick = function(e) {
-                e.preventDefault();
-                const serviceName = this.getAttribute('data-service');
-                openModal('tourModal', serviceName);
-            };
-        });
-    }
+                <div class="form-group">
+                    <label for="guestPhone">Số Điện Thoại (*)</label>
+                    <input type="tel" id="guestPhone" placeholder="Nhập số điện thoại" required>
+                </div>
 
-    document.getElementById('tourModal').addEventListener('click', function(e) {
-        if (e.target.id === 'tourModal') {
-            closeModal('tourModal');
-        }
-    });
-    
-</script>
+                <div class="form-group">
+                    <label for="guestEmail">Email (*)</label>
+                    <input type="email" id="guestEmail" placeholder="Nhập địa chỉ email" required>
+                </div>
 
+                <div class="form-group">
+                    <label for="roomCount">Số Lượng Phòng</label>
+                    <input type="number" id="roomCount" value="1" min="1">
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Yêu Cầu Đặc Biệt</label>
+                    <textarea id="notes" rows="3" placeholder="Yêu cầu về phòng, giường, hoặc dịch vụ..."></textarea>
+                </div>
+                <button type="submit">Xác Nhận Đặt Phòng</button>
+            </form>
+        </div>
+    </div>
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -244,21 +142,125 @@
             </div>
         </div>
     </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-        $('.hamburger-menu').click(function() {
-            $('.nav-menu').toggleClass('active');
-        });
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        const allHotels = [
+                        { id: 1, name: "The Luxury Hotel Đà Lạt", location: "Đà Lạt", rating: 4.5, price: "2.200.000đ", rawPrice: 2200000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/159361040.jpg?k=c6332c2f16461afc65076fe23188b98792bb5ca166553a7b714b8e2a9768fd14&o=", description: "Khách sạn 5 sao sang trọng, tọa lạc ngay trung tâm thành phố." },
+            { id: 2, name: "Nha Trang Beach Resort", location: "Nha Trang", rating: 4.0, price: "1.550.000đ", rawPrice: 1550000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/141332160.jpg?k=83acc51b2e4775786128b7d77f704c791e0a9e0410152934a2c0b9ff007350eb&o=", description: "Resort sát biển Nha Trang, phòng hướng biển tuyệt đẹp." },
+            { id: 3, name: "Phố Cổ Silk Marina Hotel", location: "Hội An", rating: 4.2, price: "1.800.000đ", rawPrice: 1800000, image: "https://product.hstatic.net/200000036994/product/2_178f0842e55c4a3cb1c1a4cb31b832e9.jpg", description: "Vị trí tuyệt vời bên sông Hoài, kiến trúc cổ kính." },
+            { id: 4, name: "Sapa Legend Hotel & Spa", location: "Sapa", rating: 4.7, price: "2.500.000đ", rawPrice: 2500000, image: "https://cdn1.ivivu.com/iVivu/2018/09/19/15/silk-marina-resort--2.webp?o=png", description: "Khách sạn cao cấp với view núi Fansipan tuyệt đẹp." },
+            { id: 5, name: "Paradise Elegance Cruise", location: "Vịnh Hạ Long", rating: 4.9, price: "6.800.000đ", rawPrice: 6800000, image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/226433525.jpg?k=bf571ea6d4b18c09bab955c4e7488166706f146e551b37aa3c1714716e2da7bc&o=", description: "Du thuyền sang trọng nhất" },
+            { id: 6, name: "InterContinental Phú Quốc Long Beach Resort", location: "Phú Quốc", rating: 4.8, price: "4.500.000đ", rawPrice: 4500000, image: "https://phuquoc.intercontinental.com/uploads/phuquoc/homepage/Sunset%20View%20from%20Resort%20%26%20Ombra%20-%2016x9.jpg", description: "Resort đẳng cấp quốc tế, bãi biển riêng tư." },
+        ];
 
-        $('.nav-link').click(function() {
-            if ($('.nav-menu').hasClass('active')) {
-                $('.nav-menu').removeClass('active');
+        const hotelListGrid = document.getElementById('hotelListGrid');
+        const hotelModal = document.getElementById('hotelModal');
+
+        function getStars(rating) {
+            let starsHtml = '';
+            const fullStars = Math.floor(rating);
+            const hasHalfStar = rating % 1 !== 0;
+
+            for (let i = 0; i < fullStars; i++) {
+                starsHtml += '<i class="fa-solid fa-star"></i>';
             }
+            if (hasHalfStar) {
+                starsHtml += '<i class="fa-solid fa-star-half-stroke"></i>';
+            }
+            return starsHtml;
+        }
+
+        function createHotelCard(hotel) {
+            const card = document.createElement('div');
+            card.className = 'tour-card';
+            card.innerHTML = `
+                <img src="${hotel.image}" alt="${hotel.name}">
+                <div class="tour-content">
+                    <div>
+                        <h4>${hotel.name} (${hotel.location})</h4>
+                        <div class="hotel-rating" style="color: #FFC107; font-size: 1rem; margin-bottom: 0.5rem;">
+                            ${getStars(hotel.rating)}
+                            <span style="color: #6B7280; font-size: 0.9rem;">(${hotel.rating}/5)</span>
+                        </div>
+                        <p>${hotel.description}</p>
+                    </div>
+                    <div class="tour-info">
+                        <span class="tour-duration" style="font-size: 0.9rem; color: #6B7280;">Giá/Đêm từ</span>
+                        <span class="tour-price" style="color: #EA580C; font-weight: 700;">${hotel.price}</span>
+                    </div>
+                    <div style="margin-top: 1rem; text-align: right;">
+                        <button class="cta-button open-modal-hotel"
+                                data-service="${hotel.name} (${hotel.location})"
+                                style="padding: 0.6rem 1.2rem;">
+                            Đặt Ngay
+                        </button>
+                    </div>
+                </div>
+            `;
+            return card;
+        }
+
+        function openModal(modalId, serviceName) {
+            document.getElementById(modalId).style.display = 'flex';
+            if (serviceName && document.getElementById('hotelName')) {
+                document.getElementById('hotelName').value = serviceName;
+            }
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+            if (modalId === 'hotelModal') {
+                document.querySelector(`#${modalId} .modal-form`).reset();
+            }
+        }
+
+        function attachModalEvents() {
+            document.querySelectorAll('.open-modal-hotel').forEach(button => {
+                button.onclick = null;
+                button.onclick = function(e) {
+                    e.preventDefault();
+                    const serviceName = this.getAttribute('data-service');
+                    openModal('hotelModal', serviceName);
+                };
+            });
+        }
+
+        function renderHotels(hotels) {
+            hotelListGrid.innerHTML = '';
+            hotels.forEach(hotel => {
+                const card = createHotelCard(hotel);
+                hotelListGrid.appendChild(card);
+            });
+            attachModalEvents();
+        }
+
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const suggestedHotels = allHotels.slice(0, 6); 
+            renderHotels(suggestedHotels);
+            
+            // Xử lý Hamburger Menu
+            $('.hamburger-menu').click(function() {
+                $('.nav-menu').toggleClass('active');
+            });
+
+            $('.nav-link').click(function() {
+                if ($('.nav-menu').hasClass('active')) {
+                    $('.nav-menu').removeClass('active');
+                }
+            });
         });
-    });
-</script>
+
+        if (hotelModal) {
+            hotelModal.addEventListener('click', function(e) {
+                if (e.target.classList.contains('modal-overlay')) {
+                    closeModal('hotelModal');
+                }
+            });
+        }
+
+    </script>
 </body>
 
 </html>
