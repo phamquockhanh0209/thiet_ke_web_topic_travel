@@ -71,7 +71,7 @@
 .hamburger span {
   width: 25px;
   height: 3px;
-  background: #cfe0ff;
+  background: var(--text-dark);
   border-radius: 3px;
 }
 
@@ -127,12 +127,17 @@
 }
 
 :root {
-  --bg: #0b1320;
-  --card: #0f1a2b;
-  --muted: #95a3b8;
-  --primary: #3b82f6;
+  /* Các biến màu đã được cập nhật cho giao diện sáng */
+  --bg: #f0f2f5;           /* Nền trang: Xám nhạt */
+  --card: #ffffff;         /* Nền thẻ/khối: Trắng tinh */
+  --muted: #4b5563;        /* Màu chữ phụ/nhạt: Xám đậm */
+  --primary: #10b981;      /* Màu chủ đạo: Xanh lá cây */
   --accent: #22c55e;
-  --ring: rgba(59, 130, 246, .35);
+  --ring: rgba(16, 185, 129, .35); /* Vòng focus màu xanh lá */
+  --text-dark: #1f2937;    /* Màu chữ chính: Rất đậm */
+  --text-light: #4b5563;   /* Màu chữ phụ: Xám đậm */
+  --border: #e5e7eb;       /* Màu đường viền: Xám rất nhạt */
+  --header-bg: rgba(255, 255, 255, 0.9); /* Nền Header trong suốt sáng */
 }
 
 * {
@@ -147,7 +152,7 @@ body {
 
 body {
   font-family: 'Inter', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  color: #e5ecf5;
+  color: var(--text-dark); 
   background: var(--bg);
   line-height: 1.6;
 }
@@ -172,9 +177,9 @@ img {
   position: sticky;
   top: 0;
   z-index: 50;
-  background: rgba(11, 19, 32, .7);
+  background: var(--header-bg);
   backdrop-filter: blur(10px);
-  border-bottom: 1px solid #162033
+  border-bottom: 1px solid var(--border);
 }
 
 .nav {
@@ -185,6 +190,7 @@ img {
 }
 
 .logo {
+  color: var(--text-dark);
   font-weight: 700;
   font-size: 1.2rem
 }
@@ -201,11 +207,11 @@ img {
 .nav-links a {
   padding: 8px 12px;
   border-radius: 999px;
-  color: #cfe0ff
+  color: var(--text-dark);
 }
 
 .nav-links a:hover {
-  background: #12203a
+  background: #e5e7eb
 }
 
 .hamburger {
@@ -219,16 +225,16 @@ img {
   display: block;
   width: 24px;
   height: 2px;
-  background: #cfe0ff;
+  background: var(--text-dark);
   margin: 5px 0
 }
 
 .hero {
   padding: 90px 0 40px;
   background:
-    radial-gradient(1200px 500px at 80% -20%, rgba(59, 130, 246, .25), transparent),
-    radial-gradient(800px 500px at -10% -20%, rgba(34, 197, 94, .25), transparent);
-  border-bottom: 1px solid #162033;
+    radial-gradient(1200px 500px at 80% -20%, rgba(16, 185, 129, .1), transparent),
+    radial-gradient(800px 500px at -10% -20%, rgba(59, 130, 246, .1), transparent);
+  border-bottom: 1px solid var(--border);
 }
 
 .hero-inner {
@@ -244,7 +250,7 @@ img {
 }
 
 .hero p {
-  color: var(--muted);
+  color: var(--text-light);
   margin: 0 0 20px
 }
 
@@ -254,7 +260,7 @@ img {
   gap: 8px;
   padding: 10px 16px;
   border-radius: 12px;
-  border: 1px solid #20304c
+  border: 1px solid var(--border);
 }
 
 .btn:hover {
@@ -262,15 +268,16 @@ img {
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, var(--primary), #60a5fa);
+  background: linear-gradient(90deg, var(--primary), #4ade80);
   border-color: transparent;
   color: white;
   box-shadow: 0 10px 30px rgba(59, 130, 246, .2)
 }
 
 .btn-ghost {
-  background: #0e1a2c;
-  color: #cfe0ff
+  background: #ffffff;
+  color: var(--text-dark);
+  border: 1px solid var(--border);
 }
 
 .hero-cta {
@@ -280,20 +287,20 @@ img {
 }
 
 .hero-card {
-  background: linear-gradient(180deg, #0f1a2b, #0c1524);
-  border: 1px solid #17243a;
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 18px
 }
 
 .hero-card .badge {
   display: inline-block;
-  background: #11294a;
-  color: #9fd2ff;
+  background: #ecfdf5;
+  color: var(--primary);
   padding: 6px 10px;
   border-radius: 999px;
   margin-bottom: 10px;
-  border: 1px solid #234b82
+  border: 1px solid var(--primary);
 }
 
 .hero-card ul {
@@ -308,16 +315,16 @@ img {
   display: flex;
   gap: 8px;
   align-items: center;
-  color: #cfe0ff
+  color: var(--text-dark);
 }
 
 .hero-card i {
-  color: #7ec8ff
+  color: var(--primary);
 }
 
 .why {
   padding: 36px 0;
-  border-bottom: 1px solid #162033
+  border-bottom: 1px solid var(--border);
 }
 
 .grid-3 {
@@ -327,15 +334,15 @@ img {
 }
 
 .why-item {
-  background: linear-gradient(180deg, #0f1a2b, #0c1524);
-  border: 1px solid #17243a;
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 18px
 }
 
 .why-item i {
   font-size: 22px;
-  color: #7ec8ff
+  color: var(--primary);
 }
 
 .why-item h3 {
@@ -359,8 +366,8 @@ img {
 }
 
 .card {
-  background: #0f1a2b;
-  border: 1px solid #1a2942;
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 16px;
   overflow: hidden;
   display: flex;
@@ -377,7 +384,7 @@ img {
 .bullets {
   margin: 0;
   padding-left: 18px;
-  color: #c9d7ea
+  color: var(--text-light);
 }
 
 .card-foot {
@@ -389,19 +396,19 @@ img {
 
 .price {
   font-weight: 700;
-  color: #b7ffde
+  color: #10b981;
 }
 
 .pricing {
   padding: 36px 0;
-  border-top: 1px solid #162033;
-  border-bottom: 1px solid #162033;
-  background: radial-gradient(600px 180px at 0% 0%, rgba(96, 165, 250, .12), transparent)
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  background: radial-gradient(600px 180px at 0% 0%, rgba(16, 185, 129, .1), transparent)
 }
 
 .table-wrap {
   overflow: auto;
-  border: 1px solid #1a2942;
+  border: 1px solid var(--border);
   border-radius: 12px
 }
 
@@ -414,19 +421,19 @@ img {
 .table th,
 .table td {
   padding: 12px 14px;
-  border-bottom: 1px solid #1b2945;
+  border-bottom: 1px solid var(--border);
   text-align: left
 }
 
 .table thead th {
-  background: #0f1a2b;
-  color: #cfe0ff;
+  background: #e5e7eb;
+  color: var(--text-dark);
   position: sticky;
   top: 0
 }
 
 .note {
-  color: #9bb0c9;
+  color: var(--text-light);
   margin-top: 10px
 }
 
@@ -437,8 +444,8 @@ img {
 .form {
   display: grid;
   gap: 12px;
-  background: linear-gradient(180deg, #0f1a2b, #0c1524);
-  border: 1px solid #1a2942;
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 16px
 }
@@ -453,16 +460,16 @@ label {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  color: #cfe0ff;
+  color: var(--text-dark);
   font-weight: 600
 }
 
 input,
 select,
 textarea {
-  background: #0c1627;
-  color: #e5ecf5;
-  border: 1px solid #23314a;
+  background: #ffffff;
+  color: var(--text-dark);
+  border: 1px solid var(--border);
   border-radius: 12px;
   padding: 10px;
   outline: none
@@ -485,17 +492,17 @@ textarea:focus {
 .btn-sm {
   padding: 8px 12px;
   border-radius: 10px;
-  border: 1px solid #24324c;
-  background: #0e1a2c;
-  color: #cfe0ff
+  border: 1px solid var(--border);
+  background: #ffffff;
+  color: var(--text-dark);
 }
 
 .form-success {
-  background: #0e2a18;
-  border: 1px solid #1f5035;
+  background: #ecfdf5;
+  border: 1px solid #a7f3d0;
+  color: #065f46;
   padding: 10px;
   border-radius: 10px;
-  color: #ccffde
 }
 
 .faq {
@@ -510,9 +517,9 @@ textarea:focus {
 .acc-btn {
   width: 100%;
   text-align: left;
-  background: #0f1a2b;
-  border: 1px solid #1a2942;
-  color: #cfe0ff;
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text-dark);
   padding: 12px;
   border-radius: 12px;
   display: flex;
@@ -524,8 +531,9 @@ textarea:focus {
 .acc-panel {
   display: none;
   padding: 10px 12px;
-  background: #0c1627;
-  border: 1px solid #1a2942;
+  background: #ffffff;
+  border: 1px solid var(--border);
+  color: var(--text-light);
   border-radius: 12px
 }
 
@@ -544,14 +552,14 @@ textarea:focus {
 }
 
 .contact-card {
-  background: #0f1a2b;
-  border: 1px solid #1a2942;
+  background: var(--card);
+  border: 1px solid var(--border);
   border-radius: 16px;
   padding: 16px
 }
 
 .contact-card a {
-  color: #9fd2ff
+  color: var(--primary);
 }
 
 .contact-actions {
@@ -564,8 +572,8 @@ textarea:focus {
 .map-embed iframe {
   width: 100%;
   height: 280px;
-  border: 0;
-  border-radius: 14px
+  border: 1px solid var(--border);
+  border-radius: 14px;
 }
 
 .site-footer {
@@ -612,6 +620,16 @@ textarea:focus {
 
   .hamburger {
     display: block
+  }
+  .nav-links.active {
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 20px rgba(0,0,0,.1);
+  }
+  .nav-links {
+    background: var(--card);
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 20px rgba(0,0,0,.1);
   }
 }
 
