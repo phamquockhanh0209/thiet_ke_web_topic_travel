@@ -1,523 +1,2054 @@
-<!DOCTYPE html>
-<html lang="vi">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kết Quả Tìm Kiếm Tour - Travel Explorer</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="tour-results.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-</head>
-<body>
-
-<header class="header">
-    <div class="container nav-container">
-        <a href="main.html" class="logo">Travel Explorer</a>
-        <div class="hamburger-menu"><i class="fas fa-bars"></i></div>
-        <ul class="nav-menu">
-            <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
-            <li><a href="tour.html" class="nav-link active">Tour</a></li>
-            <li><a href="hotel.html" class="nav-link">Khách Sạn</a></li>
-            <li><a href="flight.html" class="nav-link">Vé Máy Bay</a></li>
-        </ul>
-    </div>
-</header>
-
-<!-- Thanh tìm kiếm -->
-<section class="search-section">
-    <div class="container">
-        <form id="tourSearchForm" class="search-form-elegant">
-            <div class="search-input-group">
-                <i class="fas fa-map-marker-alt"></i>
-                <input type="text" id="location" placeholder="Bạn muốn đi đâu?">
-            </div>
-            <div class="search-input-group">
-                <i class="fas fa-calendar-alt"></i>
-                <input type="date" id="date">
-            </div>
-            <div class="search-input-group">
-                <i class="fas fa-clock"></i>
-                <select id="duration">
-                    <option value="">Số ngày</option>
-                    <option value="1-3">1-3 ngày</option>
-                    <option value="4-7">4-7 ngày</option>
-                    <option value="8-14">8-14 ngày</option>
-                    <option value="15+">15+ ngày</option>
-                </select>
-            </div>
-            <button type="submit" class="search-btn">
-                <i class="fas fa-search"></i> Tìm Tour
-            </button>
-        </form>
-    </div>
-</section>
-
-<main class="main-container container">
-    <aside class="sidebar">
-        <h3><i class="fas fa-sliders-h"></i> Bộ Lọc Tìm Kiếm</h3>
-        <div class="filter-group">
-            <h4>Khoảng Giá</h4>
-            <label><input type="checkbox" name="price" value="<10"> Dưới 10 triệu</label>
-            <label><input type="checkbox" name="price" value="10-20"> 10 - 20 triệu</label>
-            <label><input type="checkbox" name="price" value="20-50"> 20 - 50 triệu</label>
-            <label><input type="checkbox" name="price" value="50+"> Trên 50 triệu</label>
-        </div>
-        <div class="filter-group">
-            <h4>Loại Tour</h4>
-            <label><input type="checkbox" name="type" value="domestic"> Nội Địa</label>
-            <label><input type="checkbox" name="type" value="international"> Quốc Tế</label>
-        </div>
-        <div class="filter-group">
-            <h4>Số Ngày</h4>
-            <label><input type="checkbox" name="duration_filter" value="1-3"> 1-3 ngày</label>
-            <label><input type="checkbox" name="duration_filter" value="4-7"> 4-7 ngày</label>
-            <label><input type="checkbox" name="duration_filter" value="8-14"> 8-14 ngày</label>
-            <label><input type="checkbox" name="duration_filter" value="15+"> 15+ ngày</label>
-        </div>
-        <button class="apply-btn">Áp Dụng Bộ Lọc</button>
-    </aside>
-
-    <section class="results-section">
-        <div class="results-header">
-            <h2 id="resultInfo">Đang tìm tour phù hợp...</h2>
-            <select id="sortBy">
-                <option value="default">Khởi hành sớm nhất</option>
-                <option value="price-asc">Giá tăng dần</option>
-                <option value="price-desc">Giá giảm dần</option>
-                <option value="duration-asc">Số ngày ngắn → dài</option>
-            </select>
-        </div>
-
-        <div class="tour-grid" id="tourListGrid"></div>
-    </section>
-</main>
-
-<!-- MODAL ĐẶT TOUR -->
-<div id="tourModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <div class="modal-header">
-            <h3>ĐẶT TOUR: <span id="modalTourName"></span></h3>
-        </div>
-        <div class="modal-body">
-            <form id="bookingForm">
-                <input type="hidden" id="tName">
-
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Họ và tên <span class="required">*</span></label>
-                        <input type="text" id="fullName" required placeholder="Nguyễn Văn A">
-                    </div>
-                    <div class="input-group">
-                        <label>Số điện thoại <span class="required">*</span></label>
-                        <input type="tel" id="phone" required placeholder="0901234567">
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Ngày khởi hành mong muốn <span class="required">*</span></label>
-                        <input type="date" id="departDate" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Email <span class="required">*</span></label>
-                        <input type="email" id="email" required placeholder="example@gmail.com">
-                    </div>
-                </div>
-
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Số người lớn <span class="required">*</span></label>
-                        <input type="number" id="adults" value="1" min="1" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Số trẻ em (2-11 tuổi)</label>
-                        <input type="number" id="children" value="0" min="0">
-                    </div>
-                </div>
-
-                <div class="input-group full-width">
-                    <label>Yêu cầu thêm (không bắt buộc)</label>
-                    <textarea id="notes" rows="3" placeholder="Ví dụ: Phòng view biển, ăn chay, xe đưa đón sân bay..."></textarea>
-                </div>
-
-                <div class="modal-agree">
-                    <label><input type="checkbox" id="agree" required> Tôi đồng ý với <a href="#" style="color:var(--primary); text-decoration:underline;">điều khoản đặt tour</a> <span class="required">*</span></label>
-                </div>
-
-                <button type="submit" class="submit-btn">GỬI YÊU CẦU ĐẶT TOUR</button>
-            </form>
-            <p id="bookingMessage" class="booking-message"></p>
-        </div>
-    </div>
-</div>
-
-<script>
-// DỮ LIỆU TOUR
-const tourData = [
-    { name: "Sapa - Fansipan 3N2Đ", location: "Sapa", duration: 3, price: 4900000, rating: 4.8, departure: "2025-12-15", type: "domestic", hot: true, image: "https://images.unsplash.com/photo-1579549303273-51834927b521?w=800", desc: "Cáp treo chinh phục nóc nhà Đông Dương, bản Cát Cát, ruộng bậc thang mùa lúa chín." },
-    { name: "Phú Quốc 4N3Đ - Vinpearl Safari", location: "Phú Quốc", duration: 4, price: 8900000, rating: 4.9, departure: "2025-12-20", type: "domestic", hot: true, image: "https://images.unsplash.com/photo-1583417319079-28936b75d9b0?w=800", desc: "Resort 5 sao, safari lớn nhất Việt Nam, cáp treo vượt biển dài nhất thế giới." },
-    { name: "Đà Nẵng - Hội An - Bà Nà 4N3Đ", location: "Đà Nẵng", duration: 4, price: 6900000, rating: 4.7, departure: "2025-12-18", type: "domestic", image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800", desc: "Cầu Vàng nổi tiếng thế giới, phố cổ đèn lồng, biển Mỹ Khê, Fantasy Park." },
-    { name: "Hạ Long 2N1Đ - Du thuyền 5 sao", location: "Hạ Long", duration: 2, price: 5900000, rating: 5.0, departure: "2025-12-25", type: "domestic", hot: true, image: "https://images.unsplash.com/photo-1587502536575-6a8c8c98c5da?w=800", desc: "Ngủ đêm trên vịnh di sản, hang Sửng Sốt, chèo kayak, tắm biển Titop." },
-    { name: "Hàn Quốc 5N4Đ - Seoul & Jeju", location: "Hàn Quốc", duration: 5, price: 21900000, rating: 4.9, departure: "2025-12-30", type: "international", image: "https://images.unsplash.com/photo-1536440136628-849c177e375a?w=800", desc: "Đảo Nami lãng mạn, Seoul Tower, đảo Jeju - thiên đường nghỉ dưỡng." },
-    { name: "Nhật Bản 6N5Đ - Tokyo & Fuji", location: "Nhật Bản", duration: 6, price: 39900000, rating: 5.0, departure: "2026-03-20", type: "international", image: "https://images.unsplash.com/photo-1540959733332-1b0bd6e6d2f7?w=800", desc: "Mùa hoa anh đào, núi Phú Sĩ huyền thoại, Tokyo Disneyland." },
-    { name: "Thái Lan 5N4Đ - Bangkok & Pattaya", location: "Thái Lan", duration: 5, price: 13900000, rating: 4.8, departure: "2025-12-26", type: "international", hot: true, image: "https://images.unsplash.com/photo-1552465011-6b1166f9a1e6?w=800", desc: "Chợ nổi Damnoen Saduak, đảo san hô Coral, show Alcazar hoành tráng." },
-    { name: "Châu Âu 10N9Đ - Pháp & Ý & Thụy Sĩ", location: "Châu Âu", duration: 10, price: 69900000, rating: 5.0, departure: "2026-01-05", type: "international", image: "https://images.unsplash.com/photo-1519904981064-b0cfaffc987c?w=800", desc: "Paris - Tháp Eiffel, Rome - Vatican, Zurich - hồ Lucerne thơ mộng." },
-    { name: "Singapore 4N3Đ - Marina Bay Sands", location: "Singapore", duration: 4, price: 18900000, rating: 4.9, departure: "2025-12-28", type: "international", image: "https://images.unsplash.com/photo-1516496636080-14c91f75a9be?w=800", desc: "Khách sạn hồ bơi vô cực nổi tiếng, Universal Studio, Garden by the Bay." },
-    { name: "Đà Lạt 3N2Đ - Mùa Hoa Phượng Tím", location: "Đà Lạt", duration: 3, price: 3900000, rating: 4.7, departure: "2025-12-16", type: "domestic", image: "https://images.unsplash.com/photo-1582510003544-4d00b7f621f5?w=800", desc: "Thành phố ngàn hoa, đồi chè trái tim, cà phê view núi cực chill." }
-];
-
-function formatPrice(p) { return p.toLocaleString('vi-VN') + '₫'; }
-
-function createTourCard(t) {
-    const hot = t.hot ? '<div class="badge-hot">HOT DEAL</div>' : '';
-    return `
-        <div class="tour-card">
-            ${hot}
-            <div class="tour-image">
-                <img src="${t.image}" alt="${t.name}">
-            </div>
-            <div class="tour-content">
-                <h3 class="tour-title">${t.name}</h3>
-                <p class="tour-desc">${t.desc}</p>
-                <div class="tour-meta">
-                    <span><i class="fas fa-map-marker-alt"></i> ${t.location}</span>
-                    <span><i class="fas fa-clock"></i> ${t.duration} ngày</span>
-                    <span><i class="fas fa-calendar-alt"></i> ${new Date(t.departure).toLocaleDateString('vi-VN')}</span>
-                </div>
-                <div class="tour-footer">
-                    <div class="tour-rating">
-                        <i class="fas fa-star"></i> ${t.rating}
-                    </div>
-                    <div class="tour-price-info">
-                        <div class="price-label">Chỉ từ</div>
-                        <div class="price">${formatPrice(t.price)}</div>
-                    </div>
-                    <button class="book-btn open-modal-tour" data-name="${t.name}">Đặt Ngay</button>
-                </div>
-            </div>
-        </div>
-    `;
+/*TOUR AND HOTEL*/
+:root {
+    --primary: #4361ee;
+    --accent: #e11d48;
+    --success: #10b981;
+    --text: #1e293b;
+    --text-light: #64748b;
+    --bg: #f8fafc;
+    --white: #ffffff;
+    --border: #e2e8f0;
+    --radius: 20px;
+    --shadow: 0 10px 40px rgba(0,0,0,0.1);
 }
 
-function isPriceInRange(price, ranges) {
-    if (ranges.length === 0) return true;
-    for (const r of ranges) {
-        if (r === '<10' && price < 10000000) return true;
-        if (r === '10-20' && price >= 10000000 && price <= 20000000) return true;
-        if (r === '20-50' && price > 20000000 && price <= 50000000) return true;
-        if (r === '50+' && price > 50000000) return true;
-    }
-    return false;
+.search-section {
+    padding: 120px 0 60px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
 }
 
-function isDurationInRange(dur, ranges) {
-    if (ranges.length === 0) return true;
-    for (const r of ranges) {
-        if (r === '1-3' && dur <= 3) return true;
-        if (r === '4-7' && dur >= 4 && dur <= 7) return true;
-        if (r === '8-14' && dur >= 8 && dur <= 14) return true;
-        if (r === '15+' && dur >= 15) return true;
-    }
-    return false;
+.search-form-elegant {
+    display: grid;
+    grid-template-columns: 2.5fr 1.2fr 1fr 1.2fr;
+    gap: 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    padding: 1.5rem 2rem;
+    border-radius: 28px;
+    box-shadow: 0 20px 60px rgba(67,97,238,0.15);
 }
 
-// ===== HÀM CHÍNH: ĐỌC URL VÀ RENDER KẾT QUẢ =====
-function renderResults() {
-    let result = [...tourData];
-    
-    // Đọc giá trị từ form (sau khi submit)
-    const query = document.getElementById('location').value.trim().toLowerCase();
-    
-    // Đọc giá trị từ checkbox/select
-    const prices = Array.from(document.querySelectorAll('input[name="price"]:checked')).map(i => i.value);
-    const types = Array.from(document.querySelectorAll('input[name="type"]:checked')).map(i => i.value);
-    const durations = Array.from(document.querySelectorAll('input[name="duration_filter"]:checked')).map(i => i.value);
-    const sort = document.getElementById('sortBy').value;
-
-    // Lọc theo location
-    if (query) {
-        result = result.filter(t => 
-            t.name.toLowerCase().includes(query) || 
-            t.location.toLowerCase().includes(query)
-        );
-    }
-    
-    // Lọc theo type (domestic/international)
-    if (types.length) {
-        result = result.filter(t => types.includes(t.type));
-    }
-    
-    // Lọc theo giá
-    result = result.filter(t => isPriceInRange(t.price, prices));
-    
-    // Lọc theo duration
-    result = result.filter(t => isDurationInRange(t.duration, durations));
-
-    // Sắp xếp
-    if (sort === 'price-asc') result.sort((a,b) => a.price - b.price);
-    else if (sort === 'price-desc') result.sort((a,b) => b.price - a.price);
-    else if (sort === 'duration-asc') result.sort((a,b) => a.duration - b.duration);
-    else result.sort((a,b) => new Date(a.departure) - new Date(b.departure));
-
-    // Hiển thị kết quả
-    document.getElementById('resultInfo').textContent = result.length 
-        ? `Tìm thấy ${result.length} tour phù hợp` 
-        : 'Không tìm thấy tour nào';
-        
-    document.getElementById('tourListGrid').innerHTML = result.length 
-        ? result.map(createTourCard).join('') 
-        : '<p class="no-results">Không có tour nào phù hợp với bộ lọc của bạn.</p>';
-
-    // Gắn sự kiện mở modal cho các button mới
-    document.querySelectorAll('.open-modal-tour').forEach(btn => {
-        btn.onclick = function() {
-            const name = this.dataset.name;
-            document.getElementById('tName').value = name;
-            document.getElementById('modalTourName').textContent = name;
-            document.getElementById('tourModal').classList.add('active');
-        };
-    });
+.search-input-group {
+    position: relative;
 }
 
-// ===== ĐỌC URL PARAMETERS KHI LOAD TRANG =====
-function loadFromURL() {
-    const urlParams = new URLSearchParams(window.location.search);
-    const locationParam = urlParams.get('location');
-    
-    // Điền vào ô input nếu có parameter
-    if (locationParam) {
-        document.getElementById('location').value = locationParam;
-    }
-    
-    // Render kết quả ngay lập tức
-    renderResults();
+.search-input-group i {
+    position: absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--primary);
+    font-size: 1.3rem;
+    z-index: 2;
 }
 
-// ===== SỰ KIỆN KHI TRANG LOAD =====
-document.addEventListener('DOMContentLoaded', () => {
-    // Load kết quả từ URL khi vào trang
-    loadFromURL();
-    
-    // Xử lý form tìm kiếm
-    document.getElementById('tourSearchForm').onsubmit = e => { 
-        e.preventDefault(); 
-        renderResults(); 
-    };
-    
-    // Xử lý thay đổi bộ lọc
-    document.querySelectorAll('input[type="checkbox"], #sortBy').forEach(el => {
-        el.addEventListener('change', renderResults);
-    });
-    
-    // Xử lý nút "Áp dụng bộ lọc"
-    document.querySelector('.apply-btn').addEventListener('click', renderResults);
-});
-
-// ===== XỬ LÝ MODAL =====
-document.querySelector('.close-btn').onclick = () => {
-    document.getElementById('tourModal').classList.remove('active');
-};
-
-window.onclick = e => { 
-    if (e.target === document.getElementById('tourModal')) {
-        document.getElementById('tourModal').classList.remove('active');
-    }
-};
-
-document.getElementById('bookingForm').onsubmit = function(e) {
-    e.preventDefault();
-    const msg = document.getElementById('bookingMessage');
-    msg.textContent = 'Đặt tour thành công! Chúng tôi sẽ liên hệ ngay.';
-    msg.style.color = '#10b981';
-    msg.style.display = 'block';
-    
-    setTimeout(() => {
-        msg.style.display = 'none';
-        this.reset();
-        document.getElementById('tourModal').classList.remove('active');
-    }, 3000);
-};
-
-// ===== XỬ LÝ HAMBURGER MENU =====
-document.querySelector('.hamburger-menu').addEventListener('click', () => {
-    document.querySelector('.nav-menu').classList.toggle('active');
-});
-</script>
-<script>
-// Mở modal
-document.querySelectorAll('.open-modal-tour').forEach(btn => {
-    btn.onclick = function() {
-        const name = this.dataset.name;
-        document.getElementById('tName').value = name;
-        document.getElementById('modalTourName').textContent = name;
-        document.getElementById('tourModal').classList.add('active');
-    };
-});
-
-// Đóng modal
-document.querySelector('.close-btn').onclick = () => 
-    document.getElementById('tourModal').classList.remove('active');
-
-window.onclick = e => {
-    if (e.target === document.getElementById('tourModal'))
-        document.getElementById('tourModal').classList.remove('active');
-};
-
-// Xử lý đặt tour
-document.getElementById('bookingForm').onsubmit = function(e) {
-    e.preventDefault();
-
-    const msg = document.getElementById('bookingMessage');
-    msg.textContent = 'Đặt tour thành công! Chúng tôi sẽ liên hệ ngay trong vài phút.';
-    msg.style.color = '#10b981';
-    msg.style.display = 'block';
-
-    setTimeout(() => {
-        this.reset();
-        msg.style.display = 'none';
-        document.getElementById('tourModal').classList.remove('active');
-    }, 3000);
-};
-</script>
-<section class="suggested-tours-section container">
-        <h2 class="section-title" style="text-align: center; margin: 4rem 0 2.5rem; color: #4361ee;">
-            <i class="fas fa-fire"></i> Tour Đang Hot - Khách Đặt Nhiều Nhất
-        </h2>
-        <p style="text-align: center; color: #64748b; margin-bottom: 3rem; font-size: 1.1rem;">
-            Những hành trình được hàng ngàn khách yêu thích trong tháng này
-        </p>
-
-        <div class="tour-card-grid" id="suggestedTours">
-        </div>
-    </section>
-
-    <!-- ==================== FORM LIÊN HỆ CHÚNG TÔI ==================== -->
-<section class="contact-tour-section">
-    <div class="container contact-tour-content">
-        <div class="contact-info">
-            <h2>CẦN TƯ VẤN TOUR RIÊNG?</h2>
-            <p>Hãy để lại thông tin, chuyên viên du lịch của chúng tôi sẽ liên hệ lại với bạn trong vòng 30 phút để thiết kế hành trình hoàn hảo cho bạn.</p>
-            <ul>
-                <li><i class="fas fa-phone"></i> **Hotline:** 1900 6789</li>
-                <li><i class="fas fa-envelope"></i> **Email:** support@travelexplorer.com</li>
-                <li><i class="fas fa-map-marker-alt"></i> **Văn phòng:** 123 Đường Du Lịch, Quận 1, TP. HCM</li>
-            </ul>
-        </div>
-        <div class="contact-form-wrapper">
-            <h3>Gửi Yêu Cầu Tư Vấn</h3>
-            <form id="contactForm">
-                <div class="form-group">
-                    <label for="cName">Họ và Tên (*)</label>
-                    <input type="text" id="cName" name="cName" required>
-                </div>
-                <div class="form-group">
-                    <label for="cEmail">Email (*)</label>
-                    <input type="email" id="cEmail" name="cEmail" required>
-                </div>
-                <div class="form-group">
-                    <label for="cPhone">Số Điện Thoại (*)</label>
-                    <input type="tel" id="cPhone" name="cPhone" required>
-                </div>
-                <div class="form-group">
-                    <label for="cDestination">Điểm Đến Yêu Thích</label>
-                    <input type="text" id="cDestination" name="cDestination" placeholder="Ví dụ: Phú Quốc, Châu Âu...">
-                </div>
-                <div class="form-group">
-                    <label for="cMessage">Nội Dung Yêu Cầu</label>
-                    <textarea id="cMessage" name="cMessage" rows="4" placeholder="Bạn muốn đi bao nhiêu người? Thời gian nào?"></textarea>
-                </div>
-                <button type="submit" class="cta-button">Gửi Yêu Cầu</button>
-            </form>
-            <p id="formMessage" style="text-align: center; margin-top: 15px; display: none; color: var(--main-color); font-weight: bold;"></p>
-        </div>
-    </div>
-</section>
-    <script>
-const suggestedTours = [
-    { name: "Phú Quốc 3N3Đ - Vinpearl Safari + Cáp Treo", price: "6.990.000", duration: "3 ngày 3 đêm", img: "https://images.unsplash.com/photo-1577717904356-3058c23b7e91?w=800" },
-    { name: "Đà Lạt Mộng Mơ - 3N3Đ Khởi Hành Hàng Ngày", price: "4.590.000", duration: "3 ngày 3 đêm", img: "https://images.unsplash.com/photo-1583417136848-9ddde675c98a?w=800" },
-    { name: "Hà Nội - Hạ Long - Ninh Bình 4N4Đ", price: "8.890.000", duration: "4 ngày 4 đêm", img: "https://images.unsplash.com/photo-1570545906912-2dd4a9e7d5bb?w=800" },
-    { name: "Singapore - Malaysia 5N4Đ Bay Vietnam Airlines", price: "15.990.000", duration: "5 ngày 4 đêm", img: "https://images.unsplash.com/photo-1516496636080-14c9a69611f8?w=800" },
-    { name: "Hàn Quốc Mùa Thu Lá Đỏ 5N5Đ", price: "22.990.000", duration: "5 ngày 5 đêm", img: "https://images.unsplash.com/photo-1542272209-6d40db738c20?w=800" },
-    { name: "Châu Âu 4 Nước: Pháp - Thụy Sĩ - Ý - Vatican", price: "69.900.000", duration: "10 ngày 9 đêm", img: "https://images.unsplash.com/photo-1519904981063-bfd50b734b1e?w=800" }
-];
-
-function getUrlParams() {
-    const params = new URLSearchParams(window.location.search);
-    return { q: (params.get('q') || '').trim() };
-    }
-
-// Hàm tạo card tour gợi ý
-function createSuggestedCard(tour) {
-    return `
-        <div class="tour-card open-modal-tour" data-name="${tour.name}">
-            <img src="${tour.img}" alt="${tour.name}">
-            <div class="tour-card-content">
-                <h3>${tour.name}</h3>
-                <p class="duration"><i class="fas fa-clock"></i> ${tour.duration}</p>
-                <p class="price">Chỉ từ <strong>${tour.price}₫</strong>/khách</p>
-                <button class="btn-book">ĐẶT NGAY</button>
-            </div>
-        </div>
-    `;
+.search-input-group input,
+.search-input-group select {
+    width: 100%;
+    padding: 18px 18px 18px 56px;
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    font-size: 1.05rem;
+    transition: all 0.3s;
 }
 
-// Hiển thị tour gợi ý khi trang tải xong hoặc sau khi tìm kiếm
-function loadSuggestedTours() {
-    const container = document.getElementById('suggestedTours');
-    if (container) {
-        container.innerHTML = suggestedTours.map(createSuggestedCard).join('');
-        
-        // Gắn lại sự kiện mở modal cho các tour gợi ý
-        document.querySelectorAll('#suggestedTours .open-modal-tour').forEach(btn => {
-            btn.onclick = function() {
-                const name = this.dataset.name;
-                document.getElementById('tName').value = name;
-                document.getElementById('modalTourName').textContent = name;
-                document.getElementById('tourModal').classList.add('active');
-            };
-        });
+.search-input-group input:focus,
+.search-input-group select:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 5px rgba(67,97,238,0.15);
+}
+
+.search-btn {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 0 2.5rem;
+    border-radius: 16px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.search-btn:hover {
+    background: #3651d4;
+    transform: translateY(-2px);
+}
+
+.main-container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 0;
+}
+
+.sidebar {
+    flex: 0 0 300px;
+    background: white;
+    padding: 2rem;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    height: fit-content;
+    position: sticky;
+    top: 100px;
+}
+
+.sidebar h3 {
+    color: var(--primary);
+    font-size: 1.4rem;
+    margin-bottom: 1.5rem;
+}
+
+.filter-group label {
+    display: block;
+    padding: 0.7rem 0;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.filter-group label:hover {
+    color: var(--primary);
+}
+
+.apply-btn {
+    width: 100%;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+#sortBy {
+    padding: 0.8rem 1.2rem;
+    border-radius: 12px;
+    border: 2px solid var(--border);
+    font-size: 1rem;
+}
+
+.tour-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 2rem;
+}
+
+.tour-card {
+    background: white;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    transition: all 0.4s;
+    position: relative;
+}
+
+.tour-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+}
+
+.tour-image img {
+    width: 100%;
+    height: 240px;
+    object-fit: cover;
+}
+
+.tour-content {
+    padding: 1.5rem;
+}
+
+.tour-title {
+    font-size: 1.4rem;
+    margin: 0 0 0.8rem;
+    color: var(--text);
+    line-height: 1.4;
+}
+
+.tour-desc {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    line-height: 1.6;
+    font-size: 0.95rem;
+}
+
+.tour-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+.tour-meta i {
+    color: var(--primary);
+    margin-right: 6px;
+}
+
+.tour-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--border);
+}
+
+.tour-rating {
+    background: #fff8e1;
+    color: #f59e0b;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.price-label {
+    font-size: 0.85rem;
+    color: var(--text-light);
+}
+
+.price {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--accent);
+}
+
+.book-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 0.9rem 1.8rem;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.book-btn:hover {
+    background: #c81e43;
+    transform: translateY(-2px);
+}
+
+.badge-hot {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--accent);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    z-index: 10;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .main-container { flex-direction: column; }
+    .sidebar { position: static; }
+    .search-form-elegant { grid-template-columns: 1fr; }
+    .search-btn { height: 60px; }
+}
+
+@media (max-width: 576px) {
+    .tour-grid { grid-template-columns: 1fr; }
+}
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(8px);
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.modal.active {
+    display: flex;
+    opacity: 1;
+}
+
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 520px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+    animation: modalShow 0.4s ease-out;
+}
+
+@keyframes modalShow {
+    from { transform: scale(0.8); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.close-btn {
+    position: absolute;
+    top: 16px; right: 20px;
+    font-size: 2rem;
+    color: #aaa;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.close-btn:hover { color: #333; }
+
+.modal-title {
+    background: var(--primary);
+    color: white;
+    padding: 1.5rem;
+    margin: 0;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+.booking-form {
+    padding: 2rem;
+}
+
+.form-row {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+}
+
+.input-group {
+    flex: 1;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--text);
+}
+
+.input-group input {
+    width: 100%;
+    padding: 0.9rem 1rem;
+    border: 2px solid var(--border);
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.input-group input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(67,97,238,0.15);
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--primary);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 1rem;
+}
+
+.submit-btn:hover {
+    background: #3651d4;
+}
+
+.booking-message {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: none;
+}
+/* Modal Đặt Tour  */
+.modal-header {
+    background: linear-gradient(135deg, var(--primary), #0056b3);
+    color: white;
+    padding: 1.8rem 1.5rem;
+    text-align: center;
+    border-radius: 20px 20px 0 0;
+}
+.modal-header h3 {
+    margin: 0;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+
+.required {
+    color: var(--accent);
+}
+
+.input-group input,
+.input-group textarea,
+.input-group select {
+    padding: 0.9rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 4px rgba(67,97,238,0.15);
+}
+
+.modal-agree {
+    margin: 1.5rem 0;
+    font-size: 0.95rem;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--accent);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.submit-btn:hover {
+    background: #e11d48;
+    transform: translateY(-2px);
+}
+
+.booking-message {
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    display: none;
+}
+/* ==================== TOUR GỢI Ý ==================== */
+.suggested-tours-section .tour-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.tour-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    transition: all 0.4s;
+    cursor: pointer;
+}
+
+.tour-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 20px 50px rgba(67,97,238,0.2);
+}
+
+.tour-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.tour-card-content {
+    padding: 1.5rem;
+}
+
+.tour-card h3 {
+    font-size: 1.25rem;
+    margin: 0 0 0.8rem;
+    color: #1e293b;
+}
+
+.tour-card .price {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #e11d48;
+    margin: 0.5rem 0;
+}
+
+.tour-card .duration {
+    color: #64748b;
+    font-size: 0.95rem;
+}
+
+.tour-card .btn-book {
+    margin-top: 1rem;
+    padding: 0.8rem 1.5rem;
+    background: #4361ee;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 600;
+    width: 100%;
+    transition: 0.3s;
+}
+
+.tour-card .btn-book:hover {
+    background: #3651d4;
+}
+.contact-consult-section input:focus {
+    outline: none;
+    border-color: #4361ee !important;
+    box-shadow: 0 0 0 5px rgba(67,97,238,0.15) !important;
+}
+
+.contact-consult-section button:hover {
+    background: #c81e43 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(225,29,72,0.5) !important;
+}
+/* --- CONTACT TOUR SECTION --- */
+.contact-tour-section {
+    background-color: var(--light); /* Nền nhẹ để làm nổi bật */
+    padding: 4rem 0;
+    border-top: 1px solid var(--gray-light);
+}
+
+.contact-tour-content {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+/* Phần Thông tin Liên hệ */
+.contact-info {
+    flex: 1;
+    padding: 30px;
+}
+
+.contact-info h2 {
+    color: var(--cta-color);
+    font-size: 2rem;
+    margin-bottom: 15px;
+}
+
+.contact-info p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin-bottom: 30px;
+    color: var(--gray);
+}
+
+.contact-info ul {
+    list-style: none;
+    padding: 0;
+}
+
+.contact-info ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1.05rem;
+}
+
+.contact-info ul li i {
+    color: var(--main-color);
+    margin-right: 15px;
+    min-width: 20px; /* Đảm bảo icon không bị lệch */
+    text-align: center;
+}
+
+/* Phần Form */
+.contact-form-wrapper {
+    flex: 1;
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+}
+
+.contact-form-wrapper h3 {
+    text-align: center;
+    color: var(--main-color);
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+}
+
+.contact-form-wrapper .form-group {
+    margin-bottom: 15px;
+}
+
+.contact-form-wrapper label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: var(--dark);
+    font-size: 0.95rem;
+}
+
+.contact-form-wrapper input[type="text"],
+.contact-form-wrapper input[type="email"],
+.contact-form-wrapper input[type="tel"],
+.contact-form-wrapper textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid var(--gray-light);
+    border-radius: var(--radius-sm);
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.contact-form-wrapper input:focus,
+.contact-form-wrapper textarea:focus {
+    border-color: var(--main-color);
+    outline: none;
+}
+
+.contact-form-wrapper textarea {
+    resize: vertical;
+}
+
+/* Nút Gửi */
+.contact-form-wrapper .cta-button {
+    width: 100%;
+    padding: 12px;
+    background-color: var(--cta-color);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-sm);
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.contact-form-wrapper .cta-button:hover {
+    background-color: #e55c5c; 
+    box-shadow: var(--shadow-sm);
+}
+
+/* Responsive cho Mobile */
+@media (max-width: 768px) {
+    .contact-tour-content {
+        flex-direction: column;
+    }
+
+    .contact-info {
+        padding: 20px 0;
+    }
+
+    .contact-info h2 {
+        font-size: 1.8rem;
+    }
+
+    .contact-form-wrapper {
+        width: 100%;
+        padding: 20px;
+    }
+}
+/* ==================== FLIGHT RESULTS PAGE STYLES ==================== */
+:root {
+    --flight-primary: #005a96;
+    --flight-accent: #ff6b6b;
+    --flight-success: #10b981;
+    --flight-warning: #f59e0b;
+    --flight-info: #3b82f6;
+    --flight-gray: #6b7280;
+    --flight-light: #f9fafb;
+    --flight-border: #e5e7eb;
+    --flight-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Hero Section */
+.flight-results-hero {
+    background: linear-gradient(135deg, rgba(0, 90, 150, 0.9), rgba(0, 120, 200, 0.8)),
+                url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600') center/cover;
+    padding: 120px 0 60px;
+    color: white;
+    text-align: center;
+    position: relative;
+}
+
+.flight-results-hero h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.flight-route-info {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.route-details {
+    margin-bottom: 1rem;
+}
+
+.route-display {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.route-from, .route-to {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.city {
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.code {
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-top: 0.3rem;
+}
+
+.route-arrow {
+    color: var(--flight-accent);
+    font-size: 1.5rem;
+}
+
+.international-tag {
+    background: var(--flight-accent);
+    color: white;
+    padding: 0.3rem 1rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-left: 1rem;
+}
+
+.search-meta {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    font-size: 0.95rem;
+    opacity: 0.9;
+}
+
+.search-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.loading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 1.1rem;
+}
+
+/* Sticky Search Bar */
+.sticky-search-bar {
+    position: sticky;
+    top: 70px;
+    background: white;
+    padding: 1rem 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    z-index: 100;
+    margin-bottom: 2rem;
+}
+
+.compact-search-wrapper {
+    background: white;
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: var(--flight-shadow);
+}
+
+.compact-search-form {
+    width: 100%;
+}
+
+.search-form-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.8rem;
+    align-items: end;
+}
+
+.search-input-group {
+    position: relative;
+}
+
+.search-input-group i {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--flight-primary);
+    font-size: 1rem;
+}
+
+.search-input-group input,
+.search-input-group select {
+    width: 100%;
+    padding: 0.8rem 0.8rem 0.8rem 2.5rem;
+    border: 2px solid var(--flight-border);
+    border-radius: 10px;
+    font-size: 0.9rem;
+    transition: all 0.3s;
+}
+
+.search-input-group input:focus,
+.search-input-group select:focus {
+    outline: none;
+    border-color: var(--flight-primary);
+    box-shadow: 0 0 0 3px rgba(0, 90, 150, 0.1);
+}
+
+.search-submit-btn {
+    background: linear-gradient(135deg, var(--flight-accent), #ff8787);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 44px;
+}
+
+.search-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+}
+
+/* Main Container */
+.results-main-container {
+    display: flex;
+    gap: 2rem;
+    padding: 2rem 0;
+    align-items: flex-start;
+}
+
+/* Sidebar */
+.results-sidebar {
+    flex: 0 0 300px;
+    background: white;
+    border-radius: 20px;
+    padding: 1.5rem;
+    box-shadow: var(--flight-shadow);
+    position: sticky;
+    top: 150px;
+    height: fit-content;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid var(--flight-border);
+}
+
+.sidebar-header h3 {
+    color: var(--flight-primary);
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.clear-filters-btn {
+    background: none;
+    border: 1px solid var(--flight-border);
+    color: var(--flight-gray);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.clear-filters-btn:hover {
+    background: #f3f4f6;
+    color: var(--flight-primary);
+}
+
+.filter-section {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--flight-border);
+}
+
+.filter-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.filter-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--flight-primary);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.filter-options {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.filter-option {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-size: 0.9rem;
+    color: var(--flight-gray);
+    transition: color 0.3s;
+    position: relative;
+    padding-left: 30px;
+}
+
+.filter-option:hover {
+    color: var(--flight-primary);
+}
+
+.filter-option input[type="checkbox"] {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+}
+
+.checkmark {
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 20px;
+    width: 20px;
+    background-color: white;
+    border: 2px solid var(--flight-border);
+    border-radius: 4px;
+    transition: all 0.3s;
+}
+
+.filter-option:hover .checkmark {
+    border-color: var(--flight-primary);
+}
+
+.filter-option input:checked ~ .checkmark {
+    background-color: var(--flight-primary);
+    border-color: var(--flight-primary);
+}
+
+.checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+}
+
+.filter-option input:checked ~ .checkmark:after {
+    display: block;
+    left: 6px;
+    top: 2px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.option-text {
+    flex: 1;
+}
+
+/* Price Range */
+.price-range {
+    padding: 0.5rem 0;
+}
+
+.price-range-values {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--flight-primary);
+}
+
+.price-slider {
+    width: 100%;
+    height: 6px;
+    -webkit-appearance: none;
+    background: linear-gradient(to right, var(--flight-success), var(--flight-warning), var(--flight-accent));
+    border-radius: 3px;
+    outline: none;
+    margin: 1rem 0;
+}
+
+.price-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    background: var(--flight-primary);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.price-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: var(--flight-primary);
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid white;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.price-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--flight-gray);
+    margin-top: 0.3rem;
+}
+
+.apply-filters-btn {
+    width: 100%;
+    padding: 1rem;
+    background: var(--flight-primary);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    margin-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.apply-filters-btn:hover {
+    background: #004d7f;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 90, 150, 0.2);
+}
+
+/* Results Content */
+.results-content {
+    flex: 1;
+}
+
+.results-header {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--flight-shadow);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.results-info h2 {
+    color: var(--flight-primary);
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+}
+
+.results-subtitle {
+    color: var(--flight-gray);
+    font-size: 0.95rem;
+}
+
+.sort-controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.sort-controls label {
+    font-weight: 600;
+    color: var(--flight-gray);
+}
+
+.sort-controls select {
+    padding: 0.7rem 1rem;
+    border: 2px solid var(--flight-border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    background: white;
+    min-width: 180px;
+}
+
+.sort-controls select:focus {
+    outline: none;
+    border-color: var(--flight-primary);
+}
+
+/* Flights Container */
+.flights-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* Flight Card */
+.flight-card {
+    background: white;
+    border-radius: 15px;
+    padding: 1.5rem;
+    box-shadow: var(--flight-shadow);
+    border: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.flight-card:hover {
+    border-color: var(--flight-primary);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 90, 150, 0.15);
+}
+
+.flight-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--flight-border);
+}
+
+.airline-section {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.airline-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    background: var(--flight-light);
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--flight-border);
+}
+
+.airline-info h4 {
+    font-size: 1.1rem;
+    color: var(--flight-primary);
+    margin-bottom: 0.2rem;
+}
+
+.flight-number {
+    font-size: 0.85rem;
+    color: var(--flight-gray);
+    background: var(--flight-light);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+.flight-type-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Flight Route Details */
+.flight-route-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--flight-light);
+    border-radius: 10px;
+}
+
+.departure-info,
+.arrival-info {
+    text-align: center;
+    flex: 1;
+}
+
+.time {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--flight-primary);
+    margin-bottom: 0.3rem;
+}
+
+.airport-code {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 0.2rem;
+}
+
+.city-name {
+    font-size: 0.9rem;
+    color: var(--flight-gray);
+}
+
+.international-badge {
+    display: inline-block;
+    background: var(--flight-accent);
+    color: white;
+    padding: 0.2rem 0.8rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    margin-top: 0.3rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.flight-path {
+    flex: 2;
+    text-align: center;
+    padding: 0 2rem;
+}
+
+.duration {
+    font-size: 0.9rem;
+    color: var(--flight-gray);
+    margin-bottom: 0.5rem;
+}
+
+.path-line {
+    position: relative;
+    height: 2px;
+    background: linear-gradient(to right, var(--flight-primary), var(--flight-accent));
+    margin: 0.5rem 0;
+}
+
+.path-line .line {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, var(--flight-primary), var(--flight-accent));
+}
+
+.path-line i {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: white;
+    color: var(--flight-primary);
+    padding: 0.5rem;
+    border-radius: 50%;
+    font-size: 1rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stops-info {
+    font-size: 0.85rem;
+    color: var(--flight-gray);
+    margin-top: 0.5rem;
+}
+
+/* Flight Extra Info */
+.flight-extra-info {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--flight-light);
+    border-radius: 10px;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.info-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--flight-gray);
+}
+
+.info-item i {
+    color: var(--flight-primary);
+}
+
+/* Flight Card Footer */
+.flight-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1rem;
+    border-top: 1px dashed var(--flight-border);
+}
+
+.price-section {
+    text-align: right;
+}
+
+.price-label {
+    font-size: 0.85rem;
+    color: var(--flight-gray);
+    margin-bottom: 0.3rem;
+}
+
+.price {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--flight-accent);
+    line-height: 1;
+}
+
+.tax-info {
+    font-size: 0.8rem;
+    color: var(--flight-gray);
+    margin-top: 0.3rem;
+}
+
+.book-now-btn {
+    background: linear-gradient(135deg, var(--flight-primary), #0077cc);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-width: 140px;
+    justify-content: center;
+}
+
+.book-now-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 90, 150, 0.3);
+}
+
+/* Suggested Section */
+.suggested-section {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid var(--flight-border);
+}
+
+.suggested-section h3 {
+    color: var(--flight-primary);
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.suggested-flights {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.suggested-flight-card {
+    background: white;
+    border-radius: 10px;
+    padding: 1rem;
+    box-shadow: var(--flight-shadow);
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s;
+}
+
+.suggested-flight-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+.suggested-airline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.suggested-airline img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.suggested-airline span {
+    font-size: 0.8rem;
+    color: var(--flight-gray);
+    text-align: center;
+    max-width: 60px;
+}
+
+.suggested-route {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: var(--flight-primary);
+}
+
+.suggested-price {
+    font-weight: 700;
+    color: var(--flight-accent);
+    font-size: 1.1rem;
+}
+
+.suggested-btn {
+    background: var(--flight-primary);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.suggested-btn:hover {
+    background: #004d7f;
+}
+
+/* No Results */
+.no-results {
+    text-align: center;
+    padding: 4rem 2rem;
+    background: white;
+    border-radius: 15px;
+    box-shadow: var(--flight-shadow);
+}
+
+.no-results-icon {
+    font-size: 4rem;
+    color: var(--flight-border);
+    margin-bottom: 1.5rem;
+}
+
+.no-results h3 {
+    color: var(--flight-gray);
+    margin-bottom: 1rem;
+}
+
+.no-results p {
+    color: var(--flight-gray);
+    margin-bottom: 2rem;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.retry-btn {
+    background: var(--flight-primary);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 auto;
+}
+
+.retry-btn:hover {
+    background: #004d7f;
+    transform: translateY(-2px);
+}
+
+/* Modal Booking */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    width: 90%;
+    max-width: 600px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
+    animation: slideUp 0.4s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideUp {
+    from { transform: translateY(50px) scale(0.9); opacity: 0; }
+    to { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+.modal-header {
+    background: linear-gradient(135deg, var(--flight-primary), #0077cc);
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
+}
+
+.modal-header h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.modal-subtitle {
+    font-size: 0.9rem;
+    opacity: 0.9;
+}
+
+.close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close-btn:hover {
+    color: #ffdddd;
+}
+
+.modal-body {
+    padding: 2rem;
+}
+
+.flight-summary {
+    background: var(--flight-light);
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--flight-border);
+}
+
+.airline-summary {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.airline-summary img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    background: white;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--flight-border);
+}
+
+.airline-summary h4 {
+    color: var(--flight-primary);
+    margin-bottom: 0.2rem;
+}
+
+.airline-summary p {
+    font-size: 0.85rem;
+    color: var(--flight-gray);
+}
+
+.price-summary {
+    text-align: right;
+}
+
+.price-label {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--flight-gray);
+    margin-bottom: 0.3rem;
+}
+
+.price-amount {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--flight-accent);
+}
+
+.summary-details {
+    padding-top: 1rem;
+}
+
+.route-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.depart-summary,
+.arrive-summary {
+    flex: 1;
+}
+
+.depart-summary {
+    text-align: left;
+}
+
+.arrive-summary {
+    text-align: right;
+}
+
+.path-summary {
+    flex: 2;
+    text-align: center;
+    padding: 0 1rem;
+}
+
+.line-summary {
+    position: relative;
+    height: 2px;
+    background: linear-gradient(to right, var(--flight-primary), var(--flight-accent));
+    margin: 0.5rem 0;
+}
+
+.line-summary .dot {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: var(--flight-primary);
+    border-radius: 50%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.line-summary .dot:first-child {
+    left: 0;
+}
+
+.line-summary .dot:last-child {
+    right: 0;
+    background: var(--flight-accent);
+}
+
+.line-summary .line {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, var(--flight-primary), var(--flight-accent));
+}
+
+.extra-summary {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.extra-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: var(--flight-gray);
+}
+
+.extra-item i {
+    color: var(--flight-primary);
+}
+
+/* Form trong modal */
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.full-width {
+    grid-column: 1 / -1;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.input-group label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #333;
+    font-size: 0.9rem;
+}
+
+.required {
+    color: var(--flight-accent);
+}
+
+.input-group input,
+.input-group textarea {
+    padding: 0.8rem 1rem;
+    border: 2px solid var(--flight-border);
+    border-radius: 8px;
+    font-size: 0.95rem;
+    transition: all 0.3s;
+}
+
+.input-group input:focus,
+.input-group textarea:focus {
+    outline: none;
+    border-color: var(--flight-primary);
+    box-shadow: 0 0 0 3px rgba(0, 90, 150, 0.1);
+}
+
+.modal-agree {
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+}
+
+.modal-agree label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--flight-border);
+}
+
+.total-price {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--flight-primary);
+}
+
+.total-price span:last-child {
+    font-size: 1.5rem;
+    color: var(--flight-accent);
+    margin-left: 0.5rem;
+}
+
+.submit-btn {
+    background: linear-gradient(135deg, var(--flight-accent), #ff8787);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
+}
+
+.booking-message {
+    text-align: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+    padding: 1rem;
+    border-radius: 10px;
+    background: #f0fdf4;
+    color: #10b981;
+    display: none;
+}
+
+/* Footer */
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+    color: var(--flight-primary);
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.footer-section a {
+    display: block;
+    color: #9ca3af;
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s;
+}
+
+.footer-section a:hover {
+    color: white;
+}
+
+.social-links {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    font-size: 1.2rem;
+    transition: all 0.3s;
+}
+
+.social-links a:hover {
+    background: var(--flight-primary);
+    transform: translateY(-3px);
+}
+
+.partner-logos {
+    display: flex;
+    gap: 1rem;
+    margin-top: 1rem;
+    flex-wrap: wrap;
+}
+
+.partner-logos img {
+    height: 40px;
+    object-fit: contain;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.3s;
+}
+
+.partner-logos img:hover {
+    filter: grayscale(0);
+    opacity: 1;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #374151;
+    color: #9ca3af;
+    font-size: 0.9rem;
+}
+
+.footer-bottom p {
+    margin-bottom: 0.5rem;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+    .search-form-grid {
+        grid-template-columns: repeat(4, 1fr);
     }
 }
 
-// Tự động cuộn xuống kết quả sau khi tìm kiếm
-function scrollToResults() {
-    document.querySelector('.main-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+@media (max-width: 992px) {
+    .results-main-container {
+        flex-direction: column;
+    }
+    
+    .results-sidebar {
+        position: static;
+        width: 100%;
+        margin-bottom: 2rem;
+    }
+    
+    .search-form-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .flight-route-details {
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+    
+    .flight-path {
+        width: 100%;
+        padding: 1rem 0;
+    }
 }
 
-// Gọi hàm khi trang tải xong và sau mỗi lần tìm kiếm
-document.addEventListener('DOMContentLoaded', () => {
-    loadSuggestedTours();
-    // Override lại hàm renderResults cũ để cuộn mượt
-    const originalRender = renderResults;
-    window.renderResults = function() {
-        originalRender();
-        setTimeout(scrollToResults, 300);
-        loadSuggestedTours(); // Cập nhật lại sự kiện modal
-    };
-});
+@media (max-width: 768px) {
+    .flight-results-hero h1 {
+        font-size: 2rem;
+    }
+    
+    .search-form-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .results-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+    
+    .flight-card-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .flight-card-footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: stretch;
+    }
+    
+    .price-section {
+        text-align: center;
+    }
+    
+    .book-now-btn {
+        width: 100%;
+    }
+    
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-footer {
+        flex-direction: column;
+        gap: 1.5rem;
+        align-items: stretch;
+    }
+    
+    .total-price {
+        text-align: center;
+    }
+    
+    .submit-btn {
+        width: 100%;
+    }
+}
 
-// Xử lý form liên hệ
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        const formMessage = document.getElementById('formMessage');
-        formMessage.style.display = 'block';
-        formMessage.style.color = 'green';
-        formMessage.textContent = 'Yêu cầu của bạn đã được gửi thành công! Chúng tôi sẽ liên hệ lại sớm nhất.';
-        
-        // --- PHẦN CẦN THÊM/THAY ĐỔI ---
-        this.reset(); // Dùng `this` để reset form hiện tại
-        // -----------------------------
-
-        setTimeout(() => {
-            formMessage.style.display = 'none';
-        }, 5000);
-    });
-    document.querySelector('.hamburger-menu').addEventListener('click', () => document.querySelector('.nav-menu').classList.toggle('active'));
-    window.onclick = e => { if (e.target === document.getElementById('tourModal')) document.getElementById('tourModal').classList.remove('active'); };
-</script>
-</body>
-</html>
-
+@media (max-width: 576px) {
+    .search-form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .search-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+        align-items: center;
+    }
+    
+    .route-display {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+    
+    .extra-summary {
+        grid-template-columns: 1fr;
+    }
+    
+    .suggested-flights {
+        grid-template-columns: 1fr;
+    }
+    
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+}
