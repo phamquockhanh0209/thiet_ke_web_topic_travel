@@ -8,257 +8,1650 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-   <header class="header">
-    <nav class="nav-container">
-        <a href="main.html" class="logo">🌍 Travel Explorer</a>
-        <div>
-            <ul class="nav-menu">
-                <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
-                <li><a href="main.html#destinations" class="nav-link">Điểm Đến</a></li>
-                <li><a href="main.html#services" class="nav-link">Dịch Vụ</a></li>
-                <li><a href="main.html#contact" class="nav-link">Liên Hệ</a></li>
-            </ul>
-            
-            <div class="hamburger-menu">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </nav>
+
+<header class="header">
+    <div class="container nav-container">
+        <a href="main.html" class="logo">Travel Explorer</a>
+        <div class="hamburger-menu"><i class="fas fa-bars"></i></div>
+        <ul class="nav-menu">
+            <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
+            <li><a href="tour.html" class="nav-link active">Tour</a></li>
+            <li><a href="hotel.html" class="nav-link">Khách Sạn</a></li>
+            <li><a href="flight.html" class="nav-link">Vé Máy Bay</a></li>
+        </ul>
+    </div>
 </header>
-    <section class="tour-page-hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('ảnh/img-travel.jpg') center/cover;">
-        <div class="hero-content">
-            <h1>Khám Phá Tour Du Lịch Tuyệt Vời</h1>
-        </div>
-    </section>
 
-    <section class="tour-search">
-        <div class="container">
-           <form class="search-form" action="tour-results.html" method="GET">
-    <div class="form-group">
-        <label for="destination">Điểm Đến</label>
-        <input type="text" id="destination" name="destination" placeholder="Ví dụ: Đà Lạt, Sapa" />
-    </div>
-    <div class="form-group">
-        <label for="date">Ngày Khởi Hành</label>
-        <input type="date" id="date" name="date" />
-    </div>
-    <div class="form-group">
-        <label for="duration">Số Ngày</label>
-        <input type="number" id="duration" name="duration" placeholder="Ví dụ: 3" min="1" />
-    </div>
-    <div class="form-group">
-        <label for="price-range">Ngân Sách</label>
-        <select id="price-range" name="price-range">
-            <option value="">Chọn khoảng giá</option>
-            <option value="low">Dưới 3 Triệu</option>
-            <option value="medium">3 - 5 Triệu</option>
-            <option value="high">Trên 5 Triệu</option>
-        </select>
-    </div>
-    <button type="submit" class="cta-button" style="align-self: flex-end; padding: 0.8rem 1.5rem;">Tìm Tour</button>
-</form>
-        </div>
-    </section>
+<section class="tour-page-hero">
+    <div class="container hero-content">
+        <h1>Khám Phá Tour Du Lịch Tuyệt Vời</h1>
+        <p>Tour trong nước & Quốc tế • Giá tốt nhất 2025</p>
 
-   <section class="tour-list" id="tourListSection">
-    <div class="container">
-        <h2 class="section-title" id="tourSectionTitle">Tour Nổi Bật</h2>
-        <div class="destinations-grid" id="tourListGrid">
-            </div>
+        <div class="search-wrapper">
+          <form id="tourSearchMainForm" action="tour-results.html" method="get" class="filter-form-tour">
+            <!-- Địa điểm -->
+            <input 
+                type="text" 
+                name="location" 
+                placeholder="Địa điểm muốn đến... *" 
+                required
+            >
+            
+            <!-- Ngày khởi hành -->
+            <input 
+                type="date" 
+                name="date"
+            >
+            
+            <!-- Số ngày -->
+            <select name="duration">
+                <option value="">Số ngày *</option>
+                <option value="1-3">1 - 3 ngày</option>
+                <option value="4-7">4 - 7 ngày</option>
+                <option value="7+">Trên 7 ngày</option>
+            </select>
+            
+            <!-- Mức giá -->
+            <select name="price">
+                <option value="">Mức giá</option>
+                <option value="low">Thấp (&lt; 5 triệu)</option>
+                <option value="medium">Trung bình (5-15 triệu)</option>
+                <option value="high">Cao (&gt; 15 triệu)</option>
+            </select>
+            
+            <!-- Nút tìm kiếm -->
+            <button type="submit" class="btn-search">
+                <i class="fas fa-search"></i> Tìm kiếm
+            </button>
+        </form>
+        </div>
     </div>
 </section>
-<div id="tourModal" class="modal">
-    <div class="modal-content">
-        <span class="close-button" onclick="closeModal('tourModal')">&times;</span>
-        <h3 class="modal-title">ĐẶT TOUR DU LỊCH</h3>
-        <form class="booking-form" action="#" method="POST">
-            <input type="hidden" id="tourName" name="tour_name" value="">
-            
-            <div class="form-group">
-                <label for="fullName">Họ và Tên (*)</label>
-                <input type="text" id="fullName" name="full_name" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="email">Email (*)</label>
-                <input type="email" id="email" name="email" required>
-            </div>
 
-            <div class="form-group">
-                <label for="phone">Số điện thoại (*)</label>
-                <input type="tel" id="phone" name="phone" required>
-            </div>
-            
-            <div class="form-group">
-                <label for="adults">Số lượng người lớn (*)</label>
-                <input type="number" id="adults" name="adults" min="1" value="1" required>
-            </div>
-
-            <div class="form-group">
-                <label for="children">Số lượng trẻ em (dưới 12 tuổi)</label>
-                <input type="number" id="children" name="children" min="0" value="0">
-            </div>
-
-            <div class="form-group">
-                <label for="startDate">Ngày khởi hành mong muốn (*)</label>
-                <input type="date" id="startDate" name="start_date" required>
-            </div>
-
-            <div class="form-group">
-                <label for="message">Yêu cầu đặc biệt (nếu có)</label>
-                <textarea id="message" name="message" rows="3"></textarea>
-            </div>
-
-            <button type="submit" class="submit-btn" style="width: 100%;">Gửi Yêu Cầu Đặt Tour</button>
-        </form>
-        <p class="note">(*): Thông tin bắt buộc</p>
-    </div>
-</div>
-
-    <script>
-    const allTours = [
-        { name: "Tour 4N3Đ Đà Nẵng - Hội An - Bà Nà", image: "https://vietnamfamilytourhcm.com/wp-content/uploads/2020/06/travelmart-danang-banahills-4-jpg-1080x720-FIT-311aac116da59c24d9b842ef183799f0.jpg", duration: "4 Ngày 3 Đêm", price: "4.500.000đ", description: "Khám phá Phố cổ Hội An và các danh thắng nổi tiếng Đà Nẵng." },
-        { name: "Tour 3N2Đ Đà Lạt Ngàn Hoa", image: "https://1.bp.blogspot.com/-K_dwkb40TU0/XzXcrAl7t0I/AAAAAAAAXBc/C-Pe3qkh5AUBfvNOUCpUWK-G082hVk5QQCNcBGAsYHQ/s1920/Da%2BLat4.jpg", duration: "3 Ngày 2 Đêm", price: "2.900.000đ", description: "Trải nghiệm săn mây, khám phá các điểm check-in độc đáo tại Đà Lạt." },
-         { name: "Tour 4N3Đ Nha Trang – Đảo Bình Ba – Tôm Hùm", location: "Nha Trang", image: "https://booking.muongthanh.com/upload_images/images/H%60/binh-ba-nha-trang.jpg", duration: "4 Ngày 3 Đêm", price: 5250000, priceDisplay: "5.250.000đ", description: "Tôm hùm nướng, hải sản tươi sống" },
-        { name: "Tour 3N2Đ Phú Quốc – Lặn Ngắm San Hô", location: "Phú Quốc", image: "https://www.vietrekking.com/wp-content/uploads/2021/03/kham-pha-day-bien.png", duration: "3 Ngày 2 Đêm", price: 5850000, priceDisplay: "5.850.000đ", description: "Resort 4-5 sao, chợ đêm" },
-        { name: "Tour 2N1Đ Sapa – Fansipan Legend", location: "Sapa", image: "https://duan-sungroup.com/wp-content/uploads/2022/10/Dai-tuong-Phat-A-Di-Da-o-Sun-World-Fansipan-Legend.jpg", duration: "2 Ngày 1 Đêm", price: 1950000, priceDisplay: "1.950.000đ", description: "Cáp treo chinh phục Fansipan, bản Cát Cát" },
-        { name: "Tour 2N1Đ Hạ Long – Paradise Luxury Cruise", location: "Vịnh Hạ Long", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/60092679.jpg?k=1f9077c9d888da23c776d6c9bcd0d0620d0612e9c863a78b52c8d7ecd91c97dc&o=", duration: "2 Ngày 1 Đêm", price: 3950000, priceDisplay: "3.950.000đ", description: "Du thuyền cao cấp nhất" },
+<section class="tour-group-section" id="featured-tours-section">
+    <div class="container">
+        <h2 class="section-title">✨ Tour Nổi Bật - Giá Tốt Nhất</h2>
+        <p class="section-subtitle">Lựa chọn hàng đầu của khách hàng trong tháng này.</p>
         
-    ];
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-group="domestic">Tour Trong Nước 🇻🇳</button>
+            <button class="tab-btn" data-group="international">Tour Quốc Tế 🌎</button>
+        </div>
 
-    const tourGrid = document.getElementById('tourListGrid');
-    function renderTours(tours) {
-        tourGrid.innerHTML = ''; 
-        
-        if (tours.length === 0) {
-            tourGrid.innerHTML = '<p style="text-align: center; width: 100%; font-size: 1.2rem; color: #EA580C;">Xin lỗi, không tìm thấy tour nào phù hợp với yêu cầu của bạn.</p>';
-            return;
-        }
-
-        tours.forEach(tour => {
-            const card = document.createElement('div');
-            card.className = 'tour-card';
-            card.innerHTML = `
-                <img src="${tour.image}" alt="${tour.name}">
-                <div class="tour-content">
-                    <h4>${tour.name}</h4>
-                    <p>${tour.description}</p>
-                    <div class="tour-info">
-                        <span class="tour-duration"><i class="fa-regular fa-clock"></i> ${tour.duration}</span>
-                        <span class="tour-price">${tour.price}</span>
-                    </div>
-                    <div style="margin-top: 1rem; text-align: right;">
-                        <button class="cta-button open-modal-tour" data-service="${tour.name}" style="padding: 0.6rem 1.2rem;">Đặt Ngay</button>
+        <div class="group active" data-group="domestic">
+            <div class="tour-card-grid">
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1579549303273-51834927b521?w=400" alt="Tour Sapa 3 ngày 2 đêm">
+                    <div class="card-content">
+                        <h4>Sapa 3N2Đ: Khám phá ruộng bậc thang</h4>
+                        <p>Trải nghiệm chinh phục Fansipan và nghỉ dưỡng tại bản Cát Cát.</p>
+                        <span class="tour-price">4.500.000₫</span>
+                        <button class="cta-button open-modal-tour" data-name="Sapa 3N2Đ: Ruộng bậc thang">Đặt Ngay</button>
                     </div>
                 </div>
-            `;
-            tourGrid.appendChild(card);
-        });
-        attachModalEvents();
-    }
-   document.addEventListener('DOMContentLoaded', () => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const destination = urlParams.get('destination') ? urlParams.get('destination').toLowerCase() : '';
-    const duration = urlParams.get('duration');
-    const priceRange = urlParams.get('price-range');
-
-    let filteredTours = allTours.filter(tour => {
-        return tour.name.toLowerCase().includes(destination) || 
-               tour.description.toLowerCase().includes(destination);
-    });
-    const tourSectionTitle = document.getElementById('tourSectionTitle');
-    if (destination) {
-        tourSectionTitle.textContent = `Kết Quả Tìm Kiếm cho: "${destination}"`;
-    } else {
-        tourSectionTitle.textContent = `Tour gợi ý`;
-    }
-
-    renderTours(filteredTours);
-});
-
-    function openModal(modalId, serviceName) {
-        document.getElementById(modalId).style.display = 'flex';
-        if (serviceName && document.getElementById('tourName')) {
-            document.getElementById('tourName').value = serviceName;
-        }
-    }
-
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-    }
-
-    function attachModalEvents() {
-        document.querySelectorAll('.open-modal-tour').forEach(button => {
-            button.onclick = function(e) {
-                e.preventDefault();
-                const serviceName = this.getAttribute('data-service');
-                openModal('tourModal', serviceName);
-            };
-        });
-    }
-
-    document.getElementById('tourModal').addEventListener('click', function(e) {
-        if (e.target.id === 'tourModal') {
-            closeModal('tourModal');
-        }
-    });
-    
-</script>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Travel Explorer</h3>
-                    <p>Đối tác tin cậy cho mọi chuyến du lịch của bạn.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Liên Kết Nhanh</h3>
-                    <a href="main.html#home">Trang Chủ</a>
-                    <a href="main.html#destinations">Điểm Đến</a>
-                    <a href="main.html#services">Dịch Vụ</a>
-                    <a href="main.html#contact">Liên Hệ</a>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Thông Tin Liên Hệ</h3>
-                    <p><i class="fa-solid fa-location-dot 1"></i> 12/5D Đường Lê Lợi, Quận 1</p>
-                    <p><i class="fa-solid fa-phone-volume"></i> (028) 1234 5678</p>
-                    <p><i class="fa-solid fa-envelope"></i> info@travelexplorer.vn</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Theo Dõi Chúng Tôi</h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="#" class="social-link"><i class="fa-brands fa-telegram"></i></a>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1546747124-b17d23d8544a?w=400" alt="Tour Hội An Cổ Kính">
+                    <div class="card-content">
+                        <h4>Hội An 3N2Đ: Phố cổ & Làng rau Trà Quế</h4>
+                        <p>Khám phá vẻ đẹp cổ kính, lãng mạn của Hội An về đêm.</p>
+                        <span class="tour-price">5.800.000₫</span>
+                        <button class="cta-button open-modal-tour" data-name="Hội An 3N2Đ: Phố cổ">Đặt Ngay</button>
                     </div>
                 </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2025 Travel Explorer. Tất cả quyền được bảo lưu.</p>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1524823223011-f1359c11867c?w=400" alt="Du thuyền Vịnh Hạ Long">
+                    <div class="card-content">
+                        <h4>Du Thuyền 5 Sao Hạ Long 2N1Đ</h4>
+                        <p>Nghỉ dưỡng sang trọng, tham quan hang động và chèo kayak.</p>
+                        <span class="tour-price">7.900.000₫</span>
+                        <button class="cta-button open-modal-tour" data-name="Du Thuyền Vịnh Hạ Long 2N1Đ">Đặt Ngay</button>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1616788349275-c7e6c9861e6c?w=400" alt="Nha Trang 4N3Đ">
+                    <div class="card-content">
+                        <h4>Nha Trang 4N3Đ: 4 Đảo & Vinpearl Land</h4>
+                        <p>Tắm biển, lặn ngắm san hô và khám phá khu vui chơi giải trí.</p>
+                        <span class="tour-price">5.100.000₫</span>
+                        <button class="cta-button open-modal-tour" data-name="Nha Trang 4N3Đ: 4 Đảo">Đặt Ngay</button>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1596547806509-f53e34b7f7e2?w=400" alt="Đà Lạt Mộng Mơ">
+                    <div class="card-content">
+                        <h4>Đà Lạt 3N2Đ: Thành phố ngàn hoa</h4>
+                        <p>Chiêm ngưỡng những thác nước hùng vĩ và vườn hoa rực rỡ.</p>
+                        <span class="tour-price">4.200.000₫</span>
+                        <button class="cta-button open-modal-tour" data-name="Đà Lạt 3N2Đ: Thành phố ngàn hoa">Đặt Ngay</button>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1632839958189-9a7000e4708a?w=400" alt="Phú Quốc Đảo Ngọc">
+                    <div class="card-content">
+                        <h4>Phú Quốc 3N2Đ: Lặn Biển & Cáp Treo</h4>
+                        <p>Tận hưởng bãi biển cát trắng, nắng vàng tại Đảo Ngọc.</p>
+                        <span class="tour-price">6.500.000₫</span>
+                        <button class="cta-button open-modal-tour" data-name="Phú Quốc 3N2Đ: Lặn Biển">Đặt Ngay</button>
+                    </div>
+                </div>
             </div>
         </div>
-    </footer>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        
+        <div class="group" data-group="international">
+            <div class="tour-card-grid">
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1598009228392-563d76e33f37?w=400" alt="Tour Seoul - Nami">
+                    <div class="card-content">
+                        <h4>Hàn Quốc 5N4Đ: Seoul - Đảo Nami</h4>
+                        <p>Khám phá thủ đô Seoul hiện đại, thưởng thức ẩm thực đường phố.</p>
+                        <span class="tour-price">18.900.000₫</span>
+                        <button class="cta-button open-modal-tour" data-name="Hàn Quốc 5N4Đ: Seoul - Nami">Đặt Ngay</button>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1540959733332-eab4de8dae68?w=400" alt="Tour Nhật Bản">
+                    <div class="card-content">
+                        <h4>Nhật Bản 6N5Đ: Tokyo - Núi Phú Sĩ</h4>
+                        <p>Chiêm ngưỡng vẻ đẹp của hoa anh đào/lá đỏ và tàu Shinkansen.</p>
+                        <span class="tour-price">26.500.000₫</span>
+                        <button class="cta-button open-modal-tour" data-name="Nhật Bản 6N5Đ: Tokyo - Phú Sĩ">Đặt Ngay</button>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1587396788574-d4b790d0b00c?w=400" alt="Tour Ấn Độ Taj Mahal">
+                    <div class="card-content">
+                        <h4>Ấn Độ 7N6Đ: Tam giác vàng & Taj Mahal</h4>
+                        <p>Du lịch di sản văn hóa thế giới, chiêm ngưỡng Taj Mahal kỳ vĩ.</p>
+                        <span class="tour-price">20.800.000₫</span>
+                        <button class="cta-button open-modal-tour" data-name="Ấn Độ 7N6Đ: Tam giác vàng">Đặt Ngay</button>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?w=400" alt="Tour Safari Châu Phi">
+                    <div class="card-content">
+                        <h4>Safari Châu Phi 8N7Đ: Kenya & Tanzania</h4>
+                        <p>Trải nghiệm chuyến đi săn khám phá thế giới động vật hoang dã.</p>
+                        <span class="tour-price">45.000.000₫</span>
+                        <button class="cta-button open-modal-tour" data-name="Safari Châu Phi 8N7Đ">Đặt Ngay</button>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1520140228020-80d5b51a56da?w=400" alt="Tour Nga Mùa Đông">
+                    <div class="card-content">
+                        <h4>Nga 9N8Đ: Moscow & St. Petersburg</h4>
+                        <p>Tham quan Quảng trường Đỏ và các công trình lịch sử hùng vĩ.</p>
+                        <span class="tour-price">29.900.000₫</span>
+                        <button class="cta-button open-modal-tour" data-name="Nga 9N8Đ: Moscow & St. Petersburg">Đặt Ngay</button>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1563124578-8314e3b74983?w=400" alt="Tour Trung Quốc Vạn Lý Trường Thành">
+                    <div class="card-content">
+                        <h4>Trung Quốc 5N4Đ: Bắc Kinh & Vạn Lý Trường Thành</h4>
+                        <p>Khám phá Tử Cấm Thành, Thiên An Môn và Vạn Lý Trường Thành.</p>
+                        <span class="tour-price">14.700.000₫</span>
+                        <button class="cta-button open-modal-tour" data-name="Trung Quốc 5N4Đ: Vạn Lý Trường Thành">Đặt Ngay</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="tour-group-section" id="explore-destinations-section">
+    <div class="container">
+        <h2 class="section-title">🌏 Khám Phá Tour Theo Địa Điểm</h2>
+
+        <div class="tabs-nav">
+            <button class="tab-btn active" data-group="domestic">Tour Trong Nước 🇻🇳</button>
+            <button class="tab-btn" data-group="international">Tour Quốc Tế 🌎</button>
+        </div>
+
+        <div class="group active" data-group="domestic">
+            
+            <div class="sub-tab-nav">
+                <button class="sub-tab active" data-loc="sapa">Sapa</button>
+                <button class="sub-tab" data-loc="hoian">Hội An</button>
+                <button class="sub-tab" data-loc="halong">Vịnh Hạ Long</button>
+                <button class="sub-tab" data-loc="nhatrang">Nha Trang</button>
+                <button class="sub-tab" data-loc="dalat">Đà Lạt</button>
+                <button class="sub-tab" data-loc="phuquoc">Phú Quốc</button>
+            </div>
+
+            <div class="loc-content active" data-loc="sapa">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev">❮</button>
+                    <div class="tour-list-horizontal">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1579549303273-51834927b521?w=400" alt="Tour Sapa 3 ngày 2 đêm">
+                        <div class="card-content">
+                            <h4>Sapa 3N2Đ: Khám phá ruộng bậc thang</h4>
+                            <p>Tour du lịch Sapa với trải nghiệm chinh phục đỉnh Fansipan và nghỉ dưỡng tại bản Cát Cát.</p>
+                            <span class="tour-price">4.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Sapa 3N2Đ: Ruộng bậc thang">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1628157796068-d014d5e16542?w=400" alt="Tour Sapa Mùa Đông">
+                        <div class="card-content">
+                            <h4>Sapa 4N3Đ: Săn mây và Tuyết</h4>
+                            <p>Tận hưởng không khí lạnh giá, ngắm sương mù huyền ảo và săn mây trên đỉnh núi cao.</p>
+                            <span class="tour-price">6.200.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Sapa 4N3Đ: Săn mây và Tuyết">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1601758066557-695326577889?w=400" alt="Tour Trekking Sapa">
+                        <div class="card-content">
+                            <h4>Tour Trekking Sapa 2N1Đ</h4>
+                            <p>Chuyến đi bộ mạo hiểm qua các bản làng, hòa mình vào văn hóa người dân tộc thiểu số.</p>
+                            <span class="tour-price">3.100.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Tour Trekking Sapa 2N1Đ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1555546658-dc37c3558f62?w=400" alt="Sapa 5N4Đ: Thăm bản làng">
+                        <div class="card-content">
+                            <h4>Sapa 5N4Đ: Thăm bản Tả Van & Ẩm thực</h4>
+                            <p>Khám phá văn hóa độc đáo, thưởng thức các món ăn đặc sản vùng cao Tây Bắc.</p>
+                            <span class="tour-price">7.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Sapa 5N4Đ: Thăm bản làng">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1616147690623-640a322c368d?w=400" alt="Sapa 3N2Đ: Khách sạn 4 sao">
+                        <div class="card-content">
+                            <h4>Sapa 3N2Đ: Khách sạn 4 sao & Fansipan</h4>
+                            <p>Nghỉ dưỡng sang trọng, kết hợp chinh phục nóc nhà Đông Dương bằng cáp treo hiện đại.</p>
+                            <span class="tour-price">5.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Sapa 3N2Đ: Khách sạn 4 sao">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1596707328116-b19782c57500?w=400" alt="Sapa 2N1Đ: Giá rẻ">
+                        <div class="card-content">
+                            <h4>Sapa 2N1Đ: Giá tiết kiệm từ Hà Nội</h4>
+                            <p>Tour ngắn ngày, phù hợp cho cuối tuần, khám phá các điểm check-in nổi tiếng Sapa.</p>
+                            <span class="tour-price">2.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Sapa 2N1Đ: Giá tiết kiệm">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1627993043813-0972b22646c1?w=400" alt="Sapa 4N3Đ: Thác Bạc">
+                        <div class="card-content">
+                            <h4>Sapa 4N3Đ: Thác Bạc - Cổng Trời</h4>
+                            <p>Khám phá vẻ đẹp hùng vĩ của Thác Bạc và ngắm toàn cảnh Sapa từ Cổng Trời Ô Quy Hồ.</p>
+                            <span class="tour-price">5.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Sapa 4N3Đ: Thác Bạc">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1590409945281-a64af6b3b555?w=400" alt="Sapa 3N2Đ: Nghỉ dưỡng resort">
+                        <div class="card-content">
+                            <h4>Sapa 3N2Đ: Nghỉ dưỡng resort cao cấp</h4>
+                            <p>Trải nghiệm dịch vụ 5 sao, thư giãn tuyệt đối giữa khung cảnh núi rừng Tây Bắc.</p>
+                            <span class="tour-price">8.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Sapa 3N2Đ: Resort cao cấp">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1588667364177-33a755d95d10?w=400" alt="Sapa 5N4Đ: Kết hợp Lai Châu">
+                        <div class="card-content">
+                            <h4>Sapa 5N4Đ: Kết hợp Lai Châu - Điện Biên</h4>
+                            <p>Hành trình khám phá vùng Tây Bắc, tìm hiểu lịch sử và văn hóa các tỉnh lân cận.</p>
+                            <span class="tour-price">9.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Sapa 5N4Đ: Kết hợp Lai Châu">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1616147690623-640a322c368d?w=400" alt="Sapa 2N1Đ: Chợ phiên">
+                        <div class="card-content">
+                            <h4>Sapa 2N1Đ: Trải nghiệm Chợ phiên cuối tuần</h4>
+                            <p>Tham gia chợ phiên rực rỡ sắc màu, giao lưu văn hóa và mua sắm đặc sản địa phương.</p>
+                            <span class="tour-price">3.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Sapa 2N1Đ: Chợ phiên cuối tuần">Đặt Ngay</button>
+                        </div>
+                    </div>
+                     </div>
+                    <button class="arrow next">❯</button>
+                </div>
+            </div>
+
+            <div class="loc-content" data-loc="hoian">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev">❮</button>
+                    <div class="tour-list-horizontal">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1546747124-b17d23d8544a?w=400" alt="Tour Hội An Cổ Kính">
+                        <div class="card-content">
+                            <h4>Hội An 3N2Đ: Phố cổ & Làng rau Trà Quế</h4>
+                            <p>Khám phá vẻ đẹp cổ kính, lãng mạn của Hội An về đêm với thả hoa đăng trên sông Hoài.</p>
+                            <span class="tour-price">5.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hội An 3N2Đ: Phố cổ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1574631333333-8a3070471b05?w=400" alt="Hội An 4N3Đ: Bà Nà Hills">
+                        <div class="card-content">
+                            <h4>Hội An 4N3Đ: Phố cổ - Bà Nà Hills - Cù Lao Chàm</h4>
+                            <p>Trải nghiệm cáp treo Bà Nà Hills, khám phá đảo xanh Cù Lao Chàm, kết hợp phố cổ Hội An.</p>
+                            <span class="tour-price">7.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hội An 4N3Đ: Bà Nà Hills">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1589171736932-d17b5f10648c?w=400" alt="Hội An 2N1Đ: Lớp học nấu ăn">
+                        <div class="card-content">
+                            <h4>Hội An 2N1Đ: Lớp học nấu ăn & Thả hoa đăng</h4>
+                            <p>Tham gia lớp học nấu ăn truyền thống, tự tay làm và thưởng thức món ngon Hội An.</p>
+                            <span class="tour-price">4.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hội An 2N1Đ: Lớp học nấu ăn">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1528164344446-24a9193b2a25?w=400" alt="Hội An 5N4Đ: Đà Nẵng - Huế">
+                        <div class="card-content">
+                            <h4>Hội An 5N4Đ: Đà Nẵng - Hội An - Huế</h4>
+                            <p>Hành trình Tam Giác Di Sản Miền Trung: Đà Nẵng hiện đại, Hội An cổ kính, Huế trầm mặc.</p>
+                            <span class="tour-price">9.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hội An 5N4Đ: Đà Nẵng - Huế">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1596707328116-b19782c57500?w=400" alt="Hội An 3N2Đ: Bãi biển An Bàng">
+                        <div class="card-content">
+                            <h4>Hội An 3N2Đ: Nghỉ dưỡng bãi biển An Bàng</h4>
+                            <p>Tận hưởng bãi biển An Bàng yên bình và ẩm thực địa phương đặc sắc.</p>
+                            <span class="tour-price">6.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hội An 3N2Đ: Bãi biển An Bàng">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1564757529402-45e053f3e69f?w=400" alt="Thánh địa Mỹ Sơn 1 ngày">
+                        <div class="card-content">
+                            <h4>Tour 1 ngày: Thánh địa Mỹ Sơn</h4>
+                            <p>Khám phá di sản văn hóa thế giới, kiến trúc đền tháp Chăm Pa cổ kính.</p>
+                            <span class="tour-price">1.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Thánh địa Mỹ Sơn 1 ngày">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1555546658-dc37c3558f62?w=400" alt="Hội An 4N3Đ: Rừng dừa Bảy Mẫu">
+                        <div class="card-content">
+                            <h4>Hội An 4N3Đ: Khám phá rừng dừa Bảy Mẫu</h4>
+                            <p>Trải nghiệm chèo thuyền thúng, bắt cua và câu cá tại Rừng dừa Bảy Mẫu.</p>
+                            <span class="tour-price">6.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hội An 4N3Đ: Rừng dừa Bảy Mẫu">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1627993043813-0972b22646c1?w=400" alt="Hội An 3N2Đ: Xe đạp">
+                        <div class="card-content">
+                            <h4>Hội An 3N2Đ: Xe đạp quanh phố cổ</h4>
+                            <p>Tour du lịch nhẹ nhàng, đạp xe khám phá cuộc sống thanh bình của người dân địa phương.</p>
+                            <span class="tour-price">5.200.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hội An 3N2Đ: Xe đạp phố cổ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1590409945281-a64af6b3b555?w=400" alt="Hội An 5N4Đ: Chụp ảnh cưới">
+                        <div class="card-content">
+                            <h4>Hội An 5N4Đ: Du lịch chụp ảnh cưới</h4>
+                            <p>Dịch vụ trọn gói chụp ảnh cưới tại các bối cảnh đẹp nhất Hội An và Đà Nẵng.</p>
+                            <span class="tour-price">12.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hội An 5N4Đ: Chụp ảnh cưới">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1555546658-dc37c3558f62?w=400" alt="Hội An 2N1Đ: Homestay">
+                        <div class="card-content">
+                            <h4>Hội An 2N1Đ: Homestay trải nghiệm</h4>
+                            <p>Nghỉ tại homestay truyền thống, gần gũi với người dân địa phương và văn hóa Phố Hội.</p>
+                            <span class="tour-price">3.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hội An 2N1Đ: Homestay">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="arrow next">❯</button>
+                </div>
+            </div>
+
+            <div class="loc-content" data-loc="halong">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev">❮</button>
+                    <div class="tour-list-horizontal">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1524823223011-f1359c11867c?w=400" alt="Du thuyền Vịnh Hạ Long">
+                        <div class="card-content">
+                            <h4>Du Thuyền 5 Sao Vịnh Hạ Long 2N1Đ</h4>
+                            <p>Trải nghiệm nghỉ dưỡng sang trọng trên du thuyền, tham quan hang động và chèo kayak.</p>
+                            <span class="tour-price">7.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Du Thuyền Vịnh Hạ Long 2N1Đ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1555546658-dc37c3558f62?w=400" alt="Du thuyền 4 Sao Hạ Long 3N2Đ">
+                        <div class="card-content">
+                            <h4>Du thuyền 4 Sao Hạ Long 3N2Đ: Vịnh Lan Hạ</h4>
+                            <p>Hành trình sâu vào Vịnh Lan Hạ, khám phá những bãi tắm hoang sơ và ẩm thực đỉnh cao.</p>
+                            <span class="tour-price">9.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Du thuyền 4 Sao Lan Hạ 3N2Đ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1546747124-b17d23d8544a?w=400" alt="Hạ Long 1 ngày: Hang Sửng Sốt">
+                        <div class="card-content">
+                            <h4>Hạ Long 1 ngày: Khám phá hang Sửng Sốt</h4>
+                            <p>Tour trong ngày cho khách đi từ Hà Nội, thăm các đảo nổi tiếng và Hang Sửng Sốt.</p>
+                            <span class="tour-price">2.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hạ Long 1 ngày: Hang Sửng Sốt">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1628157796068-d014d5e16542?w=400" alt="Du thuyền 3 Sao Hạ Long 2N1Đ">
+                        <div class="card-content">
+                            <h4>Du thuyền 3 Sao Hạ Long 2N1Đ: Tiệc Sunset</h4>
+                            <p>Trải nghiệm du thuyền giá phải chăng, ngắm hoàng hôn và tham gia lớp học Tai Chi buổi sáng.</p>
+                            <span class="tour-price">4.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Du thuyền 3 Sao Hạ Long 2N1Đ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1596707328116-b19782c57500?w=400" alt="Hạ Long 4N3Đ: Kết hợp Cát Bà">
+                        <div class="card-content">
+                            <h4>Hạ Long 4N3Đ: Kết hợp Cát Bà</h4>
+                            <p>Khám phá cả Vịnh Hạ Long và Đảo Cát Bà, tận hưởng cảnh đẹp thiên nhiên đa dạng.</p>
+                            <span class="tour-price">8.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hạ Long 4N3Đ: Kết hợp Cát Bà">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1574631333333-8a3070471b05?w=400" alt="Du thuyền Paloma Hạ Long 2N1Đ">
+                        <div class="card-content">
+                            <h4>Du thuyền Paloma Hạ Long 2N1Đ (Luxury)</h4>
+                            <p>Dịch vụ du thuyền sang trọng, khám phá những góc khuất tuyệt đẹp của Vịnh Di sản.</p>
+                            <span class="tour-price">11.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Du thuyền Paloma 2N1Đ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1589171736932-d17b5f10648c?w=400" alt="Tour Kayak và Lặn biển Hạ Long 1 ngày">
+                        <div class="card-content">
+                            <h4>Tour Kayak và Lặn biển Hạ Long 1 ngày</h4>
+                            <p>Trải nghiệm chèo thuyền kayak qua các hòn đảo nhỏ và lặn ngắm san hô tại khu vực Vịnh Bái Tử Long.</p>
+                            <span class="tour-price">3.200.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Kayak và Lặn biển 1 ngày">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1627993043813-0972b22646c1?w=400" alt="Hạ Long 3N2Đ: Du thuyền và nghỉ dưỡng trên đảo">
+                        <div class="card-content">
+                            <h4>Hạ Long 3N2Đ: Du thuyền và nghỉ dưỡng trên đảo</h4>
+                            <p>Kết hợp 1 đêm du thuyền và 1 đêm nghỉ tại resort trên đảo Titop hoặc Tuần Châu.</p>
+                            <span class="tour-price">6.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hạ Long 3N2Đ: Nghỉ dưỡng đảo">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1528164344446-24a9193b2a25?w=400" alt="Hạ Long 2N1Đ: Ngắm bình minh">
+                        <div class="card-content">
+                            <h4>Hạ Long 2N1Đ: Ngắm bình minh trên Vịnh</h4>
+                            <p>Thức dậy sớm để chiêm ngưỡng khung cảnh bình minh tuyệt đẹp trên Vịnh Di sản.</p>
+                            <span class="tour-price">5.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hạ Long 2N1Đ: Ngắm bình minh">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1564757529402-45e053f3e69f?w=400" alt="Tour câu mực đêm Hạ Long 2N1Đ">
+                        <div class="card-content">
+                            <h4>Tour câu mực đêm Hạ Long 2N1Đ</h4>
+                            <p>Trải nghiệm câu mực đêm thú vị, thưởng thức hải sản tươi sống ngay trên du thuyền.</p>
+                            <span class="tour-price">5.200.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Câu mực đêm Hạ Long 2N1Đ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="arrow next">❯</button>
+                </div>
+            </div>
+            
+            <div class="loc-content" data-loc="nhatrang">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev">❮</button>
+                    <div class="tour-list-horizontal">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1616788349275-c7e6c9861e6c?w=400" alt="Nha Trang 4N3Đ">
+                        <div class="card-content">
+                            <h4>Nha Trang 4N3Đ: 4 Đảo & Vinpearl Land</h4>
+                            <p>Tắm biển, lặn ngắm san hô và khám phá các khu vui chơi giải trí hàng đầu tại Nha Trang.</p>
+                            <span class="tour-price">5.100.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nha Trang 4N3Đ: 4 Đảo">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1555546658-dc37c3558f62?w=400" alt="Nha Trang 3N2Đ: Tắm bùn Tháp Bà">
+                        <div class="card-content">
+                            <h4>Nha Trang 3N2Đ: Tắm bùn Tháp Bà & Lặn Hòn Mun</h4>
+                            <p>Thư giãn với dịch vụ tắm bùn khoáng nóng, lặn biển ngắm san hô tại Hòn Mun.</p>
+                            <span class="tour-price">4.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nha Trang 3N2Đ: Tắm bùn">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1596707328116-b19782c57500?w=400" alt="Nha Trang 5N4Đ: Hải sản">
+                        <div class="card-content">
+                            <h4>Nha Trang 5N4Đ: Tour hải sản tươi sống</h4>
+                            <p>Khám phá chợ hải sản địa phương và thưởng thức bữa tiệc tôm hùm, cua, ghẹ.</p>
+                            <span class="tour-price">6.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nha Trang 5N4Đ: Hải sản">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1590409945281-a64af6b3b555?w=400" alt="Nha Trang 4N3Đ: Resort 5 sao">
+                        <div class="card-content">
+                            <h4>Nha Trang 4N3Đ: Resort 5 sao cao cấp</h4>
+                            <p>Nghỉ dưỡng tại các resort ven biển sang trọng, tận hưởng dịch vụ đẳng cấp quốc tế.</p>
+                            <span class="tour-price">8.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nha Trang 4N3Đ: Resort 5 sao">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1574631333333-8a3070471b05?w=400" alt="Đảo Bình Ba 1 ngày">
+                        <div class="card-content">
+                            <h4>Tour 1 ngày: Đảo Bình Ba (Đảo tôm hùm)</h4>
+                            <p>Khám phá vẻ đẹp hoang sơ của Đảo Bình Ba, thưởng thức tôm hùm tươi ngon tại chỗ.</p>
+                            <span class="tour-price">1.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Đảo Bình Ba 1 ngày">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1627993043813-0972b22646c1?w=400" alt="Nha Trang 3N2Đ: Viện Hải Dương Học">
+                        <div class="card-content">
+                            <h4>Nha Trang 3N2Đ: Thăm viện Hải Dương Học</h4>
+                            <p>Tìm hiểu về sự đa dạng sinh học biển, tham quan các mẫu vật quý hiếm tại Viện.</p>
+                            <span class="tour-price">4.200.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nha Trang 3N2Đ: Hải Dương Học">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1528164344446-24a9193b2a25?w=400" alt="Nha Trang 5N4Đ: Kết hợp Đà Lạt">
+                        <div class="card-content">
+                            <h4>Nha Trang 5N4Đ: Kết hợp Đà Lạt (Biển và Hoa)</h4>
+                            <p>Hành trình khám phá cả thành phố biển Nha Trang và thành phố sương mù Đà Lạt.</p>
+                            <span class="tour-price">8.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nha Trang 5N4Đ: Kết hợp Đà Lạt">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1564757529402-45e053f3e69f?w=400" alt="Nha Trang 2N1Đ: Giá tiết kiệm">
+                        <div class="card-content">
+                            <h4>Nha Trang 2N1Đ: Giá tiết kiệm (Tự do khám phá)</h4>
+                            <p>Chuyến đi ngắn, chi phí thấp, phù hợp cho những ai muốn tự do lên lịch trình.</p>
+                            <span class="tour-price">2.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nha Trang 2N1Đ: Tiết kiệm">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1574631333333-8a3070471b05?w=400" alt="Suối khoáng nóng I-resort">
+                        <div class="card-content">
+                            <h4>Tour 1 ngày: Suối khoáng nóng I-resort</h4>
+                            <p>Trải nghiệm thư giãn tuyệt vời tại khu suối khoáng nóng và tắm bùn nổi tiếng.</p>
+                            <span class="tour-price">1.200.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Suối khoáng nóng I-resort">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1564757529402-45e053f3e69f?w=400" alt="Nha Trang 4N3Đ: Chơi Golf">
+                        <div class="card-content">
+                            <h4>Nha Trang 4N3Đ: Chơi Golf và nghỉ dưỡng</h4>
+                            <p>Tour chuyên biệt dành cho người yêu Golf, kết hợp nghỉ dưỡng tại khu resort đẳng cấp.</p>
+                            <span class="tour-price">15.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nha Trang 4N3Đ: Chơi Golf">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="arrow next">❯</button>
+                </div>
+            </div>
+
+            <div class="loc-content" data-loc="dalat">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev">❮</button>
+                    <div class="tour-list-horizontal">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1596547806509-f53e34b7f7e2?w=400" alt="Đà Lạt Mộng Mơ">
+                        <div class="card-content">
+                            <h4>Đà Lạt 3N2Đ: Thành phố ngàn hoa</h4>
+                            <p>Chiêm ngưỡng những thác nước hùng vĩ và vườn hoa rực rỡ, khám phá vẻ đẹp kiến trúc Pháp.</p>
+                            <span class="tour-price">4.200.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Đà Lạt 3N2Đ: Thành phố ngàn hoa">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1528164344446-24a9193b2a25?w=400" alt="Đà Lạt 4N3Đ: Hồ Tuyền Lâm">
+                        <div class="card-content">
+                            <h4>Đà Lạt 4N3Đ: Hồ Tuyền Lâm & Thác Prenn</h4>
+                            <p>Thăm quan Hồ Tuyền Lâm thơ mộng, chinh phục Thác Datanla và Thác Prenn hùng vĩ.</p>
+                            <span class="tour-price">5.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Đà Lạt 4N3Đ: Hồ Tuyền Lâm">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1590409945281-a64af6b3b555?w=400" alt="Đà Lạt 2N1Đ: Săn mây">
+                        <div class="card-content">
+                            <h4>Đà Lạt 2N1Đ: Cà phê check-in săn mây</h4>
+                            <p>Tour ngắn ngày chuyên săn mây tại các quán cà phê view đẹp và đồi chè Cầu Đất.</p>
+                            <span class="tour-price">3.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Đà Lạt 2N1Đ: Săn mây">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1555546658-dc37c3558f62?w=400" alt="Đà Lạt 5N4Đ: Farm dâu tây">
+                        <div class="card-content">
+                            <h4>Đà Lạt 5N4Đ: Khám phá các Farm dâu tây</h4>
+                            <p>Tham quan và tự tay hái dâu tây tại các khu vườn công nghệ cao nổi tiếng.</p>
+                            <span class="tour-price">6.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Đà Lạt 5N4Đ: Farm dâu tây">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1627993043813-0972b22646c1?w=400" alt="Đà Lạt 3N2Đ: Ẩm thực và chợ đêm">
+                        <div class="card-content">
+                            <h4>Đà Lạt 3N2Đ: Du lịch ẩm thực và chợ đêm</h4>
+                            <p>Thưởng thức các món ăn đặc trưng của Đà Lạt như bánh tráng nướng, sữa đậu nành nóng.</p>
+                            <span class="tour-price">4.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Đà Lạt 3N2Đ: Ẩm thực">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1596707328116-b19782c57500?w=400" alt="Đà Lạt 4N3Đ: Làng Cù Lần">
+                        <div class="card-content">
+                            <h4>Đà Lạt 4N3Đ: Dã ngoại cắm trại Làng Cù Lần</h4>
+                            <p>Trải nghiệm cắm trại, team building và khám phá vẻ đẹp lãng mạn của Làng Cù Lần.</p>
+                            <span class="tour-price">5.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Đà Lạt 4N3Đ: Làng Cù Lần">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1574631333333-8a3070471b05?w=400" alt="Đà Lạt 2N1Đ: Canyoning">
+                        <div class="card-content">
+                            <h4>Đà Lạt 2N1Đ: Tour mạo hiểm Canyoning (Leo thác)</h4>
+                            <p>Trải nghiệm cảm giác mạnh với các hoạt động leo thác, đu dây mạo hiểm tại Datanla.</p>
+                            <span class="tour-price">3.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Đà Lạt 2N1Đ: Canyoning">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1564757529402-45e053f3e69f?w=400" alt="Đà Lạt 5N4Đ: Kết hợp Phan Thiết">
+                        <div class="card-content">
+                            <h4>Đà Lạt 5N4Đ: Kết hợp Phan Thiết (Rừng và Biển)</h4>
+                            <p>Hành trình từ cao nguyên mát mẻ đến biển Phan Thiết đầy nắng và gió.</p>
+                            <span class="tour-price">7.200.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Đà Lạt 5N4Đ: Kết hợp Phan Thiết">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1528164344446-24a9193b2a25?w=400" alt="Đà Lạt 3N2Đ: Villa">
+                        <div class="card-content">
+                            <h4>Đà Lạt 3N2Đ: Nghỉ dưỡng Villa biệt lập</h4>
+                            <p>Thích hợp cho gia đình hoặc nhóm bạn, tận hưởng không gian riêng tư và yên tĩnh.</p>
+                            <span class="tour-price">5.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Đà Lạt 3N2Đ: Villa">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1574631333333-8a3070471b05?w=400" alt="Đà Lạt 4N3Đ: Làng hoa">
+                        <div class="card-content">
+                            <h4>Đà Lạt 4N3Đ: Làng hoa Vạn Thành</h4>
+                            <p>Khám phá làng hoa lớn nhất Đà Lạt, chiêm ngưỡng các loài hoa độc đáo và cảnh đẹp.</p>
+                            <span class="tour-price">4.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Đà Lạt 4N3Đ: Làng hoa Vạn Thành">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="arrow next">❯</button>
+                </div>
+            </div>
+            
+            <div class="loc-content" data-loc="phuquoc">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev">❮</button>
+                    <div class="tour-list-horizontal">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1632839958189-9a7000e4708a?w=400" alt="Phú Quốc Đảo Ngọc">
+                        <div class="card-content">
+                            <h4>Phú Quốc 3N2Đ: Lặn Biển & Cáp Treo</h4>
+                            <p>Tận hưởng bãi biển cát trắng, nắng vàng, và trải nghiệm cáp treo vượt biển dài nhất thế giới.</p>
+                            <span class="tour-price">6.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Phú Quốc 3N2Đ: Lặn Biển">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1528164344446-24a9193b2a25?w=400" alt="Phú Quốc 4N3Đ: Nam Đảo & Grand World">
+                        <div class="card-content">
+                            <h4>Phú Quốc 4N3Đ: Nam Đảo & Grand World</h4>
+                            <p>Khám phá Nam Đảo hoang sơ và thưởng thức các show diễn tại "Thành phố không ngủ" Grand World.</p>
+                            <span class="tour-price">7.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Phú Quốc 4N3Đ: Grand World">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1616788349275-c7e6c9861e6c?w=400" alt="Phú Quốc 2N1Đ: Giá tốt">
+                        <div class="card-content">
+                            <h4>Phú Quốc 2N1Đ: Giá tốt, nghỉ Khách sạn 3 sao</h4>
+                            <p>Tour ngắn ngày, giá cả phải chăng, phù hợp cho cặp đôi hoặc du khách muốn tiết kiệm chi phí.</p>
+                            <span class="tour-price">4.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Phú Quốc 2N1Đ: Giá tốt">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1627993043813-0972b22646c1?w=400" alt="Phú Quốc 5N4Đ: Vinpearl Safari">
+                        <div class="card-content">
+                            <h4>Phú Quốc 5N4Đ: Combo Vinpearl Safari & Water Park</h4>
+                            <p>Khám phá thế giới động vật hoang dã tại Safari và vui chơi tại công viên nước hiện đại.</p>
+                            <span class="tour-price">9.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Phú Quốc 5N4Đ: Vinpearl">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1564757529402-45e053f3e69f?w=400" alt="Hòn Móng Tay 1 ngày">
+                        <div class="card-content">
+                            <h4>Tour 1 ngày: Hòn Móng Tay, Gầm Ghì (Hoang sơ)</h4>
+                            <p>Khám phá các hòn đảo phía Nam, bơi lội, lặn ngắm san hô tại những bãi biển tuyệt đẹp.</p>
+                            <span class="tour-price">1.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hòn Móng Tay 1 ngày">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1596707328116-b19782c57500?w=400" alt="Phú Quốc 3N2Đ: Nhà tù">
+                        <div class="card-content">
+                            <h4>Phú Quốc 3N2Đ: Khám phá nhà tù Phú Quốc</h4>
+                            <p>Tour kết hợp tham quan các di tích lịch sử và cảnh đẹp tự nhiên của Đảo Ngọc.</p>
+                            <span class="tour-price">6.200.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Phú Quốc 3N2Đ: Nhà tù">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1590409945281-a64af6b3b555?w=400" alt="Phú Quốc 4N3Đ: Câu mực đêm">
+                        <div class="card-content">
+                            <h4>Phú Quốc 4N3Đ: Câu mực đêm & Tắm biển</h4>
+                            <p>Trải nghiệm thú vị với hoạt động câu mực về đêm, thưởng thức thành quả ngay trên tàu.</p>
+                            <span class="tour-price">7.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Phú Quốc 4N3Đ: Câu mực đêm">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1574631333333-8a3070471b05?w=400" alt="Phú Quốc 5N4Đ: Resort Bãi Khem">
+                        <div class="card-content">
+                            <h4>Phú Quốc 5N4Đ: Resort 5 sao bãi Khem</h4>
+                            <p>Nghỉ dưỡng tại một trong những bãi biển đẹp nhất Phú Quốc với dịch vụ đẳng cấp.</p>
+                            <span class="tour-price">12.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Phú Quốc 5N4Đ: Bãi Khem">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1555546658-dc37c3558f62?w=400" alt="Phú Quốc 2N1Đ: Tiết kiệm">
+                        <div class="card-content">
+                            <h4>Phú Quốc 2N1Đ: Du lịch tiết kiệm (Không bao gồm ăn uống)</h4>
+                            <p>Chỉ bao gồm vé máy bay và khách sạn, phù hợp cho du khách tự túc ăn uống và di chuyển.</p>
+                            <span class="tour-price">3.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Phú Quốc 2N1Đ: Tiết kiệm">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1628157796068-d014d5e16542?w=400" alt="Phú Quốc 3N2Đ: Sunset Sanato">
+                        <div class="card-content">
+                            <h4>Phú Quốc 3N2Đ: Sunset Sanato và chợ đêm</h4>
+                            <p>Check-in tại Sunset Sanato nổi tiếng và khám phá ẩm thực đường phố tại chợ đêm Phú Quốc.</p>
+                            <span class="tour-price">6.100.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Phú Quốc 3N2Đ: Sunset Sanato">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="arrow next">❯</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="group" data-group="international">
+            
+            <div class="sub-tab-nav">
+                <button class="sub-tab active" data-loc="korea">Hàn Quốc</button>
+                <button class="sub-tab" data-loc="japan">Nhật Bản</button>
+                <button class="sub-tab" data-loc="india">Ấn Độ</button>
+                <button class="sub-tab" data-loc="africa">Châu Phi</button>
+                <button class="sub-tab" data-loc="russia">Nga</button>
+                <button class="sub-tab" data-loc="china">Trung Quốc</button>
+            </div>
+
+            <div class="loc-content active" data-loc="korea">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev">❮</button>
+                    <div class="tour-list-horizontal">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1598009228392-563d76e33f37?w=400" alt="Tour Seoul - Nami">
+                        <div class="card-content">
+                            <h4>Hàn Quốc 5N4Đ: Seoul - Đảo Nami</h4>
+                            <p>Khám phá thủ đô Seoul hiện đại, thưởng thức ẩm thực đường phố và ngắm lá vàng/hoa anh đào.</p>
+                            <span class="tour-price">18.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hàn Quốc 5N4Đ: Seoul - Nami">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1528164344446-24a9193b2a25?w=400" alt="Hàn Quốc 6N5Đ: Seoul - Busan">
+                        <div class="card-content">
+                            <h4>Hàn Quốc 6N5Đ: Seoul - Busan (Tàu KTX)</h4>
+                            <p>Trải nghiệm tàu tốc độ cao KTX, khám phá thành phố biển Busan và thủ đô Seoul.</p>
+                            <span class="tour-price">22.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hàn Quốc 6N5Đ: Seoul - Busan">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1596707328116-b19782c57500?w=400" alt="Hàn Quốc 4N3Đ: Đảo Jeju">
+                        <div class="card-content">
+                            <h4>Hàn Quốc 4N3Đ: Đảo Jeju (Hòn đảo tình yêu)</h4>
+                            <p>Khám phá hòn đảo núi lửa xinh đẹp, nơi có nhiều cảnh quay lãng mạn trong phim Hàn.</p>
+                            <span class="tour-price">17.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hàn Quốc 4N3Đ: Đảo Jeju">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1627993043813-0972b22646c1?w=400" alt="Hàn Quốc 7N6Đ: Mùa hoa">
+                        <div class="card-content">
+                            <h4>Hàn Quốc 7N6Đ: Mùa hoa anh đào/lá đỏ</h4>
+                            <p>Hành trình đặc biệt theo mùa, ngắm trọn vẹn vẻ đẹp thiên nhiên lãng mạn của Hàn Quốc.</p>
+                            <span class="tour-price">25.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hàn Quốc 7N6Đ: Mùa hoa">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1574631333333-8a3070471b05?w=400" alt="Hàn Quốc 5N4Đ: Kimchi">
+                        <div class="card-content">
+                            <h4>Hàn Quốc 5N4Đ: Tour trải nghiệm làm Kimchi</h4>
+                            <p>Tham gia lớp học làm Kimchi và mặc Hanbok truyền thống, tìm hiểu văn hóa bản địa.</p>
+                            <span class="tour-price">19.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hàn Quốc 5N4Đ: Kimchi">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1564757529402-45e053f3e69f?w=400" alt="Hàn Quốc 6N5Đ: DMZ">
+                        <div class="card-content">
+                            <h4>Hàn Quốc 6N5Đ: Tham quan DMZ (Khu phi quân sự)</h4>
+                            <p>Tour khám phá khu vực biên giới lịch sử, mang lại trải nghiệm độc đáo và sâu sắc.</p>
+                            <span class="tour-price">21.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hàn Quốc 6N5Đ: DMZ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1555546658-dc37c3558f62?w=400" alt="Hàn Quốc 4N3Đ: Giá rẻ">
+                        <div class="card-content">
+                            <h4>Hàn Quốc 4N3Đ: Giá siêu tiết kiệm</h4>
+                            <p>Chuyến đi ngắn, chi phí thấp, khởi hành hàng tuần từ Hà Nội và TP.HCM.</p>
+                            <span class="tour-price">15.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hàn Quốc 4N3Đ: Giá rẻ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1590409945281-a64af6b3b555?w=400" alt="Hàn Quốc 8N7Đ: Cung điện">
+                        <div class="card-content">
+                            <h4>Hàn Quốc 8N7Đ: Khám phá các cung điện cổ</h4>
+                            <p>Dành cho người yêu lịch sử, khám phá Cung Gyeongbokgung, Changdeokgung và Làng Hanok.</p>
+                            <span class="tour-price">26.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hàn Quốc 8N7Đ: Cung điện">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1598009228392-563d76e33f37?w=400" alt="Hàn Quốc 5N4Đ: Mua sắm">
+                        <div class="card-content">
+                            <h4>Hàn Quốc 5N4Đ: Kết hợp du lịch mua sắm</h4>
+                            <p>Tham quan các khu mua sắm sầm uất như Myeongdong, Gangnam và Dongdaemun.</p>
+                            <span class="tour-price">19.200.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hàn Quốc 5N4Đ: Mua sắm">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1528164344446-24a9193b2a25?w=400" alt="Hàn Quốc 6N5Đ: Lễ hội ẩm thực">
+                        <div class="card-content">
+                            <h4>Hàn Quốc 6N5Đ: Tour lễ hội ẩm thực địa phương</h4>
+                            <p>Trải nghiệm các món ăn truyền thống tại các chợ địa phương và tham gia lễ hội theo mùa.</p>
+                            <span class="tour-price">21.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Hàn Quốc 6N5Đ: Lễ hội ẩm thực">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="arrow next">❯</button>
+                </div>
+            </div>
+
+            <div class="loc-content" data-loc="japan">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev">❮</button>
+                    <div class="tour-list-horizontal">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1540959733332-eab4de8dae68?w=400" alt="Tour Nhật Bản">
+                        <div class="card-content">
+                            <h4>Nhật Bản 6N5Đ: Tokyo - Núi Phú Sĩ</h4>
+                            <p>Chiêm ngưỡng vẻ đẹp của hoa anh đào/lá đỏ và trải nghiệm tàu Shinkansen tốc độ cao.</p>
+                            <span class="tour-price">26.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nhật Bản 6N5Đ: Tokyo - Phú Sĩ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1588667364177-33a755d95d10?w=400" alt="Nhật Bản 7N6Đ: Osaka - Kyoto">
+                        <div class="card-content">
+                            <h4>Nhật Bản 7N6Đ: Osaka - Kyoto - Nara (Cố đô)</h4>
+                            <p>Khám phá các thành phố cổ với đền thờ truyền thống và cảnh quan lịch sử phong phú.</p>
+                            <span class="tour-price">31.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nhật Bản 7N6Đ: Osaka - Kyoto">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1596707328116-b19782c57500?w=400" alt="Nhật Bản 5N4Đ: Tokyo - Hakone">
+                        <div class="card-content">
+                            <h4>Nhật Bản 5N4Đ: Tokyo - Hakone (Hồ Ashi)</h4>
+                            <p>Kết hợp giữa thủ đô sầm uất và khu nghỉ dưỡng thiên nhiên Hakone thanh bình.</p>
+                            <span class="tour-price">24.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nhật Bản 5N4Đ: Tokyo - Hakone">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1628157796068-d014d5e16542?w=400" alt="Nhật Bản 8N7Đ: Hoa anh đào">
+                        <div class="card-content">
+                            <h4>Nhật Bản 8N7Đ: Mùa hoa anh đào xuyên quốc gia</h4>
+                            <p>Tour du lịch đặc biệt vào mùa xuân, ngắm hoa anh đào tại nhiều vùng miền khác nhau.</p>
+                            <span class="tour-price">35.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nhật Bản 8N7Đ: Hoa anh đào">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1564757529402-45e053f3e69f?w=400" alt="Nhật Bản 6N5Đ: Ẩm thực">
+                        <div class="card-content">
+                            <h4>Nhật Bản 6N5Đ: Tour ẩm thực địa phương</h4>
+                            <p>Khám phá ẩm thực phong phú của Nhật Bản, từ Sushi, Ramen đến các món ăn đường phố.</p>
+                            <span class="tour-price">28.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nhật Bản 6N5Đ: Ẩm thực">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1590409945281-a64af6b3b555?w=400" alt="Nhật Bản 4N3Đ: Giá rẻ">
+                        <div class="card-content">
+                            <h4>Nhật Bản 4N3Đ: Giá siêu tiết kiệm</h4>
+                            <p>Tour ngắn ngày, giá tốt, tập trung khám phá các điểm nổi bật tại một thành phố lớn.</p>
+                            <span class="tour-price">19.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nhật Bản 4N3Đ: Giá rẻ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1524823223011-f1359c11867c?w=400" alt="Nhật Bản 9N8Đ: Shinkansen">
+                        <div class="card-content">
+                            <h4>Nhật Bản 9N8Đ: Du lịch bằng tàu Shinkansen</h4>
+                            <p>Hành trình dài ngày, trải nghiệm toàn bộ hệ thống tàu cao tốc nổi tiếng của Nhật Bản.</p>
+                            <span class="tour-price">39.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nhật Bản 9N8Đ: Shinkansen">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1520140228020-80d5b51a56da?w=400" alt="Nhật Bản 7N6Đ: Onsen">
+                        <div class="card-content">
+                            <h4>Nhật Bản 7N6Đ: Kết hợp tắm Onsen truyền thống</h4>
+                            <p>Nghỉ dưỡng tại Ryokan truyền thống và thư giãn với suối nước nóng Onsen nổi tiếng.</p>
+                            <span class="tour-price">32.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nhật Bản 7N6Đ: Onsen">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?w=400" alt="Nhật Bản 5N4Đ: Hokkaido">
+                        <div class="card-content">
+                            <h4>Nhật Bản 5N4Đ: Khám phá Hokkaido (Mùa đông)</h4>
+                            <p>Tour mùa đông, ngắm tuyết rơi, tham gia lễ hội tuyết và thưởng thức hải sản tươi ngon.</p>
+                            <span class="tour-price">28.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nhật Bản 5N4Đ: Hokkaido">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1598009228392-563d76e33f37?w=400" alt="Nhật Bản 6N5Đ: Shirakawago">
+                        <div class="card-content">
+                            <h4>Nhật Bản 6N5Đ: Tham quan Làng cổ Shirakawago</h4>
+                            <p>Khám phá ngôi làng cổ tích với kiến trúc Gassho-zukuri độc đáo, di sản thế giới UNESCO.</p>
+                            <span class="tour-price">30.200.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nhật Bản 6N5Đ: Shirakawago">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="arrow next">❯</button>
+                </div>
+            </div>
+
+            <div class="loc-content" data-loc="india">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev">❮</button>
+                    <div class="tour-list-horizontal">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1587396788574-d4b790d0b00c?w=400" alt="Tour Ấn Độ Taj Mahal">
+                        <div class="card-content">
+                            <h4>Ấn Độ 7N6Đ: Tam giác vàng & Taj Mahal</h4>
+                            <p>Du lịch di sản văn hóa thế giới, chiêm ngưỡng công trình kiến trúc kỳ vĩ Taj Mahal.</p>
+                            <span class="tour-price">20.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Ấn Độ 7N6Đ: Tam giác vàng">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1596707328116-b19782c57500?w=400" alt="Ấn Độ 8N7Đ: Bồ Đề Đạo Tràng">
+                        <div class="card-content">
+                            <h4>Ấn Độ 8N7Đ: Du lịch tâm linh Bồ Đề Đạo Tràng</h4>
+                            <p>Hành trình về đất Phật, chiêm bái các thánh tích quan trọng của Phật giáo.</p>
+                            <span class="tour-price">24.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Ấn Độ 8N7Đ: Bồ Đề Đạo Tràng">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1555546658-dc37c3558f62?w=400" alt="Ấn Độ 6N5Đ: Delhi - Jaipur">
+                        <div class="card-content">
+                            <h4>Ấn Độ 6N5Đ: Delhi - Jaipur - Agra (Cung điện và Pháo đài)</h4>
+                            <p>Khám phá các thành phố mang đậm nét lịch sử, kiến trúc cổ đại và văn hóa rực rỡ.</p>
+                            <span class="tour-price">18.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Ấn Độ 6N5Đ: Delhi - Jaipur">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1627993043813-0972b22646c1?w=400" alt="Ấn Độ 9N8Đ: Varanasi">
+                        <div class="card-content">
+                            <h4>Ấn Độ 9N8Đ: Khám phá Varanasi (Thành phố cổ)</h4>
+                            <p>Du lịch tâm linh, chứng kiến các nghi thức truyền thống trên bờ sông Hằng linh thiêng.</p>
+                            <span class="tour-price">27.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Ấn Độ 9N8Đ: Varanasi">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1574631333333-8a3070471b05?w=400" alt="Ấn Độ 5N4Đ: Giá siêu ưu đãi">
+                        <div class="card-content">
+                            <h4>Ấn Độ 5N4Đ: Giá siêu ưu đãi (Chỉ tham quan Delhi)</h4>
+                            <p>Tour ngắn ngày, giá tốt, khám phá thủ đô Delhi với các di tích lịch sử và chợ địa phương.</p>
+                            <span class="tour-price">14.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Ấn Độ 5N4Đ: Giá siêu ưu đãi">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1564757529402-45e053f3e69f?w=400" alt="Ấn Độ 7N6Đ: Rajasthan">
+                        <div class="card-content">
+                            <h4>Ấn Độ 7N6Đ: Du lịch Rajasthan (Vùng đất của các vị vua)</h4>
+                            <p>Khám phá các cung điện, pháo đài rực rỡ và nền văn hóa giàu màu sắc của Rajasthan.</p>
+                            <span class="tour-price">22.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Ấn Độ 7N6Đ: Rajasthan">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1528164344446-24a9193b2a25?w=400" alt="Ấn Độ 10N9Đ: Nepal">
+                        <div class="card-content">
+                            <h4>Ấn Độ 10N9Đ: Tour xuyên quốc gia Nepal (Núi Himalaya)</h4>
+                            <p>Kết hợp khám phá Ấn Độ và trải nghiệm vẻ đẹp hùng vĩ của dãy Himalaya tại Nepal.</p>
+                            <span class="tour-price">35.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Ấn Độ 10N9Đ: Nepal">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1598009228392-563d76e33f37?w=400" alt="Ấn Độ 6N5Đ: Ajanta">
+                        <div class="card-content">
+                            <h4>Ấn Độ 6N5Đ: Khám phá hang động Ajanta</h4>
+                            <p>Tham quan quần thể hang động Phật giáo cổ đại với những bức bích họa tuyệt đẹp.</p>
+                            <span class="tour-price">20.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Ấn Độ 6N5Đ: Ajanta">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1520140228020-80d5b51a56da?w=400" alt="Ấn Độ 8N7Đ: Chụp ảnh">
+                        <div class="card-content">
+                            <h4>Ấn Độ 8N7Đ: Kết hợp du lịch chụp ảnh nghệ thuật</h4>
+                            <p>Tour được thiết kế riêng cho nhiếp ảnh gia, ghé thăm các địa điểm có cảnh quan độc đáo.</p>
+                            <span class="tour-price">28.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Ấn Độ 8N7Đ: Chụp ảnh">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1540959733332-eab4de8dae68?w=400" alt="Ấn Độ 5N4Đ: Lễ hội Holi">
+                        <div class="card-content">
+                            <h4>Ấn Độ 5N4Đ: Lễ hội Holi (Tour đặc biệt)</h4>
+                            <p>Trải nghiệm lễ hội sắc màu Holi truyền thống, ngập tràn trong không khí vui tươi, phấn khởi.</p>
+                            <span class="tour-price">18.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Ấn Độ 5N4Đ: Lễ hội Holi">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="arrow next">❯</button>
+                </div>
+            </div>
+            
+            <div class="loc-content" data-loc="africa">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev">❮</button>
+                    <div class="tour-list-horizontal">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?w=400" alt="Tour Safari Châu Phi">
+                        <div class="card-content">
+                            <h4>Safari Châu Phi 8N7Đ: Kenya & Tanzania</h4>
+                            <p>Trải nghiệm chuyến đi săn khám phá thế giới động vật hoang dã tại Masai Mara và Serengeti.</p>
+                            <span class="tour-price">45.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Safari Châu Phi 8N7Đ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1555546658-dc37c3558f62?w=400" alt="Nam Phi 9N8Đ: Cape Town">
+                        <div class="card-content">
+                            <h4>Nam Phi 9N8Đ: Cape Town - Johannesburg</h4>
+                            <p>Khám phá Núi Bàn, Mũi Hảo Vọng và các khu bảo tồn thiên nhiên nổi tiếng của Nam Phi.</p>
+                            <span class="tour-price">39.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nam Phi 9N8Đ: Cape Town">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1627993043813-0972b22646c1?w=400" alt="Morocco 7N6Đ: Sahara">
+                        <div class="card-content">
+                            <h4>Morocco 7N6Đ: Khám phá sa mạc Sahara</h4>
+                            <p>Trải nghiệm cưỡi lạc đà, ngủ lều giữa sa mạc và khám phá các thành phố cổ Ma-rốc.</p>
+                            <span class="tour-price">35.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Morocco 7N6Đ: Sahara">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1589171736932-d17b5f10648c?w=400" alt="Ai Cập 8N7Đ: Kim Tự Tháp">
+                        <div class="card-content">
+                            <h4>Ai Cập 8N7Đ: Kim Tự Tháp & Du thuyền sông Nile</h4>
+                            <p>Khám phá các kỳ quan cổ đại, các đền thờ và tận hưởng du thuyền trên sông Nile huyền thoại.</p>
+                            <span class="tour-price">37.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Ai Cập 8N7Đ: Kim Tự Tháp">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1590409945281-a64af6b3b555?w=400" alt="Safari Kenya 5N4Đ: Di cư">
+                        <div class="card-content">
+                            <h4>Safari Kenya 5N4Đ: Xem cuộc di cư vĩ đại</h4>
+                            <p>Tour chuyên đề vào mùa di cư, chiêm ngưỡng hàng triệu động vật di chuyển trên thảo nguyên.</p>
+                            <span class="tour-price">42.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Safari Kenya 5N4Đ: Di cư">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1564757529402-45e053f3e69f?w=400" alt="Madagascar 10N9Đ">
+                        <div class="card-content">
+                            <h4>Madagascar 10N9Đ: Đảo quốc đa dạng sinh học</h4>
+                            <p>Khám phá hệ sinh thái độc đáo, các loài vượn cáo và cảnh quan thiên nhiên kỳ thú.</p>
+                            <span class="tour-price">48.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Madagascar 10N9Đ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1528164344446-24a9193b2a25?w=400" alt="Châu Phi 12N11Đ: 4 nước Đông Phi">
+                        <div class="card-content">
+                            <h4>Tour 12N11Đ: Khám phá 4 nước Đông Phi</h4>
+                            <p>Hành trình dài ngày, thăm Kenya, Tanzania, Uganda và Rwanda với nhiều trải nghiệm khác nhau.</p>
+                            <span class="tour-price">65.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Châu Phi 12N11Đ: 4 nước">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1616788349275-c7e6c9861e6c?w=400" alt="Châu Phi 6N5Đ: Giá tiết kiệm">
+                        <div class="card-content">
+                            <h4>Châu Phi 6N5Đ: Giá tiết kiệm (Chỉ Nam Phi)</h4>
+                            <p>Tour ngắn và giá phải chăng, tập trung vào các điểm du lịch chính tại Nam Phi.</p>
+                            <span class="tour-price">32.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Châu Phi 6N5Đ: Giá tiết kiệm">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1574631333333-8a3070471b05?w=400" alt="Leo núi Kilimanjaro">
+                        <div class="card-content">
+                            <h4>Tour Leo núi Kilimanjaro 7 ngày</h4>
+                            <p>Hành trình thử thách chinh phục đỉnh núi cao nhất Châu Phi (Yêu cầu thể lực tốt).</p>
+                            <span class="tour-price">55.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Leo núi Kilimanjaro 7 ngày">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1563124578-8314e3b74983?w=400" alt="Safari Tanzania 8N7Đ">
+                        <div class="card-content">
+                            <h4>Safari Tanzania 8N7Đ: Công viên Serengeti</h4>
+                            <p>Tập trung khám phá Công viên Quốc gia Serengeti, nơi có mật độ động vật hoang dã cao nhất.</p>
+                            <span class="tour-price">48.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Safari Tanzania 8N7Đ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="arrow next">❯</button>
+                </div>
+            </div>
+            
+            <div class="loc-content" data-loc="russia">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev">❮</button>
+                    <div class="tour-list-horizontal">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1520140228020-80d5b51a56da?w=400" alt="Tour Nga Mùa Đông">
+                        <div class="card-content">
+                            <h4>Nga 9N8Đ: Moscow & St. Petersburg</h4>
+                            <p>Tham quan Quảng trường Đỏ, Điện Kremlin và các công trình lịch sử hùng vĩ của nước Nga.</p>
+                            <span class="tour-price">29.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nga 9N8Đ: Moscow & St. Petersburg">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1598009228392-563d76e33f37?w=400" alt="Nga 7N6Đ: Mùa Bạch Dạ">
+                        <div class="card-content">
+                            <h4>Nga 7N6Đ: Mùa Bạch Dạ (Kỳ nghỉ hè)</h4>
+                            <p>Trải nghiệm hiện tượng đêm trắng độc đáo tại St. Petersburg vào mùa hè.</p>
+                            <span class="tour-price">28.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nga 7N6Đ: Mùa Bạch Dạ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1540959733332-eab4de8dae68?w=400" alt="Nga 10N9Đ: Đường sắt xuyên Siberia">
+                        <div class="card-content">
+                            <h4>Nga 10N9Đ: Hành trình đường sắt xuyên Siberia</h4>
+                            <p>Tour phiêu lưu qua miền đất Siberia huyền thoại, trải nghiệm đường sắt dài nhất thế giới.</p>
+                            <span class="tour-price">45.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nga 10N9Đ: Xuyên Siberia">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1564757529402-45e053f3e69f?w=400" alt="Nga 5N4Đ: Giá ưu đãi">
+                        <div class="card-content">
+                            <h4>Nga 5N4Đ: Giá ưu đãi (Chỉ Moscow)</h4>
+                            <p>Tour ngắn ngày, tập trung khám phá các điểm nổi bật của thủ đô Moscow với chi phí phải chăng.</p>
+                            <span class="tour-price">23.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nga 5N4Đ: Giá ưu đãi">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1596707328116-b19782c57500?w=400" alt="Nga 8N7Đ: Vành đai vàng">
+                        <div class="card-content">
+                            <h4>Nga 8N7Đ: Tour khám phá Vành đai vàng</h4>
+                            <p>Thăm các thành phố cổ kính xung quanh Moscow, nơi lưu giữ lịch sử và văn hóa Nga.</p>
+                            <span class="tour-price">33.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nga 8N7Đ: Vành đai vàng">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1528164344446-24a9193b2a25?w=400" alt="Nga 12N11Đ: Kết hợp Bắc Âu">
+                        <div class="card-content">
+                            <h4>Nga 12N11Đ: Kết hợp Du lịch Bắc Âu</h4>
+                            <p>Hành trình khám phá các thành phố lớn của Nga, Phần Lan, Thụy Điển và Na Uy.</p>
+                            <span class="tour-price">65.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nga 12N11Đ: Kết hợp Bắc Âu">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1627993043813-0972b22646c1?w=400" alt="Nga 6N5Đ: Hồ Baikal">
+                        <div class="card-content">
+                            <h4>Nga 6N5Đ: Hồ Baikal (Mùa đông - Đi bộ trên băng)</h4>
+                            <p>Trải nghiệm vẻ đẹp hoang sơ của Hồ Baikal, hồ nước ngọt lớn nhất thế giới, vào mùa băng giá.</p>
+                            <span class="tour-price">31.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nga 6N5Đ: Hồ Baikal">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1574631333333-8a3070471b05?w=400" alt="Nga 9N8Đ: Hermitage">
+                        <div class="card-content">
+                            <h4>Nga 9N8Đ: Khám phá bảo tàng Hermitage</h4>
+                            <p>Dành cho người yêu nghệ thuật, dành thời gian tham quan các bảo tàng lớn và nhà hát.</p>
+                            <span class="tour-price">30.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nga 9N8Đ: Hermitage">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1588667364177-33a755d95d10?w=400" alt="Nga 7N6Đ: Sông Volga">
+                        <div class="card-content">
+                            <h4>Nga 7N6Đ: Trải nghiệm du thuyền trên sông Volga</h4>
+                            <p>Thư giãn với du thuyền, ngắm nhìn cảnh quan hai bên bờ sông và các thành phố ven sông.</p>
+                            <span class="tour-price">34.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nga 7N6Đ: Sông Volga">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1534067783941-51c9c23ecefd?w=400" alt="Nga 10N9Đ: Lá đỏ">
+                        <div class="card-content">
+                            <h4>Nga 10N9Đ: Mùa lá đỏ tại St. Petersburg</h4>
+                            <p>Tour đặc biệt vào mùa thu, chiêm ngưỡng cảnh đẹp lãng mạn của những khu vườn và công viên.</p>
+                            <span class="tour-price">32.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Nga 10N9Đ: Mùa lá đỏ">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="arrow next">❯</button>
+                </div>
+            </div>
+            
+            <div class="loc-content" data-loc="china">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev">❮</button>
+                    <div class="tour-list-horizontal">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1563124578-8314e3b74983?w=400" alt="Tour Trung Quốc Vạn Lý Trường Thành">
+                        <div class="card-content">
+                            <h4>Trung Quốc 5N4Đ: Bắc Kinh & Vạn Lý Trường Thành</h4>
+                            <p>Du lịch khám phá Tử Cấm Thành, Thiên An Môn và chiêm ngưỡng Vạn Lý Trường Thành.</p>
+                            <span class="tour-price">14.700.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Trung Quốc 5N4Đ: Vạn Lý Trường Thành">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1546747124-b17d23d8544a?w=400" alt="Trung Quốc 6N5Đ: Thượng Hải - Hàng Châu">
+                        <div class="card-content">
+                            <h4>Trung Quốc 6N5Đ: Thượng Hải - Hàng Châu - Tô Châu</h4>
+                            <p>Khám phá tam giác vàng kinh tế, thưởng thức vẻ đẹp cổ kính và hiện đại của miền Đông Trung Quốc.</p>
+                            <span class="tour-price">17.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Trung Quốc 6N5Đ: Thượng Hải">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1579549303273-51834927b521?w=400" alt="Trung Quốc 4N3Đ: Quảng Châu">
+                        <div class="card-content">
+                            <h4>Trung Quốc 4N3Đ: Tour giá rẻ Quảng Châu - Thâm Quyến</h4>
+                            <p>Tour mua sắm và khám phá hai trung tâm kinh tế lớn của miền Nam Trung Quốc.</p>
+                            <span class="tour-price">10.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Trung Quốc 4N3Đ: Quảng Châu">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1632839958189-9a7000e4708a?w=400" alt="Trung Quốc 7N6Đ: Lệ Giang">
+                        <div class="card-content">
+                            <h4>Trung Quốc 7N6Đ: Lệ Giang - Shangri-La (Vân Nam)</h4>
+                            <p>Hành trình khám phá vùng đất huyền bí, với thành cổ Lệ Giang và núi tuyết Ngọc Long.</p>
+                            <span class="tour-price">22.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Trung Quốc 7N6Đ: Lệ Giang">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1616788349275-c7e6c9861e6c?w=400" alt="Trung Quốc 8N7Đ: Cửu Trại Câu">
+                        <div class="card-content">
+                            <h4>Trung Quốc 8N7Đ: Tour Cửu Trại Câu (Mùa thu)</h4>
+                            <p>Chiêm ngưỡng vẻ đẹp thiên đường của hồ nước ngũ sắc và phong cảnh núi non hùng vĩ.</p>
+                            <span class="tour-price">25.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Trung Quốc 8N7Đ: Cửu Trại Câu">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1596707328116-b19782c57500?w=400" alt="Trung Quốc 5N4Đ: Ẩm thực Tứ Xuyên">
+                        <div class="card-content">
+                            <h4>Trung Quốc 5N4Đ: Trải nghiệm ẩm thực Tứ Xuyên</h4>
+                            <p>Dành cho tín đồ ẩm thực, khám phá các món ăn cay nồng và đặc sắc của Tứ Xuyên.</p>
+                            <span class="tour-price">15.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Trung Quốc 5N4Đ: Ẩm thực Tứ Xuyên">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1590409945281-a64af6b3b555?w=400" alt="Trung Quốc 9N8Đ: Tây Tạng">
+                        <div class="card-content">
+                            <h4>Trung Quốc 9N8Đ: Hành trình đến Tây Tạng (Cung điện Potala)</h4>
+                            <p>Tour du lịch vùng đất thánh, khám phá văn hóa Phật giáo Tây Tạng độc đáo.</p>
+                            <span class="tour-price">35.000.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Trung Quốc 9N8Đ: Tây Tạng">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1574631333333-8a3070471b05?w=400" alt="Trung Quốc 6N5Đ: Hoàng Sơn">
+                        <div class="card-content">
+                            <h4>Trung Quốc 6N5Đ: Ngắm núi Hoàng Sơn (Núi non kỳ vĩ)</h4>
+                            <p>Khám phá ngọn núi nổi tiếng với cảnh mây mù và tùng cổ thụ, Di sản UNESCO.</p>
+                            <span class="tour-price">18.900.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Trung Quốc 6N5Đ: Hoàng Sơn">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1528164344446-24a9193b2a25?w=400" alt="Trung Quốc 4N3Đ: Thâm Quyến">
+                        <div class="card-content">
+                            <h4>Trung Quốc 4N3Đ: Tour công nghệ Thâm Quyến - Hong Kong</h4>
+                            <p>Khám phá thành phố công nghệ cao và kết hợp du lịch mua sắm tại Hong Kong.</p>
+                            <span class="tour-price">16.500.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Trung Quốc 4N3Đ: Thâm Quyến">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1555546658-dc37c3558f62?w=400" alt="Trung Quốc 7N6Đ: Trùng Khánh - Thành Đô">
+                        <div class="card-content">
+                            <h4>Trung Quốc 7N6Đ: Trùng Khánh - Thành Đô (Gấu Trúc)</h4>
+                            <p>Khám phá đô thị trên sông Trùng Khánh và thăm Khu bảo tồn Gấu Trúc tại Thành Đô.</p>
+                            <span class="tour-price">20.800.000₫</span>
+                            <button class="cta-button open-modal-tour" data-name="Trung Quốc 7N6Đ: Trùng Khánh">Đặt Ngay</button>
+                        </div>
+                    </div>
+                    </div>
+                    <button class="arrow next">❯</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<!-- MODAL ĐẶT TOUR -->
+<div id="tourModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div class="modal-header">
+            <h3>ĐẶT TOUR: <span id="modalTourName"></span></h3>
+        </div>
+        <div class="modal-body">
+            <form id="bookingForm">
+                <input type="hidden" id="tName">
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Họ và tên <span class="required">*</span></label>
+                        <input type="text" id="fullName" required placeholder="Nguyễn Văn A">
+                    </div>
+                    <div class="input-group">
+                        <label>Số điện thoại <span class="required">*</span></label>
+                        <input type="tel" id="phone" required placeholder="0901234567">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" id="email" required placeholder="example@gmail.com">
+                    </div>
+                    <div class="input-group">
+                        <label>Ngày khởi hành mong muốn <span class="required">*</span></label>
+                        <input type="date" id="departDate" required>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Số người lớn <span class="required">*</span></label>
+                        <input type="number" id="adults" value="1" min="1" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Số trẻ em (2-11 tuổi)</label>
+                        <input type="number" id="children" value="0" min="0">
+                    </div>
+                </div>
+
+                <div class="input-group full-width">
+                    <label>Yêu cầu thêm (không bắt buộc)</label>
+                    <textarea id="notes" rows="3" placeholder="Ví dụ: Phòng view biển, ăn chay, cần xe đưa đón sân bay..."></textarea>
+                </div>
+
+                <div class="modal-agree">
+                    <label>
+                        <input type="checkbox" id="agree" required>
+                        Tôi đồng ý với <a href="#" style="color:#4361ee; text-decoration:underline;">điều khoản đặt tour</a>
+                        <span class="required">*</span>
+                    </label>
+                </div>
+
+                <button type="submit" class="submit-btn">GỬI YÊU CẦU ĐẶT TOUR</button>
+            </form>
+
+            <p id="bookingMessage" class="booking-message"></p>
+        </div>
+    </div>
+</div>
+<section class="contact-tour-section">
+    <div class="container contact-tour-content">
+        <div class="contact-info">
+            <h2>CẦN TƯ VẤN TOUR RIÊNG?</h2>
+            <p>Hãy để lại thông tin, chuyên viên du lịch của chúng tôi sẽ liên hệ lại với bạn trong vòng 30 phút để thiết kế hành trình hoàn hảo cho bạn.</p>
+            <ul>
+                <li><i class="fas fa-phone"></i> **Hotline:** 1900 6789</li>
+                <li><i class="fas fa-envelope"></i> **Email:** support@travelexplorer.com</li>
+                <li><i class="fas fa-map-marker-alt"></i> **Văn phòng:** 123 Đường Du Lịch, Quận 1, TP. HCM</li>
+            </ul>
+        </div>
+        <div class="contact-form-wrapper">
+            <h3>Gửi Yêu Cầu Tư Vấn</h3>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="cName">Họ và Tên (*)</label>
+                    <input type="text" id="cName" name="cName" required>
+                </div>
+                <div class="form-group">
+                    <label for="cEmail">Email (*)</label>
+                    <input type="email" id="cEmail" name="cEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="cPhone">Số Điện Thoại (*)</label>
+                    <input type="tel" id="cPhone" name="cPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="cDestination">Điểm Đến Yêu Thích</label>
+                    <input type="text" id="cDestination" name="cDestination" placeholder="Ví dụ: Phú Quốc, Châu Âu...">
+                </div>
+                <div class="form-group">
+                    <label for="cMessage">Nội Dung Yêu Cầu</label>
+                    <textarea id="cMessage" name="cMessage" rows="4" placeholder="Bạn muốn đi bao nhiêu người? Thời gian nào?"></textarea>
+                </div>
+                <button type="submit" class="cta-button">Gửi Yêu Cầu</button>
+            </form>
+            <p id="formMessage" style="text-align: center; margin-top: 15px; display: none; color: var(--main-color); font-weight: bold;"></p>
+        </div>
+    </div>
+</section>
 
 <script>
-    $(document).ready(function() {
-        $('.hamburger-menu').click(function() {
-            $('.nav-menu').toggleClass('active');
-        });
-
-        $('.nav-link').click(function() {
-            if ($('.nav-menu').hasClass('active')) {
-                $('.nav-menu').removeClass('active');
-            }
-        });
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formMessage = document.getElementById('formMessage');
+        formMessage.style.display = 'block';
+        formMessage.style.color = 'green';
+        formMessage.textContent = 'Yêu cầu của bạn đã được gửi thành công! Chúng tôi sẽ liên hệ lại sớm nhất.';
+        
+        this.reset(); 
+        
+        setTimeout(() => {
+            formMessage.style.display = 'none';
+        }, 5000);
     });
 </script>
-</body>
 
+<footer class="footer">
+    <div class="container footer-content">
+        <div class="footer-section">
+            <h3>Travel Explorer</h3>
+            <p>Khám phá thế giới, trải nghiệm tuyệt vời.</p>
+            <p><i class="fas fa-map-marker-alt"></i> 123 Đường ABC, Quận 1, TP.HCM</p>
+            <p><i class="fas fa-phone"></i> (84) 123 456 789</p>
+            <p><i class="fas fa-envelope"></i> contact@travelexplorer.vn</p>
+        </div>
+        <div class="footer-section">
+            <h3>Liên Kết Nhanh</h3>
+            <a href="tour.html">Tour Du Lịch</a>
+            <a href="hotel.html">Khách Sạn</a>
+            <a href="flight.html">Vé Máy Bay</a>
+            <a href="#">Chính Sách Bảo Mật</a>
+        </div>
+        <div class="footer-section">
+            <h3>Theo Dõi Chúng Tôi</h3>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">© 2025 Travel Explorer. All rights reserved.</div>
+</footer>
+
+<script>
+// Logic cho Tabs Chính (Trong nước / Quốc tế)
+// Áp dụng cho TẤT CẢ các section có cấu trúc tabs-nav > tab-btn
+document.querySelectorAll('.tour-group-section .tabs-nav .tab-btn').forEach(t => t.onclick = () => {
+    // 1. Xử lý button: Active tab hiện tại, deactive các tab khác trong cùng nhóm tabs-nav
+    t.closest('.tabs-nav').querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    
+    // 2. Xử lý group content: Ẩn/hiện nhóm nội dung chính (Trong nước/Quốc tế) trong CÙNG MỘT SECTION
+    const section = t.closest('.tour-group-section');
+    section.querySelectorAll('.group').forEach(g => g.classList.remove('active'));
+    
+    const newGroup = section.querySelector(`.group[data-group="${t.dataset.group}"]`);
+    newGroup.classList.add('active');
+    
+    // 3. Xử lý Sub-Tab (CHỈ ÁP DỤNG CHO SECTION KHÁM PHÁ/explore-destinations-section)
+    // Đảm bảo tab con đầu tiên (Sapa/Hàn Quốc) và nội dung tương ứng được active khi chuyển tab chính
+    if (section.id === 'explore-destinations-section') {
+        newGroup.querySelectorAll('.sub-tab').forEach((st, i) => st.classList.toggle('active', i === 0));
+        newGroup.querySelectorAll('.loc-content').forEach((lc, i) => lc.classList.toggle('active', i === 0));
+    }
+});
+
+// Logic cho Sub-Tabs (Địa điểm) - Chỉ có trong section Khám Phá
+document.querySelectorAll('.sub-tab').forEach(t => t.onclick = () => {
+    const p = t.closest('.group');
+    p.querySelectorAll('.sub-tab').forEach(x => x.classList.remove('active'));
+    t.classList.add('active');
+    p.querySelectorAll('.loc-content').forEach(c => c.classList.toggle('active', c.dataset.loc === t.dataset.loc));
+});
+
+// Logic cho Carousel/Scroll (Nếu có)
+document.querySelectorAll('.arrow.prev').forEach(b => b.onclick = () => b.nextElementSibling.scrollBy({left: -320, behavior: 'smooth'}));
+document.querySelectorAll('.arrow.next').forEach(b => b.onclick = () => b.previousElementSibling.scrollBy({left: 320, behavior: 'smooth'}));
+
+// Modal
+document.querySelectorAll('.open-modal-tour').forEach(b => b.onclick = () => {
+    document.getElementById('tName').value = b.dataset.name;
+    document.querySelector('#tourModal .modal-header').textContent = `ĐẶT TOUR: ${b.dataset.name}`;
+    document.getElementById('tourModal').classList.add('active');
+});
+
+// Hamburger Menu
+document.querySelector('.hamburger-menu').onclick = () => document.querySelector('.nav-menu').classList.toggle('active');
+</script>
+<script>
+// Mở modal khi nhấn nút Đặt Ngay (áp dụng cho tất cả các trang tour)
+document.querySelectorAll('.open-modal-tour').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const name = this.dataset.name;
+        document.getElementById('tName').value = name;
+        document.getElementById('modalTourName').textContent = name;
+        document.getElementById('tourModal').classList.add('active');
+    });
+});
+
+// Đóng modal
+document.querySelector('.close-btn').addEventListener('click', () => {
+    document.getElementById('tourModal').classList.remove('active');
+});
+window.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('tourModal')) {
+        document.getElementById('tourModal').classList.remove('active');
+    }
+});
+
+// Xử lý form đặt tour
+document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const msg = document.getElementById('bookingMessage');
+    msg.textContent = 'Cảm ơn quý khách! Yêu cầu đặt tour đã được gửi thành công. Chúng tôi sẽ liên hệ ngay!';
+    msg.style.display = 'block';
+
+    setTimeout(() => {
+        this.reset();
+        msg.style.display = 'none';
+        document.getElementById('tourModal').classList.remove('active');
+    }, 3500);
+});
+</script>
+
+</body>
 </html>
