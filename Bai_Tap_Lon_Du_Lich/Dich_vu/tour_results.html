@@ -1,398 +1,521 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kết Quả Tìm Kiếm Tour - Travel Explorer</title>
-    <link rel="stylesheet" href="assets/css/index.css"> 
-    <link rel="stylesheet" href="assets/css/tour-results.css">
+    <link rel="stylesheet"index.css">
+    <link rel="stylesheet"tour-results.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-
 <body>
+
 <header class="header">
-    <nav class="nav-container">
-        <a href="main.html" class="logo">🌍 Travel Explorer</a>
-        <div>
-            <ul class="nav-menu">
-                <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
-                <li><a href="main.html#destinations" class="nav-link">Điểm Đến</a></li>
-                <li><a href="main.html#services" class="nav-link">Dịch Vụ</a></li>
-                <li><a href="main.html#contact" class="nav-link">Liên Hệ</a></li>
-            </ul>
-            
-            <div class="hamburger-menu">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </nav>
+    <div class="container nav-container">
+        <a href="main.html" class="logo">Travel Explorer</a>
+        <div class="hamburger-menu"><i class="fas fa-bars"></i></div>
+        <ul class="nav-menu">
+            <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
+            <li><a href="tour.html" class="nav-link active">Tour</a></li>
+            <li><a href="hotel.html" class="nav-link">Khách Sạn</a></li>
+            <li><a href="flight.html" class="nav-link">Vé Máy Bay</a></li>
+        </ul>
+    </div>
 </header>
 
-    <section class="tour-results-hero">
-        <div class="hero-content">
-            <h1>Kết Quả Tìm Kiếm Tour</h1>
+<!-- Thanh tìm kiếm -->
+<section class="search-section">
+    <div class="container">
+        <form id="tourSearchForm" class="search-form-elegant">
+            <div class="search-input-group">
+                <i class="fas fa-map-marker-alt"></i>
+                <input type="text" id="location" placeholder="Bạn muốn đi đâu?">
+            </div>
+            <div class="search-input-group">
+                <i class="fas fa-calendar-alt"></i>
+                <input type="date" id="date">
+            </div>
+            <div class="search-input-group">
+                <i class="fas fa-clock"></i>
+                <select id="duration">
+                    <option value="">Số ngày</option>
+                    <option value="1-3">1-3 ngày</option>
+                    <option value="4-7">4-7 ngày</option>
+                    <option value="8-14">8-14 ngày</option>
+                    <option value="15+">15+ ngày</option>
+                </select>
+            </div>
+            <button type="submit" class="search-btn">
+                <i class="fas fa-search"></i> Tìm Tour
+            </button>
+        </form>
+    </div>
+</section>
+
+<main class="main-container container">
+    <aside class="sidebar">
+        <h3><i class="fas fa-sliders-h"></i> Bộ Lọc Tìm Kiếm</h3>
+        <div class="filter-group">
+            <h4>Khoảng Giá</h4>
+            <label><input type="checkbox" name="price" value="<10"> Dưới 10 triệu</label>
+            <label><input type="checkbox" name="price" value="10-20"> 10 - 20 triệu</label>
+            <label><input type="checkbox" name="price" value="20-50"> 20 - 50 triệu</label>
+            <label><input type="checkbox" name="price" value="50+"> Trên 50 triệu</label>
         </div>
-    </section>
-
-    <section class="tour-list" id="tourListSection">
-        <div class="container">
-            <h2 class="section-title" id="tourSectionTitle">Đang Tải Kết Quả...</h2>
-            <div class="destinations-grid" id="tourListGrid">
-                </div>
+        <div class="filter-group">
+            <h4>Loại Tour</h4>
+            <label><input type="checkbox" name="type" value="domestic"> Nội Địa</label>
+            <label><input type="checkbox" name="type" value="international"> Quốc Tế</label>
         </div>
+        <div class="filter-group">
+            <h4>Số Ngày</h4>
+            <label><input type="checkbox" name="duration_filter" value="1-3"> 1-3 ngày</label>
+            <label><input type="checkbox" name="duration_filter" value="4-7"> 4-7 ngày</label>
+            <label><input type="checkbox" name="duration_filter" value="8-14"> 8-14 ngày</label>
+            <label><input type="checkbox" name="duration_filter" value="15+"> 15+ ngày</label>
+        </div>
+        <button class="apply-btn">Áp Dụng Bộ Lọc</button>
+    </aside>
+
+    <section class="results-section">
+        <div class="results-header">
+            <h2 id="resultInfo">Đang tìm tour phù hợp...</h2>
+            <select id="sortBy">
+                <option value="default">Khởi hành sớm nhất</option>
+                <option value="price-asc">Giá tăng dần</option>
+                <option value="price-desc">Giá giảm dần</option>
+                <option value="duration-asc">Số ngày ngắn → dài</option>
+            </select>
+        </div>
+
+        <div class="tour-grid" id="tourListGrid"></div>
     </section>
+</main>
 
-    <div id="tourModal" class="modal">
-        <div class="modal-content">
-            <span class="close-button" onclick="closeModal('tourModal')">&times;</span>
-            <h3 class="modal-title">ĐẶT TOUR DU LỊCH</h3>
-            <form class="booking-form" action="#" method="POST">
-                <input type="hidden" id="tourName" name="tour_name" value="">
-                
-                <div class="form-group">
-                    <label for="fullName">Họ và Tên (*)</label>
-                    <input type="text" id="fullName" name="full_name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="email">Email (*)</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
+<!-- MODAL ĐẶT TOUR -->
+<div id="tourModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div class="modal-header">
+            <h3>ĐẶT TOUR: <span id="modalTourName"></span></h3>
+        </div>
+        <div class="modal-body">
+            <form id="bookingForm">
+                <input type="hidden" id="tName">
 
-                <div class="form-group">
-                    <label for="phone">Số điện thoại (*)</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                
-                <div class="form-group">
-                    <label for="adults">Số lượng người lớn (*)</label>
-                    <input type="number" id="adults" name="adults" min="1" value="1" required>
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Họ và tên <span class="required">*</span></label>
+                        <input type="text" id="fullName" required placeholder="Nguyễn Văn A">
+                    </div>
+                    <div class="input-group">
+                        <label>Số điện thoại <span class="required">*</span></label>
+                        <input type="tel" id="phone" required placeholder="0901234567">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="children">Số lượng trẻ em (dưới 12 tuổi)</label>
-                    <input type="number" id="children" name="children" min="0" value="0">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Ngày khởi hành mong muốn <span class="required">*</span></label>
+                        <input type="date" id="departDate" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" id="email" required placeholder="example@gmail.com">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="startDate">Ngày khởi hành mong muốn (*)</label>
-                    <input type="date" id="startDate" name="start_date" required>
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Số người lớn <span class="required">*</span></label>
+                        <input type="number" id="adults" value="1" min="1" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Số trẻ em (2-11 tuổi)</label>
+                        <input type="number" id="children" value="0" min="0">
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="message">Yêu cầu đặc biệt (nếu có)</label>
-                    <textarea id="message" name="message" rows="3"></textarea>
+                <div class="input-group full-width">
+                    <label>Yêu cầu thêm (không bắt buộc)</label>
+                    <textarea id="notes" rows="3" placeholder="Ví dụ: Phòng view biển, ăn chay, xe đưa đón sân bay..."></textarea>
                 </div>
 
-                <button type="submit" class="submit-btn" style="width: 100%;">Gửi Yêu Cầu Đặt Tour</button>
+                <div class="modal-agree">
+                    <label><input type="checkbox" id="agree" required> Tôi đồng ý với <a href="#" style="color:var(--primary); text-decoration:underline;">điều khoản đặt tour</a> <span class="required">*</span></label>
+                </div>
+
+                <button type="submit" class="submit-btn">GỬI YÊU CẦU ĐẶT TOUR</button>
             </form>
-            <p class="note">(*): Thông tin bắt buộc</p>
+            <p id="bookingMessage" class="booking-message"></p>
         </div>
     </div>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Travel Explorer</h3>
-                    <p>Đối tác tin cậy cho mọi chuyến du lịch của bạn.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Liên Kết Nhanh</h3>
-                    <a href="main.html#home">Trang Chủ</a>
-                    <a href="main.html#destinations">Điểm Đến</a>
-                    <a href="main.html#services">Dịch Vụ</a>
-                    <a href="main.html#contact">Liên Hệ</a>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Thông Tin Liên Hệ</h3>
-                    <p><i class="fa-solid fa-location-dot 1"></i> 12/5D Đường Lê Lợi, Quận 1</p>
-                    <p><i class="fa-solid fa-phone-volume"></i> (028) 1234 5678</p>
-                    <p><i class="fa-solid fa-envelope"></i> info@travelexplorer.vn</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Theo Dõi Chúng Tôi</h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="#" class="social-link"><i class="fa-brands fa-telegram"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2025 Travel Explorer. Tất cả quyền được bảo lưu.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script>
-      const allTours = [
-    // 1. SAPA 
-        { name: "Tour 2N1Đ Sapa – Fansipan Legend", location: "Sapa", image: "https://duan-sungroup.com/wp-content/uploads/2022/10/Dai-tuong-Phat-A-Di-Da-o-Sun-World-Fansipan-Legend.jpg", duration: "2 Ngày 1 Đêm", price: 1950000, priceDisplay: "1.950.000đ", description: "Cáp treo chinh phục Fansipan, bản Cát Cát" },
-        { name: "Tour 3N2Đ Sapa – Hàm Rồng – Thác Tình Yêu", location: "Sapa", image: "https://cdn.dealtoday.vn/img/s630x420/637f526a17a047bc9d4bcc34bea6d198.jpg?sign=fEq7EZJM1J4SgxIHqHVCAw", duration: "3 Ngày 2 Đêm", price: 2750000, priceDisplay: "2.750.000đ", description: "Ruộng bậc thang mùa nước đổ, homestay" },
-        { name: "Tour 3N2Đ Trekking Tả Van – Lao Chải", location: "Sapa", image: "https://sinhtour.vn/wp-content/uploads/2022/01/ban-lao-chai-ta-van-1.jpg", duration: "3 Ngày 2 Đêm", price: 2550000, priceDisplay: "2.550.000đ", description: "Ngủ nhà sàn người H'Mông" },
-        { name: "Tour 4N3Đ Sapa – Bắc Hà – Chợ Phiên", location: "Sapa", image: "https://ik.imagekit.io/tvlk/blog/2017/10/cho-phien-bac-ha-1.jpg?tr=q-70,c-at_max,w-1000,h-600", duration: "4 Ngày 3 Đêm", price: 3850000, priceDisplay: "3.850.000đ", description: "Chợ phiên vùng cao, rượu ngô" },
-        { name: "Tour 3N2Đ Sapa Mùa Lúa Chín", location: "Sapa", image: "https://xesaoviet.com.vn/wp-content/uploads/2024/08/sapa-mua-lua-chin-1.jpg", duration: "3 Ngày 2 Đêm", price: 2950000, priceDisplay: "2.950.000đ", description: "Tháng 9–10: ruộng bậc thang vàng rực" },
-        { name: "Tour 2N1Đ Sapa – Cát Cát – Silver Waterfall", location: "Sapa", image: "https://vietfeelingtravel.vn/wp-content/uploads/2024/08/Ban-Cat-Cat.jpg", duration: "2 Ngày 1 Đêm", price: 1850000, priceDisplay: "1.850.000đ", description: "Dành cho khách ít thời gian" },
-        { name: "Tour 4N3Đ Sapa – Y Tý – Lào Cai", location: "Sapa", image: "https://mamtravel.vn/wp-content/uploads/2022/12/DSC09354.jpg", duration: "4 Ngày 3 Đêm", price: 4200000, priceDisplay: "4.200.000đ", description: "Săn mây Y Tý đẹp như tiên cảnh" },
-        { name: "Tour 3N2Đ Sapa – Đỉnh Đồi Hunting Cloud", location: "Sapa", image: "https://www.asiakingtravel.com/images/thumbs/2025/01/18156/sapa_1900x700xcrop.webp", duration: "3 Ngày 2 Đêm", price: 3100000, priceDisplay: "3.100.000đ", description: "Check-in sống ảo cực chất" },
-        { name: "Tour 2N1Đ Sapa – Núi Hàm Rồng – Sun Plaza", location: "Sapa", image: "https://52hz.vn/wp-content/uploads/2023/02/52hz-nui-ham-rong-sapa.jpg", duration: "2 Ngày 1 Đêm", price: 1750000, priceDisplay: "1.750.000đ", description: "Gần trung tâm, tiện di chuyển" },
-        { name: "Tour 5N4Đ Sapa – Hà Giang – Đồng Văn", location: "Sapa", image: "https://namthientravel.com.vn/wp-content/uploads/2024/06/nui-doi-quan-ba-chiem-nguong-toa-thien-nhien-quyen-ru-noi-dia-dau-to-quoc-1642420030.jpg", duration: "5 Ngày 4 Đêm", price: 6950000, priceDisplay: "6.950.000đ", description: "Hành trình miền núi phía Bắc" },
-
-        // 2. ĐÀ LẠT
-        { name: "Tour 3N2Đ Đà Lạt Ngàn Hoa", location: "Đà Lạt", image: "https://bloganchoi.com/wp-content/uploads/2021/11/review-da-lat-toan-canh-dat-lat-trong-suong-mu-som-mai-1.jpg", duration: "3 Ngày 2 Đêm", price: 2950000, priceDisplay: "2.950.000đ", description: "Săn mây, đồi chè, cà phê view núi" },
-        { name: "Tour 4N3Đ Đà Lạt Resort 5 Sao", location: "Đà Lạt", image: "https://bitravel.vn/files/filemanager/Blogs/Hotel/BI-Travel-10-resort-4-5-sao-tai-Dalat-Swiss-BelResort-Tuyen-Lam-dem.jpg", duration: "4 Ngày 3 Đêm", price: 8900000, priceDisplay: "8.900.000đ", description: "Nghỉ dưỡng cao cấp, buffet sáng" },
-        { name: "Tour 3N2Đ Cắm Trại Săn Mây Đà Lạt", location: "Đà Lạt", image: "https://dalatreview.vn/wp-content/uploads/2023/03/z4126655168879_fe6c2575ac9885e8fae71cdd7e204853-1.jpg", duration: "3 Ngày 2 Đêm", price: 1850000, priceDisplay: "1.850.000đ", description: "BBQ đêm, đồi Thiên Phúc Đức" },
-        { name: "Tour 4N3Đ Đà Lạt – Làng Cù Lần – Madagui", location: "Đà Lạt", image: "https://motogo.vn/wp-content/uploads/2023/10/Lang-Cu-Lan-Da-Lat-18.jpg", duration: "4 Ngày 3 Đêm", price: 3950000, priceDisplay: "3.950.000đ", description: "Zipline, chèo thuyền" },
-        { name: "Tour 3N2Đ Đà Lạt Mùa Hoa Mai Anh Đào", location: "Đà Lạt", image: "https://yersin.edu.vn/wp-content/uploads/2024/06/mai_anh_dao_dalat_-_ha_huu_net_1.jpg", duration: "3 Ngày 2 Đêm", price: 3200000, priceDisplay: "3.200.000đ", description: "Tháng 1–2: hoa nở rực rỡ" },
-        { name: "Tour 4N3Đ Đà Lạt – Bảo Lộc – Đồi Chè", location: "Đà Lạt", image: "https://static.vinwonders.com/production/doi-che-tam-chau-bao-loc-1.jpeg", duration: "4 Ngày 3 Đêm", price: 3650000, priceDisplay: "3.650.000đ", description: "Check-in đồi chè Tâm Châu" },
-        { name: "Tour 3N2Đ Đà Lạt – Thác Datanla – Zipline", location: "Đà Lạt", image: "https://dulichviet.com.vn/images/bandidau/ve-dep-mong-mo-cua-thac-dalanta-trong-tour-du-lich-da-lat.jpg", duration: "3 Ngày 2 Đêm", price: 2750000, priceDisplay: "2.750.000đ", description: "Mạo hiểm nhẹ, máng trượt" },
-        { name: "Tour 5N4Đ Đà Lạt – Nha Trang Kết Hợp", location: "Đà Lạt", image: "https://thunglungdasar.com.vn/wp-content/uploads/2024/12/nen-di-du-lich-nha-trang-hay-da-lat.png", duration: "5 Ngày 4 Đêm", price: 6200000, priceDisplay: "6.200.000đ", description: "Núi + biển trong 1 chuyến" },
-        { name: "Tour 3N2Đ Đà Lạt – Hồ Tuyền Lâm – Thiền Viện", location: "Đà Lạt", image: "https://r2.nucuoimekong.com/wp-content/uploads/thien-vien-truc-lam-da-lat-a.jpg", duration: "3 Ngày 2 Đêm", price: 2550000, priceDisplay: "2.550.000đ", description: "Yên bình, thiền, kayak" },
-        { name: "Tour 4N3Đ Đà Lạt – Đường Hầm Điêu Khắc", location: "Đà Lạt", image: "https://statics.vinpearl.com/Duong-ham-dieu-khac-8_1689425713.jpg", duration: "4 Ngày 3 Đêm", price: 4150000, priceDisplay: "4.150.000đ", description: "Công trình đất sét độc nhất vô nhị" },
-
-        // 3. NHA TRANG 
-        { name: "Tour 4N3Đ Nha Trang – Vinpearl Land", location: "Nha Trang", image: "https://anphutruongthinh.com/vnt_upload/tour/07_2019/thumbs/780_crop_nha-trang.jpg", duration: "4 Ngày 3 Đêm", price: 4950000, priceDisplay: "4.950.000đ", description: "VinWonders, thủy cung, tắm bùn" },
-        { name: "Tour 5N4Đ Nha Trang – 4 Đảo", location: "Nha Trang", image: "https://cdn.nhatrangbooking.com.vn/images/uploads/tour-4-dao-nha-trang-top.jpg", duration: "5 Ngày 4 Đêm", price: 6450000, priceDisplay: "6.450.000đ", description: "Bình Ba – Bình Hưng – Robinson – Mũi Đôi" },
-        { name: "Tour 3N2Đ Nha Trang – Yang Bay – Suối Khoáng", location: "Nha Trang", image: "https://letsflytravel.vn/wp-content/uploads/2024/04/tour-thac-yang-bay-letsflytravel-1.webp", duration: "3 Ngày 2 Đêm", price: 3250000, priceDisplay: "3.250.000đ", description: "Thác nước, cá sấu, heo rừng" },
-        { name: "Tour 4N3Đ Nha Trang – Dốc Lết – Đảo Khỉ", location: "Nha Trang", image: "https://letsflytravel.vn/wp-content/uploads/2024/04/tour-bien-doc-let-1-pax-ana-rosort-3-740x490.webp", duration: "4 Ngày 3 Đêm", price: 4150000, priceDisplay: "4.150.000đ", description: "Biển vắng, chơi với khỉ" },
-        { name: "Tour 3N2Đ Nha Trang – Lặn Biển Ngắm San Hô", location: "Nha Trang", image: "https://statics.vinpearl.com/lan-bien-nha-trang-01_1635674501.jpg", duration: "3 Ngày 2 Đêm", price: 3850000, priceDisplay: "3.850.000đ", description: "Đồ lặn miễn phí, hướng dẫn viên" },
-        { name: "Tour 5N4Đ Nha Trang – Đà Lạt Kết Hợp", location: "Nha Trang", image: "https://thunglungdasar.com.vn/wp-content/uploads/2024/12/nen-di-du-lich-nha-trang-hay-da-lat.png", duration: "5 Ngày 4 Đêm", price: 6350000, priceDisplay: "6.350.000đ", description: "Biển + núi trong 1 chuyến" },
-        { name: "Tour 4N3Đ Nha Trang – Đảo Bình Ba – Tôm Hùm", location: "Nha Trang", image: "https://booking.muongthanh.com/upload_images/images/H%60/binh-ba-nha-trang.jpg", duration: "4 Ngày 3 Đêm", price: 5250000, priceDisplay: "5.250.000đ", description: "Tôm hùm nướng, hải sản tươi sống" },
-        { name: "Tour 3N2Đ Nha Trang – Tháp Bà Ponagar", location: "Nha Trang", image: "https://ik.imagekit.io/tvlk/blog/2022/07/thap-ba-Ponagar-1.jpg", duration: "3 Ngày 2 Đêm", price: 2950000, priceDisplay: "2.950.000đ", description: "Văn hóa Chăm, tắm bùn" },
-        { name: "Tour 4N3Đ Nha Trang – Hòn Tằm – Mud Bath", location: "Nha Trang", image: "https://hontam.com.vn/wp-content/uploads/2022/04/tam-bun-hon-tam-.jpg", duration: "4 Ngày 3 Đêm", price: 4650000, priceDisplay: "4.650.000đ", description: "Resort đảo, tắm bùn khoáng" },
-        { name: "Tour 5N4Đ Nha Trang – Ninh Vân Bay Luxury", location: "Nha Trang", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/708634457.jpg?k=ce3746d3a69e212894f1a47220fafadcb1f7f38a903abb358bd3b66a9c8c49b2&o=", duration: "5 Ngày 4 Đêm", price: 12900000, priceDisplay: "12.900.000đ", description: "Six Senses Ninh Vân Bay 5 sao" },
-
-        // 4. HỘI AN
-        { name: "Tour 3N2Đ Đà Nẵng – Hội An – Bà Nà", location: "Hội An", image: "https://vietnamfamilytourhcm.com/wp-content/uploads/2020/06/travelmart-danang-banahills-4-jpg-1080x720-FIT-311aac116da59c24d9b842ef183799f0.jpg", duration: "3 Ngày 2 Đêm", price: 4350000, priceDisplay: "4.350.000đ", description: "Cầu Vàng, phố cổ đèn lồng" },
-        { name: "Tour 4N3Đ Hội An – Huế – Phong Nha", location: "Hội An", image: "https://dulichconvoi.com/wp-content/uploads/2020/01/banner-003.jpg", duration: "4 Ngày 3 Đêm", price: 6950000, priceDisplay: "6.950.000đ", description: "Di sản miền Trung" },
-        { name: "Tour 3N2Đ Hội An – Rừng Dừa – Làng Rau", location: "Hội An", image: "https://fvgtravel.com.vn/uploads/up/root/editor/2025/06/20/21/17/w1230/run1750407466_4721.jpg", duration: "3 Ngày 2 Đêm", price: 2950000, priceDisplay: "2.950.000đ", description: "Chèo thúng, làm đèn lồng" },
-        { name: "Tour 5N4Đ Hội An – Mỹ Sơn – Đà Nẵng", location: "Hội An", image: "https://viettrans.vn/wp-content/uploads/2019/03/toan-canh-thanh-dia-my-son.jpg", duration: "5 Ngày 4 Đêm", price: 5950000, priceDisplay: "5.950.000đ", description: "Thánh địa Mỹ Sơn, Cầu Rồng" },
-        { name: "Tour 4N3Đ Hội An – Đà Nẵng – Ngũ Hành Sơn", location: "Hội An", image: "https://mia.vn/media/uploads/blog-du-lich/MAD4B9~1-1621313401.JPG", duration: "4 Ngày 3 Đêm", price: 4850000, priceDisplay: "4.850.000đ", description: "Hang động, biển Mỹ Khê" },
-        { name: "Tour 3N2Đ Hội An – Làng Gốm Thanh Hà", location: "Hội An", image: "https://fvgtravel.com.vn/uploads/up/root/news/2025/09/15/21/50/lan1757926218_8451.jpg", duration: "3 Ngày 2 Đêm", price: 2750000, priceDisplay: "2.750.000đ", description: "Làm gốm, trải nghiệm nghề truyền thống" },
-        { name: "Tour 4N3Đ Hội An – Cù Lao Chàm Lặn Biển", location: "Hội An", image: "https://vitracotour.com/wp-content/uploads/2024/08/lan-san-ho-tour-cu-lao-cham.jpg", duration: "4 Ngày 3 Đêm", price: 4650000, priceDisplay: "4.650.000đ", description: "Lặn ngắm san hô, biển xanh ngọc" },
-        { name: "Tour 3N2Đ Hội An – Phố Cổ Đêm Đèn Lồng", location: "Hội An", image: "https://static.vinwonders.com/2022/03/pho-den-long-hoi-an-2.jpg", duration: "3 Ngày 2 Đêm", price: 3150000, priceDisplay: "3.150.000đ", description: "Thả đèn hoa đăng sông Hoài" },
-        { name: "Tour 5N4Đ Hội An – Lý Sơn – Quảng Ngãi", location: "Hội An", image: "https://www.tourismdanang.vn/wp-content/uploads/Dao-Ly-Son-1.jpg", duration: "5 Ngày 4 Đêm", price: 7850000, priceDisplay: "7.850.000đ", description: "Đảo Lý Sơn, tỏi đen, hang Câu" },
-        { name: "Tour 4N3Đ Hội An – Bán Đảo Sơn Trà", location: "Hội An", image: "https://r2.nucuoimekong.com/wp-content/uploads/ban-dao-son-tra-co-gi.jpg", duration: "4 Ngày 3 Đêm", price: 4950000, priceDisplay: "4.950.000đ", description: "Chùa Linh Ứng, voọc chà vá" },
-
-        // 5. VỊNH HẠ LONG 
-        { name: "Tour 2N1Đ Hạ Long – Du Thuyền 5 Sao", location: "Vịnh Hạ Long", image: "https://travelhalong.com.vn/UserFiles/images/Du%20thuy%E1%BB%81n%205%20sao/Heritage/heritage-cruise-1.jpg", duration: "2 Ngày 1 Đêm", price: 3250000, priceDisplay: "3.250.000đ", description: "Hang Sửng Sốt, Titop, kayak" },
-        { name: "Tour 3N2Đ Hạ Long – Lan Hạ – Cát Bà", location: "Vịnh Hạ Long", image: "https://cafefcdn.com/2020/1/30/photo-1-15803789206371731421208.jpg", duration: "3 Ngày 2 Đêm", price: 4950000, priceDisplay: "4.950.000đ", description: "Vịnh đẹp hơn Hạ Long" },
-        { name: "Tour 2N1Đ Hạ Long – Tuần Châu – Sun World", location: "Vịnh Hạ Long", image: "https://ik.imagekit.io/tvlk/blog/2023/09/dao-tuan-chau-1.jpg?tr=q-70,c-at_max,w-1000,h-600", duration: "2 Ngày 1 Đêm", price: 2650000, priceDisplay: "2.650.000đ", description: "Cáp treo Nữ Hoàng" },
-        { name: "Tour 3N2Đ Hạ Long – Bái Tử Long – Yên Tử", location: "Vịnh Hạ Long", image: "https://mia.vn/media/uploads/blog-du-lich/giai-ngo-voi-kinh-nghiem-di-chua-yen-tu-tu-a-z-khi-du-lich-ha-long-1641593873.jpg", duration: "3 Ngày 2 Đêm", price: 5150000, priceDisplay: "5.150.000đ", description: "Vịnh ít người, chùa thiêng" },
-        { name: "Tour 2N1Đ Hạ Long – Động Thiên Cung", location: "Vịnh Hạ Long", image: "https://www.dulichhalong.net/wp-content/uploads/2013/02/Dong-Thien-Cung.jpg", duration: "2 Ngày 1 Đêm", price: 2950000, priceDisplay: "2.950.000đ", description: "Hang động đẹp nhất vịnh" },
-        { name: "Tour 3N2Đ Hạ Long – Đảo Cô Tô", location: "Vịnh Hạ Long", image: "https://www.wyndhamhalong.com/uploads/blog/2017/T8/tap-hop-kinh-nghiem-di-du-lich-trong-hanh-trinh-ha-long-co-to1.jpg", duration: "3 Ngày 2 Đêm", price: 5850000, priceDisplay: "5.850.000đ", description: "Biển trong vắt, hải sản tươi" },
-        { name: "Tour 2N1Đ Hạ Long – Paradise Luxury Cruise", location: "Vịnh Hạ Long", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/60092679.jpg?k=1f9077c9d888da23c776d6c9bcd0d0620d0612e9c863a78b52c8d7ecd91c97dc&o=", duration: "2 Ngày 1 Đêm", price: 3950000, priceDisplay: "3.950.000đ", description: "Du thuyền cao cấp nhất" },
-        { name: "Tour 4N3Đ Hạ Long – Quan Lạn – Minh Châu", location: "Vịnh Hạ Long", image: "https://ik.imagekit.io/tvlk/blog/2022/08/kinh-nghiem-du-lich-quan-lan-17.jpg", duration: "4 Ngày 3 Đêm", price: 6950000, priceDisplay: "6.950.000đ", description: "Biển hoang sơ đẹp nhất miền Bắc" },
-        { name: "Tour 3N2Đ Hạ Long – Trà Cổ – Móng Cái", location: "Vịnh Hạ Long", image: "https://bizweb.dktcdn.net/100/101/075/files/du-lich-tra-co-mong-cai.jpg?v=1703387367245", duration: "3 Ngày 2 Đêm", price: 4850000, priceDisplay: "4.850.000đ", description: "Biển biên giới, cột mốc" },
-        { name: "Tour 2N1Đ Hạ Long – Vịnh Hạ Long Bay View", location: "Vịnh Hạ Long", image: "https://media-cdn-v2.laodong.vn/Storage/newsportal/2018/8/16/625538/Ha-Long-Bay-View.jpg", duration: "2 Ngày 1 Đêm", price: 2850000, priceDisplay: "2.850.000đ", description: "Giá tốt, đầy đủ dịch vụ" },
-
-        // 6. PHÚ QUỐC
-        { name: "Tour 4N3Đ Phú Quốc – Cáp Treo Hòn Thơm", location: "Phú Quốc", image: "https://dulichviet.com.vn/images/bandidau/du-lich-cap-treo-hon-thom-phu-quoc-co-gi-choi.jpg", duration: "4 Ngày 3 Đêm", price: 7350000, priceDisplay: "7.350.000đ", description: "Aquatopia, cáp treo dài nhất thế giới" },
-        { name: "Tour 3N2Đ Phú Quốc – Lặn Ngắm San Hô", location: "Phú Quốc", image: "https://www.vietrekking.com/wp-content/uploads/2021/03/kham-pha-day-bien.png", duration: "3 Ngày 2 Đêm", price: 5850000, priceDisplay: "5.850.000đ", description: "Resort 4-5 sao, chợ đêm" },
-        { name: "Tour 5N4Đ Phú Quốc – Grand World – Safari", location: "Phú Quốc", image: "https://www.centralcons.vn/wp-content/uploads/2021/12/121101678_672984973348701_1338295634941350714_o.jpg", duration: "5 Ngày 4 Đêm", price: 8950000, priceDisplay: "8.950.000đ", description: "VinWonders, show Tinh Hoa Việt Nam" },
-        { name: "Tour 4N3Đ Phú Quốc – Sunset Town", location: "Phú Quốc", image: "https://d2e5ushqwiltxm.cloudfront.net/wp-content/uploads/sites/145/2024/02/20094517/yy.jpg", duration: "4 Ngày 3 Đêm", price: 6850000, priceDisplay: "6.850.000đ", description: "Kiss Bridge, show Vũ Điệu Venice" },
-        { name: "Tour 3N2Đ Phú Quốc – Nam Đảo – Bãi Sao", location: "Phú Quốc", image: "https://blog.premierresidencesphuquoc.com/wp-content/uploads/2024/12/nam-dao-phu-quoc-6.webp", duration: "3 Ngày 2 Đêm", price: 5650000, priceDisplay: "5.650.000đ", description: "Bãi biển đẹp nhất đảo ngọc" },
-        { name: "Tour 5N4Đ Phú Quốc – Bắc Đảo – Vinpearl Safari", location: "Phú Quốc", image: "https://cassiacottage.com/wp-content/uploads/2025/10/Vinpearl-Phu-Quoc-Cassia-Cottage-Resort-and-Spa-4.jpg", duration: "5 Ngày 4 Đêm", price: 9350000, priceDisplay: "9.350.000đ", description: "Vườn thú mở lớn nhất VN" },
-        { name: "Tour 4N3Đ Phú Quốc – JW Marriott Emerald Bay", location: "Phú Quốc", image: "https://duan-sungroup.com/wp-content/uploads/2022/12/JW-Marriott-Phu-Quoc-Emerald-Bay-Resort-leading.png", duration: "4 Ngày 3 Đêm", price: 15900000, priceDisplay: "15.900.000đ", description: "Resort đẹp nhất thế giới" },
-        { name: "Tour 3N2Đ Phú Quốc – Chợ Đêm – Dinh Cậu", location: "Phú Quốc", image: "https://phuquocxanh.com/vi/wp-content/uploads/2015/05/cho-dem-phu-quoc-1.jpg", duration: "3 Ngày 2 Đêm", price: 4950000, priceDisplay: "4.950.000đ", description: "Giá rẻ, trải nghiệm địa phương" },
-        { name: "Tour 4N3Đ Phú Quốc – Hòn Móng Tay – Gành Dầu", location: "Phú Quốc", image: "https://daivietourist.vn/wp-content/uploads/2024/08/hon-mong-phu-quoc-2.jpg.webp", duration: "4 Ngày 3 Đêm", price: 7850000, priceDisplay: "7.850.000đ", description: "Tour đảo hoang siêu đẹp" },
-        { name: "Tour 5N4Đ Phú Quốc – 4 Đảo Nam Đảo", location: "Phú Quốc", image: "https://phuquoctrip.com/files/images/vui-choi-phu-quoc/NAM%20%C4%90%E1%BA%A2O%20PH%C3%9A%20QU%E1%BB%90C-min%20(1).png", duration: "5 Ngày 4 Đêm", price: 8950000, priceDisplay: "8.950.000đ", description: "Hòn Mây Rút, Gầm Ghì, Kim Quy" }
-    ];
-
-    const validLocations = ["sapa", "đà lạt", "dalat", "nha trang", "hội an", "hoi an", "vịnh hạ long", "hạ long", "halong", "phú quốc", "phu quoc", "phuquoc"];
-
-    function normalize(str) {
-        return str.toLowerCase()
-                  .normalize("NFD")
-                  .replace(/[\u0300-\u036f]/g, "")
-                  .replace(/đ/g, "d")
-                  .trim();
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const urlParams = new URLSearchParams(window.location.search);
-        const query = (urlParams.get('destination') || '').trim();
-        const normQuery = normalize(query);
-
-        let filteredTours = allTours;
-
-        if (query) {
-            const matched = validLocations.find(loc => normQuery.includes(loc) || loc.includes(normQuery));
-            if (matched) {
-                filteredTours = allTours.filter(t => normalize(t.location).includes(matched));
-            } else {
-                filteredTours = [];
-            }
-        }
-
-        const title = document.getElementById('tourSectionTitle');
-        const grid = document.getElementById('tourListGrid');
-
-        if (filteredTours.length === 0) {
-            title.textContent = `Không tìm thấy tour cho "${query || 'địa điểm này'}"`;
-            grid.innerHTML = `
-                <p style="grid-column: 1/-1; text-align:center; font-size:1.3rem; color:#EA580C; margin:2rem 0;">
-                    Hiện chưa có tour cho địa điểm này<br>
-                    <strong>Hãy chọn một trong 6 điểm đến HOT nhất 2025!</strong>
-                </p>
-                <div class="destinations-grid">
-                    ${allTours.slice(0, 12).map(t => createCardHTML(t)).join('')}
-                </div>
-            `;
-        } else {
-            title.textContent = `Tour Du Lịch ${filteredTours[0].location.toUpperCase()} (${filteredTours.length} tour đang hot)`;
-            renderTours(filteredTours);
-        }
-        attachModalEvents();
-    });
-
-    function createCardHTML(tour) {
-        return `
-            <div class="tour-card">
-                <img src="${tour.image}" alt="${tour.name}">
-                <div class="tour-content">
-                    <h4>${tour.name}</h4>
-                    <p>${tour.description}</p>
-                    <div class="tour-info">
-                        <span class="tour-duration"><i class="fa-regular fa-clock"></i> ${tour.duration}</span>
-                        <span class="tour-price">${tour.priceDisplay}</span>
-                    </div>
-                    <div style="margin-top:1rem; text-align:right;">
-                        <button class="cta-button open-modal-tour" data-service="${tour.name}" style="padding:0.6rem 1.2rem;">Đặt Ngay</button>
-                    </div>
-                </div>
-            </div>
-        `;
-    }
-
-    function renderTours(tours) {
-        document.getElementById('tourListGrid').innerHTML = tours.map(createCardHTML).join('');
-    }
-        const tourGrid = document.getElementById('tourListGrid');
-        const tourSectionTitle = document.getElementById('tourSectionTitle');
-
-        function renderTours(tours) {
-            tourGrid.innerHTML = ''; 
-            
-            if (tours.length === 0) {
-                tourGrid.innerHTML = '<p style="text-align: center; width: 100%; font-size: 1.2rem; color: #EA580C;">Xin lỗi, không tìm thấy tour nào phù hợp với yêu cầu của bạn.</p>';
-                return;
-            }
-
-            tours.forEach(tour => {
-                const card = document.createElement('div');
-                card.className = 'tour-card';
-                card.innerHTML = `
-                    <img src="${tour.image}" alt="${tour.name}">
-                    <div class="tour-content">
-                        <h4>${tour.name}</h4>
-                        <p>${tour.description}</p>
-                        <div class="tour-info">
-                            <span class="tour-duration"><i class="fa-regular fa-clock"></i> ${tour.duration}</span>
-                            <span class="tour-price">${tour.priceDisplay}</span>
-                        </div>
-                        <div style="margin-top: 1rem; text-align: right;">
-                            <button class="cta-button open-modal-tour" data-service="${tour.name}" style="padding: 0.6rem 1.2rem;">Đặt Ngay</button>
-                        </div>
-                    </div>
-                `;
-                tourGrid.appendChild(card);
-            });
-            attachModalEvents();
-        }
-
-        function closeModal(modalId) {
-            document.getElementById(modalId).style.display = 'none';
-        }
-        
-        function openModal(modalId, serviceName) {
-            document.getElementById(modalId).style.display = 'flex';
-            if (serviceName && document.getElementById('tourName')) {
-                document.getElementById('tourName').value = serviceName;
-            }
-        }
-
-        function attachModalEvents() {
-            document.querySelectorAll('.open-modal-tour').forEach(button => {
-                button.onclick = function(e) {
-                    e.preventDefault();
-                    const serviceName = this.getAttribute('data-service');
-                    openModal('tourModal', serviceName);
-                };
-            });
-        }
-        
-        document.getElementById('tourModal').addEventListener('click', function(e) {
-            if (e.target.id === 'tourModal') {
-                closeModal('tourModal');
-            }
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            const destination = urlParams.get('destination') ? urlParams.get('destination').toLowerCase().trim() : '';
-            const date = urlParams.get('date');
-            const duration = urlParams.get('duration');
-            const priceRange = urlParams.get('price-range');
-
-            let filteredTours = allTours.filter(tour => {
-                if (!destination) return true;
-                return tour.name.toLowerCase().includes(destination) || 
-                       tour.description.toLowerCase().includes(destination);
-            });
-
-            if (priceRange) {
-                filteredTours = filteredTours.filter(tour => {
-                    if (priceRange === 'low') return tour.price < 3000000;
-                    if (priceRange === 'medium') return tour.price >= 3000000 && tour.price <= 5000000;
-                    if (priceRange === 'high') return tour.price > 5000000;
-                    return true;
-                });
-            }
-
-            if (duration) {
-                const days = parseInt(duration);
-                filteredTours = filteredTours.filter(tour => {
-                    
-                    const tourDays = parseInt(tour.duration.split(' ')[0]);
-                    return tourDays === days;
-                });
-            }
-
-            if (destination) {
-                tourSectionTitle.textContent = `Kết Quả Tìm Kiếm cho: "${destination}"`;
-            } else {
-                tourSectionTitle.textContent = `Các Tour Du Lịch Phù Hợp`;
-            }
-
-            renderTours(filteredTours);
-        });
-
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</div>
 
 <script>
-    $(document).ready(function() {
-        // Bật/Tắt class 'active' khi nhấn vào icon
-        $('.hamburger-menu').click(function() {
-            $('.nav-menu').toggleClass('active');
-        });
+// DỮ LIỆU TOUR
+const tourData = [
+    { name: "Sapa - Fansipan 3N2Đ", location: "Sapa", duration: 3, price: 4900000, rating: 4.8, departure: "2025-12-15", type: "domestic", hot: true, image: "https://images.unsplash.com/photo-1579549303273-51834927b521?w=800", desc: "Cáp treo chinh phục nóc nhà Đông Dương, bản Cát Cát, ruộng bậc thang mùa lúa chín." },
+    { name: "Phú Quốc 4N3Đ - Vinpearl Safari", location: "Phú Quốc", duration: 4, price: 8900000, rating: 4.9, departure: "2025-12-20", type: "domestic", hot: true, image: "https://images.unsplash.com/photo-1583417319079-28936b75d9b0?w=800", desc: "Resort 5 sao, safari lớn nhất Việt Nam, cáp treo vượt biển dài nhất thế giới." },
+    { name: "Đà Nẵng - Hội An - Bà Nà 4N3Đ", location: "Đà Nẵng", duration: 4, price: 6900000, rating: 4.7, departure: "2025-12-18", type: "domestic", image: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800", desc: "Cầu Vàng nổi tiếng thế giới, phố cổ đèn lồng, biển Mỹ Khê, Fantasy Park." },
+    { name: "Hạ Long 2N1Đ - Du thuyền 5 sao", location: "Hạ Long", duration: 2, price: 5900000, rating: 5.0, departure: "2025-12-25", type: "domestic", hot: true, image: "https://images.unsplash.com/photo-1587502536575-6a8c8c98c5da?w=800", desc: "Ngủ đêm trên vịnh di sản, hang Sửng Sốt, chèo kayak, tắm biển Titop." },
+    { name: "Hàn Quốc 5N4Đ - Seoul & Jeju", location: "Hàn Quốc", duration: 5, price: 21900000, rating: 4.9, departure: "2025-12-30", type: "international", image: "https://images.unsplash.com/photo-1536440136628-849c177e375a?w=800", desc: "Đảo Nami lãng mạn, Seoul Tower, đảo Jeju - thiên đường nghỉ dưỡng." },
+    { name: "Nhật Bản 6N5Đ - Tokyo & Fuji", location: "Nhật Bản", duration: 6, price: 39900000, rating: 5.0, departure: "2026-03-20", type: "international", image: "https://images.unsplash.com/photo-1540959733332-1b0bd6e6d2f7?w=800", desc: "Mùa hoa anh đào, núi Phú Sĩ huyền thoại, Tokyo Disneyland." },
+    { name: "Thái Lan 5N4Đ - Bangkok & Pattaya", location: "Thái Lan", duration: 5, price: 13900000, rating: 4.8, departure: "2025-12-26", type: "international", hot: true, image: "https://images.unsplash.com/photo-1552465011-6b1166f9a1e6?w=800", desc: "Chợ nổi Damnoen Saduak, đảo san hô Coral, show Alcazar hoành tráng." },
+    { name: "Châu Âu 10N9Đ - Pháp & Ý & Thụy Sĩ", location: "Châu Âu", duration: 10, price: 69900000, rating: 5.0, departure: "2026-01-05", type: "international", image: "https://images.unsplash.com/photo-1519904981064-b0cfaffc987c?w=800", desc: "Paris - Tháp Eiffel, Rome - Vatican, Zurich - hồ Lucerne thơ mộng." },
+    { name: "Singapore 4N3Đ - Marina Bay Sands", location: "Singapore", duration: 4, price: 18900000, rating: 4.9, departure: "2025-12-28", type: "international", image: "https://images.unsplash.com/photo-1516496636080-14c91f75a9be?w=800", desc: "Khách sạn hồ bơi vô cực nổi tiếng, Universal Studio, Garden by the Bay." },
+    { name: "Đà Lạt 3N2Đ - Mùa Hoa Phượng Tím", location: "Đà Lạt", duration: 3, price: 3900000, rating: 4.7, departure: "2025-12-16", type: "domestic", image: "https://images.unsplash.com/photo-1582510003544-4d00b7f621f5?w=800", desc: "Thành phố ngàn hoa, đồi chè trái tim, cà phê view núi cực chill." }
+];
 
-        // Tắt menu khi nhấn vào link (trên mobile)
-        $('.nav-link').click(function() {
-            if ($('.nav-menu').hasClass('active')) {
-                $('.nav-menu').removeClass('active');
-            }
-        });
+function formatPrice(p) { return p.toLocaleString('vi-VN') + '₫'; }
+
+function createTourCard(t) {
+    const hot = t.hot ? '<div class="badge-hot">HOT DEAL</div>' : '';
+    return `
+        <div class="tour-card">
+            ${hot}
+            <div class="tour-image">
+                <img src="${t.image}" alt="${t.name}">
+            </div>
+            <div class="tour-content">
+                <h3 class="tour-title">${t.name}</h3>
+                <p class="tour-desc">${t.desc}</p>
+                <div class="tour-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> ${t.location}</span>
+                    <span><i class="fas fa-clock"></i> ${t.duration} ngày</span>
+                    <span><i class="fas fa-calendar-alt"></i> ${new Date(t.departure).toLocaleDateString('vi-VN')}</span>
+                </div>
+                <div class="tour-footer">
+                    <div class="tour-rating">
+                        <i class="fas fa-star"></i> ${t.rating}
+                    </div>
+                    <div class="tour-price-info">
+                        <div class="price-label">Chỉ từ</div>
+                        <div class="price">${formatPrice(t.price)}</div>
+                    </div>
+                    <button class="book-btn open-modal-tour" data-name="${t.name}">Đặt Ngay</button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function isPriceInRange(price, ranges) {
+    if (ranges.length === 0) return true;
+    for (const r of ranges) {
+        if (r === '<10' && price < 10000000) return true;
+        if (r === '10-20' && price >= 10000000 && price <= 20000000) return true;
+        if (r === '20-50' && price > 20000000 && price <= 50000000) return true;
+        if (r === '50+' && price > 50000000) return true;
+    }
+    return false;
+}
+
+function isDurationInRange(dur, ranges) {
+    if (ranges.length === 0) return true;
+    for (const r of ranges) {
+        if (r === '1-3' && dur <= 3) return true;
+        if (r === '4-7' && dur >= 4 && dur <= 7) return true;
+        if (r === '8-14' && dur >= 8 && dur <= 14) return true;
+        if (r === '15+' && dur >= 15) return true;
+    }
+    return false;
+}
+
+// ===== HÀM CHÍNH: ĐỌC URL VÀ RENDER KẾT QUẢ =====
+function renderResults() {
+    let result = [...tourData];
+    
+    // Đọc giá trị từ form (sau khi submit)
+    const query = document.getElementById('location').value.trim().toLowerCase();
+    
+    // Đọc giá trị từ checkbox/select
+    const prices = Array.from(document.querySelectorAll('input[name="price"]:checked')).map(i => i.value);
+    const types = Array.from(document.querySelectorAll('input[name="type"]:checked')).map(i => i.value);
+    const durations = Array.from(document.querySelectorAll('input[name="duration_filter"]:checked')).map(i => i.value);
+    const sort = document.getElementById('sortBy').value;
+
+    // Lọc theo location
+    if (query) {
+        result = result.filter(t => 
+            t.name.toLowerCase().includes(query) || 
+            t.location.toLowerCase().includes(query)
+        );
+    }
+    
+    // Lọc theo type (domestic/international)
+    if (types.length) {
+        result = result.filter(t => types.includes(t.type));
+    }
+    
+    // Lọc theo giá
+    result = result.filter(t => isPriceInRange(t.price, prices));
+    
+    // Lọc theo duration
+    result = result.filter(t => isDurationInRange(t.duration, durations));
+
+    // Sắp xếp
+    if (sort === 'price-asc') result.sort((a,b) => a.price - b.price);
+    else if (sort === 'price-desc') result.sort((a,b) => b.price - a.price);
+    else if (sort === 'duration-asc') result.sort((a,b) => a.duration - b.duration);
+    else result.sort((a,b) => new Date(a.departure) - new Date(b.departure));
+
+    // Hiển thị kết quả
+    document.getElementById('resultInfo').textContent = result.length 
+        ? `Tìm thấy ${result.length} tour phù hợp` 
+        : 'Không tìm thấy tour nào';
+        
+    document.getElementById('tourListGrid').innerHTML = result.length 
+        ? result.map(createTourCard).join('') 
+        : '<p class="no-results">Không có tour nào phù hợp với bộ lọc của bạn.</p>';
+
+    // Gắn sự kiện mở modal cho các button mới
+    document.querySelectorAll('.open-modal-tour').forEach(btn => {
+        btn.onclick = function() {
+            const name = this.dataset.name;
+            document.getElementById('tName').value = name;
+            document.getElementById('modalTourName').textContent = name;
+            document.getElementById('tourModal').classList.add('active');
+        };
     });
+}
+
+// ===== ĐỌC URL PARAMETERS KHI LOAD TRANG =====
+function loadFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const locationParam = urlParams.get('location');
+    
+    // Điền vào ô input nếu có parameter
+    if (locationParam) {
+        document.getElementById('location').value = locationParam;
+    }
+    
+    // Render kết quả ngay lập tức
+    renderResults();
+}
+
+// ===== SỰ KIỆN KHI TRANG LOAD =====
+document.addEventListener('DOMContentLoaded', () => {
+    // Load kết quả từ URL khi vào trang
+    loadFromURL();
+    
+    // Xử lý form tìm kiếm
+    document.getElementById('tourSearchForm').onsubmit = e => { 
+        e.preventDefault(); 
+        renderResults(); 
+    };
+    
+    // Xử lý thay đổi bộ lọc
+    document.querySelectorAll('input[type="checkbox"], #sortBy').forEach(el => {
+        el.addEventListener('change', renderResults);
+    });
+    
+    // Xử lý nút "Áp dụng bộ lọc"
+    document.querySelector('.apply-btn').addEventListener('click', renderResults);
+});
+
+// ===== XỬ LÝ MODAL =====
+document.querySelector('.close-btn').onclick = () => {
+    document.getElementById('tourModal').classList.remove('active');
+};
+
+window.onclick = e => { 
+    if (e.target === document.getElementById('tourModal')) {
+        document.getElementById('tourModal').classList.remove('active');
+    }
+};
+
+document.getElementById('bookingForm').onsubmit = function(e) {
+    e.preventDefault();
+    const msg = document.getElementById('bookingMessage');
+    msg.textContent = 'Đặt tour thành công! Chúng tôi sẽ liên hệ ngay.';
+    msg.style.color = '#10b981';
+    msg.style.display = 'block';
+    
+    setTimeout(() => {
+        msg.style.display = 'none';
+        this.reset();
+        document.getElementById('tourModal').classList.remove('active');
+    }, 3000);
+};
+
+// ===== XỬ LÝ HAMBURGER MENU =====
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-menu').classList.toggle('active');
+});
+</script>
+<script>
+// Mở modal
+document.querySelectorAll('.open-modal-tour').forEach(btn => {
+    btn.onclick = function() {
+        const name = this.dataset.name;
+        document.getElementById('tName').value = name;
+        document.getElementById('modalTourName').textContent = name;
+        document.getElementById('tourModal').classList.add('active');
+    };
+});
+
+// Đóng modal
+document.querySelector('.close-btn').onclick = () => 
+    document.getElementById('tourModal').classList.remove('active');
+
+window.onclick = e => {
+    if (e.target === document.getElementById('tourModal'))
+        document.getElementById('tourModal').classList.remove('active');
+};
+
+// Xử lý đặt tour
+document.getElementById('bookingForm').onsubmit = function(e) {
+    e.preventDefault();
+
+    const msg = document.getElementById('bookingMessage');
+    msg.textContent = 'Đặt tour thành công! Chúng tôi sẽ liên hệ ngay trong vài phút.';
+    msg.style.color = '#10b981';
+    msg.style.display = 'block';
+
+    setTimeout(() => {
+        this.reset();
+        msg.style.display = 'none';
+        document.getElementById('tourModal').classList.remove('active');
+    }, 3000);
+};
+</script>
+<section class="suggested-tours-section container">
+        <h2 class="section-title" style="text-align: center; margin: 4rem 0 2.5rem; color: #4361ee;">
+            <i class="fas fa-fire"></i> Tour Đang Hot - Khách Đặt Nhiều Nhất
+        </h2>
+        <p style="text-align: center; color: #64748b; margin-bottom: 3rem; font-size: 1.1rem;">
+            Những hành trình được hàng ngàn khách yêu thích trong tháng này
+        </p>
+
+        <div class="tour-card-grid" id="suggestedTours">
+        </div>
+    </section>
+
+    <!-- ==================== FORM LIÊN HỆ CHÚNG TÔI ==================== -->
+<section class="contact-tour-section">
+    <div class="container contact-tour-content">
+        <div class="contact-info">
+            <h2>CẦN TƯ VẤN TOUR RIÊNG?</h2>
+            <p>Hãy để lại thông tin, chuyên viên du lịch của chúng tôi sẽ liên hệ lại với bạn trong vòng 30 phút để thiết kế hành trình hoàn hảo cho bạn.</p>
+            <ul>
+                <li><i class="fas fa-phone"></i> **Hotline:** 1900 6789</li>
+                <li><i class="fas fa-envelope"></i> **Email:** support@travelexplorer.com</li>
+                <li><i class="fas fa-map-marker-alt"></i> **Văn phòng:** 123 Đường Du Lịch, Quận 1, TP. HCM</li>
+            </ul>
+        </div>
+        <div class="contact-form-wrapper">
+            <h3>Gửi Yêu Cầu Tư Vấn</h3>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="cName">Họ và Tên (*)</label>
+                    <input type="text" id="cName" name="cName" required>
+                </div>
+                <div class="form-group">
+                    <label for="cEmail">Email (*)</label>
+                    <input type="email" id="cEmail" name="cEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="cPhone">Số Điện Thoại (*)</label>
+                    <input type="tel" id="cPhone" name="cPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="cDestination">Điểm Đến Yêu Thích</label>
+                    <input type="text" id="cDestination" name="cDestination" placeholder="Ví dụ: Phú Quốc, Châu Âu...">
+                </div>
+                <div class="form-group">
+                    <label for="cMessage">Nội Dung Yêu Cầu</label>
+                    <textarea id="cMessage" name="cMessage" rows="4" placeholder="Bạn muốn đi bao nhiêu người? Thời gian nào?"></textarea>
+                </div>
+                <button type="submit" class="cta-button">Gửi Yêu Cầu</button>
+            </form>
+            <p id="formMessage" style="text-align: center; margin-top: 15px; display: none; color: var(--main-color); font-weight: bold;"></p>
+        </div>
+    </div>
+</section>
+    <script>
+const suggestedTours = [
+    { name: "Phú Quốc 3N3Đ - Vinpearl Safari + Cáp Treo", price: "6.990.000", duration: "3 ngày 3 đêm", img: "https://images.unsplash.com/photo-1577717904356-3058c23b7e91?w=800" },
+    { name: "Đà Lạt Mộng Mơ - 3N3Đ Khởi Hành Hàng Ngày", price: "4.590.000", duration: "3 ngày 3 đêm", img: "https://images.unsplash.com/photo-1583417136848-9ddde675c98a?w=800" },
+    { name: "Hà Nội - Hạ Long - Ninh Bình 4N4Đ", price: "8.890.000", duration: "4 ngày 4 đêm", img: "https://images.unsplash.com/photo-1570545906912-2dd4a9e7d5bb?w=800" },
+    { name: "Singapore - Malaysia 5N4Đ Bay Vietnam Airlines", price: "15.990.000", duration: "5 ngày 4 đêm", img: "https://images.unsplash.com/photo-1516496636080-14c9a69611f8?w=800" },
+    { name: "Hàn Quốc Mùa Thu Lá Đỏ 5N5Đ", price: "22.990.000", duration: "5 ngày 5 đêm", img: "https://images.unsplash.com/photo-1542272209-6d40db738c20?w=800" },
+    { name: "Châu Âu 4 Nước: Pháp - Thụy Sĩ - Ý - Vatican", price: "69.900.000", duration: "10 ngày 9 đêm", img: "https://images.unsplash.com/photo-1519904981063-bfd50b734b1e?w=800" }
+];
+
+function getUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    return { q: (params.get('q') || '').trim() };
+    }
+
+// Hàm tạo card tour gợi ý
+function createSuggestedCard(tour) {
+    return `
+        <div class="tour-card open-modal-tour" data-name="${tour.name}">
+            <img src="${tour.img}" alt="${tour.name}">
+            <div class="tour-card-content">
+                <h3>${tour.name}</h3>
+                <p class="duration"><i class="fas fa-clock"></i> ${tour.duration}</p>
+                <p class="price">Chỉ từ <strong>${tour.price}₫</strong>/khách</p>
+                <button class="btn-book">ĐẶT NGAY</button>
+            </div>
+        </div>
+    `;
+}
+
+// Hiển thị tour gợi ý khi trang tải xong hoặc sau khi tìm kiếm
+function loadSuggestedTours() {
+    const container = document.getElementById('suggestedTours');
+    if (container) {
+        container.innerHTML = suggestedTours.map(createSuggestedCard).join('');
+        
+        // Gắn lại sự kiện mở modal cho các tour gợi ý
+        document.querySelectorAll('#suggestedTours .open-modal-tour').forEach(btn => {
+            btn.onclick = function() {
+                const name = this.dataset.name;
+                document.getElementById('tName').value = name;
+                document.getElementById('modalTourName').textContent = name;
+                document.getElementById('tourModal').classList.add('active');
+            };
+        });
+    }
+}
+
+// Tự động cuộn xuống kết quả sau khi tìm kiếm
+function scrollToResults() {
+    document.querySelector('.main-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// Gọi hàm khi trang tải xong và sau mỗi lần tìm kiếm
+document.addEventListener('DOMContentLoaded', () => {
+    loadSuggestedTours();
+    // Override lại hàm renderResults cũ để cuộn mượt
+    const originalRender = renderResults;
+    window.renderResults = function() {
+        originalRender();
+        setTimeout(scrollToResults, 300);
+        loadSuggestedTours(); // Cập nhật lại sự kiện modal
+    };
+});
+
+// Xử lý form liên hệ
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formMessage = document.getElementById('formMessage');
+        formMessage.style.display = 'block';
+        formMessage.style.color = 'green';
+        formMessage.textContent = 'Yêu cầu của bạn đã được gửi thành công! Chúng tôi sẽ liên hệ lại sớm nhất.';
+        
+        this.reset(); // Dùng `this` để reset form hiện tại
+        // -----------------------------
+
+        setTimeout(() => {
+            formMessage.style.display = 'none';
+        }, 5000);
+    });
+    document.querySelector('.hamburger-menu').addEventListener('click', () => document.querySelector('.nav-menu').classList.toggle('active'));
+    window.onclick = e => { if (e.target === document.getElementById('tourModal')) document.getElementById('tourModal').classList.remove('active'); };
 </script>
 </body>
-
 </html>
