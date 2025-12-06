@@ -1,347 +1,857 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đặt Vé Máy Bay - Travel Explorer</title>
+    <title>Đặt Vé Máy Bay Giá Rẻ - Travel Explorer</title>
     <link rel="stylesheet" href="assets/css/index.css">
+    <link rel="stylesheet" href="assets/css/flight.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-
 <body>
 <header class="header">
-    <nav class="nav-container">
-        <a href="main.html" class="logo">🌍 Travel Explorer</a>
-        <div>
-            <ul class="nav-menu">
-                <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
-                <li><a href="main.html#destinations" class="nav-link">Điểm Đến</a></li>
-                <li><a href="main.html#services" class="nav-link">Dịch Vụ</a></li>
-                <li><a href="main.html#contact" class="nav-link">Liên Hệ</a></li>
-            </ul>
-            
-            <div class="hamburger-menu">
-                <i class="fas fa-bars"></i>
-            </div>
-        </div>
-    </nav>
+    <div class="container nav-container">
+        <a href="main.html" class="logo">Travel Explorer</a>
+        <div class="hamburger-menu"><i class="fas fa-bars"></i></div>
+        <ul class="nav-menu">
+            <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
+            <li><a href="tour.html" class="nav-link">Tour</a></li>
+            <li><a href="hotel.html" class="nav-link">Khách Sạn</a></li>
+            <li><a href="flight.html" class="nav-link active">Vé Máy Bay</a></li>
+        </ul>
+    </div>
 </header>
 
-    <section class="flight-page-hero" style="background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('ảnh/img-travel.jpg') center/cover;">
-        <div class="hero-content">
-            <h1>Săn Vé Máy Bay Giá Tốt Nhất</h1>
+<section class="flight-hero">
+    <div class="flight-hero-content">
+        <h1>✈️ Săn Vé Máy Bay Giá Tốt Nhất</h1>
+        <p>Tìm kiếm và so sánh giá vé từ hàng trăm hãng hàng không</p>
+       
+        <div class="flight-search-container">
+            <div class="flight-tabs">
+                <button class="flight-tab-btn active" data-type="return">
+                    <i class="fas fa-exchange-alt"></i> Khứ Hồi
+                </button>
+                <button class="flight-tab-btn" data-type="oneway">
+                    <i class="fas fa-arrow-right"></i> Một Chiều
+                </button>
+            </div>
+           
+            <form id="flightSearchForm" action="flight-results.html" method="GET">
+                <div class="flight-form-grid">
+                    <div class="flight-input-wrapper" style="grid-column: span 2; position: relative;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; position: relative;">
+                            <div class="airport-input-group">
+                                <label>Điểm khởi hành</label>
+                                <div style="position: relative;">
+                                    <i class="fas fa-plane-departure"></i>
+                                    <input type="text" id="fromInput" placeholder="Nhập tên sân bay..." required autocomplete="off">
+                                    <input type="hidden" id="fromCode" name="from_code">
+                                    <div class="airport-dropdown" id="fromDropdown"></div>
+                                </div>
+                            </div>
+                           
+                            <button type="button" class="swap-locations-btn" id="swapBtn">
+                                <i class="fas fa-exchange-alt"></i>
+                            </button>
+                           
+                            <div class="airport-input-group">
+                                <label>Điểm đến</label>
+                                <div style="position: relative;">
+                                    <i class="fas fa-plane-arrival"></i>
+                                    <input type="text" id="toInput" placeholder="Nhập tên sân bay..." required autocomplete="off">
+                                    <input type="hidden" id="toCode" name="to_code">
+                                    <div class="airport-dropdown" id="toDropdown"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+                    <div class="flight-input-wrapper">
+                        <label>Ngày đi</label>
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="date" name="depart_date" id="departDate" required>
+                    </div>
+                   
+                    <div class="flight-input-wrapper" id="returnDateWrapper">
+                        <label>Ngày về</label>
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="date" name="return_date" id="returnDate">
+                    </div>
+                   
+                    <div class="flight-input-wrapper">
+                        <label>Số hành khách</label>
+                        <i class="fas fa-user"></i>
+                        <input type="number" name="passengers" min="1" max="9" value="1" required>
+                    </div>
+                   
+                    <div class="flight-input-wrapper">
+                        <label>Hạng ghế</label>
+                        <i class="fas fa-chair"></i>
+                        <select name="cabin_class" id="cabinClass" required>
+                            <option value="economy">Phổ thông</option>
+                            <option value="premium_economy">Phổ thông Đặc biệt</option>
+                            <option value="business">Thương gia</option>
+                            <option value="first">Hạng Nhất</option>
+                        </select>
+                    </div>
+                   
+                    <button type="submit" class="flight-search-btn">
+                        <i class="fas fa-search"></i> Tìm Chuyến Bay
+                    </button>
+                </div>
+            </form>
         </div>
-    </section>
-
-    <section class="flight-search">
-    <div class="container">
-        <form class="search-form" id="flightSearchForm">
-            <div class="form-group">
-                <label for="departureCity">Điểm Đi (*)</label>
-                <input type="text" id="departureCity" placeholder="Ví dụ: TP. Hồ Chí Minh (SGN)" required />
-            </div>
-            <div class="form-group">
-                <label for="arrivalCity">Điểm Đến (*)</label>
-                <input type="text" id="arrivalCity" placeholder="Ví dụ: Hà Nội (HAN)" required />
-            </div>
-            <div class="form-group">
-                <label for="departureDate">Ngày Đi (*)</label>
-                <input type="date" id="departureDate" required />
-            </div>
-            <div class="form-group">
-                <label for="passengers">Số Hành Khách</label>
-                <input type="number" id="passengers" value="1" min="1" required />
-            </div>
-            <button type="submit" class="cta-button" id="searchFlightButton" style="align-self: flex-end; padding: 0.8rem 1.5rem;">Tìm Chuyến Bay</button>
-        </form>
     </div>
 </section>
 
-<section class="flight-list" id="flightListSection">
+<!-- ========== VÉ BAY TỐT NHẤT ========== -->
+<section class="hot-deals-section best-flights-section">
     <div class="container">
-        <h2 class="section-title" id="flightSectionTitle">Vui lòng nhập thông tin để tìm chuyến bay</h2>
-        <div id="flightListContainer">
+        <h2>🎯 Vé Bay Tốt Nhất</h2>
+        <p class="section-subtitle">Khám phá các ưu đãi vé máy bay hấp dẫn nhất hiện nay</p>
+       
+        <!-- Tabs chính: Trong nước và Quốc tế -->
+        <div class="main-flight-tabs">
+            <button class="main-flight-tab active" data-tab="domestic">
+                <i class="fas fa-home"></i> Trong Nước
+            </button>
+            <button class="main-flight-tab" data-tab="international">
+                <i class="fas fa-globe-asia"></i> Quốc Tế
+            </button>
+        </div>
+
+        <!-- Nội dung tab Trong nước -->
+        <div class="flight-tab-content active" data-tab="domestic">
+            <!-- Tabs thành phố trong nước -->
+            <div class="city-tabs">
+                <button class="city-tab active" data-city="hanoi">
+                    <i class="fas fa-landmark"></i> Hà Nội
+                </button>
+                <button class="city-tab" data-city="hcm">
+                    <i class="fas fa-city"></i> TP.HCM
+                </button>
+                <button class="city-tab" data-city="danang">
+                    <i class="fas fa-bridge"></i> Đà Nẵng
+                </button>
+                <button class="city-tab" data-city="phuquoc">
+                    <i class="fas fa-umbrella-beach"></i> Phú Quốc
+                </button>
+                <button class="city-tab" data-city="nhatrang">
+                    <i class="fas fa-water"></i> Nha Trang
+                </button>
             </div>
+
+            <!-- Nội dung các thành phố -->
+            <div class="city-content active" data-city="hanoi">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev" onclick="scrollCarousel('hanoi-flights', -300)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="tour-list-horizontal" id="hanoi-flights">
+                        <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                    </div>
+                    
+                    <button class="arrow next" onclick="scrollCarousel('hanoi-flights', 300)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="city-content" data-city="hcm">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev" onclick="scrollCarousel('hcm-flights', -300)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="tour-list-horizontal" id="hcm-flights">
+                        <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                    </div>
+                    
+                    <button class="arrow next" onclick="scrollCarousel('hcm-flights', 300)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="city-content" data-city="danang">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev" onclick="scrollCarousel('danang-flights', -300)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="tour-list-horizontal" id="danang-flights">
+                        <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                    </div>
+                    
+                    <button class="arrow next" onclick="scrollCarousel('danang-flights', 300)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="city-content" data-city="phuquoc">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev" onclick="scrollCarousel('phuquoc-flights', -300)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="tour-list-horizontal" id="phuquoc-flights">
+                        <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                    </div>
+                    
+                    <button class="arrow next" onclick="scrollCarousel('phuquoc-flights', 300)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="city-content" data-city="nhatrang">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev" onclick="scrollCarousel('nhatrang-flights', -300)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="tour-list-horizontal" id="nhatrang-flights">
+                        <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                    </div>
+                    
+                    <button class="arrow next" onclick="scrollCarousel('nhatrang-flights', 300)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Nội dung tab Quốc tế -->
+        <div class="flight-tab-content" data-tab="international">
+            <!-- Tabs quốc gia quốc tế -->
+            <div class="country-tabs">
+                <button class="country-tab active" data-country="all">
+                    <i class="fas fa-globe"></i> Tất Cả
+                </button>
+                <button class="country-tab" data-country="thailand">
+                    <i class="fas fa-flag"></i> Thái Lan
+                </button>
+                <button class="country-tab" data-country="singapore">
+                    <i class="fas fa-flag"></i> Singapore
+                </button>
+                <button class="country-tab" data-country="korea">
+                    <i class="fas fa-flag"></i> Hàn Quốc
+                </button>
+                <button class="country-tab" data-country="japan">
+                    <i class="fas fa-flag"></i> Nhật Bản
+                </button>
+                <button class="country-tab" data-country="taiwan">
+                    <i class="fas fa-flag"></i> Đài Loan
+                </button>
+            </div>
+
+            <!-- Nội dung các quốc gia -->
+            <div class="country-content active" data-country="all">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev" onclick="scrollCarousel('all-flights', -300)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="tour-list-horizontal" id="all-flights">
+                        <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                    </div>
+                    
+                    <button class="arrow next" onclick="scrollCarousel('all-flights', 300)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="country-content" data-country="thailand">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev" onclick="scrollCarousel('thailand-flights', -300)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="tour-list-horizontal" id="thailand-flights">
+                        <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                    </div>
+                    
+                    <button class="arrow next" onclick="scrollCarousel('thailand-flights', 300)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="country-content" data-country="singapore">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev" onclick="scrollCarousel('singapore-flights', -300)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="tour-list-horizontal" id="singapore-flights">
+                        <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                    </div>
+                    
+                    <button class="arrow next" onclick="scrollCarousel('singapore-flights', 300)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="country-content" data-country="korea">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev" onclick="scrollCarousel('korea-flights', -300)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="tour-list-horizontal" id="korea-flights">
+                        <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                    </div>
+                    
+                    <button class="arrow next" onclick="scrollCarousel('korea-flights', 300)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="country-content" data-country="japan">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev" onclick="scrollCarousel('japan-flights', -300)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="tour-list-horizontal" id="japan-flights">
+                        <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                    </div>
+                    
+                    <button class="arrow next" onclick="scrollCarousel('japan-flights', 300)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="country-content" data-country="taiwan">
+                <div class="tour-carousel-wrapper">
+                    <button class="arrow prev" onclick="scrollCarousel('taiwan-flights', -300)">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    
+                    <div class="tour-list-horizontal" id="taiwan-flights">
+                        <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                    </div>
+                    
+                    <button class="arrow next" onclick="scrollCarousel('taiwan-flights', 300)">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
-<div class="modal-overlay" id="flightModal">
+
+<!-- ========== DEAL BAY RẺ NHẤT ========== -->
+<section class="hot-deals-section cheapest-deals-section">
+    <div class="container">
+        <h2>🔥 Deal Bay Rẻ Nhất</h2>
+        <p class="section-subtitle">Ưu đãi đặc biệt cho các tuyến bay với giá tốt nhất</p>
+       
+        <!-- Chỉ hiển thị danh sách deal bay, không có tabs -->
+        <div class="tour-carousel-wrapper">
+            <button class="arrow prev" onclick="scrollCarousel('cheapest-flights', -300)">
+                <i class="fas fa-chevron-left"></i>
+            </button>
+            
+            <div class="tour-list-horizontal" id="cheapest-flights">
+                <!-- Nội dung sẽ được thêm bằng JavaScript -->
+            </div>
+            
+            <button class="arrow next" onclick="scrollCarousel('cheapest-flights', 300)">
+                <i class="fas fa-chevron-right"></i>
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- ========== BAY ĐẾN ĐIỂM ĐẾN VỚI GIÁ SIÊU HỜI ========== -->
+<section class="hot-deals-section super-deals-section">
+    <div class="container">
+        <h2>🌍 Bay Đến Điểm Đến Với Giá Siêu Hời</h2>
+        <p class="section-subtitle">Khám phá những điểm đến quốc tế hấp dẫn với giá vé tốt nhất</p>
+       
+        <!-- Danh sách các điểm đến quốc tế (mỗi item là một link) -->
+        <div class="destination-grid" id="international-destinations">
+            <!-- Nội dung sẽ được thêm bằng JavaScript -->
+        </div>
+    </div>
+</section>
+
+<!-- MODAL ĐẶT VÉ -->
+<div id="flightModal" class="modal">
     <div class="modal-content">
-        <button class="close-button" onclick="closeModal('flightModal')">&times;</button>
-        <h3>ĐẶT VÉ MÁY BAY</h3>
-        <p class="service-selection">Bạn đang chọn: <span id="selectedFlightName">Chuyến bay...</span></p>
-        <form class="modal-form">
-            <input type="hidden" id="flightName" name="flight_name" value=""> 
-
+        <span class="close-btn">&times;</span>
+        <h3 class="modal-header">ĐẶT VÉ MÁY BAY</h3>
+        <form id="bookingForm" class="booking-form">
+            <input type="hidden" id="modalFrom" name="from">
             <div class="form-group">
-                <label for="contactName">Họ và Tên Người Liên Hệ (*)</label>
-                <input type="text" id="contactName" placeholder="Nhập họ và tên" required>
+                <label for="fullName">Họ và tên (*)</label>
+                <input type="text" id="fullName" name="fullName" required>
             </div>
-            
             <div class="form-group">
-                <label for="contactPhone">Số Điện Thoại (*)</label>
-                <input type="tel" id="contactPhone" placeholder="Nhập số điện thoại" required>
+                <label for="phone">Số điện thoại (*)</label>
+                <input type="tel" id="phone" name="phone" required>
             </div>
-            
             <div class="form-group">
-                <label for="contactEmail">Email (*)</label>
-                <input type="email" id="contactEmail" placeholder="Nhập địa chỉ email" required>
+                <label for="email">Email (*)</label>
+                <input type="email" id="email" name="email" required>
             </div>
-            
             <div class="form-group">
-                <label for="passengerCount">Tổng Số Lượng Hành Khách (*)</label>
-                <input type="number" id="passengerCount" value="1" min="1" required>
+                <label for="notes">Ghi chú thêm</label>
+                <textarea id="notes" name="notes" rows="3"></textarea>
             </div>
-
-            <div class="form-group">
-                <label for="notesFlight">Yêu Cầu Đặc Biệt (chọn chỗ, suất ăn,...) </label>
-                <textarea id="notesFlight" rows="3" placeholder="Ghi chú các yêu cầu của hành khách"></textarea>
-            </div>
-            <button type="submit">Xác Nhận Đặt Vé</button>
+            <p id="bookingMessage" style="color: var(--main-color); display: none; margin-bottom: 15px; font-weight: 600;">Đặt vé thành công!</p>
+            <button type="submit" class="cta-button">Gửi Yêu Cầu</button>
         </form>
     </div>
 </div>
+
+<!-- SECTION LIÊN HỆ -->
+<section class="contact-section">
+    <div class="container">
+        <div class="contact-tour-content">
+            <div class="contact-info">
+                <h2>Liên Hệ Tư Vấn Vé Máy Bay</h2>
+                <p>Liên hệ ngay với chúng tôi để được tư vấn và hỗ trợ đặt vé máy bay nhanh chóng, giá tốt nhất.</p>
+                <ul>
+                    <li><i class="fas fa-phone-alt"></i> Hotline: 1900-1234</li>
+                    <li><i class="fas fa-envelope"></i> Email: support@travelexplorer.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Văn phòng: 123 Đường ABC, Quận 1, TP. HCM</li>
+                </ul>
+            </div>
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Họ và tên" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Email" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" rows="4" placeholder="Nội dung cần hỗ trợ"></textarea>
+                </div>
+                <p id="formMessage" style="color: var(--main-color); display: none; margin-bottom: 15px; font-weight: 600;">Yêu cầu của bạn đã được gửi thành công!</p>
+                <button type="submit" class="cta-button">GỬI YÊU CẦU</button>
+            </form>
+        </div>
+    </div>
+</section>
+
+<footer class="footer">
+    <div class="container">
+        <p>&copy; 2025 Travel Explorer. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- JavaScript giữ nguyên như cũ -->
 <script>
-    const allFlights = [
-        { id: 1, airline: "Vietnam Airlines", flightNumber: "VN7729", departureTime: "07:00", arrivalTime: "09:00", price: "2.500.000đ", rawPrice: "2.500.000đ", class: "Phổ thông", image: "ảnh/vna.jpg", duration: "2h00" },
-        { id: 2, airline: "Bamboo Airways", flightNumber: "QH1001", departureTime: "10:30", arrivalTime: "12:30", price: "2.350.000đ", rawPrice: "2.350.000đ", class: "Phổ thông", image: "ảnh/bamboo.png", duration: "2h00" },
-        { id: 3, airline: "Vietjet Air", flightNumber: "VJ334", departureTime: "14:45", arrivalTime: "16:45", price: "1.900.000đ", rawPrice: "1.900.000đ", class: "Tiết kiệm", image: "ảnh/vietjet.png", duration: "2h00" },
-        { id: 4, airline: "Vietnam Airlines", flightNumber: "VN7221", departureTime: "18:00", arrivalTime: "20:00", price: "2.750.000đ", rawPrice: "2.750.000đ", class: "Thương gia", image: "ảnh/vna.jpg", duration: "2h00" },
-        { id: 5, airline: "Bamboo Airways", flightNumber: "QH1009", departureTime: "21:15", arrivalTime: "23:15", price: "2.200.000đ", rawPrice: "2.200.000đ", class: "Phổ thông", image: "ảnh/bamboo.png", duration: "2h00" }
+    // Dữ liệu sân bay
+    const airports = [
+        { code: 'SGN', name: 'TP. Hồ Chí Minh (SGN)', city: 'Hồ Chí Minh' },
+        { code: 'HAN', name: 'Hà Nội (HAN)', city: 'Hà Nội' },
+        { code: 'DAD', name: 'Đà Nẵng (DAD)', city: 'Đà Nẵng' },
+        { code: 'PQC', name: 'Phú Quốc (PQC)', city: 'Phú Quốc' },
+        { code: 'CXR', name: 'Nha Trang (CXR)', city: 'Nha Trang' },
+        { code: 'BKK', name: 'Bangkok (BKK)', city: 'Bangkok', country: 'Thái Lan' },
+        { code: 'SIN', name: 'Singapore (SIN)', city: 'Singapore', country: 'Singapore' },
+        { code: 'ICN', name: 'Seoul (ICN)', city: 'Seoul', country: 'Hàn Quốc' },
+        { code: 'NRT', name: 'Tokyo (NRT)', city: 'Tokyo', country: 'Nhật Bản' },
+        { code: 'TPE', name: 'Đài Bắc (TPE)', city: 'Đài Bắc', country: 'Đài Loan' },
     ];
 
-    let selectedFlightDetails = null;
+    // Dữ liệu điểm đến quốc tế
+    const internationalDestinations = [
+        { id: 1, name: "Bangkok, Thái Lan", image: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=400&h-250&fit=crop", code: "BKK", country: "Thái Lan" },
+        { id: 2, name: "Singapore", image: "https://images.unsplash.com/photo-1532228117458-9a55e1ee2a03?w=400&h-250&fit=crop", code: "SIN", country: "Singapore" },
+        { id: 3, name: "Seoul, Hàn Quốc", image: "https://images.unsplash.com/photo-1516496636080-14fb876e029d?w=400&h-250&fit=crop", code: "ICN", country: "Hàn Quốc" },
+        { id: 4, name: "Tokyo, Nhật Bản", image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h-250&fit=crop", code: "NRT", country: "Nhật Bản" },
+        { id: 5, name: "Đài Bắc, Đài Loan", image: "https://images.unsplash.com/photo-1591862711636-4cdfa99ae63b?w=400&h-250&fit=crop", code: "TPE", country: "Đài Loan" },
+        { id: 6, name: "Paris, Pháp", image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400&h-250&fit=crop", code: "CDG", country: "Pháp" },
+    ];
 
-    const flightListContainer = document.getElementById('flightListContainer');
-    const flightSearchForm = document.getElementById('flightSearchForm');
-    const flightSectionTitle = document.getElementById('flightSectionTitle');
-    const flightModal = document.getElementById('flightModal');
-    const confirmationModal = document.getElementById('confirmationModal');
+    // Dữ liệu deal bay (giữ nguyên)
+    const flightDeals = [
+        // Deal bay từ Hà Nội
+        { id: 1, from: "HAN", to: "SGN", fromCity: "Hà Nội", toCity: "TP.HCM", airline: "Vietnam Airlines", 
+          departTime: "06:00", arriveTime: "08:10", duration: "2h10m", price: 1850000, oldPrice: 2200000,
+          type: "domestic", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48" },
+        { id: 2, from: "HAN", to: "DAD", fromCity: "Hà Nội", toCity: "Đà Nẵng", airline: "VietJet Air",
+          departTime: "08:30", arriveTime: "10:00", duration: "1h30m", price: 890000, oldPrice: 1200000,
+          type: "domestic", tripType: "oneway", badge: "SALE", badgeColor: "#10b981" },
+        { id: 3, from: "HAN", to: "PQC", fromCity: "Hà Nội", toCity: "Phú Quốc", airline: "Bamboo Airways",
+          departTime: "09:15", arriveTime: "11:30", duration: "2h15m", price: 1450000, oldPrice: 1900000,
+          type: "domestic", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee" },
+        { id: 4, from: "HAN", to: "BKK", fromCity: "Hà Nội", toCity: "Bangkok", airline: "Vietnam Airlines",
+          departTime: "14:00", arriveTime: "16:30", duration: "2h30m", price: 2890000, oldPrice: 3500000,
+          type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Thái Lan" },
+        
+        // Deal bay từ TP.HCM
+        { id: 5, from: "SGN", to: "HAN", fromCity: "TP.HCM", toCity: "Hà Nội", airline: "VietJet Air",
+          departTime: "07:30", arriveTime: "09:40", duration: "2h10m", price: 1100000, oldPrice: 1500000,
+          type: "domestic", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48" },
+        { id: 6, from: "SGN", to: "DAD", fromCity: "TP.HCM", toCity: "Đà Nẵng", airline: "Vietravel Airlines",
+          departTime: "10:45", arriveTime: "12:15", duration: "1h30m", price: 750000, oldPrice: 980000,
+          type: "domestic", tripType: "oneway", badge: "SALE", badgeColor: "#10b981" },
+        { id: 7, from: "SGN", to: "SIN", fromCity: "TP.HCM", toCity: "Singapore", airline: "Singapore Airlines",
+          departTime: "13:20", arriveTime: "16:50", duration: "3h30m", price: 3800000, oldPrice: 4500000,
+          type: "international", tripType: "roundtrip", badge: "SPECIAL", badgeColor: "#f59e0b", country: "Singapore" },
+        
+        // Deal bay từ Đà Nẵng
+        { id: 8, from: "DAD", to: "SGN", fromCity: "Đà Nẵng", toCity: "TP.HCM", airline: "VietJet Air",
+          departTime: "18:00", arriveTime: "19:30", duration: "1h30m", price: 620000, oldPrice: 850000,
+          type: "domestic", tripType: "oneway", badge: "SALE", badgeColor: "#10b981" },
+        { id: 9, from: "DAD", to: "HAN", fromCity: "Đà Nẵng", toCity: "Hà Nội", airline: "Bamboo Airways",
+          departTime: "20:15", arriveTime: "21:45", duration: "1h30m", price: 680000, oldPrice: 900000,
+          type: "domestic", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48" },
+        
+        // Deal bay quốc tế
+        { id: 10, from: "SGN", to: "ICN", fromCity: "TP.HCM", toCity: "Seoul", airline: "Korean Air",
+          departTime: "22:30", arriveTime: "06:00+1", duration: "5h30m", price: 5900000, oldPrice: 7500000,
+          type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Hàn Quốc" },
+        { id: 11, from: "HAN", to: "NRT", fromCity: "Hà Nội", toCity: "Tokyo", airline: "Japan Airlines",
+          departTime: "23:45", arriveTime: "08:30+1", duration: "5h45m", price: 8900000, oldPrice: 10500000,
+          type: "international", tripType: "roundtrip", badge: "SPECIAL", badgeColor: "#f59e0b", country: "Nhật Bản" },
+        { id: 12, from: "SGN", to: "TPE", fromCity: "TP.HCM", toCity: "Đài Bắc", airline: "EVA Air",
+          departTime: "08:15", arriveTime: "12:30", duration: "4h15m", price: 3900000, oldPrice: 4800000,
+          type: "international", tripType: "oneway", badge: "NEW", badgeColor: "#4361ee", country: "Đài Loan" },
+    ];
 
-    // === HÀM MODAL CHUNG ===
-    function openModal(modalId, serviceName, details) {
-        document.getElementById(modalId).style.display = 'flex';
-        if (serviceName && details) {
-            if (modalId === 'flightModal') {
-                document.getElementById('flightName').value = serviceName;
-                document.getElementById('selectedFlightName').textContent = serviceName; 
-                selectedFlightDetails = details; 
-            }
-        }
+    // Format giá tiền
+    function formatPrice(price) {
+        return price.toLocaleString('vi-VN') + '₫';
     }
 
-    function closeModal(modalId) {
-        document.getElementById(modalId).style.display = 'none';
-        if (modalId === 'confirmationModal') {
-            document.querySelector('#flightModal .modal-form').reset();
-        }
-    }
-    function attachModalEvents() {
-        document.querySelectorAll('.open-modal-flight').forEach(button => {
-            button.onclick = null; 
-            button.onclick = function(e) {
-                e.preventDefault();
-                const flightId = this.getAttribute('data-flight-id');
-                const flight = allFlights.find(f => f.id == flightId);
-                
-                if (flight) {
-                    const serviceName = `${flight.airline} (${flight.departureTime} - ${flight.arrivalTime}) - ${flight.flightNumber}`;
-                    openModal('flightModal', serviceName, flight);
-                }
-            };
-        });
-    }
-    function renderFlights(flights, departure, arrival) {
-        flightListContainer.innerHTML = ''; 
-
-        if (flights.length === 0) {
-            flightListContainer.innerHTML = '<p style="text-align: center; width: 100%; font-size: 1.2rem; color: #EA580C; margin-top: 2rem;">Xin lỗi, không tìm thấy chuyến bay nào phù hợp.</p>';
-            return;
-        }
-
-        flightSectionTitle.textContent = `Các Chuyến Bay từ ${departure} đến ${arrival}`;
-
-        flights.forEach(flight => {
-            const card = document.createElement('div');
-            card.className = 'flight-card';
-            card.innerHTML = `
-                <div class="flight-header">
-                    <img src="${flight.image || 'ảnh/plane.jpg'}" alt="${flight.airline}" class="airline-logo">
-                    <span class="airline-name">${flight.airline}</span>
-                </div>
-                <div class="flight-details">
-                    <div class="flight-time-info">
-                        <p class="time">${flight.departureTime}</p>
-                        <p class="city-code">(${departure})</p>
+    // Tạo HTML cho deal bay (card)
+    function createFlightCard(deal) {
+        const discount = Math.round((1 - deal.price / deal.oldPrice) * 100);
+        
+        return `
+            <div class="tour-card" data-type="${deal.type}" data-trip="${deal.tripType}">
+                <div class="tour-tag-absolute" style="background: ${deal.badgeColor}">${deal.badge}</div>
+                <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=200&fit=crop" alt="${deal.fromCity} to ${deal.toCity}">
+                <div class="card-content">
+                    <h4>${deal.fromCity} → ${deal.toCity}</h4>
+                    <p><i class="fas fa-plane"></i> ${deal.airline} • ${deal.duration}</p>
+                    <p><i class="far fa-clock"></i> ${deal.departTime} - ${deal.arriveTime}</p>
+                    <p><i class="fas fa-suitcase-rolling"></i> ${deal.tripType === 'roundtrip' ? 'Khứ hồi' : 'Một chiều'}</p>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
+                        <div>
+                            <span style="text-decoration: line-through; color: #999; font-size: 0.9rem;">${formatPrice(deal.oldPrice)}</span>
+                            <div class="tour-price" style="color: #e11d48; font-size: 1.5rem;">${formatPrice(deal.price)}</div>
+                        </div>
+                        <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">
+                            -${discount}%
+                        </span>
                     </div>
-                    <div class="flight-duration">
-                        <i class="fa-solid fa-clock"></i> ${flight.duration}
-                        <hr>
-                        <i class="fa-solid fa-plane"></i> ${flight.flightNumber}
-                    </div>
-                    <div class="flight-time-info">
-                        <p class="time">${flight.arrivalTime}</p>
-                        <p class="city-code">(${arrival})</p>
-                    </div>
-                </div>
-                <div class="flight-booking-info">
-                    <div class="price-class">
-                        <p class="flight-class">Hạng vé: <strong>${flight.class}</strong></p>
-                        <p class="flight-price">Giá: <strong>${flight.price}</strong></p>
-                    </div>
-                    <button class="cta-button open-modal-flight" 
-                            data-flight-id="${flight.id}"
-                            style="padding: 0.6rem 1.2rem;">
-                        Chọn Vé
+                    <button class="cta-button book-flight-btn" data-deal-id="${deal.id}">
+                        <i class="fas fa-ticket-alt"></i> Đặt Ngay
                     </button>
                 </div>
-            `;
-            flightListContainer.appendChild(card);
+            </div>
+        `;
+    }
+
+    // Tạo HTML cho điểm đến quốc tế
+    function createDestinationCard(destination) {
+        return `
+            <a href="flight-results.html?to_code=${destination.code}" class="destination-card">
+                <div class="destination-image">
+                    <img src="${destination.image}" alt="${destination.name}">
+                    <div class="destination-overlay">
+                        <h4>${destination.name}</h4>
+                        <p><i class="fas fa-plane"></i> Khám phá ngay</p>
+                    </div>
+                </div>
+            </a>
+        `;
+    }
+
+    // Render deals vào container
+    function renderDeals(containerId, deals) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        container.innerHTML = deals.map(createFlightCard).join('');
+        
+        // Thêm event listeners cho các nút đặt vé
+        container.querySelectorAll('.book-flight-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                const dealId = this.getAttribute('data-deal-id');
+                const deal = flightDeals.find(d => d.id == dealId);
+                if (deal) {
+                    openBookingModal(deal);
+                }
+            });
         });
-        attachModalEvents();
-        document.getElementById('flightListSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    document.querySelector('#flightModal .modal-form').addEventListener('submit', function(e) {
-        e.preventDefault();
-        
-        if (!selectedFlightDetails) {
-            alert("Lỗi: Không tìm thấy chi tiết chuyến bay đã chọn.");
-            return;
-        }
-        
-        const contactName = document.getElementById('contactName').value;
-        const contactEmail = document.getElementById('contactEmail').value;
-        const contactPhone = document.getElementById('contactPhone').value;
-        const passengerCount = parseInt(document.getElementById('passengerCount').value);
-        const priceString = selectedFlightDetails.rawPrice.replace(/\./g, '').replace('đ', '').trim();
-        const unitPrice = parseInt(priceString); 
-        let totalPrice = "Liên hệ";
-
-        if (!isNaN(unitPrice) && passengerCount >= 1) {
-            const rawTotalPrice = unitPrice * passengerCount;
-            totalPrice = rawTotalPrice.toLocaleString('vi-VN') + 'đ'; 
-        } else if (passengerCount >= 1) {
-            totalPrice = selectedFlightDetails.rawPrice + ` x ${passengerCount}`;
-        }
-
-        document.getElementById('confFlightName').textContent = selectedFlightDetails.airline + " - " + selectedFlightDetails.flightNumber;
-
-        document.getElementById('confFlightPrice').textContent = totalPrice; 
-        document.getElementById('confContactName').textContent = contactName;
-        document.getElementById('confContactEmail').textContent = contactEmail;
-        document.getElementById('confContactPhone').textContent = contactPhone;
-        document.getElementById('confPassengerCount').textContent = passengerCount;
-        
-        closeModal('flightModal');
-        openModal('confirmationModal', null, null);
-    });
-    function searchFlights(e) {
-        e.preventDefault();
-        
-        const departureCity = document.getElementById('departureCity').value;
-        const arrivalCity = document.getElementById('arrivalCity').value;
-
-        if (!departureCity || !arrivalCity) {
-            alert("Vui lòng nhập đầy đủ Điểm Đi và Điểm Đến.");
-            return;
-        }
-        
-        const foundFlights = allFlights.slice(0, 3); 
-        renderFlights(foundFlights, departureCity, arrivalCity);
     }
 
-    flightSearchForm.addEventListener('submit', searchFlights);
+    // Render điểm đến quốc tế
+    function renderDestinations() {
+        const container = document.getElementById('international-destinations');
+        if (!container) return;
+        
+        container.innerHTML = internationalDestinations.map(createDestinationCard).join('');
+    }
 
-    [flightModal, confirmationModal].forEach(modal => {
-        if (modal) {
-            modal.addEventListener('click', function(e) {
-                if (e.target.classList.contains('modal-overlay')) {
-                    closeModal(modal.id);
+    // Lọc deals theo tiêu chí
+    function filterDeals(filters = {}) {
+        let filtered = [...flightDeals];
+        
+        if (filters.type) {
+            filtered = filtered.filter(deal => deal.type === filters.type);
+        }
+        
+        if (filters.fromCity) {
+            filtered = filtered.filter(deal => deal.fromCity === filters.fromCity);
+        }
+        
+        if (filters.country && filters.country !== 'all') {
+            filtered = filtered.filter(deal => deal.country === filters.country);
+        }
+        
+        // Lấy 5 deal rẻ nhất cho section Deal Bay Rẻ Nhất
+        if (filters.sortByPrice) {
+            filtered.sort((a, b) => a.price - b.price);
+            filtered = filtered.slice(0, 6); // Lấy 6 deal đầu tiên
+        }
+        
+        return filtered;
+    }
+
+    // Khởi tạo dữ liệu
+    function initFlightData() {
+        // Render deals theo thành phố trong nước
+        renderDeals('hanoi-flights', filterDeals({ type: 'domestic', fromCity: 'Hà Nội' }));
+        renderDeals('hcm-flights', filterDeals({ type: 'domestic', fromCity: 'TP.HCM' }));
+        renderDeals('danang-flights', filterDeals({ type: 'domestic', fromCity: 'Đà Nẵng' }));
+        renderDeals('phuquoc-flights', filterDeals({ type: 'domestic', fromCity: 'Phú Quốc' }));
+        renderDeals('nhatrang-flights', filterDeals({ type: 'domestic', fromCity: 'Nha Trang' }));
+        
+        // Render deals theo quốc gia quốc tế
+        renderDeals('all-flights', filterDeals({ type: 'international' }));
+        renderDeals('thailand-flights', filterDeals({ type: 'international', country: 'Thái Lan' }));
+        renderDeals('singapore-flights', filterDeals({ type: 'international', country: 'Singapore' }));
+        renderDeals('korea-flights', filterDeals({ type: 'international', country: 'Hàn Quốc' }));
+        renderDeals('japan-flights', filterDeals({ type: 'international', country: 'Nhật Bản' }));
+        renderDeals('taiwan-flights', filterDeals({ type: 'international', country: 'Đài Loan' }));
+        
+        // Render deal bay rẻ nhất
+        renderDeals('cheapest-flights', filterDeals({ sortByPrice: true }));
+        
+        // Render điểm đến quốc tế
+        renderDestinations();
+    }
+
+    // Scroll carousel
+    function scrollCarousel(containerId, amount) {
+        const container = document.getElementById(containerId);
+        if (container) {
+            container.scrollBy({ left: amount, behavior: 'smooth' });
+        }
+    }
+
+    // Airport dropdown functions
+    function showDropdown(input, dropdown) {
+        dropdown.innerHTML = '';
+        const query = input.value.toLowerCase();
+        if (query.length < 2) {
+            dropdown.style.display = 'none';
+            return;
+        }
+
+        const filtered = airports.filter(a => 
+            a.name.toLowerCase().includes(query) || 
+            a.code.toLowerCase().includes(query) || 
+            a.city.toLowerCase().includes(query)
+        );
+
+        if (filtered.length > 0) {
+            filtered.forEach(airport => {
+                const item = document.createElement('div');
+                item.className = 'airport-item';
+                item.innerHTML = `
+                    <div>
+                        <strong>${airport.name}</strong>
+                        <small>${airport.city}${airport.country ? `, ${airport.country}` : ''}</small>
+                    </div>
+                    <span>${airport.code}</span>
+                `;
+                item.onclick = () => {
+                    input.value = airport.name;
+                    input.nextElementSibling.value = airport.code;
+                    dropdown.style.display = 'none';
+                };
+                dropdown.appendChild(item);
+            });
+            dropdown.style.display = 'block';
+        } else {
+            dropdown.style.display = 'none';
+        }
+    }
+
+    // Mở modal đặt vé
+    function openBookingModal(deal) {
+        document.getElementById('modalFrom').value = `${deal.from}-${deal.to}`;
+        document.getElementById('flightModal').classList.add('active');
+    }
+
+    // DOM Content Loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        // Khởi tạo dữ liệu
+        initFlightData();
+        
+        // Airport dropdowns
+        const fromInput = document.getElementById('fromInput');
+        const fromDropdown = document.getElementById('fromDropdown');
+        const toInput = document.getElementById('toInput');
+        const toDropdown = document.getElementById('toDropdown');
+
+        if (fromInput && fromDropdown) {
+            fromInput.addEventListener('input', () => showDropdown(fromInput, fromDropdown));
+        }
+        
+        if (toInput && toDropdown) {
+            toInput.addEventListener('input', () => showDropdown(toInput, toDropdown));
+        }
+
+        document.addEventListener('click', (e) => {
+            if (fromInput && !fromInput.contains(e.target) && fromDropdown && !fromDropdown.contains(e.target)) 
+                fromDropdown.style.display = 'none';
+            if (toInput && !toInput.contains(e.target) && toDropdown && !toDropdown.contains(e.target)) 
+                toDropdown.style.display = 'none';
+        });
+
+        // Swap locations
+        const swapBtn = document.getElementById('swapBtn');
+        if (swapBtn) {
+            swapBtn.addEventListener('click', () => {
+                [fromInput.value, toInput.value] = [toInput.value, fromInput.value];
+                [document.getElementById('fromCode').value, document.getElementById('toCode').value] = 
+                [document.getElementById('toCode').value, document.getElementById('fromCode').value];
+            });
+        }
+
+        // Flight type tabs
+        document.querySelectorAll('.flight-tab-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('.flight-tab-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                const returnWrapper = document.getElementById('returnDateWrapper');
+                const returnDate = document.getElementById('returnDate');
+                if (btn.dataset.type === 'oneway') {
+                    returnWrapper.style.display = 'none';
+                    returnDate.removeAttribute('required');
+                    returnDate.value = '';
+                } else {
+                    returnWrapper.style.display = 'block';
+                    returnDate.setAttribute('required', '');
+                }
+            });
+        });
+
+        // Set min date for date inputs
+        const today = new Date().toISOString().split('T')[0];
+        const departDate = document.getElementById('departDate');
+        const returnDate = document.getElementById('returnDate');
+        
+        if (departDate) departDate.min = today;
+        if (returnDate) returnDate.min = today;
+
+        if (departDate) {
+            departDate.addEventListener('change', () => {
+                if (returnDate) returnDate.min = departDate.value;
+            });
+        }
+
+        // Main flight tabs (Trong nước / Quốc tế)
+        document.querySelectorAll('.main-flight-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const section = tab.closest('.best-flights-section');
+                section.querySelectorAll('.main-flight-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                section.querySelectorAll('.flight-tab-content').forEach(c => c.classList.remove('active'));
+                section.querySelector(`.flight-tab-content[data-tab="${tab.dataset.tab}"]`).classList.add('active');
+            });
+        });
+
+        // City tabs (Trong nước)
+        document.querySelectorAll('.city-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const content = tab.closest('.flight-tab-content');
+                content.querySelectorAll('.city-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                content.querySelectorAll('.city-content').forEach(c => c.classList.remove('active'));
+                content.querySelector(`.city-content[data-city="${tab.dataset.city}"]`).classList.add('active');
+            });
+        });
+
+        // Country tabs (Quốc tế)
+        document.querySelectorAll('.country-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const content = tab.closest('.flight-tab-content');
+                content.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                content.querySelectorAll('.country-content').forEach(c => c.classList.remove('active'));
+                content.querySelector(`.country-content[data-country="${tab.dataset.country}"]`).classList.add('active');
+            });
+        });
+
+        // Hamburger menu
+        const hamburgerMenu = document.querySelector('.hamburger-menu');
+        if (hamburgerMenu) {
+            hamburgerMenu.addEventListener('click', () => {
+                document.querySelector('.nav-menu').classList.toggle('active');
+            });
+        }
+
+        // Contact form
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                document.getElementById('formMessage').style.display = 'block';
+                e.target.reset();
+                setTimeout(() => document.getElementById('formMessage').style.display = 'none', 5000);
+            });
+        }
+
+        // Booking form
+        const bookingForm = document.getElementById('bookingForm');
+        if (bookingForm) {
+            bookingForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                document.getElementById('bookingMessage').style.display = 'block';
+                e.target.reset();
+                setTimeout(() => {
+                    document.getElementById('bookingMessage').style.display = 'none';
+                    document.getElementById('flightModal').classList.remove('active');
+                }, 3000);
+            });
+        }
+
+        // Close modal
+        const closeBtn = document.querySelector('.close-btn');
+        if (closeBtn) {
+            closeBtn.addEventListener('click', () => {
+                document.getElementById('flightModal').classList.remove('active');
+            });
+        }
+        
+        const flightModal = document.getElementById('flightModal');
+        if (flightModal) {
+            window.addEventListener('click', (e) => {
+                if (e.target === flightModal) {
+                    flightModal.classList.remove('active');
                 }
             });
         }
     });
-
-    document.addEventListener('DOMContentLoaded', () => {
-    });
-</script>
-<div class="modal-overlay" id="confirmationModal">
-    <div class="modal-content">
-        <button class="close-button" onclick="closeModal('confirmationModal')">&times;</button>
-        <h3>ĐẶT VÉ THÀNH CÔNG!</h3>
-        <div id="ticketOutput">
-            <p style="font-size: 1.1rem; color: #01346a; margin-bottom: 1rem;">Cảm ơn bạn đã đặt vé. Chi tiết yêu cầu của bạn:</p>
-            
-            <p><strong>Chuyến bay:</strong> <span id="confFlightName"></span></p>
-            <p><strong>Giá vé ước tính:</strong> <span id="confFlightPrice" style="color: #EA580C; font-weight: 700;"></span></p>
-            <hr style="margin: 10px 0;">
-            <p><strong>Người liên hệ:</strong> <span id="confContactName"></span></p>
-            <p><strong>Email:</strong> <span id="confContactEmail"></span></p>
-            <p><strong>SĐT:</strong> <span id="confContactPhone"></span></p>
-            <p><strong>Số lượng hành khách:</strong> <span id="confPassengerCount"></span></p>
-            <hr style="margin: 10px 0;">
-            <p style="font-style: italic; font-size: 0.9rem;">Chúng tôi sẽ liên hệ lại qua điện thoại/email để xác nhận và hoàn tất thanh toán trong vòng 2 giờ làm việc.</p>
-        </div>
-        <button class="cta-button" onclick="closeModal('confirmationModal')" style="margin-top: 1.5rem; width: 100%;">Hoàn Tất</button>
-    </div>
-</div>
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Travel Explorer</h3>
-                    <p>Đối tác tin cậy cho mọi chuyến du lịch của bạn.</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Liên Kết Nhanh</h3>
-                    <a href="main.html#home">Trang Chủ</a>
-                    <a href="main.html#destinations">Điểm Đến</a>
-                    <a href="main.html#services">Dịch Vụ</a>
-                    <a href="main.html#contact">Liên Hệ</a>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Thông Tin Liên Hệ</h3>
-                    <p><i class="fa-solid fa-location-dot 1"></i> 12/5D Đường Lê Lợi, Quận 1</p>
-                    <p><i class="fa-solid fa-phone-volume"></i> (028) 1234 5678</p>
-                    <p><i class="fa-solid fa-envelope"></i> info@travelexplorer.vn</p>
-                </div>
-
-                <div class="footer-section">
-                    <h3>Theo Dõi Chúng Tôi</h3>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="fa-brands fa-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fa-brands fa-tiktok"></i></a>
-                        <a href="#" class="social-link"><i class="fa-brands fa-telegram"></i></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2025 Travel Explorer. Tất cả quyền được bảo lưu.</p>
-            </div>
-        </div>
-    </footer>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        // Bật/Tắt class 'active' khi nhấn vào icon
-        $('.hamburger-menu').click(function() {
-            $('.nav-menu').toggleClass('active');
-        });
-
-        // Tắt menu khi nhấn vào link (trên mobile)
-        $('.nav-link').click(function() {
-            if ($('.nav-menu').hasClass('active')) {
-                $('.nav-menu').removeClass('active');
-            }
-        });
-    });
 </script>
 </body>
-</body>
-
 </html>
