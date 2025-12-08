@@ -1,415 +1,435 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kết Quả Tìm Kiếm Khách Sạn - Travel Explorer</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="stylesheet" href="tour-results.css">
+    <link rel="stylesheet" href="../Styles/index.css">
+    <link rel="stylesheet" href="../Styles/tour-results.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
 
-<header class="header">
-    <div class="container nav-container">
-        <a href="main.html" class="logo">Travel Explorer</a>
-        <div class="hamburger-menu"><i class="fas fa-bars"></i></div>
-        <ul class="nav-menu">
-            <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
-            <li><a href="tour.html" class="nav-link">Tour</a></li>
-            <li><a href="hotel.html" class="nav-link active">Khách Sạn</a></li>
-            <li><a href="flight.html" class="nav-link">Vé Máy Bay</a></li>
-        </ul>
-    </div>
-</header>
-
-<section class="search-section">
-    <div class="container">
-        <form id="hotelSearchForm" class="search-form-elegant">
-            <div class="search-input-group">
-                <i class="fas fa-map-marker-alt"></i>
-                <input type="text" id="location" name="location" placeholder="Tên thành phố / Khách sạn">
-            </div>
-            <div class="search-input-group">
-                <i class="fas fa-calendar-alt"></i>
-                <input type="date" id="checkin" name="checkin" placeholder="Ngày nhận phòng">
-            </div>
-            <div class="search-input-group">
-                <i class="fas fa-calendar-check"></i>
-                <input type="date" id="checkout" name="checkout" placeholder="Ngày trả phòng">
-            </div>
-
-            <div class="search-input-group guest-room-select" id="guestRoomSelectResults">
-                <i class="fas fa-user-friends"></i>
-                <input type="text" id="guestRoomDisplayResults" value="2 Người lớn, 1 Phòng" readonly placeholder="Số khách & Phòng *" required>
-                
-                <div class="guest-popover" id="guestRoomPopoverResults">
-                    <div class="popover-item">
-                        <label>Người lớn</label>
-                        <div class="input-stepper">
-                            <button type="button" data-action="decrement" data-target="adultsR">-</button>
-                            <input type="number" name="adults" id="adultsRInput" value="2" min="1" readonly>
-                            <button type="button" data-action="increment" data-target="adultsR">+</button>
-                        </div>
-                    </div>
-                    <div class="popover-item">
-                        <label>Trẻ em (0-12 tuổi)</label>
-                        <div class="input-stepper">
-                            <button type="button" data-action="decrement" data-target="childrenR">-</button>
-                            <input type="number" name="children" id="childrenRInput" value="0" min="0" readonly>
-                            <button type="button" data-action="increment" data-target="childrenR">+</button>
-                        </div>
-                    </div>
-                    <div class="popover-item">
-                        <label>Số phòng</label>
-                        <div class="input-stepper">
-                            <button type="button" data-action="decrement" data-target="roomsR">-</button>
-                            <input type="number" name="rooms" id="roomsRInput" value="1" min="1" readonly>
-                            <button type="button" data-action="increment" data-target="roomsR">+</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <button type="submit" class="search-btn">
-                <i class="fas fa-search"></i> Tìm
-            </button>
-        </form>
-    </div>
-</section>
-
-<main class="main-container container">
-    <aside class="sidebar">
-        <h3><i class="fas fa-sliders-h"></i> Bộ Lọc</h3>
-        <div class="filter-group">
-            <h4>Khoảng Giá / Đêm</h4>
-            <label><input type="checkbox" name="price" value="<1m"> Dưới 1 triệu</label>
-            <label><input type="checkbox" name="price" value="1m-3m"> 1 - 3 triệu</label>
-            <label><input type="checkbox" name="price" value="3m-5m"> 3 - 5 triệu</label>
-            <label><input type="checkbox" name="price" value="5m+"> Trên 5 triệu</label>
-        </div>
-        <div class="filter-group">
-            <h4>Hạng Sao</h4>
-            <label><input type="checkbox" name="stars" value="6"> 6 Sao <i class="fas fa-star text-warning"></i></label>
-            <label><input type="checkbox" name="stars" value="5"> 5 Sao <i class="fas fa-star text-warning"></i></label>
-            <label><input type="checkbox" name="stars" value="4"> 4 Sao <i class="fas fa-star text-warning"></i></label>
-            <label><input type="checkbox" name="stars" value="3"> 3 Sao <i class="fas fa-star text-warning"></i></label>
-        </div>
-        <div class="filter-group">
-            <h4>Tiện Nghi</h4>
-            <label><input type="checkbox"> Hồ bơi</label>
-            <label><input type="checkbox"> Bữa sáng miễn phí</label>
-            <label><input type="checkbox"> Gần trung tâm</label>
-            <label><input type="checkbox"> Bãi biển riêng</label>
-        </div>
-        <button class="apply-btn">Áp Dụng Bộ Lọc</button>
-    </aside>
-
-    <section class="results-section">
-        <div class="results-header">
-            <h2 id="resultInfo">Đang tìm khách sạn...</h2>
-            <select id="sortBy">
-                <option value="default">Gợi ý tốt nhất</option>
-                <option value="price-asc">Giá tăng dần</option>
-                <option value="price-desc">Giá giảm dần</option>
-                <option value="stars-desc">Hạng sao cao nhất</option>
-                <option value="rating-desc">Đánh giá cao nhất</option>
-            </select>
-        </div>
-
-        <div class="tour-grid" id="hotelListGrid">
-            </div>
-    </section>
-</main>
-
-<section class="suggested-tours-section container">
-    <h2 class="section-title" style="text-align: center; margin: 4rem 0 2.5rem; color: #4361ee;">
-        <i class="fas fa-fire"></i> Khách Sạn Được Đặt Nhiều Nhất
-    </h2>
-    <div class="tour-card-grid" id="suggestedHotels">
-        </div>
-</section>
-
-<section class="contact-tour-section">
-    <div class="container contact-tour-content">
-        <div class="contact-info">
-            <h2>HỖ TRỢ ĐẶT PHÒNG?</h2>
-            <p>Liên hệ ngay để nhận báo giá tốt nhất cho đoàn đông hoặc yêu cầu đặc biệt.</p>
-            <ul>
-                <li><i class="fas fa-phone"></i> 1900 6789</li>
-                <li><i class="fas fa-envelope"></i> booking@travelexplorer.com</li>
+    <header class="header">
+        <div class="container nav-container">
+            <a href=".../main.html" class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                </svg>
+                Travel <span>Explorer</span></a>
+            <div class="hamburger-menu"><i class="fas fa-bars"></i></div>
+            <ul class="nav-menu">
+                <li><a href=".../main.html" class="nav-link">Trang Chủ</a></li>
+                <li><a href="tour.html" class="nav-link">Tour</a></li>
+                <li><a href="hotel.html" class="nav-link active">Khách Sạn</a></li>
+                <li><a href="flight.html" class="nav-link">Vé Máy Bay</a></li>
             </ul>
         </div>
-        <div class="contact-form-wrapper">
-            <h3>Để lại thông tin</h3>
-            <form id="contactForm">
-                <div class="form-group"><label>Họ tên</label><input type="text" required></div>
-                <div class="form-group"><label>SĐT</label><input type="tel" required></div>
-                <button type="submit" class="cta-button">Gửi</button>
+    </header>
+
+    <section class="search-section">
+        <div class="container">
+            <form id="hotelSearchForm" class="search-form-elegant">
+                <div class="search-input-group">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <input type="text" id="location" name="location" placeholder="Tên thành phố / Khách sạn">
+                </div>
+                <div class="search-input-group">
+                    <i class="fas fa-calendar-alt"></i>
+                    <input type="date" id="checkin" name="checkin" placeholder="Ngày nhận phòng">
+                </div>
+                <div class="search-input-group">
+                    <i class="fas fa-calendar-check"></i>
+                    <input type="date" id="checkout" name="checkout" placeholder="Ngày trả phòng">
+                </div>
+
+                <div class="search-input-group guest-room-select" id="guestRoomSelectResults">
+                    <i class="fas fa-user-friends"></i>
+                    <input type="text" id="guestRoomDisplayResults" value="2 Người lớn, 1 Phòng" readonly
+                        placeholder="Số khách & Phòng *" required>
+
+                    <div class="guest-popover" id="guestRoomPopoverResults">
+                        <div class="popover-item">
+                            <label>Người lớn</label>
+                            <div class="input-stepper">
+                                <button type="button" data-action="decrement" data-target="adultsR">-</button>
+                                <input type="number" name="adults" id="adultsRInput" value="2" min="1" readonly>
+                                <button type="button" data-action="increment" data-target="adultsR">+</button>
+                            </div>
+                        </div>
+                        <div class="popover-item">
+                            <label>Trẻ em (0-12 tuổi)</label>
+                            <div class="input-stepper">
+                                <button type="button" data-action="decrement" data-target="childrenR">-</button>
+                                <input type="number" name="children" id="childrenRInput" value="0" min="0" readonly>
+                                <button type="button" data-action="increment" data-target="childrenR">+</button>
+                            </div>
+                        </div>
+                        <div class="popover-item">
+                            <label>Số phòng</label>
+                            <div class="input-stepper">
+                                <button type="button" data-action="decrement" data-target="roomsR">-</button>
+                                <input type="number" name="rooms" id="roomsRInput" value="1" min="1" readonly>
+                                <button type="button" data-action="increment" data-target="roomsR">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i> Tìm
+                </button>
             </form>
-            <p id="formMessage" style="display:none; text-align:center; color:green; margin-top:10px;">Đã gửi!</p>
+        </div>
+    </section>
+
+    <main class="main-container container">
+        <aside class="sidebar">
+            <h3><i class="fas fa-sliders-h"></i> Bộ Lọc</h3>
+            <div class="filter-group">
+                <h4>Khoảng Giá / Đêm</h4>
+                <label><input type="checkbox" name="price" value="<1m"> Dưới 1 triệu</label>
+                <label><input type="checkbox" name="price" value="1m-3m"> 1 - 3 triệu</label>
+                <label><input type="checkbox" name="price" value="3m-5m"> 3 - 5 triệu</label>
+                <label><input type="checkbox" name="price" value="5m+"> Trên 5 triệu</label>
+            </div>
+            <div class="filter-group">
+                <h4>Hạng Sao</h4>
+                <label><input type="checkbox" name="stars" value="6"> 6 Sao <i
+                        class="fas fa-star text-warning"></i></label>
+                <label><input type="checkbox" name="stars" value="5"> 5 Sao <i
+                        class="fas fa-star text-warning"></i></label>
+                <label><input type="checkbox" name="stars" value="4"> 4 Sao <i
+                        class="fas fa-star text-warning"></i></label>
+                <label><input type="checkbox" name="stars" value="3"> 3 Sao <i
+                        class="fas fa-star text-warning"></i></label>
+            </div>
+            <div class="filter-group">
+                <h4>Tiện Nghi</h4>
+                <label><input type="checkbox"> Hồ bơi</label>
+                <label><input type="checkbox"> Bữa sáng miễn phí</label>
+                <label><input type="checkbox"> Gần trung tâm</label>
+                <label><input type="checkbox"> Bãi biển riêng</label>
+            </div>
+            <button class="apply-btn">Áp Dụng Bộ Lọc</button>
+        </aside>
+
+        <section class="results-section">
+            <div class="results-header">
+                <h2 id="resultInfo">Đang tìm khách sạn...</h2>
+                <select id="sortBy">
+                    <option value="default">Gợi ý tốt nhất</option>
+                    <option value="price-asc">Giá tăng dần</option>
+                    <option value="price-desc">Giá giảm dần</option>
+                    <option value="stars-desc">Hạng sao cao nhất</option>
+                    <option value="rating-desc">Đánh giá cao nhất</option>
+                </select>
+            </div>
+
+            <div class="tour-grid" id="hotelListGrid">
+            </div>
+        </section>
+    </main>
+
+    <section class="suggested-tours-section container">
+        <h2 class="section-title" style="text-align: center; margin: 4rem 0 2.5rem; color: #4361ee;">
+            <i class="fas fa-fire"></i> Khách Sạn Được Đặt Nhiều Nhất
+        </h2>
+        <div class="tour-card-grid" id="suggestedHotels">
+        </div>
+    </section>
+
+    <section class="contact-tour-section">
+        <div class="container contact-tour-content">
+            <div class="contact-info">
+                <h2>HỖ TRỢ ĐẶT PHÒNG?</h2>
+                <p>Liên hệ ngay để nhận báo giá tốt nhất cho đoàn đông hoặc yêu cầu đặc biệt.</p>
+                <ul>
+                    <li><i class="fas fa-phone"></i> 1900 6789</li>
+                    <li><i class="fas fa-envelope"></i> booking@travelexplorer.com</li>
+                </ul>
+            </div>
+            <div class="contact-form-wrapper">
+                <h3>Để lại thông tin</h3>
+                <form id="contactForm">
+                    <div class="form-group"><label>Họ tên</label><input type="text" required></div>
+                    <div class="form-group"><label>SĐT</label><input type="tel" required></div>
+                    <button type="submit" class="cta-button">Gửi</button>
+                </form>
+                <p id="formMessage" style="display:none; text-align:center; color:green; margin-top:10px;">Đã gửi!</p>
+            </div>
+        </div>
+    </section>
+
+    <div id="hotelModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">
+                <h3>ĐẶT PHÒNG: <span id="modalHotelName"></span></h3>
+            </div>
+            <div class="modal-body">
+                <form id="bookingForm">
+                    <input type="hidden" id="hName">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Họ và tên <span class="required">*</span></label>
+                            <input type="text" required>
+                        </div>
+                        <div class="input-group">
+                            <label>SĐT <span class="required">*</span></label>
+                            <input type="tel" required>
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Ngày nhận phòng <span class="required">*</span class="required">*"></label>
+                            <input type="date" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Ngày trả phòng <span class="required">*</span class="required">*"></label>
+                            <input type="date" required>
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Số người lớn</label>
+                            <input type="number" value="2" min="1" name="modalAdults">
+                        </div>
+                        <div class="input-group">
+                            <label>Số trẻ em (0-12 tuổi)</label>
+                            <input type="number" value="0" min="0" name="modalChildren">
+                        </div>
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Số phòng cần đặt</label>
+                        <input type="number" value="1" min="1" name="modalRooms">
+                    </div>
+                    <button type="submit" class="submit-btn">XÁC NHẬN ĐẶT PHÒNG</button>
+                </form>
+                <p id="bookingMessage" class="booking-message"></p>
+            </div>
         </div>
     </div>
-</section>
 
-<div id="hotelModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <div class="modal-header">
-            <h3>ĐẶT PHÒNG: <span id="modalHotelName"></span></h3>
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>Travel Explorer</h3>
+                <p>Uy tín - Chất lượng - Tận tâm.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Liên kết</h3><a href="tour.html">Tour</a><a href="hotel.html">Khách Sạn</a>
+            </div>
+            <div class="footer-section">
+                <h3>Social</h3>
+                <div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a></div>
+            </div>
         </div>
-        <div class="modal-body">
-            <form id="bookingForm">
-                <input type="hidden" id="hName">
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Họ và tên <span class="required">*</span></label>
-                        <input type="text" required>
-                    </div>
-                    <div class="input-group">
-                        <label>SĐT <span class="required">*</span></label>
-                        <input type="tel" required>
-                    </div>
-                </div>
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Ngày nhận phòng <span class="required">*</span class="required">*"></label>
-                        <input type="date" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Ngày trả phòng <span class="required">*</span class="required">*"></label>
-                        <input type="date" required>
-                    </div>
-                </div>
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Số người lớn</label>
-                        <input type="number" value="2" min="1" name="modalAdults">
-                    </div>
-                    <div class="input-group">
-                        <label>Số trẻ em (0-12 tuổi)</label>
-                        <input type="number" value="0" min="0" name="modalChildren">
-                    </div>
-                </div>
-                <div class="input-group full-width">
-                    <label>Số phòng cần đặt</label>
-                    <input type="number" value="1" min="1" name="modalRooms">
-                </div>
-                <button type="submit" class="submit-btn">XÁC NHẬN ĐẶT PHÒNG</button>
-            </form>
-            <p id="bookingMessage" class="booking-message"></p>
-        </div>
-    </div>
-</div>
+        <div class="footer-bottom">© 2025 Travel Explorer.</div>
+    </footer>
 
-<footer class="footer">
-    <div class="container footer-content">
-        <div class="footer-section"><h3>Travel Explorer</h3><p>Uy tín - Chất lượng - Tận tâm.</p></div>
-        <div class="footer-section"><h3>Liên kết</h3><a href="tour.html">Tour</a><a href="hotel.html">Khách Sạn</a></div>
-        <div class="footer-section"><h3>Social</h3><div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a></div></div>
-    </div>
-    <div class="footer-bottom">© 2025 Travel Explorer.</div>
-</footer>
+    <script>
+        const hotelData = [
+            // --- VIỆT NAM ---
+            // HÀ NỘI (10 entries)
+            { id: 1, name: "Capella Hanoi", location: "Hà Nội", price: 6500000, stars: 5, image: "https://images.unsplash.com/photo-1549448375-3b95764d1f2a?w=400&q=80", desc: "Khách sạn boutique sang trọng, gần Nhà Hát Lớn.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
+            { id: 2, name: "Lotte Hotel Hanoi", location: "Hà Nội", price: 3800000, stars: 5, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "Tầm nhìn thành phố tuyệt đẹp từ tầng cao, dịch vụ đẳng cấp.", maxAdults: 4, minRooms: 1, sentiment: 4.8 },
+            { id: 3, name: "Hanoi Old Quarter Hotel", location: "Hà Nội", price: 950000, stars: 3, image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80", desc: "Vị trí lý tưởng để khám phá phố cổ, giá cả phải chăng.", maxAdults: 2, minRooms: 1, sentiment: 4.2 },
+            { id: 4, name: "InterContinental Hanoi Westlake", location: "Hà Nội", price: 3200000, stars: 5, image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=80", desc: "Nghỉ dưỡng yên bình trên mặt nước Hồ Tây thơ mộng.", maxAdults: 4, minRooms: 1, sentiment: 4.7 },
+            { id: 5, name: "Sofitel Legend Metropole Hanoi", location: "Hà Nội", price: 7200000, stars: 5, image: "https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400&q=80", desc: "Khách sạn lịch sử, vẻ đẹp kiến trúc Pháp cổ điển.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
+            { id: 6, name: "Movenpick Hotel Hanoi", location: "Hà Nội", price: 2100000, stars: 4, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Gần Ga Hà Nội, phong cách Art Deco, dịch vụ chuyên nghiệp.", maxAdults: 3, minRooms: 1, sentiment: 4.5 },
+            { id: 7, name: "Acoustic Hotel & Spa", location: "Hà Nội", price: 1500000, stars: 4, image: "https://images.unsplash.com/photo-1570530438680-31126955a153?w=400&q=80", desc: "Thiết kế hiện đại, có hồ bơi trên tầng thượng, gần Phố Cổ.", maxAdults: 2, minRooms: 1, sentiment: 4.6 },
+            { id: 8, name: "The Oriental Jade Hotel", location: "Hà Nội", price: 2900000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Khách sạn 5 sao mới, view phố cổ, tiện nghi cao cấp.", maxAdults: 3, minRooms: 1, sentiment: 4.8 },
+            { id: 9, name: "O'Gallery Premier Hotel", location: "Hà Nội", price: 1200000, stars: 4, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "Dịch vụ thân thiện, phòng ấm cúng, ngay trung tâm.", maxAdults: 2, minRooms: 1, sentiment: 4.5 },
+            { id: 10, name: "Pullman Hanoi Hotel", location: "Hà Nội", price: 2100000, stars: 5, image: "https://images.unsplash.com/photo-1584132906506-69cc060a719c?w=400&q=80", desc: "Khách sạn tiện nghi hiện đại, gần các khu văn phòng.", maxAdults: 2, minRooms: 1, sentiment: 4.6 },
 
-<script>
-const hotelData = [
-    // --- VIỆT NAM ---
-    // HÀ NỘI (10 entries)
-    { id: 1, name: "Capella Hanoi", location: "Hà Nội", price: 6500000, stars: 5, image: "https://images.unsplash.com/photo-1549448375-3b95764d1f2a?w=400&q=80", desc: "Khách sạn boutique sang trọng, gần Nhà Hát Lớn.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
-    { id: 2, name: "Lotte Hotel Hanoi", location: "Hà Nội", price: 3800000, stars: 5, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "Tầm nhìn thành phố tuyệt đẹp từ tầng cao, dịch vụ đẳng cấp.", maxAdults: 4, minRooms: 1, sentiment: 4.8 },
-    { id: 3, name: "Hanoi Old Quarter Hotel", location: "Hà Nội", price: 950000, stars: 3, image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80", desc: "Vị trí lý tưởng để khám phá phố cổ, giá cả phải chăng.", maxAdults: 2, minRooms: 1, sentiment: 4.2 },
-    { id: 4, name: "InterContinental Hanoi Westlake", location: "Hà Nội", price: 3200000, stars: 5, image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=80", desc: "Nghỉ dưỡng yên bình trên mặt nước Hồ Tây thơ mộng.", maxAdults: 4, minRooms: 1, sentiment: 4.7 },
-    { id: 5, name: "Sofitel Legend Metropole Hanoi", location: "Hà Nội", price: 7200000, stars: 5, image: "https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400&q=80", desc: "Khách sạn lịch sử, vẻ đẹp kiến trúc Pháp cổ điển.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
-    { id: 6, name: "Movenpick Hotel Hanoi", location: "Hà Nội", price: 2100000, stars: 4, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Gần Ga Hà Nội, phong cách Art Deco, dịch vụ chuyên nghiệp.", maxAdults: 3, minRooms: 1, sentiment: 4.5 },
-    { id: 7, name: "Acoustic Hotel & Spa", location: "Hà Nội", price: 1500000, stars: 4, image: "https://images.unsplash.com/photo-1570530438680-31126955a153?w=400&q=80", desc: "Thiết kế hiện đại, có hồ bơi trên tầng thượng, gần Phố Cổ.", maxAdults: 2, minRooms: 1, sentiment: 4.6 },
-    { id: 8, name: "The Oriental Jade Hotel", location: "Hà Nội", price: 2900000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Khách sạn 5 sao mới, view phố cổ, tiện nghi cao cấp.", maxAdults: 3, minRooms: 1, sentiment: 4.8 },
-    { id: 9, name: "O'Gallery Premier Hotel", location: "Hà Nội", price: 1200000, stars: 4, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "Dịch vụ thân thiện, phòng ấm cúng, ngay trung tâm.", maxAdults: 2, minRooms: 1, sentiment: 4.5 },
-    { id: 10, name: "Pullman Hanoi Hotel", location: "Hà Nội", price: 2100000, stars: 5, image: "https://images.unsplash.com/photo-1584132906506-69cc060a719c?w=400&q=80", desc: "Khách sạn tiện nghi hiện đại, gần các khu văn phòng.", maxAdults: 2, minRooms: 1, sentiment: 4.6 },
-    
-    // TP.HCM (10 entries)
-    { id: 11, name: "Park Hyatt Saigon", location: "TP.HCM", price: 7800000, stars: 5, image: "https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400&q=80", desc: "Đẳng cấp 6 sao, nằm ngay quảng trường Lam Sơn lịch sử.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
-    { id: 12, name: "The Myst Đồng Khởi", location: "TP.HCM", price: 3500000, stars: 5, image: "https://images.unsplash.com/photo-1570530438680-31126955a153?w=400&q=80", desc: "Không gian xanh độc đáo giữa lòng Sài Gòn nhộn nhịp.", maxAdults: 4, minRooms: 1, sentiment: 4.8 },
-    { id: 13, name: "Hotel Nikko Saigon", location: "TP.HCM", price: 2900000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Khách sạn Nhật Bản, dịch vụ chu đáo, hồ bơi lớn.", maxAdults: 3, minRooms: 1, sentiment: 4.6 },
-    { id: 14, name: "Caravelle Saigon", location: "TP.HCM", price: 3800000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Lịch sử lâu đời, vị trí đắc địa nhìn ra Nhà Hát Thành Phố.", maxAdults: 2, minRooms: 1, sentiment: 4.7 },
-    { id: 15, name: "The Reverie Saigon", location: "TP.HCM", price: 9500000, stars: 6, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80", desc: "Khách sạn 6 sao sang trọng bậc nhất Việt Nam.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
-    { id: 16, name: "Au Lac Charner Hotel", location: "TP.HCM", price: 1900000, stars: 4, image: "https://images.unsplash.com/photo-1517840901100-8179e982acb7?w=400&q=80", desc: "Phòng thiết kế kiểu Pháp, khu vực yên tĩnh, gần phố đi bộ.", maxAdults: 4, minRooms: 1, sentiment: 4.5 },
-    { id: 17, name: "Sofitel Saigon Plaza", location: "TP.HCM", price: 4200000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Khách sạn cổ điển, gần Lãnh sự quán, dịch vụ tuyệt vời.", maxAdults: 2, minRooms: 1, sentiment: 4.7 },
-    { id: 18, name: "A&Em Saigon Hotel", location: "TP.HCM", price: 950000, stars: 3, image: "https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400&q=80", desc: "Khách sạn tiện nghi gần chợ Bến Thành.", maxAdults: 3, minRooms: 1, sentiment: 4.2 },
-    { id: 19, name: "Le Meridien Saigon", location: "TP.HCM", price: 4500000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "View sông Sài Gòn, thiết kế hiện đại, hồ bơi trong nhà.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
-    { id: 20, name: "Liberty Central Saigon Citypoint", location: "TP.HCM", price: 1600000, stars: 4, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Vị trí trung tâm, giá hợp lý, tiện nghi đầy đủ.", maxAdults: 4, minRooms: 1, sentiment: 4.4 },
+            // TP.HCM (10 entries)
+            { id: 11, name: "Park Hyatt Saigon", location: "TP.HCM", price: 7800000, stars: 5, image: "https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400&q=80", desc: "Đẳng cấp 6 sao, nằm ngay quảng trường Lam Sơn lịch sử.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
+            { id: 12, name: "The Myst Đồng Khởi", location: "TP.HCM", price: 3500000, stars: 5, image: "https://images.unsplash.com/photo-1570530438680-31126955a153?w=400&q=80", desc: "Không gian xanh độc đáo giữa lòng Sài Gòn nhộn nhịp.", maxAdults: 4, minRooms: 1, sentiment: 4.8 },
+            { id: 13, name: "Hotel Nikko Saigon", location: "TP.HCM", price: 2900000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Khách sạn Nhật Bản, dịch vụ chu đáo, hồ bơi lớn.", maxAdults: 3, minRooms: 1, sentiment: 4.6 },
+            { id: 14, name: "Caravelle Saigon", location: "TP.HCM", price: 3800000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Lịch sử lâu đời, vị trí đắc địa nhìn ra Nhà Hát Thành Phố.", maxAdults: 2, minRooms: 1, sentiment: 4.7 },
+            { id: 15, name: "The Reverie Saigon", location: "TP.HCM", price: 9500000, stars: 6, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80", desc: "Khách sạn 6 sao sang trọng bậc nhất Việt Nam.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
+            { id: 16, name: "Au Lac Charner Hotel", location: "TP.HCM", price: 1900000, stars: 4, image: "https://images.unsplash.com/photo-1517840901100-8179e982acb7?w=400&q=80", desc: "Phòng thiết kế kiểu Pháp, khu vực yên tĩnh, gần phố đi bộ.", maxAdults: 4, minRooms: 1, sentiment: 4.5 },
+            { id: 17, name: "Sofitel Saigon Plaza", location: "TP.HCM", price: 4200000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Khách sạn cổ điển, gần Lãnh sự quán, dịch vụ tuyệt vời.", maxAdults: 2, minRooms: 1, sentiment: 4.7 },
+            { id: 18, name: "A&Em Saigon Hotel", location: "TP.HCM", price: 950000, stars: 3, image: "https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400&q=80", desc: "Khách sạn tiện nghi gần chợ Bến Thành.", maxAdults: 3, minRooms: 1, sentiment: 4.2 },
+            { id: 19, name: "Le Meridien Saigon", location: "TP.HCM", price: 4500000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "View sông Sài Gòn, thiết kế hiện đại, hồ bơi trong nhà.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
+            { id: 20, name: "Liberty Central Saigon Citypoint", location: "TP.HCM", price: 1600000, stars: 4, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Vị trí trung tâm, giá hợp lý, tiện nghi đầy đủ.", maxAdults: 4, minRooms: 1, sentiment: 4.4 },
 
-    // ĐÀ NẴNG & HỘI AN (10 entries)
-    { id: 21, name: "InterContinental Danang Resort", location: "Đà Nẵng", price: 8500000, stars: 5, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "Kiệt tác kiến trúc bên bán đảo Sơn Trà, dịch vụ đẳng cấp thế giới.", maxAdults: 4, minRooms: 1, sentiment: 5.0 },
-    { id: 22, name: "Fusion Suites Đà Nẵng", location: "Đà Nẵng", price: 1800000, stars: 4, image: "https://images.unsplash.com/photo-1571008034033-6a52427a1a45?w=400&q=80", desc: "Căn hộ hiện đại sát biển Mỹ Khê, bao gồm spa hàng ngày.", maxAdults: 4, minRooms: 1, sentiment: 4.6 },
-    { id: 23, name: "Four Seasons The Nam Hai", location: "Hội An", price: 9500000, stars: 5, image: "https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400&q=80", desc: "Biệt thự biển siêu sang trọng bậc nhất miền Trung.", maxAdults: 4, minRooms: 1, sentiment: 5.0 },
-    { id: 24, name: "Almanity Hoi An Wellness Resort", location: "Hội An", price: 1500000, stars: 4, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Khu nghỉ dưỡng tập trung vào sức khỏe, gần phố cổ.", maxAdults: 2, minRooms: 1, sentiment: 4.5 },
-    { id: 25, name: "Novotel Danang Premier Han River", location: "Đà Nẵng", price: 2500000, stars: 4, image: "https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400&q=80", desc: "Vị trí trung tâm, view sông Hàn và cầu Rồng.", maxAdults: 3, minRooms: 1, sentiment: 4.7 },
-    { id: 26, name: "The Code Hotel & Spa", location: "Đà Nẵng", price: 1300000, stars: 3, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80", desc: "Khách sạn hiện đại, chỉ cách bãi biển 5 phút đi bộ.", maxAdults: 2, minRooms: 1, sentiment: 4.4 },
-    { id: 27, name: "Victoria Hoi An Beach Resort", location: "Hội An", price: 2100000, stars: 4, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Nghỉ dưỡng phong cách làng chài, sát biển Cửa Đại.", maxAdults: 4, minRooms: 1, sentiment: 4.6 },
-    { id: 28, name: "Muong Thanh Grand Da Nang", location: "Đà Nẵng", price: 1100000, stars: 4, image: "https://images.unsplash.com/photo-1570530438680-31126955a153?w=400&q=80", desc: "Khách sạn lớn, dịch vụ tốt, giá cả phải chăng.", maxAdults: 3, minRooms: 1, sentiment: 4.3 },
-    { id: 29, name: "Wyndham Garden Hoi An", location: "Hội An", price: 1800000, stars: 5, image: "https://images.unsplash.com/photo-1549448375-3b95764d1f2a?w=400&q=80", desc: "Khách sạn boutique với hồ bơi vô cực, gần ruộng lúa.", maxAdults: 2, minRooms: 1, sentiment: 4.7 },
-    { id: 30, name: "Hilton Da Nang", location: "Đà Nẵng", price: 3100000, stars: 5, image: "https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400&q=80", desc: "Khách sạn 5 sao mới, vị trí ngay trung tâm, view sông.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
+            // ĐÀ NẴNG & HỘI AN (10 entries)
+            { id: 21, name: "InterContinental Danang Resort", location: "Đà Nẵng", price: 8500000, stars: 5, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "Kiệt tác kiến trúc bên bán đảo Sơn Trà, dịch vụ đẳng cấp thế giới.", maxAdults: 4, minRooms: 1, sentiment: 5.0 },
+            { id: 22, name: "Fusion Suites Đà Nẵng", location: "Đà Nẵng", price: 1800000, stars: 4, image: "https://images.unsplash.com/photo-1571008034033-6a52427a1a45?w=400&q=80", desc: "Căn hộ hiện đại sát biển Mỹ Khê, bao gồm spa hàng ngày.", maxAdults: 4, minRooms: 1, sentiment: 4.6 },
+            { id: 23, name: "Four Seasons The Nam Hai", location: "Hội An", price: 9500000, stars: 5, image: "https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400&q=80", desc: "Biệt thự biển siêu sang trọng bậc nhất miền Trung.", maxAdults: 4, minRooms: 1, sentiment: 5.0 },
+            { id: 24, name: "Almanity Hoi An Wellness Resort", location: "Hội An", price: 1500000, stars: 4, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Khu nghỉ dưỡng tập trung vào sức khỏe, gần phố cổ.", maxAdults: 2, minRooms: 1, sentiment: 4.5 },
+            { id: 25, name: "Novotel Danang Premier Han River", location: "Đà Nẵng", price: 2500000, stars: 4, image: "https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400&q=80", desc: "Vị trí trung tâm, view sông Hàn và cầu Rồng.", maxAdults: 3, minRooms: 1, sentiment: 4.7 },
+            { id: 26, name: "The Code Hotel & Spa", location: "Đà Nẵng", price: 1300000, stars: 3, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80", desc: "Khách sạn hiện đại, chỉ cách bãi biển 5 phút đi bộ.", maxAdults: 2, minRooms: 1, sentiment: 4.4 },
+            { id: 27, name: "Victoria Hoi An Beach Resort", location: "Hội An", price: 2100000, stars: 4, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Nghỉ dưỡng phong cách làng chài, sát biển Cửa Đại.", maxAdults: 4, minRooms: 1, sentiment: 4.6 },
+            { id: 28, name: "Muong Thanh Grand Da Nang", location: "Đà Nẵng", price: 1100000, stars: 4, image: "https://images.unsplash.com/photo-1570530438680-31126955a153?w=400&q=80", desc: "Khách sạn lớn, dịch vụ tốt, giá cả phải chăng.", maxAdults: 3, minRooms: 1, sentiment: 4.3 },
+            { id: 29, name: "Wyndham Garden Hoi An", location: "Hội An", price: 1800000, stars: 5, image: "https://images.unsplash.com/photo-1549448375-3b95764d1f2a?w=400&q=80", desc: "Khách sạn boutique với hồ bơi vô cực, gần ruộng lúa.", maxAdults: 2, minRooms: 1, sentiment: 4.7 },
+            { id: 30, name: "Hilton Da Nang", location: "Đà Nẵng", price: 3100000, stars: 5, image: "https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400&q=80", desc: "Khách sạn 5 sao mới, vị trí ngay trung tâm, view sông.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
 
-    // PHÚ QUỐC & NHA TRANG (10 entries)
-    { id: 31, name: "Vinpearl Resort & Spa Phú Quốc", location: "Phú Quốc", price: 3200000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Khu nghỉ dưỡng sang trọng bên bãi biển Bãi Dài, có hồ bơi vô cực.", maxAdults: 4, minRooms: 1, sentiment: 4.8 },
-    { id: 32, name: "Six Senses Ninh Van Bay", location: "Nha Trang", price: 12000000, stars: 6, image: "https://images.unsplash.com/photo-1571008034033-6a52427a1a45?w=400&q=80", desc: "Khu nghỉ dưỡng siêu sang trọng, tách biệt hoàn toàn.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
-    { id: 33, name: "InterContinental Nha Trang", location: "Nha Trang", price: 2900000, stars: 5, image: "https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400&q=80", desc: "Nằm ngay trên bãi biển, gần Quảng trường trung tâm.", maxAdults: 3, minRooms: 1, sentiment: 4.7 },
-    { id: 34, name: "The Shells Resort & Spa", location: "Phú Quốc", price: 1900000, stars: 4, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80", desc: "Thiết kế vỏ sò độc đáo, yên tĩnh, view biển.", maxAdults: 2, minRooms: 1, sentiment: 4.5 },
-    { id: 35, name: "Amanoi Resort", location: "Ninh Thuận", price: 18000000, stars: 6, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Khu nghỉ dưỡng sang trọng bậc nhất, view vịnh Vĩnh Hy.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
-    { id: 36, name: "Best Western Premier Sonasea", location: "Phú Quốc", price: 1500000, stars: 4, image: "https://images.unsplash.com/photo-1590059536854-58a362a90099?w=400&q=80", desc: "Phù hợp gia đình, gần các điểm tham quan phía Nam Đảo.", maxAdults: 4, minRooms: 1, sentiment: 4.4 },
-    { id: 37, name: "Mia Resort Nha Trang", location: "Nha Trang", price: 3500000, stars: 5, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "Khu nghỉ dưỡng sinh thái, yên tĩnh, gần sân bay.", maxAdults: 3, minRooms: 1, sentiment: 4.8 },
-    { id: 38, name: "Salinda Resort Phu Quoc", location: "Phú Quốc", price: 4100000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Resort boutique với dịch vụ cao cấp, view hoàng hôn đẹp.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
-    { id: 39, name: "Muong Thanh Luxury Nha Trang", location: "Nha Trang", price: 1200000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Khách sạn cao tầng, view biển, vị trí thuận tiện.", maxAdults: 4, minRooms: 1, sentiment: 4.5 },
-    { id: 40, name: "Novotel Phu Quoc Resort", location: "Phú Quốc", price: 2300000, stars: 4, image: "https://images.unsplash.com/photo-1570530438680-31126955a1a5?w=400&q=80", desc: "Resort gia đình, nhiều hồ bơi, bãi biển riêng.", maxAdults: 3, minRooms: 1, sentiment: 4.6 },
+            // PHÚ QUỐC & NHA TRANG (10 entries)
+            { id: 31, name: "Vinpearl Resort & Spa Phú Quốc", location: "Phú Quốc", price: 3200000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Khu nghỉ dưỡng sang trọng bên bãi biển Bãi Dài, có hồ bơi vô cực.", maxAdults: 4, minRooms: 1, sentiment: 4.8 },
+            { id: 32, name: "Six Senses Ninh Van Bay", location: "Nha Trang", price: 12000000, stars: 6, image: "https://images.unsplash.com/photo-1571008034033-6a52427a1a45?w=400&q=80", desc: "Khu nghỉ dưỡng siêu sang trọng, tách biệt hoàn toàn.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
+            { id: 33, name: "InterContinental Nha Trang", location: "Nha Trang", price: 2900000, stars: 5, image: "https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400&q=80", desc: "Nằm ngay trên bãi biển, gần Quảng trường trung tâm.", maxAdults: 3, minRooms: 1, sentiment: 4.7 },
+            { id: 34, name: "The Shells Resort & Spa", location: "Phú Quốc", price: 1900000, stars: 4, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80", desc: "Thiết kế vỏ sò độc đáo, yên tĩnh, view biển.", maxAdults: 2, minRooms: 1, sentiment: 4.5 },
+            { id: 35, name: "Amanoi Resort", location: "Ninh Thuận", price: 18000000, stars: 6, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Khu nghỉ dưỡng sang trọng bậc nhất, view vịnh Vĩnh Hy.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
+            { id: 36, name: "Best Western Premier Sonasea", location: "Phú Quốc", price: 1500000, stars: 4, image: "https://images.unsplash.com/photo-1590059536854-58a362a90099?w=400&q=80", desc: "Phù hợp gia đình, gần các điểm tham quan phía Nam Đảo.", maxAdults: 4, minRooms: 1, sentiment: 4.4 },
+            { id: 37, name: "Mia Resort Nha Trang", location: "Nha Trang", price: 3500000, stars: 5, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "Khu nghỉ dưỡng sinh thái, yên tĩnh, gần sân bay.", maxAdults: 3, minRooms: 1, sentiment: 4.8 },
+            { id: 38, name: "Salinda Resort Phu Quoc", location: "Phú Quốc", price: 4100000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Resort boutique với dịch vụ cao cấp, view hoàng hôn đẹp.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
+            { id: 39, name: "Muong Thanh Luxury Nha Trang", location: "Nha Trang", price: 1200000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Khách sạn cao tầng, view biển, vị trí thuận tiện.", maxAdults: 4, minRooms: 1, sentiment: 4.5 },
+            { id: 40, name: "Novotel Phu Quoc Resort", location: "Phú Quốc", price: 2300000, stars: 4, image: "https://images.unsplash.com/photo-1570530438680-31126955a1a5?w=400&q=80", desc: "Resort gia đình, nhiều hồ bơi, bãi biển riêng.", maxAdults: 3, minRooms: 1, sentiment: 4.6 },
 
-    // ĐÀ LẠT & HUẾ & CẦN THƠ (10 entries)
-    { id: 41, name: "Hotel de la Coupole Sapa", location: "Sapa", price: 4100000, stars: 5, image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80", desc: "Thiết kế Đông Dương lộng lẫy giữa lòng thị trấn mờ sương Sapa.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
-    { id: 42, name: "Ana Mandara Villas Dalat", location: "Đà Lạt", price: 2800000, stars: 5, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80", desc: "Khu biệt thự cổ điển kiểu Pháp, giữa rừng thông.", maxAdults: 4, minRooms: 1, sentiment: 4.7 },
-    { id: 43, name: "Azerai La Residence Hue", location: "Huế", price: 3900000, stars: 5, image: "https://images.unsplash.com/photo-1571008034033-6a52427a1a45?w=400&q=80", desc: "Kiến trúc Art Deco bên bờ sông Hương lịch sử.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
-    { id: 44, name: "Victoria Can Tho Resort", location: "Cần Thơ", price: 1800000, stars: 4, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Nghỉ dưỡng phong cách thuộc địa Pháp, view sông Hậu.", maxAdults: 4, minRooms: 1, sentiment: 4.6 },
-    { id: 45, name: "Dalat Palace Heritage Hotel", location: "Đà Lạt", price: 4200000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Dinh thự cổ điển nhìn xuống Hồ Xuân Hương tuyệt đẹp.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
-    { id: 46, name: "Sapa Jade Hill Resort", location: "Sapa", price: 2500000, stars: 4, image: "https://images.unsplash.com/photo-1570530438680-31126955a153?w=400&q=80", desc: "Biệt thự view thung lũng Mường Hoa, không khí trong lành.", maxAdults: 4, minRooms: 1, sentiment: 4.5 },
-    { id: 47, name: "Pilgrimage Village Boutique Resort", location: "Huế", price: 2100000, stars: 4, image: "https://images.unsplash.com/photo-1549448375-3b95764d1f2a?w=400&q=80", desc: "Nghỉ dưỡng yên tĩnh, kiến trúc làng quê Việt, có spa.", maxAdults: 3, minRooms: 1, sentiment: 4.6 },
-    { id: 48, name: "TTC Hotel Premium Cần Thơ", location: "Cần Thơ", price: 900000, stars: 3, image: "https://images.unsplash.com/photo-1517840901100-8179e982acb7?w=400&q=80", desc: "Khách sạn trung tâm, view cầu Cần Thơ, giá tốt.", maxAdults: 2, minRooms: 1, sentiment: 4.2 },
-    { id: 49, name: "The Scarlet Hotel Dalat", location: "Đà Lạt", price: 1600000, stars: 4, image: "https://images.unsplash.com/photo-1590059536854-58a362a90099?w=400&q=80", desc: "Khách sạn boutique phong cách vintage, gần chợ.", maxAdults: 2, minRooms: 1, sentiment: 4.5 },
-    { id: 50, name: "Muong Thanh Holiday Vũng Tàu", location: "Vũng Tàu", price: 1100000, stars: 4, image: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400&q=80", desc: "Vị trí sát biển Bãi Sau, hồ bơi ngoài trời lớn.", maxAdults: 4, minRooms: 1, sentiment: 4.3 },
+            // ĐÀ LẠT & HUẾ & CẦN THƠ (10 entries)
+            { id: 41, name: "Hotel de la Coupole Sapa", location: "Sapa", price: 4100000, stars: 5, image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80", desc: "Thiết kế Đông Dương lộng lẫy giữa lòng thị trấn mờ sương Sapa.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
+            { id: 42, name: "Ana Mandara Villas Dalat", location: "Đà Lạt", price: 2800000, stars: 5, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80", desc: "Khu biệt thự cổ điển kiểu Pháp, giữa rừng thông.", maxAdults: 4, minRooms: 1, sentiment: 4.7 },
+            { id: 43, name: "Azerai La Residence Hue", location: "Huế", price: 3900000, stars: 5, image: "https://images.unsplash.com/photo-1571008034033-6a52427a1a45?w=400&q=80", desc: "Kiến trúc Art Deco bên bờ sông Hương lịch sử.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
+            { id: 44, name: "Victoria Can Tho Resort", location: "Cần Thơ", price: 1800000, stars: 4, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Nghỉ dưỡng phong cách thuộc địa Pháp, view sông Hậu.", maxAdults: 4, minRooms: 1, sentiment: 4.6 },
+            { id: 45, name: "Dalat Palace Heritage Hotel", location: "Đà Lạt", price: 4200000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Dinh thự cổ điển nhìn xuống Hồ Xuân Hương tuyệt đẹp.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
+            { id: 46, name: "Sapa Jade Hill Resort", location: "Sapa", price: 2500000, stars: 4, image: "https://images.unsplash.com/photo-1570530438680-31126955a153?w=400&q=80", desc: "Biệt thự view thung lũng Mường Hoa, không khí trong lành.", maxAdults: 4, minRooms: 1, sentiment: 4.5 },
+            { id: 47, name: "Pilgrimage Village Boutique Resort", location: "Huế", price: 2100000, stars: 4, image: "https://images.unsplash.com/photo-1549448375-3b95764d1f2a?w=400&q=80", desc: "Nghỉ dưỡng yên tĩnh, kiến trúc làng quê Việt, có spa.", maxAdults: 3, minRooms: 1, sentiment: 4.6 },
+            { id: 48, name: "TTC Hotel Premium Cần Thơ", location: "Cần Thơ", price: 900000, stars: 3, image: "https://images.unsplash.com/photo-1517840901100-8179e982acb7?w=400&q=80", desc: "Khách sạn trung tâm, view cầu Cần Thơ, giá tốt.", maxAdults: 2, minRooms: 1, sentiment: 4.2 },
+            { id: 49, name: "The Scarlet Hotel Dalat", location: "Đà Lạt", price: 1600000, stars: 4, image: "https://images.unsplash.com/photo-1590059536854-58a362a90099?w=400&q=80", desc: "Khách sạn boutique phong cách vintage, gần chợ.", maxAdults: 2, minRooms: 1, sentiment: 4.5 },
+            { id: 50, name: "Muong Thanh Holiday Vũng Tàu", location: "Vũng Tàu", price: 1100000, stars: 4, image: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400&q=80", desc: "Vị trí sát biển Bãi Sau, hồ bơi ngoài trời lớn.", maxAdults: 4, minRooms: 1, sentiment: 4.3 },
 
-    // --- QUỐC TẾ ---
-    // BANGKOK & SINGAPORE (10 entries)
-    { id: 51, name: "Marina Bay Sands", location: "Singapore", price: 15000000, stars: 6, image: "https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400&q=80", desc: "Hồ bơi vô cực lớn nhất thế giới, biểu tượng của sự xa hoa.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
-    { id: 52, name: "Banyan Tree Bangkok", location: "Bangkok", price: 4500000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Khách sạn 5 sao với Sky Bar nổi tiếng ngắm toàn cảnh Bangkok.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
-    { id: 53, name: "Hotel G Singapore", location: "Singapore", price: 2100000, stars: 4, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Thiết kế trẻ trung, gần khu mua sắm Orchard Road.", maxAdults: 2, minRooms: 1, sentiment: 4.4 },
-    { id: 54, name: "The Peninsula Bangkok", location: "Bangkok", price: 5800000, stars: 5, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "View sông Chao Phraya, dịch vụ cá nhân hóa tuyệt vời.", maxAdults: 3, minRooms: 1, sentiment: 4.9 },
-    { id: 55, name: "Parkroyal Collection Pickering", location: "Singapore", price: 4800000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Kiến trúc 'khu vườn trong thành phố' độc đáo, gần Clarke Quay.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
-    { id: 56, name: "Eastin Grand Hotel Sathorn", location: "Bangkok", price: 2800000, stars: 4, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80", desc: "Kết nối trực tiếp với ga tàu điện, tiện lợi di chuyển.", maxAdults: 4, minRooms: 1, sentiment: 4.5 },
-    { id: 57, name: "Raffles Hotel Singapore", location: "Singapore", price: 20000000, stars: 6, image: "https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400&q=80", desc: "Khách sạn huyền thoại, di sản quốc gia Singapore.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
-    { id: 58, name: "Pullman King Power Bangkok", location: "Bangkok", price: 2100000, stars: 4, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Gần khu mua sắm lớn, hồ bơi resort, có dịch vụ miễn thuế.", maxAdults: 3, minRooms: 1, sentiment: 4.6 },
-    { id: 59, name: "The Fullerton Hotel Singapore", location: "Singapore", price: 6500000, stars: 5, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "Tòa nhà bưu điện lịch sử, view vịnh Marina.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
-    { id: 60, name: "Siam Kempinski Hotel Bangkok", location: "Bangkok", price: 7000000, stars: 5, image: "https://images.unsplash.com/photo-1549448375-3b95764d1f2a?w=400&q=80", desc: "Nằm trong khu vườn riêng, cạnh trung tâm mua sắm Siam Paragon.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
-    
-    // ĐỊA ĐIỂM KHÁC (15 entries)
-    { id: 61, name: "The Ritz-Carlton, Tokyo", location: "Tokyo", price: 11000000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Tầm nhìn toàn cảnh thành phố từ tầng cao, dịch vụ chuẩn mực.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
-    { id: 62, name: "Four Seasons Hotel Seoul", location: "Seoul", price: 6200000, stars: 5, image: "https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400&q=80", desc: "Khách sạn hiện đại, sang trọng tại khu Gwanghwamun.", maxAdults: 3, minRooms: 1, sentiment: 4.8 },
-    { id: 63, name: "The Kayon Jungle Resort", location: "Bali", price: 6200000, stars: 5, image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=80", desc: "Ẩn mình giữa rừng nhiệt đới Ubud với thiết kế hồ bơi 3 tầng.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
-    { id: 64, name: "Hotel Plaza Athénée", location: "Paris", price: 15000000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Khách sạn cung điện sang trọng, view Tháp Eiffel.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
-    { id: 65, name: "The Langham, London", location: "London", price: 9500000, stars: 5, image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80", desc: "Khách sạn 5 sao cổ điển, nằm ở trung tâm London.", maxAdults: 4, minRooms: 1, sentiment: 4.7 },
-    { id: 66, name: "Andaz Xintiandi Shanghai", location: "Thượng Hải", price: 3500000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Thiết kế hiện đại, trẻ trung, tại khu Xintiandi sầm uất.", maxAdults: 2, minRooms: 1, sentiment: 4.5 },
-    { id: 67, name: "The Venetian Macao", location: "Ma Cao", price: 4200000, stars: 5, image: "https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400&q=80", desc: "Khách sạn casino lớn nhất thế giới, kiến trúc Venice.", maxAdults: 4, minRooms: 1, sentiment: 4.6 },
-    { id: 68, name: "Jumeirah Beach Hotel", location: "Dubai", price: 8900000, stars: 5, image: "https://images.unsplash.com/photo-1570530438680-31126955a153?w=400&q=80", desc: "Thiết kế hình sóng, bãi biển riêng, view Burj Al Arab.", maxAdults: 3, minRooms: 1, sentiment: 4.9 },
-    { id: 69, name: "Grand Hyatt Taipei", location: "Đài Bắc", price: 3800000, stars: 5, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "Vị trí gần Taipei 101, dịch vụ tốt, tiện nghi cao cấp.", maxAdults: 2, minRooms: 1, sentiment: 4.7 },
-    { id: 70, name: "The Sukhothai Shanghai", location: "Thượng Hải", price: 4100000, stars: 5, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80", desc: "Khách sạn phong cách tối giản, yên tĩnh giữa lòng thành phố.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
-    { id: 71, name: "Hotel Colline", location: "Đà Lạt", price: 1800000, stars: 4, image: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400&q=80", desc: "Vị trí ngay chợ Đà Lạt, thiết kế hiện đại và tiện lợi.", maxAdults: 3, minRooms: 1, sentiment: 4.5 },
-    { id: 72, name: "Silk Path Grand Sapa Resort", location: "Sapa", price: 3200000, stars: 5, image: "https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400&q=80", desc: "Resort sang trọng, kiến trúc Châu Âu, view núi Hàm Rồng.", maxAdults: 4, minRooms: 1, sentiment: 4.7 },
-    { id: 73, name: "Anantara Hoi An Resort", location: "Hội An", price: 2900000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Nằm bên sông Thu Bồn, gần phố cổ, yên bình và lãng mạn.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
-    { id: 74, name: "The Ritz-Carlton, Singapore", location: "Singapore", price: 7500000, stars: 5, image: "https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400&q=80", desc: "Khách sạn cao cấp, view vịnh Marina, bộ sưu tập nghệ thuật.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
-    { id: 75, name: "JW Marriott Phu Quoc Emerald Bay", location: "Phú Quốc", price: 5500000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Khu nghỉ dưỡng được thiết kế bởi Bill Bensley, chủ đề trường đại học.", maxAdults: 4, minRooms: 1, sentiment: 5.0 },
-];
+            // --- QUỐC TẾ ---
+            // BANGKOK & SINGAPORE (10 entries)
+            { id: 51, name: "Marina Bay Sands", location: "Singapore", price: 15000000, stars: 6, image: "https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400&q=80", desc: "Hồ bơi vô cực lớn nhất thế giới, biểu tượng của sự xa hoa.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
+            { id: 52, name: "Banyan Tree Bangkok", location: "Bangkok", price: 4500000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Khách sạn 5 sao với Sky Bar nổi tiếng ngắm toàn cảnh Bangkok.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
+            { id: 53, name: "Hotel G Singapore", location: "Singapore", price: 2100000, stars: 4, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Thiết kế trẻ trung, gần khu mua sắm Orchard Road.", maxAdults: 2, minRooms: 1, sentiment: 4.4 },
+            { id: 54, name: "The Peninsula Bangkok", location: "Bangkok", price: 5800000, stars: 5, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "View sông Chao Phraya, dịch vụ cá nhân hóa tuyệt vời.", maxAdults: 3, minRooms: 1, sentiment: 4.9 },
+            { id: 55, name: "Parkroyal Collection Pickering", location: "Singapore", price: 4800000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Kiến trúc 'khu vườn trong thành phố' độc đáo, gần Clarke Quay.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
+            { id: 56, name: "Eastin Grand Hotel Sathorn", location: "Bangkok", price: 2800000, stars: 4, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80", desc: "Kết nối trực tiếp với ga tàu điện, tiện lợi di chuyển.", maxAdults: 4, minRooms: 1, sentiment: 4.5 },
+            { id: 57, name: "Raffles Hotel Singapore", location: "Singapore", price: 20000000, stars: 6, image: "https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400&q=80", desc: "Khách sạn huyền thoại, di sản quốc gia Singapore.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
+            { id: 58, name: "Pullman King Power Bangkok", location: "Bangkok", price: 2100000, stars: 4, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Gần khu mua sắm lớn, hồ bơi resort, có dịch vụ miễn thuế.", maxAdults: 3, minRooms: 1, sentiment: 4.6 },
+            { id: 59, name: "The Fullerton Hotel Singapore", location: "Singapore", price: 6500000, stars: 5, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "Tòa nhà bưu điện lịch sử, view vịnh Marina.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
+            { id: 60, name: "Siam Kempinski Hotel Bangkok", location: "Bangkok", price: 7000000, stars: 5, image: "https://images.unsplash.com/photo-1549448375-3b95764d1f2a?w=400&q=80", desc: "Nằm trong khu vườn riêng, cạnh trung tâm mua sắm Siam Paragon.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
 
-function getUrlParams() {
-    const params = new URLSearchParams(window.location.search);
-    return {
-        location: params.get('location') || '',
-        checkin: params.get('checkin') || '',
-        checkout: params.get('checkout') || '',
-        adults: parseInt(params.get('adults')) || 2,
-        children: parseInt(params.get('children')) || 0,
-        rooms: parseInt(params.get('rooms')) || 1
-    };
-}
+            // ĐỊA ĐIỂM KHÁC (15 entries)
+            { id: 61, name: "The Ritz-Carlton, Tokyo", location: "Tokyo", price: 11000000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Tầm nhìn toàn cảnh thành phố từ tầng cao, dịch vụ chuẩn mực.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
+            { id: 62, name: "Four Seasons Hotel Seoul", location: "Seoul", price: 6200000, stars: 5, image: "https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400&q=80", desc: "Khách sạn hiện đại, sang trọng tại khu Gwanghwamun.", maxAdults: 3, minRooms: 1, sentiment: 4.8 },
+            { id: 63, name: "The Kayon Jungle Resort", location: "Bali", price: 6200000, stars: 5, image: "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=80", desc: "Ẩn mình giữa rừng nhiệt đới Ubud với thiết kế hồ bơi 3 tầng.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
+            { id: 64, name: "Hotel Plaza Athénée", location: "Paris", price: 15000000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Khách sạn cung điện sang trọng, view Tháp Eiffel.", maxAdults: 2, minRooms: 1, sentiment: 5.0 },
+            { id: 65, name: "The Langham, London", location: "London", price: 9500000, stars: 5, image: "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?w=400&q=80", desc: "Khách sạn 5 sao cổ điển, nằm ở trung tâm London.", maxAdults: 4, minRooms: 1, sentiment: 4.7 },
+            { id: 66, name: "Andaz Xintiandi Shanghai", location: "Thượng Hải", price: 3500000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Thiết kế hiện đại, trẻ trung, tại khu Xintiandi sầm uất.", maxAdults: 2, minRooms: 1, sentiment: 4.5 },
+            { id: 67, name: "The Venetian Macao", location: "Ma Cao", price: 4200000, stars: 5, image: "https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400&q=80", desc: "Khách sạn casino lớn nhất thế giới, kiến trúc Venice.", maxAdults: 4, minRooms: 1, sentiment: 4.6 },
+            { id: 68, name: "Jumeirah Beach Hotel", location: "Dubai", price: 8900000, stars: 5, image: "https://images.unsplash.com/photo-1570530438680-31126955a153?w=400&q=80", desc: "Thiết kế hình sóng, bãi biển riêng, view Burj Al Arab.", maxAdults: 3, minRooms: 1, sentiment: 4.9 },
+            { id: 69, name: "Grand Hyatt Taipei", location: "Đài Bắc", price: 3800000, stars: 5, image: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400&q=80", desc: "Vị trí gần Taipei 101, dịch vụ tốt, tiện nghi cao cấp.", maxAdults: 2, minRooms: 1, sentiment: 4.7 },
+            { id: 70, name: "The Sukhothai Shanghai", location: "Thượng Hải", price: 4100000, stars: 5, image: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400&q=80", desc: "Khách sạn phong cách tối giản, yên tĩnh giữa lòng thành phố.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
+            { id: 71, name: "Hotel Colline", location: "Đà Lạt", price: 1800000, stars: 4, image: "https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400&q=80", desc: "Vị trí ngay chợ Đà Lạt, thiết kế hiện đại và tiện lợi.", maxAdults: 3, minRooms: 1, sentiment: 4.5 },
+            { id: 72, name: "Silk Path Grand Sapa Resort", location: "Sapa", price: 3200000, stars: 5, image: "https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400&q=80", desc: "Resort sang trọng, kiến trúc Châu Âu, view núi Hàm Rồng.", maxAdults: 4, minRooms: 1, sentiment: 4.7 },
+            { id: 73, name: "Anantara Hoi An Resort", location: "Hội An", price: 2900000, stars: 5, image: "https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400&q=80", desc: "Nằm bên sông Thu Bồn, gần phố cổ, yên bình và lãng mạn.", maxAdults: 2, minRooms: 1, sentiment: 4.8 },
+            { id: 74, name: "The Ritz-Carlton, Singapore", location: "Singapore", price: 7500000, stars: 5, image: "https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400&q=80", desc: "Khách sạn cao cấp, view vịnh Marina, bộ sưu tập nghệ thuật.", maxAdults: 2, minRooms: 1, sentiment: 4.9 },
+            { id: 75, name: "JW Marriott Phu Quoc Emerald Bay", location: "Phú Quốc", price: 5500000, stars: 5, image: "https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400&q=80", desc: "Khu nghỉ dưỡng được thiết kế bởi Bill Bensley, chủ đề trường đại học.", maxAdults: 4, minRooms: 1, sentiment: 5.0 },
+        ];
 
-// NEW LOGIC FOR RESULTS PAGE: Guest/Room Popover
-const guestRoomSelectR = document.getElementById('guestRoomSelectResults');
-const guestRoomDisplayR = document.getElementById('guestRoomDisplayResults');
-const guestRoomPopoverR = document.getElementById('guestRoomPopoverResults');
-const adultsRInput = document.getElementById('adultsRInput');
-const childrenRInput = document.getElementById('childrenRInput');
-const roomsRInput = document.getElementById('roomsRInput');
-
-function updateGuestDisplayR() {
-    const adults = parseInt(adultsRInput.value);
-    const children = parseInt(childrenRInput.value);
-    const rooms = parseInt(roomsRInput.value);
-    
-    let display = `${adults} Người lớn`;
-    if (children > 0) {
-        display += `, ${children} Trẻ em`;
-    }
-    display += `, ${rooms} Phòng`;
-    
-    guestRoomDisplayR.value = display;
-    
-    // Cập nhật trạng thái nút (Disable nếu min)
-    document.querySelector('button[data-target="adultsR"][data-action="decrement"]').disabled = adults <= 1;
-    document.querySelector('button[data-target="childrenR"][data-action="decrement"]').disabled = children <= 0;
-    document.querySelector('button[data-target="roomsR"][data-action="decrement"]').disabled = rooms <= 1;
-}
-
-// Stepper Logic for Results
-document.querySelectorAll('#guestRoomPopoverResults .input-stepper button').forEach(button => {
-    button.addEventListener('click', (e) => {
-        const targetId = e.currentTarget.dataset.target;
-        const action = e.currentTarget.dataset.action;
-        const input = document.getElementById(targetId + 'Input');
-        let value = parseInt(input.value);
-        const min = parseInt(input.min);
-
-        if (action === 'increment') {
-            value++;
-        } else if (action === 'decrement' && value > min) {
-            value--;
+        function getUrlParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                location: params.get('location') || '',
+                checkin: params.get('checkin') || '',
+                checkout: params.get('checkout') || '',
+                adults: parseInt(params.get('adults')) || 2,
+                children: parseInt(params.get('children')) || 0,
+                rooms: parseInt(params.get('rooms')) || 1
+            };
         }
-        
-        input.value = value;
-        updateGuestDisplayR();
-        e.preventDefault(); // Ngăn form submit
-        renderResults(); // Tự động chạy lại tìm kiếm khi thay đổi số lượng khách/phòng
-    });
-});
 
-// Toggle Popover
-guestRoomDisplayR.addEventListener('click', (e) => {
-    guestRoomPopoverR.classList.toggle('active');
-    guestRoomSelectR.classList.toggle('focused');
-    e.stopPropagation(); 
-});
+        // NEW LOGIC FOR RESULTS PAGE: Guest/Room Popover
+        const guestRoomSelectR = document.getElementById('guestRoomSelectResults');
+        const guestRoomDisplayR = document.getElementById('guestRoomDisplayResults');
+        const guestRoomPopoverR = document.getElementById('guestRoomPopoverResults');
+        const adultsRInput = document.getElementById('adultsRInput');
+        const childrenRInput = document.getElementById('childrenRInput');
+        const roomsRInput = document.getElementById('roomsRInput');
 
-// Close popover when clicking outside
-document.addEventListener('click', (e) => {
-    if (!guestRoomSelectR.contains(e.target) && guestRoomPopoverR.classList.contains('active')) {
-        guestRoomPopoverR.classList.remove('active');
-        guestRoomSelectR.classList.remove('focused');
-        renderResults(); // Chạy lại tìm kiếm khi đóng popover
-    }
-});
+        function updateGuestDisplayR() {
+            const adults = parseInt(adultsRInput.value);
+            const children = parseInt(childrenRInput.value);
+            const rooms = parseInt(roomsRInput.value);
+
+            let display = `${adults} Người lớn`;
+            if (children > 0) {
+                display += `, ${children} Trẻ em`;
+            }
+            display += `, ${rooms} Phòng`;
+
+            guestRoomDisplayR.value = display;
+
+            // Cập nhật trạng thái nút (Disable nếu min)
+            document.querySelector('button[data-target="adultsR"][data-action="decrement"]').disabled = adults <= 1;
+            document.querySelector('button[data-target="childrenR"][data-action="decrement"]').disabled = children <= 0;
+            document.querySelector('button[data-target="roomsR"][data-action="decrement"]').disabled = rooms <= 1;
+        }
+
+        // Stepper Logic for Results
+        document.querySelectorAll('#guestRoomPopoverResults .input-stepper button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const targetId = e.currentTarget.dataset.target;
+                const action = e.currentTarget.dataset.action;
+                const input = document.getElementById(targetId + 'Input');
+                let value = parseInt(input.value);
+                const min = parseInt(input.min);
+
+                if (action === 'increment') {
+                    value++;
+                } else if (action === 'decrement' && value > min) {
+                    value--;
+                }
+
+                input.value = value;
+                updateGuestDisplayR();
+                e.preventDefault(); // Ngăn form submit
+                renderResults(); // Tự động chạy lại tìm kiếm khi thay đổi số lượng khách/phòng
+            });
+        });
+
+        // Toggle Popover
+        guestRoomDisplayR.addEventListener('click', (e) => {
+            guestRoomPopoverR.classList.toggle('active');
+            guestRoomSelectR.classList.toggle('focused');
+            e.stopPropagation();
+        });
+
+        // Close popover when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!guestRoomSelectR.contains(e.target) && guestRoomPopoverR.classList.contains('active')) {
+                guestRoomPopoverR.classList.remove('active');
+                guestRoomSelectR.classList.remove('focused');
+                renderResults(); // Chạy lại tìm kiếm khi đóng popover
+            }
+        });
 
 
-// Hàm khởi tạo giá trị cho thanh tìm kiếm dựa trên URL
-function initForm(params) {
-    document.getElementById('location').value = params.location;
-    document.getElementById('checkin').value = params.checkin;
-    document.getElementById('checkout').value = params.checkout;
-    
-    // Khởi tạo các input trong popover
-    adultsRInput.value = params.adults;
-    childrenRInput.value = params.children;
-    roomsRInput.value = params.rooms;
+        // Hàm khởi tạo giá trị cho thanh tìm kiếm dựa trên URL
+        function initForm(params) {
+            document.getElementById('location').value = params.location;
+            document.getElementById('checkin').value = params.checkin;
+            document.getElementById('checkout').value = params.checkout;
 
-    updateGuestDisplayR();
-}
+            // Khởi tạo các input trong popover
+            adultsRInput.value = params.adults;
+            childrenRInput.value = params.children;
+            roomsRInput.value = params.rooms;
+
+            updateGuestDisplayR();
+        }
 
 
-function formatPrice(p) { return p.toLocaleString('vi-VN') + '₫'; }
-function createStars(n) { return '<i class="fas fa-star" style="color:#f59e0b"></i>'.repeat(n); }
+        function formatPrice(p) { return p.toLocaleString('vi-VN') + '₫'; }
+        function createStars(n) { return '<i class="fas fa-star" style="color:#f59e0b"></i>'.repeat(n); }
 
-// TẠO CARD KHÁCH SẠN (CẬP NHẬT để hiển thị sentiment)
-function createHotelCard(h) {
-    let ratingText = '';
-    if (h.sentiment >= 5.0) ratingText = 'Tuyệt đối';
-    else if (h.sentiment >= 4.9) ratingText = 'Tuyệt vời';
-    else if (h.sentiment >= 4.7) ratingText = 'Rất tốt';
-    else if (h.sentiment >= 4.5) ratingText = 'Tốt';
-    else ratingText = 'Hài lòng';
+        // TẠO CARD KHÁCH SẠN (CẬP NHẬT để hiển thị sentiment)
+        function createHotelCard(h) {
+            let ratingText = '';
+            if (h.sentiment >= 5.0) ratingText = 'Tuyệt đối';
+            else if (h.sentiment >= 4.9) ratingText = 'Tuyệt vời';
+            else if (h.sentiment >= 4.7) ratingText = 'Rất tốt';
+            else if (h.sentiment >= 4.5) ratingText = 'Tốt';
+            else ratingText = 'Hài lòng';
 
-    return `
+            return `
         <div class="tour-card">
             <div class="tour-image"><img src="${h.image}" alt="${h.name}"></div>
             <div class="tour-content">
@@ -430,146 +450,147 @@ function createHotelCard(h) {
             </div>
         </div>
     `;
-}
+        }
 
-// LOGIC LỌC VÀ HIỂN THỊ
-function renderResults() {
-    let result = [...hotelData];
-    // Đọc giá trị từ input trong popover
-    const query = document.getElementById('location').value.trim().toLowerCase();
-    const adults = parseInt(adultsRInput.value) || 1;
-    const rooms = parseInt(roomsRInput.value) || 1;
-    const children = parseInt(childrenRInput.value) || 0; 
-    
-    // 1. Lọc theo form tìm kiếm (Địa điểm/Tên)
-    if(query) result = result.filter(h => h.name.toLowerCase().includes(query) || h.location.toLowerCase().includes(query));
-    
-    // 2. Lọc theo số lượng người (Giả lập: Tổng số khách phải nhỏ hơn hoặc bằng (maxAdults * số phòng))
-    // Và số phòng yêu cầu phải lớn hơn hoặc bằng số phòng tối thiểu của khách sạn
-    result = result.filter(h => (h.maxAdults * rooms) >= (adults + children) && h.minRooms <= rooms);
+        // LOGIC LỌC VÀ HIỂN THỊ
+        function renderResults() {
+            let result = [...hotelData];
+            // Đọc giá trị từ input trong popover
+            const query = document.getElementById('location').value.trim().toLowerCase();
+            const adults = parseInt(adultsRInput.value) || 1;
+            const rooms = parseInt(roomsRInput.value) || 1;
+            const children = parseInt(childrenRInput.value) || 0;
 
-    // 3. Lọc theo sidebar (Giá, Sao)
-    const prices = Array.from(document.querySelectorAll('input[name="price"]:checked')).map(i => i.value);
-    const stars = Array.from(document.querySelectorAll('input[name="stars"]:checked')).map(i => parseInt(i.value));
-    const sort = document.getElementById('sortBy').value;
+            // 1. Lọc theo form tìm kiếm (Địa điểm/Tên)
+            if (query) result = result.filter(h => h.name.toLowerCase().includes(query) || h.location.toLowerCase().includes(query));
 
-    if(stars.length) result = result.filter(h => stars.includes(h.stars));
-    
-    if(prices.length) {
-        result = result.filter(h => {
-            let pass = false;
-            if(prices.includes('<1m') && h.price < 1000000) pass = true;
-            if(prices.includes('1m-3m') && h.price >= 1000000 && h.price <= 3000000) pass = true;
-            if(prices.includes('3m-5m') && h.price > 3000000 && h.price <= 5000000) pass = true;
-            if(prices.includes('5m+') && h.price > 5000000) pass = true;
-            return pass;
-        });
-    }
+            // 2. Lọc theo số lượng người (Giả lập: Tổng số khách phải nhỏ hơn hoặc bằng (maxAdults * số phòng))
+            // Và số phòng yêu cầu phải lớn hơn hoặc bằng số phòng tối thiểu của khách sạn
+            result = result.filter(h => (h.maxAdults * rooms) >= (adults + children) && h.minRooms <= rooms);
 
-    // 4. Sắp xếp
-    if(sort === 'price-asc') result.sort((a,b) => a.price - b.price);
-    else if(sort === 'price-desc') result.sort((a,b) => b.price - a.price);
-    else if(sort === 'stars-desc') result.sort((a,b) => b.stars - a.stars);
-    else if(sort === 'rating-desc') result.sort((a,b) => b.sentiment - a.sentiment); // Sắp xếp theo sentiment
+            // 3. Lọc theo sidebar (Giá, Sao)
+            const prices = Array.from(document.querySelectorAll('input[name="price"]:checked')).map(i => i.value);
+            const stars = Array.from(document.querySelectorAll('input[name="stars"]:checked')).map(i => parseInt(i.value));
+            const sort = document.getElementById('sortBy').value;
 
-    // 5. Render
-    const grid = document.getElementById('hotelListGrid');
-    grid.innerHTML = result.length ? result.map(createHotelCard).join('') : '<p class="no-results" style="grid-column:1/-1;">Không tìm thấy khách sạn phù hợp.</p>';
-    document.getElementById('resultInfo').textContent = `Tìm thấy ${result.length} khách sạn tại ${document.getElementById('location').value || 'khắp nơi'} cho ${adults} Người lớn, ${children} Trẻ em / ${rooms} Phòng`;
+            if (stars.length) result = result.filter(h => stars.includes(h.stars));
 
-    // 6. Gán lại sự kiện modal
-    attachModalEvents();
-}
+            if (prices.length) {
+                result = result.filter(h => {
+                    let pass = false;
+                    if (prices.includes('<1m') && h.price < 1000000) pass = true;
+                    if (prices.includes('1m-3m') && h.price >= 1000000 && h.price <= 3000000) pass = true;
+                    if (prices.includes('3m-5m') && h.price > 3000000 && h.price <= 5000000) pass = true;
+                    if (prices.includes('5m+') && h.price > 5000000) pass = true;
+                    return pass;
+                });
+            }
 
-// KHÁCH SẠN GỢI Ý (Cập nhật data)
-const suggestedHotels = [
-    { name: "Sofitel Legend Metropole Hanoi", price: "7.200.000", stars: 5, img: "https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=800", maxAdults: 2, minRooms: 1 },
-    { name: "The Reverie Saigon", price: "9.500.000", stars: 6, img: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800", maxAdults: 2, minRooms: 1 },
-    { name: "InterContinental Danang Resort", price: "8.500.000", stars: 5, img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800", maxAdults: 4, minRooms: 1 },
-    { name: "Marina Bay Sands", price: "15.000.000", stars: 6, img: "https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=800", maxAdults: 2, minRooms: 1 },
-];
+            // 4. Sắp xếp
+            if (sort === 'price-asc') result.sort((a, b) => a.price - b.price);
+            else if (sort === 'price-desc') result.sort((a, b) => b.price - a.price);
+            else if (sort === 'stars-desc') result.sort((a, b) => b.stars - a.stars);
+            else if (sort === 'rating-desc') result.sort((a, b) => b.sentiment - a.sentiment); // Sắp xếp theo sentiment
 
-function loadSuggested() {
-    const html = suggestedHotels.map(h => `
+            // 5. Render
+            const grid = document.getElementById('hotelListGrid');
+            grid.innerHTML = result.length ? result.map(createHotelCard).join('') : '<p class="no-results" style="grid-column:1/-1;">Không tìm thấy khách sạn phù hợp.</p>';
+            document.getElementById('resultInfo').textContent = `Tìm thấy ${result.length} khách sạn tại ${document.getElementById('location').value || 'khắp nơi'} cho ${adults} Người lớn, ${children} Trẻ em / ${rooms} Phòng`;
+
+            // 6. Gán lại sự kiện modal
+            attachModalEvents();
+        }
+
+        // KHÁCH SẠN GỢI Ý (Cập nhật data)
+        const suggestedHotels = [
+            { name: "Sofitel Legend Metropole Hanoi", price: "7.200.000", stars: 5, img: "https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=800", maxAdults: 2, minRooms: 1 },
+            { name: "The Reverie Saigon", price: "9.500.000", stars: 6, img: "https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800", maxAdults: 2, minRooms: 1 },
+            { name: "InterContinental Danang Resort", price: "8.500.000", stars: 5, img: "https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=800", maxAdults: 4, minRooms: 1 },
+            { name: "Marina Bay Sands", price: "15.000.000", stars: 6, img: "https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=800", maxAdults: 2, minRooms: 1 },
+        ];
+
+        function loadSuggested() {
+            const html = suggestedHotels.map(h => `
         <div class="tour-card open-modal-hotel" data-name="${h.name}" data-adults="${h.maxAdults}" data-rooms="${h.minRooms}">
             <img src="${h.img}" style="height:200px; object-fit:cover; width:100%">
             <div class="tour-content" style="padding:15px">
                 <h4>${h.name}</h4>
                 <p style="color:#f59e0b">${createStars(h.stars)}</p>
-                <p class="price" style="color:#e11d48; font-weight:bold">${formatPrice(parseInt(h.price.replace(/\./g,'')))}</p>
+                <p class="price" style="color:#e11d48; font-weight:bold">${formatPrice(parseInt(h.price.replace(/\./g, '')))}</p>
             </div>
         </div>
     `).join('');
-    document.getElementById('suggestedHotels').innerHTML = html;
-}
+            document.getElementById('suggestedHotels').innerHTML = html;
+        }
 
-// XỬ LÝ MODAL (Cập nhật để truyền Adults/Children/Rooms mặc định)
-function attachModalEvents() {
-    document.querySelectorAll('.open-modal-hotel').forEach(btn => {
-        btn.onclick = function() {
-            const name = this.dataset.name;
-            // Lấy giá trị từ thanh tìm kiếm
-            const adultsFromSearch = adultsRInput.value || 2;
-            const childrenFromSearch = childrenRInput.value || 0;
-            const roomsFromSearch = roomsRInput.value || 1;
-            
-            document.getElementById('hName').value = name;
-            document.getElementById('modalHotelName').textContent = name;
-            // Set giá trị mặc định cho Modal
-            document.querySelector('#bookingForm input[name="modalAdults"]').value = adultsFromSearch;
-            document.querySelector('#bookingForm input[name="modalChildren"]').value = childrenFromSearch;
-            document.querySelector('#bookingForm input[name="modalRooms"]').value = roomsFromSearch;
-            document.getElementById('hotelModal').classList.add('active');
+        // XỬ LÝ MODAL (Cập nhật để truyền Adults/Children/Rooms mặc định)
+        function attachModalEvents() {
+            document.querySelectorAll('.open-modal-hotel').forEach(btn => {
+                btn.onclick = function () {
+                    const name = this.dataset.name;
+                    // Lấy giá trị từ thanh tìm kiếm
+                    const adultsFromSearch = adultsRInput.value || 2;
+                    const childrenFromSearch = childrenRInput.value || 0;
+                    const roomsFromSearch = roomsRInput.value || 1;
+
+                    document.getElementById('hName').value = name;
+                    document.getElementById('modalHotelName').textContent = name;
+                    // Set giá trị mặc định cho Modal
+                    document.querySelector('#bookingForm input[name="modalAdults"]').value = adultsFromSearch;
+                    document.querySelector('#bookingForm input[name="modalChildren"]').value = childrenFromSearch;
+                    document.querySelector('#bookingForm input[name="modalRooms"]').value = roomsFromSearch;
+                    document.getElementById('hotelModal').classList.add('active');
+                };
+            });
+        }
+
+        // KHỞI CHẠY
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = getUrlParams();
+            initForm(params);
+
+            // Khi nhấn nút tìm kiếm hoặc thay đổi filter
+            document.getElementById('hotelSearchForm').onsubmit = e => {
+                e.preventDefault();
+                guestRoomPopoverR.classList.remove('active'); // Đảm bảo đóng popover
+                guestRoomSelectR.classList.remove('focused');
+                renderResults();
+            };
+            document.querySelectorAll('input[type="checkbox"], #sortBy, .apply-btn').forEach(el => el.addEventListener('change', renderResults));
+            document.querySelector('.apply-btn').addEventListener('click', renderResults);
+
+            renderResults();
+            loadSuggested();
+        });
+
+        document.querySelector('.close-btn').onclick = () => document.getElementById('hotelModal').classList.remove('active');
+        window.onclick = e => { if (e.target === document.getElementById('hotelModal')) document.getElementById('hotelModal').classList.remove('active'); };
+
+        document.getElementById('bookingForm').onsubmit = function (e) {
+            e.preventDefault();
+            const msg = document.getElementById('bookingMessage');
+            msg.textContent = 'Đặt phòng thành công! Chúng tôi sẽ gọi lại ngay.';
+            msg.style.color = '#10b981';
+            msg.style.display = 'block';
+            setTimeout(() => {
+                this.reset();
+                msg.style.display = 'none';
+                document.getElementById('hotelModal').classList.remove('active');
+            }, 3000);
         };
-    });
-}
 
-// KHỞI CHẠY
-document.addEventListener('DOMContentLoaded', () => {
-    const params = getUrlParams();
-    initForm(params);
-    
-    // Khi nhấn nút tìm kiếm hoặc thay đổi filter
-    document.getElementById('hotelSearchForm').onsubmit = e => { 
-        e.preventDefault(); 
-        guestRoomPopoverR.classList.remove('active'); // Đảm bảo đóng popover
-        guestRoomSelectR.classList.remove('focused');
-        renderResults(); 
-    };
-    document.querySelectorAll('input[type="checkbox"], #sortBy, .apply-btn').forEach(el => el.addEventListener('change', renderResults));
-    document.querySelector('.apply-btn').addEventListener('click', renderResults);
-    
-    renderResults();
-    loadSuggested();
-});
+        // Form liên hệ
+        document.getElementById('contactForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const msg = document.getElementById('formMessage');
+            msg.style.display = 'block';
+            this.reset();
+            setTimeout(() => msg.style.display = 'none', 3000);
+        });
 
-document.querySelector('.close-btn').onclick = () => document.getElementById('hotelModal').classList.remove('active');
-window.onclick = e => { if(e.target === document.getElementById('hotelModal')) document.getElementById('hotelModal').classList.remove('active'); };
-
-document.getElementById('bookingForm').onsubmit = function(e) {
-    e.preventDefault();
-    const msg = document.getElementById('bookingMessage');
-    msg.textContent = 'Đặt phòng thành công! Chúng tôi sẽ gọi lại ngay.';
-    msg.style.color = '#10b981';
-    msg.style.display = 'block';
-    setTimeout(() => {
-        this.reset();
-        msg.style.display = 'none';
-        document.getElementById('hotelModal').classList.remove('active');
-    }, 3000);
-};
-
-// Form liên hệ
-document.getElementById('contactForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    const msg = document.getElementById('formMessage');
-    msg.style.display = 'block';
-    this.reset();
-    setTimeout(() => msg.style.display = 'none', 3000);
-});
-
-document.querySelector('.hamburger-menu').addEventListener('click', () => document.querySelector('.nav-menu').classList.toggle('active'));
-</script>
+        document.querySelector('.hamburger-menu').addEventListener('click', () => document.querySelector('.nav-menu').classList.toggle('active'));
+    </script>
 
 </body>
+
 </html>
