@@ -1,881 +1,995 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Đặt Phòng Khách Sạn - Travel Explorer</title>
-    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="../Styles/index.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+
 <body>
 
-<header class="header">
-    <div class="container nav-container">
-        <a href="main.html" class="logo">Travel Explorer</a>
-        <div class="hamburger-menu"><i class="fas fa-bars"></i></div>
-        <ul class="nav-menu">
-            <li><a href="main.html" class="nav-link">Trang Chủ</a></li>
-            <li><a href="tour.html" class="nav-link">Tour</a></li>
-            <li><a href="hotel.html" class="nav-link active">Khách Sạn</a></li>
-            <li><a href="flight.html" class="nav-link">Vé Máy Bay</a></li>
-        </ul>
-    </div>
-</header>
-
-<section class="hotel-page-hero">
-    <div class="container hero-content">
-        <h1>Nghỉ Dưỡng Đẳng Cấp & Tiện Nghi</h1>
-        <p>Hơn 10,000 khách sạn giá tốt • Ưu đãi đến 50%</p>
-
-        <div class="search-wrapper">
-            <form action="hotel-results.html" method="get" class="filter-form-hotel">
-                <input type="text" name="location" placeholder="Bạn muốn nghỉ ở đâu? *" required> 
-                
-                <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="checkin" placeholder="Ngày nhận phòng" required>
-                
-                <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="checkout" placeholder="Ngày trả phòng" required>
-                
-                <div class="guest-room-select" id="guestRoomSelect">
-                    <i class="fas fa-user-friends"></i>
-                    <input type="text" id="guestRoomDisplay" value="2 Người lớn, 1 Phòng" readonly placeholder="Số khách & Phòng *" required>
-                    
-                    <div class="guest-popover" id="guestRoomPopover">
-                        <div class="popover-item">
-                            <label>Người lớn</label>
-                            <div class="input-stepper">
-                                <button type="button" data-action="decrement" data-target="adults">-</button>
-                                <input type="number" name="adults" id="adultsInput" value="2" min="1" readonly>
-                                <button type="button" data-action="increment" data-target="adults">+</button>
-                            </div>
-                        </div>
-                        <div class="popover-item">
-                            <label>Trẻ em (0-12 tuổi)</label>
-                            <div class="input-stepper">
-                                <button type="button" data-action="decrement" data-target="children">-</button>
-                                <input type="number" name="children" id="childrenInput" value="0" min="0" readonly>
-                                <button type="button" data-action="increment" data-target="children">+</button>
-                            </div>
-                        </div>
-                        <div class="popover-item">
-                            <label>Số phòng</label>
-                            <div class="input-stepper">
-                                <button type="button" data-action="decrement" data-target="rooms">-</button>
-                                <input type="number" name="rooms" id="roomsInput" value="1" min="1" readonly>
-                                <button type="button" data-action="increment" data-target="rooms">+</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button type="submit" class="btn-search"><i class="fas fa-search"></i> Tìm Kiếm</button>
-            </form>
-        </div>
-        <p style="font-size:0.9rem; margin-top:10px; color:rgba(255,255,255,0.8);">Nhấn vào ô **Số khách & Phòng** để điều chỉnh số lượng.</p>
-    </div>
-</section>
-
-<section class="tour-group-section" id="featured-hotels-section">
-    <div class="container">
-        <h2 class="section-title">✨ Khách Sạn Được Yêu Thích Nhất</h2>
-        <p class="section-subtitle">Lựa chọn hàng đầu cho kỳ nghỉ dưỡng hoàn hảo.</p>
-        
-        <div class="tabs-nav">
-            <button class="tab-btn active" data-group="domestic">Trong Nước 🇻🇳</button>
-            <button class="tab-btn" data-group="international">Quốc Tế 🌎</button>
-        </div>
-
-        <div class="group active" data-group="domestic">
-            <div class="tour-card-grid">
-                <div class="tour-card">
-                    <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400" alt="The Reverie Saigon">
-                    <div class="card-content">
-                        <h4>The Reverie Saigon</h4>
-                        <div class="tour-rating"><i class="fas fa-star" style="color:#f59e0b"></i> 6.0 (Xa hoa)</div>
-                        <p>Khách sạn 6 sao sang trọng bậc nhất Việt Nam, nội thất Ý lộng lẫy.</p>
-                        <span class="tour-price">9.500.000₫ <small style="font-size:0.8rem; color:#666">/đêm</small></span>
-                        <button class="cta-button open-modal-hotel" data-name="The Reverie Saigon">Đặt Phòng</button>
-                    </div>
-                </div>
-                <div class="tour-card">
-                    <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400" alt="InterContinental Danang Resort">
-                    <div class="card-content">
-                        <h4>InterContinental Danang Resort</h4>
-                        <div class="tour-rating"><i class="fas fa-star" style="color:#f59e0b"></i> 5.0 (Xuất sắc)</div>
-                        <p>Kiệt tác kiến trúc bên bán đảo Sơn Trà, dịch vụ đẳng cấp thế giới.</p>
-                        <span class="tour-price">8.500.000₫ <small style="font-size:0.8rem; color:#666">/đêm</small></span>
-                        <button class="cta-button open-modal-hotel" data-name="InterContinental Danang">Đặt Phòng</button>
-                    </div>
-                </div>
-                <div class="tour-card">
-                    <img src="https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400" alt="JW Marriott Phu Quoc">
-                    <div class="card-content">
-                        <h4>JW Marriott Phu Quoc Emerald Bay</h4>
-                        <div class="tour-rating"><i class="fas fa-star" style="color:#f59e0b"></i> 5.0 (Tuyệt vời)</div>
-                        <p>Khu nghỉ dưỡng độc đáo với thiết kế chủ đề trường đại học giả tưởng.</p>
-                        <span class="tour-price">5.500.000₫ <small style="font-size:0.8rem; color:#666">/đêm</small></span>
-                        <button class="cta-button open-modal-hotel" data-name="JW Marriott Phu Quoc">Đặt Phòng</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <div class="group" data-group="international">
-            <div class="tour-card-grid">
-                <div class="tour-card">
-                    <img src="https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400" alt="Marina Bay Sands Singapore">
-                    <div class="card-content">
-                        <h4>Marina Bay Sands Singapore</h4>
-                        <div class="tour-rating"><i class="fas fa-star" style="color:#f59e0b"></i> 6.0 (Biểu tượng)</div>
-                        <p>Hồ bơi vô cực lớn nhất thế giới, biểu tượng của sự xa hoa.</p>
-                        <span class="tour-price">15.000.000₫ <small style="font-size:0.8rem; color:#666">/đêm</small></span>
-                        <button class="cta-button open-modal-hotel" data-name="Marina Bay Sands">Đặt Phòng</button>
-                    </div>
-                </div>
-                <div class="tour-card">
-                    <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400" alt="Ritz-Carlton Tokyo">
-                    <div class="card-content">
-                        <h4>The Ritz-Carlton, Tokyo</h4>
-                        <div class="tour-rating"><i class="fas fa-star" style="color:#f59e0b"></i> 5.0 (Đẳng cấp)</div>
-                        <p>Tầm nhìn toàn cảnh thành phố từ tầng cao, dịch vụ chuẩn mực Nhật Bản.</p>
-                        <span class="tour-price">11.000.000₫ <small style="font-size:0.8rem; color:#666">/đêm</small></span>
-                        <button class="cta-button open-modal-hotel" data-name="Ritz-Carlton Tokyo">Đặt Phòng</button>
-                    </div>
-                </div>
-                <div class="tour-card">
-                    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400" alt="Bali">
-                    <div class="card-content">
-                        <h4>The Kayon Jungle Resort Bali</h4>
-                        <div class="tour-rating"><i class="fas fa-star" style="color:#f59e0b"></i> 4.9 (Lãng mạn)</div>
-                        <p>Ẩn mình giữa rừng nhiệt đới Ubud với thiết kế hồ bơi 3 tầng.</p>
-                        <span class="tour-price">6.200.000₫ <small style="font-size:0.8rem; color:#666">/đêm</small></span>
-                        <button class="cta-button open-modal-hotel" data-name="The Kayon Jungle Bali">Đặt Phòng</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="tour-group-section" id="explore-destinations-section">
-    <div class="container">
-        <h2 class="section-title">🏙️ Tìm Khách Sạn Theo Địa Điểm</h2>
-
-        <div class="tabs-nav">
-            <button class="tab-btn active" data-group="loc-domestic">Trong Nước</button>
-            <button class="tab-btn" data-group="loc-international">Quốc Tế</button>
-        </div>
-
-        <div class="group active" data-group="loc-domestic">
-            <div class="sub-tab-nav">
-                <button class="sub-tab active" data-loc="hanoi">Hà Nội</button>
-                <button class="sub-tab" data-loc="hcm">TP.HCM</button>
-                <button class="sub-tab" data-loc="dalat">Đà Lạt</button>
-                <button class="sub-tab" data-loc="danang">Đà Nẵng</button>
-                <button class="sub-tab" data-loc="phuquoc">Phú Quốc</button>
-                <button class="sub-tab" data-loc="hoian">Hội An</button>
-                <button class="sub-tab" data-loc="nhatrang">Nha Trang</button>
-            </div>
-
-            <div class="loc-content active" data-loc="hanoi">
-                <div class="tour-carousel-wrapper">
-                    <button class="arrow prev">❮</button>
-                    <div class="tour-list-horizontal">
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1584132906506-69cc060a719c?w=400" alt="Pullman">
-                            <div class="card-content">
-                                <h4>Pullman Hanoi Hotel</h4>
-                                <p>Vị trí trung tâm, tiện nghi hiện đại cho doanh nhân và du lịch.</p>
-                                <span class="tour-price">2.100.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Pullman Hanoi">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400" alt="Metropole">
-                            <div class="card-content">
-                                <h4>Sofitel Legend Metropole</h4>
-                                <p>Khách sạn lịch sử lâu đời, mang vẻ đẹp kiến trúc Pháp cổ điển.</p>
-                                <span class="tour-price">7.200.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Sofitel Legend Metropole">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1549448375-3b95764d1f2a?w=400" alt="Intercon">
-                            <div class="card-content">
-                                <h4>InterContinental Westlake</h4>
-                                <p>Nghỉ dưỡng yên bình trên mặt nước Hồ Tây thơ mộng.</p>
-                                <span class="tour-price">3.200.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="InterContinental Westlake">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1570530438680-31126955a153?w=400" alt="Capella">
-                            <div class="card-content">
-                                <h4>Capella Hanoi</h4>
-                                <p>Khách sạn boutique sang trọng, gần Nhà Hát Lớn.</p>
-                                <span class="tour-price">6.500.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Capella Hanoi">Đặt Phòng</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="arrow next">❯</button>
-                </div>
-            </div>
-
-            <div class="loc-content" data-loc="hcm">
-                <div class="tour-carousel-wrapper">
-                    <button class="arrow prev">❮</button>
-                    <div class="tour-list-horizontal">
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400" alt="Park Hyatt">
-                            <div class="card-content">
-                                <h4>Park Hyatt Saigon</h4>
-                                <p>Đẳng cấp 6 sao, nằm ngay quảng trường Lam Sơn lịch sử.</p>
-                                <span class="tour-price">7.800.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Park Hyatt Saigon">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1570530438680-31126955a153?w=400" alt="The Myst">
-                            <div class="card-content">
-                                <h4>The Myst Đồng Khởi</h4>
-                                <p>Không gian xanh độc đáo giữa lòng Sài Gòn nhộn nhịp.</p>
-                                <span class="tour-price">3.500.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="The Myst Đồng Khởi">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400" alt="Caravelle">
-                            <div class="card-content">
-                                <h4>Caravelle Saigon</h4>
-                                <p>Lịch sử lâu đời, view Nhà Hát Thành Phố.</p>
-                                <span class="tour-price">3.800.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Caravelle Saigon">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400" alt="Le Meridien">
-                            <div class="card-content">
-                                <h4>Le Meridien Saigon</h4>
-                                <p>View sông Sài Gòn, thiết kế hiện đại, hồ bơi trong nhà.</p>
-                                <span class="tour-price">4.500.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Le Meridien Saigon">Đặt Phòng</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="arrow next">❯</button>
-                </div>
-            </div>
-            
-            <div class="loc-content" data-loc="dalat">
-                <div class="tour-carousel-wrapper">
-                    <button class="arrow prev">❮</button>
-                    <div class="tour-list-horizontal">
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400" alt="Ana Mandara Villas">
-                            <div class="card-content">
-                                <h4>Ana Mandara Villas Dalat</h4>
-                                <p>Khu biệt thự cổ điển kiểu Pháp, giữa rừng thông lãng mạn.</p>
-                                <span class="tour-price">2.800.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Ana Mandara Dalat">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400" alt="Dalat Palace">
-                            <div class="card-content">
-                                <h4>Dalat Palace Heritage</h4>
-                                <p>Dinh thự cổ điển nhìn xuống Hồ Xuân Hương tuyệt đẹp.</p>
-                                <span class="tour-price">4.200.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Dalat Palace">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400" alt="Colline">
-                            <div class="card-content">
-                                <h4>Hôtel Colline Đà Lạt</h4>
-                                <p>Vị trí ngay chợ Đà Lạt, thiết kế hiện đại và tiện lợi.</p>
-                                <span class="tour-price">1.800.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Hôtel Colline">Đặt Phòng</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="arrow next">❯</button>
-                </div>
-            </div>
-
-            <div class="loc-content" data-loc="danang">
-                <div class="tour-carousel-wrapper">
-                    <button class="arrow prev">❮</button>
-                    <div class="tour-list-horizontal">
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400" alt="Hilton Da Nang">
-                            <div class="card-content">
-                                <h4>Hilton Da Nang</h4>
-                                <p>Khách sạn 5 sao mới, vị trí ngay trung tâm, view sông Hàn.</p>
-                                <span class="tour-price">3.100.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Hilton Da Nang">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400" alt="Novotel Da Nang">
-                            <div class="card-content">
-                                <h4>Novotel Danang Premier</h4>
-                                <p>Vị trí trung tâm, view sông Hàn và cầu Rồng.</p>
-                                <span class="tour-price">2.500.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Novotel Da Nang">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1571008034033-6a52427a1a45?w=400" alt="Fusion Suites">
-                            <div class="card-content">
-                                <h4>Fusion Suites Đà Nẵng</h4>
-                                <p>Căn hộ hiện đại sát biển Mỹ Khê, bao gồm spa hàng ngày.</p>
-                                <span class="tour-price">1.800.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Fusion Suites Đà Nẵng">Đặt Phòng</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="arrow next">❯</button>
-                </div>
-            </div>
-
-            <div class="loc-content" data-loc="phuquoc">
-                <div class="tour-carousel-wrapper">
-                    <button class="arrow prev">❮</button>
-                    <div class="tour-list-horizontal">
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400" alt="Vinpearl PQ">
-                            <div class="card-content">
-                                <h4>Vinpearl Resort & Spa Phú Quốc</h4>
-                                <p>Khu nghỉ dưỡng sang trọng bên bãi biển Bãi Dài, hồ bơi vô cực.</p>
-                                <span class="tour-price">3.200.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Vinpearl Resort PQ">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400" alt="Salinda Resort">
-                            <div class="card-content">
-                                <h4>Salinda Resort Phu Quoc</h4>
-                                <p>Resort boutique với dịch vụ cao cấp, view hoàng hôn đẹp.</p>
-                                <span class="tour-price">4.100.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Salinda Resort PQ">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400" alt="JW Marriott">
-                            <div class="card-content">
-                                <h4>JW Marriott Phu Quoc</h4>
-                                <p>Khu nghỉ dưỡng được thiết kế bởi Bill Bensley, chủ đề trường đại học.</p>
-                                <span class="tour-price">5.500.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="JW Marriott PQ">Đặt Phòng</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="arrow next">❯</button>
-                </div>
-            </div>
-
-            <div class="loc-content" data-loc="hoian">
-                <div class="tour-carousel-wrapper">
-                    <button class="arrow prev">❮</button>
-                    <div class="tour-list-horizontal">
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400" alt="Four Seasons Hoi An">
-                            <div class="card-content">
-                                <h4>Four Seasons The Nam Hai</h4>
-                                <p>Biệt thự biển siêu sang trọng, nằm trên bãi biển Hà My.</p>
-                                <span class="tour-price">9.500.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Four Seasons The Nam Hai">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400" alt="Anantara Hoi An">
-                            <div class="card-content">
-                                <h4>Anantara Hoi An Resort</h4>
-                                <p>Nằm bên sông Thu Bồn, gần phố cổ, yên bình và lãng mạn.</p>
-                                <span class="tour-price">2.900.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Anantara Hoi An">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400" alt="Almanity Hoi An">
-                            <div class="card-content">
-                                <h4>Almanity Hoi An Wellness</h4>
-                                <p>Khu nghỉ dưỡng tập trung vào sức khỏe, gần phố cổ.</p>
-                                <span class="tour-price">1.500.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Almanity Hoi An">Đặt Phòng</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="arrow next">❯</button>
-                </div>
-            </div>
-
-            <div class="loc-content" data-loc="nhatrang">
-                <div class="tour-carousel-wrapper">
-                    <button class="arrow prev">❮</button>
-                    <div class="tour-list-horizontal">
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1571008034033-6a52427a1a45?w=400" alt="Six Senses Ninh Van Bay">
-                            <div class="card-content">
-                                <h4>Six Senses Ninh Van Bay</h4>
-                                <p>Khu nghỉ dưỡng siêu sang trọng, tách biệt hoàn toàn.</p>
-                                <span class="tour-price">12.000.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Six Senses Nha Trang">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400" alt="InterContinental Nha Trang">
-                            <div class="card-content">
-                                <h4>InterContinental Nha Trang</h4>
-                                <p>Nằm ngay trên bãi biển, gần Quảng trường trung tâm.</p>
-                                <span class="tour-price">2.900.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="InterContinental Nha Trang">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1590059536854-58a362a90099?w=400" alt="Mia Resort Nha Trang">
-                            <div class="card-content">
-                                <h4>Mia Resort Nha Trang</h4>
-                                <p>Khu nghỉ dưỡng sinh thái, yên tĩnh, gần sân bay.</p>
-                                <span class="tour-price">3.500.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Mia Resort Nha Trang">Đặt Phòng</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="arrow next">❯</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="group" data-group="loc-international">
-             <div class="sub-tab-nav">
-                <button class="sub-tab active" data-loc="bangkok">Bangkok</button>
-                <button class="sub-tab" data-loc="singapore">Singapore</button>
-                <button class="sub-tab" data-loc="seoul">Seoul</button>
-                <button class="sub-tab" data-loc="tokyo">Tokyo</button>
-            </div>
-            
-            <div class="loc-content active" data-loc="bangkok">
-                <div class="tour-carousel-wrapper">
-                    <button class="arrow prev">❮</button>
-                    <div class="tour-list-horizontal">
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400" alt="Banyan Tree Bangkok">
-                            <div class="card-content">
-                                <h4>Banyan Tree Bangkok</h4>
-                                <p>Khách sạn 5 sao với Sky Bar nổi tiếng ngắm toàn cảnh Bangkok.</p>
-                                <span class="tour-price">4.500.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Banyan Tree Bangkok">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400" alt="The Peninsula Bangkok">
-                            <div class="card-content">
-                                <h4>The Peninsula Bangkok</h4>
-                                <p>View sông Chao Phraya, dịch vụ cá nhân hóa tuyệt vời.</p>
-                                <span class="tour-price">5.800.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="The Peninsula Bangkok">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1549448375-3b95764d1f2a?w=400" alt="Siam Kempinski Hotel">
-                            <div class="card-content">
-                                <h4>Siam Kempinski Hotel Bangkok</h4>
-                                <p>Nằm trong khu vườn riêng, cạnh trung tâm mua sắm Siam Paragon.</p>
-                                <span class="tour-price">7.000.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Siam Kempinski Bangkok">Đặt Phòng</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="arrow next">❯</button>
-                </div>
-            </div>
-
-            <div class="loc-content" data-loc="singapore">
-                <div class="tour-carousel-wrapper">
-                    <button class="arrow prev">❮</button>
-                    <div class="tour-list-horizontal">
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400" alt="Marina Bay Sands">
-                            <div class="card-content">
-                                <h4>Marina Bay Sands</h4>
-                                <p>Biểu tượng xa hoa với hồ bơi vô cực trên cao.</p>
-                                <span class="tour-price">15.000.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Marina Bay Sands">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400" alt="The Fullerton Hotel">
-                            <div class="card-content">
-                                <h4>The Fullerton Hotel Singapore</h4>
-                                <p>Tòa nhà bưu điện lịch sử, view vịnh Marina tuyệt đẹp.</p>
-                                <span class="tour-price">6.500.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="The Fullerton Hotel">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400" alt="Parkroyal Collection">
-                            <div class="card-content">
-                                <h4>Parkroyal Collection Pickering</h4>
-                                <p>Kiến trúc xanh độc đáo, gần Clarke Quay.</p>
-                                <span class="tour-price">4.800.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Parkroyal Collection">Đặt Phòng</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="arrow next">❯</button>
-                </div>
-            </div>
-            
-            <div class="loc-content" data-loc="seoul">
-                <div class="tour-carousel-wrapper">
-                    <button class="arrow prev">❮</button>
-                    <div class="tour-list-horizontal">
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400" alt="Four Seasons Hotel Seoul">
-                            <div class="card-content">
-                                <h4>Four Seasons Hotel Seoul</h4>
-                                <p>Khách sạn hiện đại, sang trọng tại khu Gwanghwamun.</p>
-                                <span class="tour-price">6.200.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Four Seasons Seoul">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400" alt="Banyan Tree Club & Spa Seoul">
-                            <div class="card-content">
-                                <h4>Banyan Tree Club & Spa Seoul</h4>
-                                <p>Khu nghỉ dưỡng đô thị với spa cao cấp.</p>
-                                <span class="tour-price">8.500.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Banyan Tree Seoul">Đặt Phòng</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="arrow next">❯</button>
-                </div>
-            </div>
-
-            <div class="loc-content" data-loc="tokyo">
-                <div class="tour-carousel-wrapper">
-                    <button class="arrow prev">❮</button>
-                    <div class="tour-list-horizontal">
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400" alt="The Ritz-Carlton, Tokyo">
-                            <div class="card-content">
-                                <h4>The Ritz-Carlton, Tokyo</h4>
-                                <p>Tầm nhìn toàn cảnh thành phố từ tầng cao, dịch vụ chuẩn mực.</p>
-                                <span class="tour-price">11.000.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Ritz-Carlton Tokyo">Đặt Phòng</button>
-                            </div>
-                        </div>
-                        <div class="tour-card">
-                            <img src="https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400" alt="Four Seasons Hotel Tokyo Marunouchi">
-                            <div class="card-content">
-                                <h4>Four Seasons Hotel Tokyo</h4>
-                                <p>Khách sạn boutique hiện đại, gần Ga Tokyo.</p>
-                                <span class="tour-price">9.500.000₫</span>
-                                <button class="cta-button open-modal-hotel" data-name="Four Seasons Tokyo">Đặt Phòng</button>
-                            </div>
-                        </div>
-                    </div>
-                    <button class="arrow next">❯</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<section class="tour-group-section" id="hotel-deals-section" style="background-color: var(--light);">
-    <div class="container">
-        <h2 class="section-title" style="color: var(--cta-color);">🎁 Ưu Đãi Khách Sạn Tốt Nhất</h2>
-        <p class="section-subtitle">Giảm giá độc quyền tại các điểm đến phổ biến.</p>
-        
-        <div class="tour-card-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
-            <div class="tour-card">
-                <img src="https://images.unsplash.com/photo-1579737222300-85f0b5d92823?w=400" alt="Deal Đà Lạt">
-                <div class="card-content">
-                    <h4>Đà Lạt: Giảm 25%</h4>
-                    <p>Khách sạn 4-5 sao gần Hồ Xuân Hương, áp dụng cuối tuần.</p>
-                    <a href="hotel-results.html?location=Đà Lạt&adults=2&children=0&rooms=1" class="cta-button" style="background-color: var(--accent-color);">Xem ưu đãi</a>
-                </div>
-            </div>
-            <div class="tour-card">
-                <img src="https://images.unsplash.com/photo-1606708688439-012588e79872?w=400" alt="Deal Singapore">
-                <div class="card-content">
-                    <h4>Singapore: Coupon 1.000.000₫</h4>
-                    <p>Miễn phí bữa sáng, áp dụng cho booking trên 3 đêm.</p>
-                    <a href="hotel-results.html?location=Singapore&adults=2&children=0&rooms=1" class="cta-button" style="background-color: var(--accent-color);">Xem ưu đãi</a>
-                </div>
-            </div>
-            <div class="tour-card">
-                <img src="https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400" alt="Deal Phú Quốc">
-                <div class="card-content">
-                    <h4>Phú Quốc: Miễn phí đêm thứ 3</h4>
-                    <p>Áp dụng tại các resort 5 sao từ Chủ Nhật đến Thứ Năm.</p>
-                    <a href="hotel-results.html?location=Phú Quốc&adults=2&children=0&rooms=1" class="cta-button" style="background-color: var(--accent-color);">Xem ưu đãi</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="contact-tour-section">
-    <div class="container contact-tour-content">
-        <div class="contact-info">
-            <h2>CẦN TƯ VẤN KHÁCH SẠN?</h2>
-            <p>Để lại thông tin, chúng tôi sẽ giúp bạn tìm phòng khách sạn ưng ý nhất với giá tốt nhất thị trường.</p>
-            <ul>
-                <li><i class="fas fa-phone"></i> **Hotline:** 1900 6789</li>
-                <li><i class="fas fa-envelope"></i> **Email:** booking@travelexplorer.com</li>
-                <li><i class="fas fa-map-marker-alt"></i> **Văn phòng:** 123 Đường Du Lịch, Quận 1, TP. HCM</li>
+    <header class="header">
+        <div class="container nav-container">
+            <a href="main.html" class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                </svg>
+                Travel <span>Explorer</span></a>
+            <div class="hamburger-menu"><i class="fas fa-bars"></i></div>
+            <ul class="nav-menu">
+                <li><a href=".../main.html" class="nav-link">Trang Chủ</a></li>
+                <li><a href="tour.html" class="nav-link">Tour</a></li>
+                <li><a href="hotel.html" class="nav-link active">Khách Sạn</a></li>
+                <li><a href="flight.html" class="nav-link">Vé Máy Bay</a></li>
             </ul>
         </div>
-        <div class="contact-form-wrapper">
-            <h3>Gửi Yêu Cầu Tư Vấn</h3>
-            <form id="contactForm">
-                <div class="form-group">
-                    <label>Họ và Tên (*)</label>
-                    <input type="text" required>
+    </header>
+
+    <section class="hotel-page-hero">
+        <div class="container hero-content">
+            <h1>Nghỉ Dưỡng Đẳng Cấp & Tiện Nghi</h1>
+            <p>Hơn 10,000 khách sạn giá tốt • Ưu đãi đến 50%</p>
+
+            <div class="search-wrapper">
+                <form action="hotel-results.html" method="get" class="filter-form-hotel">
+                    <input type="text" name="location" placeholder="Bạn muốn nghỉ ở đâu? *" required>
+
+                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="checkin"
+                        placeholder="Ngày nhận phòng" required>
+
+                    <input type="text" onfocus="(this.type='date')" onblur="(this.type='text')" name="checkout"
+                        placeholder="Ngày trả phòng" required>
+
+                    <div class="guest-room-select" id="guestRoomSelect">
+                        <i class="fas fa-user-friends"></i>
+                        <input type="text" id="guestRoomDisplay" value="2 Người lớn, 1 Phòng" readonly
+                            placeholder="Số khách & Phòng *" required>
+
+                        <div class="guest-popover" id="guestRoomPopover">
+                            <div class="popover-item">
+                                <label>Người lớn</label>
+                                <div class="input-stepper">
+                                    <button type="button" data-action="decrement" data-target="adults">-</button>
+                                    <input type="number" name="adults" id="adultsInput" value="2" min="1" readonly>
+                                    <button type="button" data-action="increment" data-target="adults">+</button>
+                                </div>
+                            </div>
+                            <div class="popover-item">
+                                <label>Trẻ em (0-12 tuổi)</label>
+                                <div class="input-stepper">
+                                    <button type="button" data-action="decrement" data-target="children">-</button>
+                                    <input type="number" name="children" id="childrenInput" value="0" min="0" readonly>
+                                    <button type="button" data-action="increment" data-target="children">+</button>
+                                </div>
+                            </div>
+                            <div class="popover-item">
+                                <label>Số phòng</label>
+                                <div class="input-stepper">
+                                    <button type="button" data-action="decrement" data-target="rooms">-</button>
+                                    <input type="number" name="rooms" id="roomsInput" value="1" min="1" readonly>
+                                    <button type="button" data-action="increment" data-target="rooms">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn-search"><i class="fas fa-search"></i> Tìm Kiếm</button>
+                </form>
+            </div>
+            <p style="font-size:0.9rem; margin-top:10px; color:rgba(255,255,255,0.8);">Nhấn vào ô **Số khách & Phòng**
+                để điều chỉnh số lượng.</p>
+        </div>
+    </section>
+
+    <section class="tour-group-section" id="featured-hotels-section">
+        <div class="container">
+            <h2 class="section-title">✨ Khách Sạn Được Yêu Thích Nhất</h2>
+            <p class="section-subtitle">Lựa chọn hàng đầu cho kỳ nghỉ dưỡng hoàn hảo.</p>
+
+            <div class="tabs-nav">
+                <button class="tab-btn active" data-group="domestic">Trong Nước 🇻🇳</button>
+                <button class="tab-btn" data-group="international">Quốc Tế 🌎</button>
+            </div>
+
+            <div class="group active" data-group="domestic">
+                <div class="tour-card-grid">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400"
+                            alt="The Reverie Saigon">
+                        <div class="card-content">
+                            <h4>The Reverie Saigon</h4>
+                            <div class="tour-rating"><i class="fas fa-star" style="color:#f59e0b"></i> 6.0 (Xa hoa)
+                            </div>
+                            <p>Khách sạn 6 sao sang trọng bậc nhất Việt Nam, nội thất Ý lộng lẫy.</p>
+                            <span class="tour-price">9.500.000₫ <small
+                                    style="font-size:0.8rem; color:#666">/đêm</small></span>
+                            <button class="cta-button open-modal-hotel" data-name="The Reverie Saigon">Đặt
+                                Phòng</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400"
+                            alt="InterContinental Danang Resort">
+                        <div class="card-content">
+                            <h4>InterContinental Danang Resort</h4>
+                            <div class="tour-rating"><i class="fas fa-star" style="color:#f59e0b"></i> 5.0 (Xuất sắc)
+                            </div>
+                            <p>Kiệt tác kiến trúc bên bán đảo Sơn Trà, dịch vụ đẳng cấp thế giới.</p>
+                            <span class="tour-price">8.500.000₫ <small
+                                    style="font-size:0.8rem; color:#666">/đêm</small></span>
+                            <button class="cta-button open-modal-hotel" data-name="InterContinental Danang">Đặt
+                                Phòng</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400"
+                            alt="JW Marriott Phu Quoc">
+                        <div class="card-content">
+                            <h4>JW Marriott Phu Quoc Emerald Bay</h4>
+                            <div class="tour-rating"><i class="fas fa-star" style="color:#f59e0b"></i> 5.0 (Tuyệt vời)
+                            </div>
+                            <p>Khu nghỉ dưỡng độc đáo với thiết kế chủ đề trường đại học giả tưởng.</p>
+                            <span class="tour-price">5.500.000₫ <small
+                                    style="font-size:0.8rem; color:#666">/đêm</small></span>
+                            <button class="cta-button open-modal-hotel" data-name="JW Marriott Phu Quoc">Đặt
+                                Phòng</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Số Điện Thoại (*)</label>
-                    <input type="tel" required>
+            </div>
+
+            <div class="group" data-group="international">
+                <div class="tour-card-grid">
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400"
+                            alt="Marina Bay Sands Singapore">
+                        <div class="card-content">
+                            <h4>Marina Bay Sands Singapore</h4>
+                            <div class="tour-rating"><i class="fas fa-star" style="color:#f59e0b"></i> 6.0 (Biểu tượng)
+                            </div>
+                            <p>Hồ bơi vô cực lớn nhất thế giới, biểu tượng của sự xa hoa.</p>
+                            <span class="tour-price">15.000.000₫ <small
+                                    style="font-size:0.8rem; color:#666">/đêm</small></span>
+                            <button class="cta-button open-modal-hotel" data-name="Marina Bay Sands">Đặt Phòng</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400"
+                            alt="Ritz-Carlton Tokyo">
+                        <div class="card-content">
+                            <h4>The Ritz-Carlton, Tokyo</h4>
+                            <div class="tour-rating"><i class="fas fa-star" style="color:#f59e0b"></i> 5.0 (Đẳng cấp)
+                            </div>
+                            <p>Tầm nhìn toàn cảnh thành phố từ tầng cao, dịch vụ chuẩn mực Nhật Bản.</p>
+                            <span class="tour-price">11.000.000₫ <small
+                                    style="font-size:0.8rem; color:#666">/đêm</small></span>
+                            <button class="cta-button open-modal-hotel" data-name="Ritz-Carlton Tokyo">Đặt
+                                Phòng</button>
+                        </div>
+                    </div>
+                    <div class="tour-card">
+                        <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400" alt="Bali">
+                        <div class="card-content">
+                            <h4>The Kayon Jungle Resort Bali</h4>
+                            <div class="tour-rating"><i class="fas fa-star" style="color:#f59e0b"></i> 4.9 (Lãng mạn)
+                            </div>
+                            <p>Ẩn mình giữa rừng nhiệt đới Ubud với thiết kế hồ bơi 3 tầng.</p>
+                            <span class="tour-price">6.200.000₫ <small
+                                    style="font-size:0.8rem; color:#666">/đêm</small></span>
+                            <button class="cta-button open-modal-hotel" data-name="The Kayon Jungle Bali">Đặt
+                                Phòng</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label>Địa điểm muốn đến</label>
-                    <input type="text" placeholder="VD: Đà Lạt, Paris...">
+            </div>
+        </div>
+    </section>
+
+    <section class="tour-group-section" id="explore-destinations-section">
+        <div class="container">
+            <h2 class="section-title">🏙️ Tìm Khách Sạn Theo Địa Điểm</h2>
+
+            <div class="tabs-nav">
+                <button class="tab-btn active" data-group="loc-domestic">Trong Nước</button>
+                <button class="tab-btn" data-group="loc-international">Quốc Tế</button>
+            </div>
+
+            <div class="group active" data-group="loc-domestic">
+                <div class="sub-tab-nav">
+                    <button class="sub-tab active" data-loc="hanoi">Hà Nội</button>
+                    <button class="sub-tab" data-loc="hcm">TP.HCM</button>
+                    <button class="sub-tab" data-loc="dalat">Đà Lạt</button>
+                    <button class="sub-tab" data-loc="danang">Đà Nẵng</button>
+                    <button class="sub-tab" data-loc="phuquoc">Phú Quốc</button>
+                    <button class="sub-tab" data-loc="hoian">Hội An</button>
+                    <button class="sub-tab" data-loc="nhatrang">Nha Trang</button>
                 </div>
-                <button type="submit" class="cta-button">Gửi Yêu Cầu</button>
-            </form>
-            <p id="formMessage" style="text-align: center; margin-top: 15px; display: none; color: green; font-weight: bold;"></p>
+
+                <div class="loc-content active" data-loc="hanoi">
+                    <div class="tour-carousel-wrapper">
+                        <button class="arrow prev">❮</button>
+                        <div class="tour-list-horizontal">
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1584132906506-69cc060a719c?w=400"
+                                    alt="Pullman">
+                                <div class="card-content">
+                                    <h4>Pullman Hanoi Hotel</h4>
+                                    <p>Vị trí trung tâm, tiện nghi hiện đại cho doanh nhân và du lịch.</p>
+                                    <span class="tour-price">2.100.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Pullman Hanoi">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400"
+                                    alt="Metropole">
+                                <div class="card-content">
+                                    <h4>Sofitel Legend Metropole</h4>
+                                    <p>Khách sạn lịch sử lâu đời, mang vẻ đẹp kiến trúc Pháp cổ điển.</p>
+                                    <span class="tour-price">7.200.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Sofitel Legend Metropole">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1549448375-3b95764d1f2a?w=400"
+                                    alt="Intercon">
+                                <div class="card-content">
+                                    <h4>InterContinental Westlake</h4>
+                                    <p>Nghỉ dưỡng yên bình trên mặt nước Hồ Tây thơ mộng.</p>
+                                    <span class="tour-price">3.200.000₫</span>
+                                    <button class="cta-button open-modal-hotel"
+                                        data-name="InterContinental Westlake">Đặt Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1570530438680-31126955a153?w=400"
+                                    alt="Capella">
+                                <div class="card-content">
+                                    <h4>Capella Hanoi</h4>
+                                    <p>Khách sạn boutique sang trọng, gần Nhà Hát Lớn.</p>
+                                    <span class="tour-price">6.500.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Capella Hanoi">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="arrow next">❯</button>
+                    </div>
+                </div>
+
+                <div class="loc-content" data-loc="hcm">
+                    <div class="tour-carousel-wrapper">
+                        <button class="arrow prev">❮</button>
+                        <div class="tour-list-horizontal">
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400"
+                                    alt="Park Hyatt">
+                                <div class="card-content">
+                                    <h4>Park Hyatt Saigon</h4>
+                                    <p>Đẳng cấp 6 sao, nằm ngay quảng trường Lam Sơn lịch sử.</p>
+                                    <span class="tour-price">7.800.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Park Hyatt Saigon">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1570530438680-31126955a153?w=400"
+                                    alt="The Myst">
+                                <div class="card-content">
+                                    <h4>The Myst Đồng Khởi</h4>
+                                    <p>Không gian xanh độc đáo giữa lòng Sài Gòn nhộn nhịp.</p>
+                                    <span class="tour-price">3.500.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="The Myst Đồng Khởi">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400"
+                                    alt="Caravelle">
+                                <div class="card-content">
+                                    <h4>Caravelle Saigon</h4>
+                                    <p>Lịch sử lâu đời, view Nhà Hát Thành Phố.</p>
+                                    <span class="tour-price">3.800.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Caravelle Saigon">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400"
+                                    alt="Le Meridien">
+                                <div class="card-content">
+                                    <h4>Le Meridien Saigon</h4>
+                                    <p>View sông Sài Gòn, thiết kế hiện đại, hồ bơi trong nhà.</p>
+                                    <span class="tour-price">4.500.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Le Meridien Saigon">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="arrow next">❯</button>
+                    </div>
+                </div>
+
+                <div class="loc-content" data-loc="dalat">
+                    <div class="tour-carousel-wrapper">
+                        <button class="arrow prev">❮</button>
+                        <div class="tour-list-horizontal">
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=400"
+                                    alt="Ana Mandara Villas">
+                                <div class="card-content">
+                                    <h4>Ana Mandara Villas Dalat</h4>
+                                    <p>Khu biệt thự cổ điển kiểu Pháp, giữa rừng thông lãng mạn.</p>
+                                    <span class="tour-price">2.800.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Ana Mandara Dalat">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400"
+                                    alt="Dalat Palace">
+                                <div class="card-content">
+                                    <h4>Dalat Palace Heritage</h4>
+                                    <p>Dinh thự cổ điển nhìn xuống Hồ Xuân Hương tuyệt đẹp.</p>
+                                    <span class="tour-price">4.200.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Dalat Palace">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1552566626-52f8b828add9?w=400"
+                                    alt="Colline">
+                                <div class="card-content">
+                                    <h4>Hôtel Colline Đà Lạt</h4>
+                                    <p>Vị trí ngay chợ Đà Lạt, thiết kế hiện đại và tiện lợi.</p>
+                                    <span class="tour-price">1.800.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Hôtel Colline">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="arrow next">❯</button>
+                    </div>
+                </div>
+
+                <div class="loc-content" data-loc="danang">
+                    <div class="tour-carousel-wrapper">
+                        <button class="arrow prev">❮</button>
+                        <div class="tour-list-horizontal">
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1596701089209-64c01d4a0f44?w=400"
+                                    alt="Hilton Da Nang">
+                                <div class="card-content">
+                                    <h4>Hilton Da Nang</h4>
+                                    <p>Khách sạn 5 sao mới, vị trí ngay trung tâm, view sông Hàn.</p>
+                                    <span class="tour-price">3.100.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Hilton Da Nang">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400"
+                                    alt="Novotel Da Nang">
+                                <div class="card-content">
+                                    <h4>Novotel Danang Premier</h4>
+                                    <p>Vị trí trung tâm, view sông Hàn và cầu Rồng.</p>
+                                    <span class="tour-price">2.500.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Novotel Da Nang">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1571008034033-6a52427a1a45?w=400"
+                                    alt="Fusion Suites">
+                                <div class="card-content">
+                                    <h4>Fusion Suites Đà Nẵng</h4>
+                                    <p>Căn hộ hiện đại sát biển Mỹ Khê, bao gồm spa hàng ngày.</p>
+                                    <span class="tour-price">1.800.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Fusion Suites Đà Nẵng">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="arrow next">❯</button>
+                    </div>
+                </div>
+
+                <div class="loc-content" data-loc="phuquoc">
+                    <div class="tour-carousel-wrapper">
+                        <button class="arrow prev">❮</button>
+                        <div class="tour-list-horizontal">
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400"
+                                    alt="Vinpearl PQ">
+                                <div class="card-content">
+                                    <h4>Vinpearl Resort & Spa Phú Quốc</h4>
+                                    <p>Khu nghỉ dưỡng sang trọng bên bãi biển Bãi Dài, hồ bơi vô cực.</p>
+                                    <span class="tour-price">3.200.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Vinpearl Resort PQ">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400"
+                                    alt="Salinda Resort">
+                                <div class="card-content">
+                                    <h4>Salinda Resort Phu Quoc</h4>
+                                    <p>Resort boutique với dịch vụ cao cấp, view hoàng hôn đẹp.</p>
+                                    <span class="tour-price">4.100.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Salinda Resort PQ">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400"
+                                    alt="JW Marriott">
+                                <div class="card-content">
+                                    <h4>JW Marriott Phu Quoc</h4>
+                                    <p>Khu nghỉ dưỡng được thiết kế bởi Bill Bensley, chủ đề trường đại học.</p>
+                                    <span class="tour-price">5.500.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="JW Marriott PQ">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="arrow next">❯</button>
+                    </div>
+                </div>
+
+                <div class="loc-content" data-loc="hoian">
+                    <div class="tour-carousel-wrapper">
+                        <button class="arrow prev">❮</button>
+                        <div class="tour-list-horizontal">
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400"
+                                    alt="Four Seasons Hoi An">
+                                <div class="card-content">
+                                    <h4>Four Seasons The Nam Hai</h4>
+                                    <p>Biệt thự biển siêu sang trọng, nằm trên bãi biển Hà My.</p>
+                                    <span class="tour-price">9.500.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Four Seasons The Nam Hai">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400"
+                                    alt="Anantara Hoi An">
+                                <div class="card-content">
+                                    <h4>Anantara Hoi An Resort</h4>
+                                    <p>Nằm bên sông Thu Bồn, gần phố cổ, yên bình và lãng mạn.</p>
+                                    <span class="tour-price">2.900.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Anantara Hoi An">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400"
+                                    alt="Almanity Hoi An">
+                                <div class="card-content">
+                                    <h4>Almanity Hoi An Wellness</h4>
+                                    <p>Khu nghỉ dưỡng tập trung vào sức khỏe, gần phố cổ.</p>
+                                    <span class="tour-price">1.500.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Almanity Hoi An">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="arrow next">❯</button>
+                    </div>
+                </div>
+
+                <div class="loc-content" data-loc="nhatrang">
+                    <div class="tour-carousel-wrapper">
+                        <button class="arrow prev">❮</button>
+                        <div class="tour-list-horizontal">
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1571008034033-6a52427a1a45?w=400"
+                                    alt="Six Senses Ninh Van Bay">
+                                <div class="card-content">
+                                    <h4>Six Senses Ninh Van Bay</h4>
+                                    <p>Khu nghỉ dưỡng siêu sang trọng, tách biệt hoàn toàn.</p>
+                                    <span class="tour-price">12.000.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Six Senses Nha Trang">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400"
+                                    alt="InterContinental Nha Trang">
+                                <div class="card-content">
+                                    <h4>InterContinental Nha Trang</h4>
+                                    <p>Nằm ngay trên bãi biển, gần Quảng trường trung tâm.</p>
+                                    <span class="tour-price">2.900.000₫</span>
+                                    <button class="cta-button open-modal-hotel"
+                                        data-name="InterContinental Nha Trang">Đặt Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1590059536854-58a362a90099?w=400"
+                                    alt="Mia Resort Nha Trang">
+                                <div class="card-content">
+                                    <h4>Mia Resort Nha Trang</h4>
+                                    <p>Khu nghỉ dưỡng sinh thái, yên tĩnh, gần sân bay.</p>
+                                    <span class="tour-price">3.500.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Mia Resort Nha Trang">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="arrow next">❯</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="group" data-group="loc-international">
+                <div class="sub-tab-nav">
+                    <button class="sub-tab active" data-loc="bangkok">Bangkok</button>
+                    <button class="sub-tab" data-loc="singapore">Singapore</button>
+                    <button class="sub-tab" data-loc="seoul">Seoul</button>
+                    <button class="sub-tab" data-loc="tokyo">Tokyo</button>
+                </div>
+
+                <div class="loc-content active" data-loc="bangkok">
+                    <div class="tour-carousel-wrapper">
+                        <button class="arrow prev">❮</button>
+                        <div class="tour-list-horizontal">
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400"
+                                    alt="Banyan Tree Bangkok">
+                                <div class="card-content">
+                                    <h4>Banyan Tree Bangkok</h4>
+                                    <p>Khách sạn 5 sao với Sky Bar nổi tiếng ngắm toàn cảnh Bangkok.</p>
+                                    <span class="tour-price">4.500.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Banyan Tree Bangkok">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400"
+                                    alt="The Peninsula Bangkok">
+                                <div class="card-content">
+                                    <h4>The Peninsula Bangkok</h4>
+                                    <p>View sông Chao Phraya, dịch vụ cá nhân hóa tuyệt vời.</p>
+                                    <span class="tour-price">5.800.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="The Peninsula Bangkok">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1549448375-3b95764d1f2a?w=400"
+                                    alt="Siam Kempinski Hotel">
+                                <div class="card-content">
+                                    <h4>Siam Kempinski Hotel Bangkok</h4>
+                                    <p>Nằm trong khu vườn riêng, cạnh trung tâm mua sắm Siam Paragon.</p>
+                                    <span class="tour-price">7.000.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Siam Kempinski Bangkok">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="arrow next">❯</button>
+                    </div>
+                </div>
+
+                <div class="loc-content" data-loc="singapore">
+                    <div class="tour-carousel-wrapper">
+                        <button class="arrow prev">❮</button>
+                        <div class="tour-list-horizontal">
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1588661706684-2195f368c5b9?w=400"
+                                    alt="Marina Bay Sands">
+                                <div class="card-content">
+                                    <h4>Marina Bay Sands</h4>
+                                    <p>Biểu tượng xa hoa với hồ bơi vô cực trên cao.</p>
+                                    <span class="tour-price">15.000.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Marina Bay Sands">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=400"
+                                    alt="The Fullerton Hotel">
+                                <div class="card-content">
+                                    <h4>The Fullerton Hotel Singapore</h4>
+                                    <p>Tòa nhà bưu điện lịch sử, view vịnh Marina tuyệt đẹp.</p>
+                                    <span class="tour-price">6.500.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="The Fullerton Hotel">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400"
+                                    alt="Parkroyal Collection">
+                                <div class="card-content">
+                                    <h4>Parkroyal Collection Pickering</h4>
+                                    <p>Kiến trúc xanh độc đáo, gần Clarke Quay.</p>
+                                    <span class="tour-price">4.800.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Parkroyal Collection">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="arrow next">❯</button>
+                    </div>
+                </div>
+
+                <div class="loc-content" data-loc="seoul">
+                    <div class="tour-carousel-wrapper">
+                        <button class="arrow prev">❮</button>
+                        <div class="tour-list-horizontal">
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400"
+                                    alt="Four Seasons Hotel Seoul">
+                                <div class="card-content">
+                                    <h4>Four Seasons Hotel Seoul</h4>
+                                    <p>Khách sạn hiện đại, sang trọng tại khu Gwanghwamun.</p>
+                                    <span class="tour-price">6.200.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Four Seasons Seoul">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400"
+                                    alt="Banyan Tree Club & Spa Seoul">
+                                <div class="card-content">
+                                    <h4>Banyan Tree Club & Spa Seoul</h4>
+                                    <p>Khu nghỉ dưỡng đô thị với spa cao cấp.</p>
+                                    <span class="tour-price">8.500.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Banyan Tree Seoul">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="arrow next">❯</button>
+                    </div>
+                </div>
+
+                <div class="loc-content" data-loc="tokyo">
+                    <div class="tour-carousel-wrapper">
+                        <button class="arrow prev">❮</button>
+                        <div class="tour-list-horizontal">
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1563911302196-cd447f5255cd?w=400"
+                                    alt="The Ritz-Carlton, Tokyo">
+                                <div class="card-content">
+                                    <h4>The Ritz-Carlton, Tokyo</h4>
+                                    <p>Tầm nhìn toàn cảnh thành phố từ tầng cao, dịch vụ chuẩn mực.</p>
+                                    <span class="tour-price">11.000.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Ritz-Carlton Tokyo">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                            <div class="tour-card">
+                                <img src="https://images.unsplash.com/photo-1566073771259-d89047bf1227?w=400"
+                                    alt="Four Seasons Hotel Tokyo Marunouchi">
+                                <div class="card-content">
+                                    <h4>Four Seasons Hotel Tokyo</h4>
+                                    <p>Khách sạn boutique hiện đại, gần Ga Tokyo.</p>
+                                    <span class="tour-price">9.500.000₫</span>
+                                    <button class="cta-button open-modal-hotel" data-name="Four Seasons Tokyo">Đặt
+                                        Phòng</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="arrow next">❯</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="tour-group-section" id="hotel-deals-section" style="background-color: var(--light);">
+        <div class="container">
+            <h2 class="section-title" style="color: var(--cta-color);">🎁 Ưu Đãi Khách Sạn Tốt Nhất</h2>
+            <p class="section-subtitle">Giảm giá độc quyền tại các điểm đến phổ biến.</p>
+
+            <div class="tour-card-grid" style="grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));">
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1579737222300-85f0b5d92823?w=400" alt="Deal Đà Lạt">
+                    <div class="card-content">
+                        <h4>Đà Lạt: Giảm 25%</h4>
+                        <p>Khách sạn 4-5 sao gần Hồ Xuân Hương, áp dụng cuối tuần.</p>
+                        <a href="hotel-results.html?location=Đà Lạt&adults=2&children=0&rooms=1" class="cta-button"
+                            style="background-color: var(--accent-color);">Xem ưu đãi</a>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1606708688439-012588e79872?w=400" alt="Deal Singapore">
+                    <div class="card-content">
+                        <h4>Singapore: Coupon 1.000.000₫</h4>
+                        <p>Miễn phí bữa sáng, áp dụng cho booking trên 3 đêm.</p>
+                        <a href="hotel-results.html?location=Singapore&adults=2&children=0&rooms=1" class="cta-button"
+                            style="background-color: var(--accent-color);">Xem ưu đãi</a>
+                    </div>
+                </div>
+                <div class="tour-card">
+                    <img src="https://images.unsplash.com/photo-1582239063673-455b76175e11?w=400" alt="Deal Phú Quốc">
+                    <div class="card-content">
+                        <h4>Phú Quốc: Miễn phí đêm thứ 3</h4>
+                        <p>Áp dụng tại các resort 5 sao từ Chủ Nhật đến Thứ Năm.</p>
+                        <a href="hotel-results.html?location=Phú Quốc&adults=2&children=0&rooms=1" class="cta-button"
+                            style="background-color: var(--accent-color);">Xem ưu đãi</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="contact-tour-section">
+        <div class="container contact-tour-content">
+            <div class="contact-info">
+                <h2>CẦN TƯ VẤN KHÁCH SẠN?</h2>
+                <p>Để lại thông tin, chúng tôi sẽ giúp bạn tìm phòng khách sạn ưng ý nhất với giá tốt nhất thị trường.
+                </p>
+                <ul>
+                    <li><i class="fas fa-phone"></i> **Hotline:** 1900 6789</li>
+                    <li><i class="fas fa-envelope"></i> **Email:** booking@travelexplorer.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> **Văn phòng:** 123 Đường Du Lịch, Quận 1, TP. HCM</li>
+                </ul>
+            </div>
+            <div class="contact-form-wrapper">
+                <h3>Gửi Yêu Cầu Tư Vấn</h3>
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label>Họ và Tên (*)</label>
+                        <input type="text" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Số Điện Thoại (*)</label>
+                        <input type="tel" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Địa điểm muốn đến</label>
+                        <input type="text" placeholder="VD: Đà Lạt, Paris...">
+                    </div>
+                    <button type="submit" class="cta-button">Gửi Yêu Cầu</button>
+                </form>
+                <p id="formMessage"
+                    style="text-align: center; margin-top: 15px; display: none; color: green; font-weight: bold;"></p>
+            </div>
+        </div>
+    </section>
+
+    <div id="hotelModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div class="modal-header">
+                <h3>ĐẶT PHÒNG: <span id="modalHotelName"></span></h3>
+            </div>
+            <div class="modal-body">
+                <form id="bookingForm">
+                    <input type="hidden" id="hName">
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Họ và tên <span class="required">*</span></label>
+                            <input type="text" required placeholder="Nguyễn Văn A">
+                        </div>
+                        <div class="input-group">
+                            <label>Số điện thoại <span class="required">*</span></label>
+                            <input type="tel" required placeholder="0901234567">
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Ngày nhận phòng <span class="required">*</span></label>
+                            <input type="date" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Ngày trả phòng <span class="required">*</span></label>
+                            <input type="date" required>
+                        </div>
+                    </div>
+                    <div class="form-grid">
+                        <div class="input-group">
+                            <label>Số người lớn</label>
+                            <input type="number" value="2" min="1" name="modalAdults">
+                        </div>
+                        <div class="input-group">
+                            <label>Số trẻ em (0-12 tuổi)</label>
+                            <input type="number" value="0" min="0" name="modalChildren">
+                        </div>
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Số phòng cần đặt</label>
+                        <input type="number" value="1" min="1" name="modalRooms">
+                    </div>
+                    <div class="input-group full-width">
+                        <label>Ghi chú thêm</label>
+                        <textarea rows="3" placeholder="Yêu cầu: Phòng không hút thuốc, view biển..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">GỬI YÊU CẦU ĐẶT PHÒNG</button>
+                </form>
+                <p id="bookingMessage" class="booking-message"></p>
+            </div>
         </div>
     </div>
-</section>
 
-<div id="hotelModal" class="modal">
-    <div class="modal-content">
-        <span class="close-btn">&times;</span>
-        <div class="modal-header">
-            <h3>ĐẶT PHÒNG: <span id="modalHotelName"></span></h3>
+    <footer class="footer">
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>Travel Explorer</h3>
+                <p>Đồng hành cùng bạn trên mọi nẻo đường.</p>
+            </div>
+            <div class="footer-section">
+                <h3>Dịch Vụ</h3><a href="tour.html">Tour</a><a href="hotel.html">Khách Sạn</a><a href="flight.html">Vé
+                    Máy Bay</a>
+            </div>
+            <div class="footer-section">
+                <h3>Mạng Xã Hội</h3>
+                <div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i
+                            class="fab fa-instagram"></i></a></div>
+            </div>
         </div>
-        <div class="modal-body">
-            <form id="bookingForm">
-                <input type="hidden" id="hName">
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Họ và tên <span class="required">*</span></label>
-                        <input type="text" required placeholder="Nguyễn Văn A">
-                    </div>
-                    <div class="input-group">
-                        <label>Số điện thoại <span class="required">*</span></label>
-                        <input type="tel" required placeholder="0901234567">
-                    </div>
-                </div>
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Ngày nhận phòng <span class="required">*</span></label>
-                        <input type="date" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Ngày trả phòng <span class="required">*</span></label>
-                        <input type="date" required>
-                    </div>
-                </div>
-                <div class="form-grid">
-                    <div class="input-group">
-                        <label>Số người lớn</label>
-                        <input type="number" value="2" min="1" name="modalAdults">
-                    </div>
-                    <div class="input-group">
-                        <label>Số trẻ em (0-12 tuổi)</label>
-                        <input type="number" value="0" min="0" name="modalChildren">
-                    </div>
-                </div>
-                <div class="input-group full-width">
-                    <label>Số phòng cần đặt</label>
-                    <input type="number" value="1" min="1" name="modalRooms">
-                </div>
-                <div class="input-group full-width">
-                    <label>Ghi chú thêm</label>
-                    <textarea rows="3" placeholder="Yêu cầu: Phòng không hút thuốc, view biển..."></textarea>
-                </div>
-                <button type="submit" class="submit-btn">GỬI YÊU CẦU ĐẶT PHÒNG</button>
-            </form>
-            <p id="bookingMessage" class="booking-message"></p>
-        </div>
-    </div>
-</div>
+        <div class="footer-bottom">© 2025 Travel Explorer. All rights reserved.</div>
+    </footer>
 
-<footer class="footer">
-    <div class="container footer-content">
-        <div class="footer-section"><h3>Travel Explorer</h3><p>Đồng hành cùng bạn trên mọi nẻo đường.</p></div>
-        <div class="footer-section"><h3>Dịch Vụ</h3><a href="tour.html">Tour</a><a href="hotel.html">Khách Sạn</a><a href="flight.html">Vé Máy Bay</a></div>
-        <div class="footer-section"><h3>Mạng Xã Hội</h3><div class="social-links"><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-instagram"></i></a></div></div>
-    </div>
-    <div class="footer-bottom">© 2025 Travel Explorer. All rights reserved.</div>
-</footer>
+    <script>
+        // Logic Tabs Chính (Trong nước / Quốc tế)
+        document.querySelectorAll('.tour-group-section .tabs-nav .tab-btn').forEach(t => t.onclick = () => {
+            t.closest('.tabs-nav').querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
+            t.classList.add('active');
 
-<script>
-// Logic Tabs Chính (Trong nước / Quốc tế)
-document.querySelectorAll('.tour-group-section .tabs-nav .tab-btn').forEach(t => t.onclick = () => {
-    t.closest('.tabs-nav').querySelectorAll('.tab-btn').forEach(x => x.classList.remove('active'));
-    t.classList.add('active');
-    
-    const section = t.closest('.tour-group-section');
-    section.querySelectorAll('.group').forEach(g => g.classList.remove('active'));
-    
-    const newGroup = section.querySelector(`.group[data-group="${t.dataset.group}"]`);
-    newGroup.classList.add('active');
+            const section = t.closest('.tour-group-section');
+            section.querySelectorAll('.group').forEach(g => g.classList.remove('active'));
 
-    // Fix hiển thị tab con đầu tiên và nội dung tương ứng
-    if (section.id === 'explore-destinations-section') {
-        const firstSubTab = newGroup.querySelector('.sub-tab');
-        const firstLocContent = newGroup.querySelector('.loc-content');
+            const newGroup = section.querySelector(`.group[data-group="${t.dataset.group}"]`);
+            newGroup.classList.add('active');
 
-        newGroup.querySelectorAll('.sub-tab').forEach(st => st.classList.remove('active'));
-        newGroup.querySelectorAll('.loc-content').forEach(lc => lc.classList.remove('active'));
+            // Fix hiển thị tab con đầu tiên và nội dung tương ứng
+            if (section.id === 'explore-destinations-section') {
+                const firstSubTab = newGroup.querySelector('.sub-tab');
+                const firstLocContent = newGroup.querySelector('.loc-content');
 
-        if(firstSubTab) firstSubTab.classList.add('active');
-        if(firstLocContent) firstLocContent.classList.add('active');
-    }
-});
+                newGroup.querySelectorAll('.sub-tab').forEach(st => st.classList.remove('active'));
+                newGroup.querySelectorAll('.loc-content').forEach(lc => lc.classList.remove('active'));
 
-// Logic Sub-Tabs
-document.querySelectorAll('.sub-tab').forEach(t => t.onclick = () => {
-    const p = t.closest('.group');
-    p.querySelectorAll('.sub-tab').forEach(x => x.classList.remove('active'));
-    t.classList.add('active');
-    p.querySelectorAll('.loc-content').forEach(c => c.classList.toggle('active', c.dataset.loc === t.dataset.loc));
-});
+                if (firstSubTab) firstSubTab.classList.add('active');
+                if (firstLocContent) firstLocContent.classList.add('active');
+            }
+        });
 
-// Carousel Scroll
-document.querySelectorAll('.arrow.prev').forEach(b => b.onclick = () => b.nextElementSibling.scrollBy({left: -320, behavior: 'smooth'}));
-document.querySelectorAll('.arrow.next').forEach(b => b.onclick = () => b.previousElementSibling.scrollBy({left: 320, behavior: 'smooth'}));
+        // Logic Sub-Tabs
+        document.querySelectorAll('.sub-tab').forEach(t => t.onclick = () => {
+            const p = t.closest('.group');
+            p.querySelectorAll('.sub-tab').forEach(x => x.classList.remove('active'));
+            t.classList.add('active');
+            p.querySelectorAll('.loc-content').forEach(c => c.classList.toggle('active', c.dataset.loc === t.dataset.loc));
+        });
+
+        // Carousel Scroll
+        document.querySelectorAll('.arrow.prev').forEach(b => b.onclick = () => b.nextElementSibling.scrollBy({ left: -320, behavior: 'smooth' }));
+        document.querySelectorAll('.arrow.next').forEach(b => b.onclick = () => b.previousElementSibling.scrollBy({ left: 320, behavior: 'smooth' }));
 
 
-// NEW LOGIC: Guest/Room Popover
-const guestRoomSelect = document.getElementById('guestRoomSelect');
-const guestRoomDisplay = document.getElementById('guestRoomDisplay');
-const guestRoomPopover = document.getElementById('guestRoomPopover');
-const adultsInput = document.getElementById('adultsInput');
-const childrenInput = document.getElementById('childrenInput');
-const roomsInput = document.getElementById('roomsInput');
+        // NEW LOGIC: Guest/Room Popover
+        const guestRoomSelect = document.getElementById('guestRoomSelect');
+        const guestRoomDisplay = document.getElementById('guestRoomDisplay');
+        const guestRoomPopover = document.getElementById('guestRoomPopover');
+        const adultsInput = document.getElementById('adultsInput');
+        const childrenInput = document.getElementById('childrenInput');
+        const roomsInput = document.getElementById('roomsInput');
 
-function updateGuestDisplay() {
-    const adults = parseInt(adultsInput.value);
-    const children = parseInt(childrenInput.value);
-    const rooms = parseInt(roomsInput.value);
-    
-    let display = `${adults} Người lớn`;
-    if (children > 0) {
-        display += `, ${children} Trẻ em`;
-    }
-    display += `, ${rooms} Phòng`;
-    
-    guestRoomDisplay.value = display;
-    
-    // Cập nhật trạng thái nút (Disable nếu min)
-    document.querySelector('button[data-target="adults"][data-action="decrement"]').disabled = adults <= 1;
-    document.querySelector('button[data-target="children"][data-action="decrement"]').disabled = children <= 0;
-    document.querySelector('button[data-target="rooms"][data-action="decrement"]').disabled = rooms <= 1;
-}
+        function updateGuestDisplay() {
+            const adults = parseInt(adultsInput.value);
+            const children = parseInt(childrenInput.value);
+            const rooms = parseInt(roomsInput.value);
 
-// Stepper Logic
-document.querySelectorAll('.input-stepper button').forEach(button => {
-    button.addEventListener('click', (e) => {
-        const targetId = e.currentTarget.dataset.target;
-        const action = e.currentTarget.dataset.action;
-        const input = document.getElementById(targetId + 'Input');
-        let value = parseInt(input.value);
-        const min = parseInt(input.min);
+            let display = `${adults} Người lớn`;
+            if (children > 0) {
+                display += `, ${children} Trẻ em`;
+            }
+            display += `, ${rooms} Phòng`;
 
-        if (action === 'increment') {
-            value++;
-        } else if (action === 'decrement' && value > min) {
-            value--;
+            guestRoomDisplay.value = display;
+
+            // Cập nhật trạng thái nút (Disable nếu min)
+            document.querySelector('button[data-target="adults"][data-action="decrement"]').disabled = adults <= 1;
+            document.querySelector('button[data-target="children"][data-action="decrement"]').disabled = children <= 0;
+            document.querySelector('button[data-target="rooms"][data-action="decrement"]').disabled = rooms <= 1;
         }
-        
-        input.value = value;
-        updateGuestDisplay();
-        e.preventDefault(); // Ngăn form submit
-    });
-});
 
-// Toggle Popover
-guestRoomDisplay.addEventListener('click', (e) => {
-    guestRoomPopover.classList.toggle('active');
-    guestRoomSelect.classList.toggle('focused');
-    e.stopPropagation(); 
-});
+        // Stepper Logic
+        document.querySelectorAll('.input-stepper button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const targetId = e.currentTarget.dataset.target;
+                const action = e.currentTarget.dataset.action;
+                const input = document.getElementById(targetId + 'Input');
+                let value = parseInt(input.value);
+                const min = parseInt(input.min);
 
-// Close popover when clicking outside
-document.addEventListener('click', (e) => {
-    if (!guestRoomSelect.contains(e.target) && guestRoomPopover.classList.contains('active')) {
-        guestRoomPopover.classList.remove('active');
-        guestRoomSelect.classList.remove('focused');
-    }
-});
-// END NEW LOGIC: Guest/Room Popover
+                if (action === 'increment') {
+                    value++;
+                } else if (action === 'decrement' && value > min) {
+                    value--;
+                }
+
+                input.value = value;
+                updateGuestDisplay();
+                e.preventDefault(); // Ngăn form submit
+            });
+        });
+
+        // Toggle Popover
+        guestRoomDisplay.addEventListener('click', (e) => {
+            guestRoomPopover.classList.toggle('active');
+            guestRoomSelect.classList.toggle('focused');
+            e.stopPropagation();
+        });
+
+        // Close popover when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!guestRoomSelect.contains(e.target) && guestRoomPopover.classList.contains('active')) {
+                guestRoomPopover.classList.remove('active');
+                guestRoomSelect.classList.remove('focused');
+            }
+        });
+        // END NEW LOGIC: Guest/Room Popover
 
 
-// Modal Logic
-document.querySelectorAll('.open-modal-hotel').forEach(btn => {
-    btn.onclick = function() {
-        const name = this.dataset.name;
-        document.getElementById('hName').value = name;
-        document.getElementById('modalHotelName').textContent = name;
-        document.getElementById('hotelModal').classList.add('active');
+        // Modal Logic
+        document.querySelectorAll('.open-modal-hotel').forEach(btn => {
+            btn.onclick = function () {
+                const name = this.dataset.name;
+                document.getElementById('hName').value = name;
+                document.getElementById('modalHotelName').textContent = name;
+                document.getElementById('hotelModal').classList.add('active');
 
-        // Cập nhật giá trị mặc định cho modal từ search form (nếu có)
-        document.querySelector('#bookingForm input[name="modalAdults"]').value = adultsInput.value || 2;
-        document.querySelector('#bookingForm input[name="modalChildren"]').value = childrenInput.value || 0;
-        document.querySelector('#bookingForm input[name="modalRooms"]').value = roomsInput.value || 1;
-    };
-});
+                // Cập nhật giá trị mặc định cho modal từ search form (nếu có)
+                document.querySelector('#bookingForm input[name="modalAdults"]').value = adultsInput.value || 2;
+                document.querySelector('#bookingForm input[name="modalChildren"]').value = childrenInput.value || 0;
+                document.querySelector('#bookingForm input[name="modalRooms"]').value = roomsInput.value || 1;
+            };
+        });
 
-document.querySelector('.close-btn').onclick = () => document.getElementById('hotelModal').classList.remove('active');
-window.onclick = e => { if(e.target === document.getElementById('hotelModal')) document.getElementById('hotelModal').classList.remove('active'); };
+        document.querySelector('.close-btn').onclick = () => document.getElementById('hotelModal').classList.remove('active');
+        window.onclick = e => { if (e.target === document.getElementById('hotelModal')) document.getElementById('hotelModal').classList.remove('active'); };
 
-document.getElementById('bookingForm').onsubmit = function(e) {
-    e.preventDefault();
-    const msg = document.getElementById('bookingMessage');
-    msg.textContent = 'Gửi yêu cầu thành công! Chúng tôi sẽ liên hệ sớm.';
-    msg.style.display = 'block';
-    setTimeout(() => {
-        msg.style.display = 'none';
-        this.reset();
-        document.getElementById('hotelModal').classList.remove('active');
-    }, 3000);
-};
+        document.getElementById('bookingForm').onsubmit = function (e) {
+            e.preventDefault();
+            const msg = document.getElementById('bookingMessage');
+            msg.textContent = 'Gửi yêu cầu thành công! Chúng tôi sẽ liên hệ sớm.';
+            msg.style.display = 'block';
+            setTimeout(() => {
+                msg.style.display = 'none';
+                this.reset();
+                document.getElementById('hotelModal').classList.remove('active');
+            }, 3000);
+        };
 
-// Hamburger Menu
-document.querySelector('.hamburger-menu').onclick = () => document.querySelector('.nav-menu').classList.toggle('active');
+        // Hamburger Menu
+        document.querySelector('.hamburger-menu').onclick = () => document.querySelector('.nav-menu').classList.toggle('active');
 
-// Contact Form
-document.getElementById('contactForm').onsubmit = function(e) {
-    e.preventDefault();
-    document.getElementById('formMessage').textContent = 'Đã gửi yêu cầu!';
-    document.getElementById('formMessage').style.display = 'block';
-    this.reset();
-    setTimeout(() => document.getElementById('formMessage').style.display = 'none', 3000);
-}
+        // Contact Form
+        document.getElementById('contactForm').onsubmit = function (e) {
+            e.preventDefault();
+            document.getElementById('formMessage').textContent = 'Đã gửi yêu cầu!';
+            document.getElementById('formMessage').style.display = 'block';
+            this.reset();
+            setTimeout(() => document.getElementById('formMessage').style.display = 'none', 3000);
+        }
 
-// Chức năng chuyển hướng search form (ĐÃ CẬP NHẬT để đọc input trong popover)
-document.querySelector('.filter-form-hotel').onsubmit = function(e) {
-    e.preventDefault(); // Ngăn chặn hành vi submit mặc định
-    const location = this.querySelector('input[name="location"]').value;
-    const checkin = this.querySelector('input[name="checkin"]').value;
-    const checkout = this.querySelector('input[name="checkout"]').value;
-    // Đọc từ input trong popover
-    const adults = adultsInput.value;
-    const children = childrenInput.value;
-    const rooms = roomsInput.value;
+        // Chức năng chuyển hướng search form (ĐÃ CẬP NHẬT để đọc input trong popover)
+        document.querySelector('.filter-form-hotel').onsubmit = function (e) {
+            e.preventDefault(); // Ngăn chặn hành vi submit mặc định
+            const location = this.querySelector('input[name="location"]').value;
+            const checkin = this.querySelector('input[name="checkin"]').value;
+            const checkout = this.querySelector('input[name="checkout"]').value;
+            // Đọc từ input trong popover
+            const adults = adultsInput.value;
+            const children = childrenInput.value;
+            const rooms = roomsInput.value;
 
-    const url = `hotel-results.html?location=${encodeURIComponent(location)}&checkin=${checkin}&checkout=${checkout}&adults=${adults}&children=${children}&rooms=${rooms}`;
-    window.location.href = url;
-};
+            const url = `hotel-results.html?location=${encodeURIComponent(location)}&checkin=${checkin}&checkout=${checkout}&adults=${adults}&children=${children}&rooms=${rooms}`;
+            window.location.href = url;
+        };
 
-// Khởi tạo hiển thị
-document.addEventListener('DOMContentLoaded', updateGuestDisplay);
-</script>
+        // Khởi tạo hiển thị
+        document.addEventListener('DOMContentLoaded', updateGuestDisplay);
+    </script>
 
 </body>
-</html>
 
+</html>
