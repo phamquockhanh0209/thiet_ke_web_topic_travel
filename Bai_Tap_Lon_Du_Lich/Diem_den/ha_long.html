@@ -5,8 +5,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Tour du lịch Hạ Long 3N2Đ - Khám phá Vịnh Hạ Long, kỳ quan thiên nhiên thế giới với hàng nghìn hòn đảo đá vôi tuyệt đẹp, hang động kỳ vĩ và cảnh quan thiên nhiên hùng vĩ.">
-    <meta name="keywords" content="du lịch Hạ Long, tour Hạ Long, vịnh Hạ Long, hang Sửng Sốt, hang Đầu Gỗ, đảo Titop, du thuyền Hạ Long, kỳ quan thiên nhiên">
+    <meta name="description"
+        content="Tour du lịch Hạ Long 3N2Đ - Khám phá Vịnh Hạ Long, kỳ quan thiên nhiên thế giới với hàng nghìn hòn đảo đá vôi tuyệt đẹp, hang động kỳ vĩ và cảnh quan thiên nhiên hùng vĩ.">
+    <meta name="keywords"
+        content="du lịch Hạ Long, tour Hạ Long, vịnh Hạ Long, hang Sửng Sốt, hang Đầu Gỗ, đảo Titop, du thuyền Hạ Long, kỳ quan thiên nhiên">
     <meta name="author" content="Travel Explorer">
     <title>HẠ LONG</title>
     <link rel="stylesheet" href="../Styles/style_head_footer.css">
@@ -17,19 +19,26 @@
 <body>
     <header class="header">
         <nav class="nav-container">
-            <a href="../main.html" class="logo">🌍 Travel Explorer</a>
+            <a href="../main.html" class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                </svg>
+                Travel <span>Explorer</span></a>
             <div>
                 <ul class="nav-menu">
                     <li><a href="../main.html" class="nav-link">Trang Chủ</a></li>
                     <li class="dropdown">
-                        <a href="../main.html#destinations" class="nav-link">Điểm Đến <i class="fas fa-chevron-down"></i></a>
+                        <a href="../main.html#destinations" class="nav-link">Điểm Đến <i
+                                class="fas fa-chevron-down"></i></a>
                         <ul class="dropdown-menu">
                             <li><a href="../main.html#destinations">Trong Nước</a></li>
                             <li><a href="../main.html#international-destinations">Quốc Tế</a></li>
                         </ul>
                     </li>
                     <li><a href="#section2" class="nav-link">Giới Thiệu</a></li>
-                    <li><a href="javascript:void(0)" class="nav-link" onclick="openPopup(); return false;">Đăng ký</a></li>
+                    <li><a href="javascript:void(0)" class="nav-link" onclick="openPopup(); return false;">Đăng ký</a>
+                    </li>
                     <li><a href="#section3" class="nav-link">Tour khác</a></li>
                 </ul>
                 <button class="mobile-menu-toggle">
@@ -172,25 +181,27 @@
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="name">Họ và Tên <span class="required">*</span></label>
-                                    <input type="text" id="name" name="name" placeholder="Nhập họ và tên đầy đủ" required>
+                                    <input type="text" id="name" name="name" placeholder="Nhập họ và tên đầy đủ"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label for="phone">Số Điện Thoại <span class="required">*</span></label>
                                     <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="email">Email <span class="required">*</span></label>
-                                    <input type="email" id="email" name="email" placeholder="Nhập địa chỉ email" required>
+                                    <input type="email" id="email" name="email" placeholder="Nhập địa chỉ email"
+                                        required>
                                 </div>
                                 <div class="form-group">
                                     <label for="address">Địa Chỉ</label>
                                     <input type="text" id="address" name="address" placeholder="Nhập địa chỉ nơi ở">
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="people">Số Lượng Người <span class="required">*</span></label>
@@ -208,7 +219,7 @@
                                     <input type="date" id="departure" name="departure">
                                 </div>
                             </div>
-                            
+
                             <div class="form-row">
                                 <div class="form-group">
                                     <label for="budget">Ngân Sách Dự Kiến</label>
@@ -232,19 +243,21 @@
                                     </select>
                                 </div>
                             </div>
-                            
+
                             <div class="form-group full-width">
                                 <label for="note">Ghi Chú / Yêu Cầu Đặc Biệt</label>
-                                <textarea id="note" name="note" rows="4" placeholder="Nhập các yêu cầu đặc biệt, dịch vụ mong muốn hoặc câu hỏi của bạn..."></textarea>
+                                <textarea id="note" name="note" rows="4"
+                                    placeholder="Nhập các yêu cầu đặc biệt, dịch vụ mong muốn hoặc câu hỏi của bạn..."></textarea>
                             </div>
-                            
+
                             <div class="form-group full-width checkbox-group">
                                 <label class="checkbox-label">
                                     <input type="checkbox" id="agree" name="agree" required>
-                                    <span>Tôi đồng ý với <a href="#" class="link">chính sách bảo mật</a> và <a href="#" class="link">điều khoản sử dụng</a> <span class="required">*</span></span>
+                                    <span>Tôi đồng ý với <a href="#" class="link">chính sách bảo mật</a> và <a href="#"
+                                            class="link">điều khoản sử dụng</a> <span class="required">*</span></span>
                                 </label>
                             </div>
-                            
+
                             <div class="form-actions">
                                 <button type="button" class="btn-cancel" onclick="closePopup()">HỦY</button>
                                 <button type="submit" class="btn-submit">GỬI ĐĂNG KÝ</button>
