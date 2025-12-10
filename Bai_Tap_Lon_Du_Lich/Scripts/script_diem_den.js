@@ -220,3 +220,83 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         }
     });
 });
+
+// ========== DESTINATION SEARCH FUNCTIONALITY ==========
+const destinations = [
+    { name: 'Hạ Long', file: 'ha_long.html', type: 'Trong Nước', keywords: ['hạ long', 'halong', 'vịnh hạ long', 'vinh ha long'] },
+    { name: 'Sapa', file: 'sa_pa.html', type: 'Trong Nước', keywords: ['sapa', 'sa pa', 'sapa lào cai'] },
+    { name: 'Phú Quốc', file: 'phu_quoc.html', type: 'Trong Nước', keywords: ['phú quốc', 'phu quoc', 'đảo phú quốc'] },
+    { name: 'Hội An', file: 'hoi_an.html', type: 'Trong Nước', keywords: ['hội an', 'hoi an', 'phố cổ hội an'] },
+    { name: 'Đà Lạt', file: 'da_lat.html', type: 'Trong Nước', keywords: ['đà lạt', 'da lat', 'dalat'] },
+    { name: 'Nha Trang', file: 'nha_trang.html', type: 'Trong Nước', keywords: ['nha trang', 'nhatrang'] },
+    { name: 'Nhật Bản', file: 'nhat_ban.html', type: 'Quốc Tế', keywords: ['nhật bản', 'nhat ban', 'japan', 'tokyo', 'kyoto'] },
+    { name: 'Hàn Quốc', file: 'han_quoc.html', type: 'Quốc Tế', keywords: ['hàn quốc', 'han quoc', 'korea', 'seoul', 'busan'] },
+    { name: 'Trung Quốc', file: 'trung_quoc.html', type: 'Quốc Tế', keywords: ['trung quốc', 'trung quoc', 'china', 'beijing', 'shanghai'] },
+    { name: 'Ấn Độ', file: 'an_do.html', type: 'Quốc Tế', keywords: ['ấn độ', 'an do', 'india', 'delhi', 'mumbai'] },
+    { name: 'Nga', file: 'nga.html', type: 'Quốc Tế', keywords: ['nga', 'russia', 'moscow', 'saint petersburg'] },
+    { name: 'Châu Phi', file: 'chau_phi.html', type: 'Quốc Tế', keywords: ['châu phi', 'chau phi', 'africa', 'safari'] }
+];
+
+const searchInput = document.getElementById('destinationSearch');
+const searchResults = document.getElementById('searchResults');
+
+if (searchInput && searchResults) {
+    searchInput.addEventListener('input', function() {
+        const query = this.value.trim().toLowerCase();
+        
+        if (query.length === 0) {
+            searchResults.classList.remove('active');
+            return;
+        }
+        
+        // Tìm kiếm địa danh
+        const results = destinations.filter(dest => {
+            const nameMatch = dest.name.toLowerCase().includes(query);
+            const keywordMatch = dest.keywords.some(keyword => keyword.toLowerCase().includes(query));
+            return nameMatch || keywordMatch;
+        });
+        
+        if (results.length > 0) {
+            displaySearchResults(results);
+            searchResults.classList.add('active');
+        } else {
+            searchResults.classList.remove('active');
+        }
+    });
+    
+    // Đóng kết quả khi click bên ngoài
+    document.addEventListener('click', function(e) {
+        if (!searchInput.contains(e.target) && !searchResults.contains(e.target)) {
+            searchResults.classList.remove('active');
+        }
+    });
+    
+    // Xử lý khi nhấn Enter
+    searchInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            const query = this.value.trim().toLowerCase();
+            if (query.length > 0) {
+                const result = destinations.find(dest => {
+                    const nameMatch = dest.name.toLowerCase().includes(query);
+                    const keywordMatch = dest.keywords.some(keyword => keyword.toLowerCase().includes(query));
+                    return nameMatch || keywordMatch;
+                });
+                
+                if (result) {
+                    window.location.href = result.file;
+                }
+            }
+        }
+    });
+}
+
+function displaySearchResults(results) {
+    searchResults.innerHTML = results.map(dest => `
+        <div class="search-result-item" onclick="window.location.href='${dest.file}'">
+            <i class="fas fa-map-marker-alt"></i>
+            <span class="result-name">${dest.name}</span>
+            <span class="result-type">${dest.type}</span>
+        </div>
+    `).join('');
+}
