@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Tour du lịch Hạ Long 3N2Đ - Khám phá Vịnh Hạ Long, kỳ quan thiên nhiên thế giới với hàng nghìn hòn đảo đá vôi tuyệt đẹp, hang động kỳ vĩ và cảnh quan thiên nhiên hùng vĩ.">
+    <meta name="keywords"
+        content="du lịch Hạ Long, tour Hạ Long, vịnh Hạ Long, hang Sửng Sốt, hang Đầu Gỗ, đảo Titop, du thuyền Hạ Long, kỳ quan thiên nhiên">
+    <meta name="author" content="Travel Explorer">
+    <title>HẠ LONG</title>
+    <link rel="stylesheet" href="../Styles/style_head_footer.css">
+    <link rel="stylesheet" href="../Styles/style_diem_den.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+</head>
+
+<body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="../main.html" class="logo">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd"
+                        d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+                </svg>
+                Travel <span>Explorer</span></a>
+            <div class="nav-right">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="destinationSearch" class="search-input" placeholder="Tìm kiếm" autocomplete="off">
+                    <div class="search-results" id="searchResults"></div>
+                </div>
+                <ul class="nav-menu">
+                    <li><a href="../main.html" class="nav-link">Trang Chủ</a></li>
+                    <li class="dropdown">
+                        <a href="../main.html#destinations" class="nav-link">Điểm Đến <i
+                                class="fas fa-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="../main.html#destinations">Trong Nước</a></li>
+                            <li><a href="../main.html#international-destinations">Quốc Tế</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="../main.html#services" class="nav-link">Dịch Vụ</a></li>
+                    <li><a href="../main.html#contact" class="nav-link">Liên Hệ</a></li>
+                </ul>
+                <button class="mobile-menu-toggle">
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                    <span class="hamburger"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+    <section id="section1" class="homepage">
+        <div class="container">
+            <div id="slide">
+                <div class="item" style="background-image: url(../Images/ha_long_1.jpg);">
+                    <div class="content">
+                        <div class="name">Hạ Long</div>
+                        <div class="des">Bình yên – cảm giác thư thái khi ngắm biển và vịnh</div>
+                        <button class="see-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url(../Images/ha_long_2.jpg);">
+                    <div class="content">
+                        <div class="name">Hạ Long</div>
+                        <div class="des">Hùng vĩ – vẻ đẹp đồ sộ, ấn tượng của núi non và vịnh.</div>
+                        <button class="see-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url(../Images/ha_long_3.jpg);">
+                    <div class="content">
+                        <div class="name">Hạ Long</div>
+                        <div class="des">Sống động – nhịp sống du lịch, chợ cá, làng chài tấp nập.</div>
+                        <button class="see-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url(../Images/ha_long_4.jpg);">
+                    <div class="content">
+                        <div class="name">Hạ Long</div>
+                        <div class="des">Ngập tràn ánh sáng – mặt nước phản chiếu ánh nắng và hoàng hôn đẹp mê hồn.
+                        </div>
+                        <button class="see-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url(../Images/ha_long_5.jpg);">
+                    <div class="content">
+                        <div class="name">Hạ Long</div>
+                        <div class="des">Lãng mạn – cảnh sắc thơ mộng, thích hợp cho du lịch đôi lứa.</div>
+                        <button class="see-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+                <div class="item" style="background-image: url(../Images/ha_long_6.jpg);">
+                    <div class="content">
+                        <div class="name">Hạ Long</div>
+                        <div class="des">Kỳ ảo – những đảo đá với hình thù độc đáo, như trong truyện cổ tích.</div>
+                        <button class="see-more-btn">Xem thêm</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="buttons">
+                <button id="prev"><i class="fa-solid fa-angle-left"></i></button>
+                <button id="next"><i class="fa-solid fa-angle-right"></i></button>
+            </div>
+        </div>
+    </section>
+    <section id="section2">
+        <h2>Tour Du Lịch Hạ Long - 3N2Đ</h2>
+
+        <div class="container">
+            <section class="tour-content">
+                <h2>Giới Thiệu</h2>
+
+                <div class="block">
+                    <p>
+                        Vịnh Hạ Long – di sản thiên nhiên thế giới được UNESCO công nhận – từ
+                        lâu đã trở thành điểm đến mơ ước của du khách trong và ngoài nước.
+                    </p>
+                    <p>
+                        Với hơn 1.600 hòn đảo lớn nhỏ cùng vô vàn hang động kỳ vĩ, Hạ Long mang đến
+                        bức tranh thiên nhiên sống động và huyền bí. Nước biển xanh ngọc bích, bãi cát
+                        trắng mịn, những dãy núi đá vôi trùng điệp cùng làng chài cổ kính tạo nên một
+                        Hạ Long vừa thơ mộng vừa hùng vĩ.
+                    </p>
+                    <p>
+                        Không chỉ có cảnh đẹp, nơi đây còn nổi tiếng với hải sản tươi ngon, văn hóa
+                        làng chài độc đáo và nhiều hoạt động giải trí hấp dẫn như chèo kayak, tắm biển,
+                        tham quan hang động hay thưởng thức tiệc BBQ trên du thuyền.
+                    </p>
+                </div>
+                <h2>Lịch Trình Tour Hạ Long 3N2Đ</h2>
+                <div class="block">
+                    <h3>Ngày 1: Hà Nội – Hạ Long</h3>
+                    <ul>
+                        <li>07:30 – Xe và hướng dẫn viên đón khách tại điểm hẹn ở Hà Nội.</li>
+                        <li>12:00 – Đến bến cảng Tuần Châu, làm thủ tục lên du thuyền.</li>
+                        <li>13:00 – Thưởng thức bữa trưa hải sản trên du thuyền.</li>
+                        <li>Chiều: Tham quan hang Sửng Sốt, chèo kayak tại Hang Luồn.</li>
+                        <li>Tối: Dùng bữa tối BBQ trên du thuyền, nghỉ đêm trên vịnh.</li>
+                    </ul>
+
+                    <h3>Ngày 2: Khám phá vịnh Hạ Long</h3>
+                    <ul>
+                        <li>06:30 – Tham gia lớp tập Thái Cực Quyền trên boong tàu.</li>
+                        <li>07:00 – Ăn sáng nhẹ với trà, cà phê và bánh ngọt.</li>
+                        <li>08:00 – Tham quan đảo Titop, tắm biển và leo núi ngắm toàn cảnh vịnh.</li>
+                        <li>12:30 – Ăn trưa tại nhà hàng trên tàu.</li>
+                        <li>Chiều: Tham quan làng chài Cửa Vạn, trải nghiệm văn hóa địa phương.</li>
+                        <li>Tối: Thưởng thức bữa tối và tham gia câu mực đêm.</li>
+                    </ul>
+
+                    <h3>Ngày 3: Hạ Long – Hà Nội</h3>
+                    <ul>
+                        <li>06:30 – Tập thể dục buổi sáng, ngắm bình minh trên vịnh.</li>
+                        <li>07:00 – Ăn sáng tại nhà hàng.</li>
+                        <li>08:00 – Tham quan hang Thiên Cung hoặc động Mê Cung.</li>
+                        <li>10:30 – Làm thủ tục trả phòng du thuyền.</li>
+                        <li>12:00 – Ăn trưa tại nhà hàng trên bờ, khởi hành về Hà Nội.</li>
+                        <li>16:00 – Trả khách tại điểm hẹn, kết thúc tour.</li>
+                    </ul>
+                </div>
+                <section class="contact-box">
+                    <div class="contact-container">
+                        <div class="contact-title">
+                            <strong>VUI LÒNG ĐỂ LẠI THÔNG TIN CHÚNG TÔI SẼ LIÊN HỆ TƯ VẤN</strong>
+                        </div>
+
+                        <!-- Nút Đăng Ký Ngay -->
+                        <button class="register-btn" onclick="openPopup()">ĐĂNG KÝ NGAY</button>
+                    </div>
+                </section>
+
+                <!-- Cửa sổ popup đăng ký -->
+                <div id="popupForm" class="popup">
+                    <div class="popup-content">
+                        <span class="close" onclick="closePopup()">&times;</span>
+                        <div class="popup-header">
+                            <h2>ĐĂNG KÝ TOUR DU LỊCH</h2>
+                            <p>Vui lòng điền đầy đủ thông tin để chúng tôi có thể tư vấn tốt nhất cho bạn</p>
+                        </div>
+                        <form id="registerForm" onsubmit="return validateForm()">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="name">Họ và Tên <span class="required">*</span></label>
+                                    <input type="text" id="name" name="name" placeholder="Nhập họ và tên đầy đủ"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="phone">Số Điện Thoại <span class="required">*</span></label>
+                                    <input type="tel" id="phone" name="phone" placeholder="Nhập số điện thoại" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="email">Email <span class="required">*</span></label>
+                                    <input type="email" id="email" name="email" placeholder="Nhập địa chỉ email"
+                                        required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="address">Địa Chỉ</label>
+                                    <input type="text" id="address" name="address" placeholder="Nhập địa chỉ nơi ở">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="people">Số Lượng Người <span class="required">*</span></label>
+                                    <select id="people" name="people" required>
+                                        <option value="">Chọn số lượng</option>
+                                        <option value="1">1 người</option>
+                                        <option value="2">2 người</option>
+                                        <option value="3">3 người</option>
+                                        <option value="4">4 người</option>
+                                        <option value="5+">5 người trở lên</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="departure">Ngày Khởi Hành Dự Kiến</label>
+                                    <input type="date" id="departure" name="departure">
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label for="budget">Ngân Sách Dự Kiến</label>
+                                    <select id="budget" name="budget">
+                                        <option value="">Chọn mức ngân sách</option>
+                                        <option value="under-5m">Dưới 5 triệu</option>
+                                        <option value="5-10m">5 - 10 triệu</option>
+                                        <option value="10-20m">10 - 20 triệu</option>
+                                        <option value="20-30m">20 - 30 triệu</option>
+                                        <option value="over-30m">Trên 30 triệu</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="duration">Thời Gian Du Lịch</label>
+                                    <select id="duration" name="duration">
+                                        <option value="">Chọn thời gian</option>
+                                        <option value="2-3days">2 - 3 ngày</option>
+                                        <option value="4-5days">4 - 5 ngày</option>
+                                        <option value="6-7days">6 - 7 ngày</option>
+                                        <option value="over-7days">Trên 7 ngày</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group full-width">
+                                <label for="note">Ghi Chú / Yêu Cầu Đặc Biệt</label>
+                                <textarea id="note" name="note" rows="4"
+                                    placeholder="Nhập các yêu cầu đặc biệt, dịch vụ mong muốn hoặc câu hỏi của bạn..."></textarea>
+                            </div>
+
+                            <div class="form-group full-width checkbox-group">
+                                <label class="checkbox-label">
+                                    <input type="checkbox" id="agree" name="agree" required>
+                                    <span>Tôi đồng ý với <a href="#" class="link">chính sách bảo mật</a> và <a href="#"
+                                            class="link">điều khoản sử dụng</a> <span class="required">*</span></span>
+                                </label>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="button" class="btn-cancel" onclick="closePopup()">HỦY</button>
+                                <button type="submit" class="btn-submit">GỬI ĐĂNG KÝ</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <aside class="tour-suggestion">
+                <h3>Ưu Đãi Hot Trong Tháng</h3>
+                <ul>
+                    <a href="404.html">
+                        <li>
+                            <img src="../Images/sa_pa_1.jpg" alt="Du Lịch SaPa">
+                            <span>Du Lịch SaPa</span>
+                            <p>3.000.000</p>
+                        </li>
+                        <li>
+                            <img src="../Images/ha_long_1.jpg" alt="Du Lịch Hạ Long">
+                            <span>Du Lịch Hạ Long</span>
+                            <p>2.500.000</p>
+                        </li>
+                        <li>
+                            <img src="../Images/hoi_an_1.jpg" alt="Du Lịch Hội An">
+                            <span>Du Lịch Hội An</span>
+                            <p>2.800.000</p>
+                        </li>
+                        <li>
+                            <img src="../Images/da_lat_1.jpg" alt="Du Lịch Đà Lạt">
+                            <span>Du Lịch Đà Lạt</span>
+                            <p>2.000.000</p>
+                        </li>
+                        <li>
+                            <img src="../Images/phu_quoc_1.jpg" alt="Du Lịch Phú Quốc">
+                            <span>Du Lịch Phú Quốc</span>
+                            <p>5.000.000</p>
+                        </li>
+                        <li>
+                            <img src="../Images/nha_trang_1.jpg" alt="Du Lịch Nha Trang">
+                            <span>Du Lịch Nha Trang</span>
+                            <p>3.500.000</p>
+                        </li>
+                    </a>
+                </ul>
+            </aside>
+        </div>
+
+
+    </section>
+
+
+    <section id="section3">
+        <h2>CÁC TOUR KHÁC</h2>
+        <div class="tour-list">
+            <a href="nha_trang.html">
+                <div class="tour-item">
+                    <img src="../Images/eo_gio.jpg" alt="Tour 1">
+                    <h3>Du Lịch Nha Trang</h3>
+                    <p class="price"> <span class="old-price">5.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 6 ngày 5 đêm</p>
+                </div>
+            </a>
+
+            <a href="hoi_an.html">
+                <div class="tour-item">
+                    <img src="../Images/hoi_an_5.jpg" alt="Tour 2">
+                    <h3>Du Lịch Hội An</h3>
+                    <p class="price"><span class="old-price">2.800.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 3 ngày 2 đêm</p>
+                </div>
+            </a>
+
+            <a href="da_lat.html">
+                <div class="tour-item">
+                    <img src="../Images/da_lat_4.jpg" alt="Tour 3">
+                    <h3>Du Lịch Đà Lạt</h3>
+                    <p class="price"> <span class="old-price">3.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 6 ngày 5 đêm</p>
+                </div>
+            </a>
+
+            <a href="phu_quoc.html">
+                <div class="tour-item">
+                    <img src="../Images/phu_quoc_1.jpg" alt="Tour 4">
+                    <h3>Du Lịch Phú Quốc</h3>
+                    <p class="price"> <span class="old-price">5.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 3 ngày 2 đêm</p>
+                </div>
+            </a>
+
+            <a href="sa_pa.html">
+                <div class="tour-item">
+                    <img src="../Images/sa_pa_1.jpg" alt="Tour 5">
+                    <h3>Du Lịch Sa Pa</h3>
+                    <p class="price"> <span class="old-price">3.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 3 ngày 2 đêm</p>
+                </div>
+            </a>
+
+            <a href="nhat_ban.html">
+                <div class="tour-item">
+                    <img src="../Images/nhat_ban_1.jpg" alt="Tour 6">
+                    <h3>Du Lịch Nhật Bản</h3>
+                    <p class="price"> <span class="old-price">25.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 7 ngày 6 đêm</p>
+                </div>
+            </a>
+
+            <a href="han_quoc.html">
+                <div class="tour-item">
+                    <img src="../Images/han_quoc_1.jpg" alt="Tour 7">
+                    <h3>Du Lịch Hàn Quốc</h3>
+                    <p class="price"> <span class="old-price">22.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 6 ngày 5 đêm</p>
+                </div>
+            </a>
+
+            <a href="trung_quoc.html">
+                <div class="tour-item">
+                    <img src="../Images/trung_quoc_1.jpg" alt="Tour 8">
+                    <h3>Du Lịch Trung Quốc</h3>
+                    <p class="price"> <span class="old-price">18.000.000đ</span></p>
+                    <p><i class="fa fa-plane"></i> Khởi hành: Thứ 2 - 7 hằng tuần</p>
+                    <p><i class="fa fa-calendar"></i> Thời gian: 7 ngày 6 đêm</p>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section id="section4">
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
+                        <h3>Travel <span>Explorer</span></h3>
+                        <p>Đối tác tin cậy cho mọi chuyến du lịch của bạn. Chúng tôi cam kết mang đến những trải nghiệm
+                            tuyệt vời nhất.</p>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Liên Kết Nhanh</h3>
+                        <a href="../main.html">Trang Chủ</a>
+                        <a href="../main.html#destinations">Điểm Đến</a>
+                        <a href="../main.html#services">Dịch Vụ</a>
+                        <a href="../main.html#contact">Liên Hệ</a>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Thông Tin Liên Hệ</h3>
+                        <p>
+                            <i class="fa-solid fa-location-dot 1"></i>
+                            12/5D Đường Lê Lợi, Quận 1
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-phone-volume"></i>
+                            (028) 1234 5678
+                        </p>
+                        <p>
+                            <i class="fa-solid fa-envelope"></i>
+                            info@travelexplorer.vn
+                        </p>
+                    </div>
+
+                    <div class="footer-section">
+                        <h3>Theo Dõi Chúng Tôi</h3>
+                        <div class="social-links">
+                            <a href="#" class="social-link">
+                                <i class="fa-brands fa-facebook"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </a>
+                            <a href="#" class="social-link">
+                                <i class="fa-brands fa-telegram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Travel Explorer. Tất cả quyền được bảo lưu.</p>
+                </div>
+            </div>
+        </footer>
+
+    </section>
+
+    <script src="../Scripts/script_diem_den.js"></script>
+</body>
+
+
+</html>
