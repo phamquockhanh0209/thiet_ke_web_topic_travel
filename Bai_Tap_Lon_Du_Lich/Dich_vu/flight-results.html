@@ -1,0 +1,3176 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết Quả Tìm Kiếm Vé Máy Bay - Travel Explorer</title>
+    <link rel="stylesheet" href="../Styles/tour-results.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container nav-container">
+        <a href="../main.html" class="logo">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
+                <path fill-rule="evenodd"
+                    d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
+            </svg>
+            Travel <span>Explorer</span></a>
+        <div class="hamburger-menu"><i class="fas fa-bars"></i></div>
+        <ul class="nav-menu">
+            <li><a href="../main.html" class="nav-link">Trang Chủ</a></li>
+            <li><a href="tour.html" class="nav-link">Tour</a></li>
+            <li><a href="hotel.html" class="nav-link">Khách Sạn</a></li>
+            <li><a href="flight.html" class="nav-link active">Vé Máy Bay</a></li>
+        </ul>
+    </div>
+</header>
+
+<!-- Thanh tìm kiếm mobile (chỉ hiển thị trên mobile) -->
+<div class="mobile-search-bar" style="display: none;">
+    <div class="container">
+        <button type="button" class="mobile-search-toggle">
+            <i class="fas fa-sliders-h"></i> Tùy chỉnh tìm kiếm
+        </button>
+        
+        <div class="mobile-search-content" style="display: none;">
+            <form id="mobileSearchForm" class="compact-search-form">
+                <!-- Copy nội dung từ sticky search bar ở đây -->
+                <div class="search-form-grid">
+                    <!-- Loại chuyến bay -->
+                    <div class="search-input-group">
+                        <i class="fas fa-exchange-alt"></i>
+                        <select name="trip_type" id="mobileTripType" required>
+                            <option value="roundtrip">Khứ hồi</option>
+                            <option value="oneway">Một chiều</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Địa điểm đi -->
+                    <div class="search-input-group airport-input-group">
+                        <i class="fas fa-plane-departure"></i>
+                        <input type="text" id="mobileFromInput" placeholder="Điểm khởi hành..." 
+                               autocomplete="off" required>
+                        <input type="hidden" name="from_code" id="mobileFromCode" value="SGN">
+                    </div>
+                    
+                    <!-- Địa điểm đến -->
+                    <div class="search-input-group airport-input-group">
+                        <i class="fas fa-plane-arrival"></i>
+                        <input type="text" id="mobileToInput" placeholder="Điểm đến..." 
+                               autocomplete="off" required>
+                        <input type="hidden" name="to_code" id="mobileToCode" value="HAN">
+                    </div>
+                    
+                    <!-- Ngày đi -->
+                    <div class="search-input-group">
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="date" id="mobileDepartDate" name="depart_date" required>
+                    </div>
+                    
+                    <!-- Ngày về -->
+                    <div class="search-input-group" id="mobileReturnDateGroup">
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="date" id="mobileReturnDate" name="return_date">
+                    </div>
+                    
+                    <!-- Số hành khách -->
+                    <div class="search-input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="number" name="passengers" id="mobilePassengers" min="1" max="9" value="1" required>
+                    </div>
+                    
+                    <!-- Hạng ghế -->
+                    <div class="search-input-group">
+                        <i class="fas fa-chair"></i>
+                        <select name="cabin_class" id="mobileCabinClass" required>
+                            <option value="economy">Phổ thông</option>
+                            <option value="premium_economy">Phổ thông Đặc biệt</option>
+                            <option value="business">Thương gia</option>
+                            <option value="first">Hạng Nhất</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="search-submit-btn">
+                        <i class="fas fa-search"></i> Tìm Lại
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<section class="flight-results-hero">
+    <div class="container">
+        <h1>Kết Quả Tìm Kiếm Vé Máy Bay</h1>
+        <div class="flight-route-info">
+            <div class="route-details" id="routeInfo">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i> Đang tải kết quả...
+                </div>
+            </div>
+            <div class="search-meta">
+                <span><i class="far fa-calendar"></i> <span id="dateInfo"></span></span>
+                <span><i class="fas fa-user"></i> <span id="passengerInfo"></span></span>
+                <span><i class="fas fa-chair"></i> <span id="classInfo"></span></span>
+                <span><i class="fas fa-exchange-alt"></i> <span id="tripTypeInfo"></span></span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="sticky-search-bar">
+    <div class="container">
+        <div class="compact-search-wrapper">
+            <form id="reSearchForm" class="compact-search-form">
+                <div class="search-form-grid">
+                    <!-- Loại chuyến bay -->
+                    <div class="search-input-group">
+                        <i class="fas fa-exchange-alt"></i>
+                        <select name="trip_type" id="tripTypeR" required>
+                            <option value="roundtrip">Khứ hồi</option>
+                            <option value="oneway">Một chiều</option>
+                        </select>
+                    </div>
+                    
+                    <!-- Địa điểm đi -->
+                    <div class="search-input-group airport-input-group">
+                        <i class="fas fa-plane-departure"></i>
+                        <input type="text" id="fromInputR" placeholder="Điểm khởi hành..." 
+                               autocomplete="off" required>
+                        <input type="hidden" name="from_code" id="fromCodeR" value="SGN">
+                        <div class="airport-dropdown" id="fromDropdownR"></div>
+                    </div>
+                    
+                    <!-- Địa điểm đến -->
+                    <div class="search-input-group airport-input-group">
+                        <i class="fas fa-plane-arrival"></i>
+                        <input type="text" id="toInputR" placeholder="Điểm đến..." 
+                               autocomplete="off" required>
+                        <input type="hidden" name="to_code" id="toCodeR" value="HAN">
+                        <div class="airport-dropdown" id="toDropdownR"></div>
+                    </div>
+                    
+                    <!-- Ngày đi -->
+                    <div class="search-input-group">
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="date" id="departDateR" name="depart_date" required>
+                    </div>
+                    
+                    <!-- Ngày về (chỉ hiện khi là khứ hồi) -->
+                    <div class="search-input-group" id="returnDateGroupR">
+                        <i class="fas fa-calendar-alt"></i>
+                        <input type="date" id="returnDateR" name="return_date">
+                    </div>
+                    
+                    <!-- Số hành khách -->
+                    <div class="search-input-group">
+                        <i class="fas fa-user"></i>
+                        <input type="number" name="passengers" id="passengersR" min="1" max="9" value="1" required>
+                    </div>
+                    
+                    <!-- Hạng ghế -->
+                    <div class="search-input-group">
+                        <i class="fas fa-chair"></i>
+                        <select name="cabin_class" id="cabinClassR" required>
+                            <option value="economy">Phổ thông</option>
+                            <option value="premium_economy">Phổ thông Đặc biệt</option>
+                            <option value="business">Thương gia</option>
+                            <option value="first">Hạng Nhất</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="search-submit-btn">
+                        <i class="fas fa-search"></i> Tìm Lại
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<main class="container results-main-container">
+    <aside class="results-sidebar">
+        <div class="sidebar-header">
+            <h3><i class="fas fa-filter"></i> Bộ Lọc</h3>
+            <button type="button" class="clear-filters-btn" onclick="clearAllFilters()">
+                <i class="fas fa-redo"></i> Xóa hết
+            </button>
+        </div>
+        
+        <!-- Bộ lọc Hạng ghế -->
+        <div class="filter-section">
+            <h4 class="filter-title">
+                <i class="fas fa-chair"></i> Hạng Ghế
+            </h4>
+            <div class="filter-options">
+                <label class="filter-option">
+                    <input type="checkbox" name="cabin_class" value="economy" checked>
+                    <span class="checkmark"></span>
+                    <span class="option-text">Phổ thông</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="cabin_class" value="premium_economy">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Phổ thông Đặc biệt</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="cabin_class" value="business">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Thương gia</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="cabin_class" value="first">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Hạng Nhất</span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Bộ lọc Hãng hàng không -->
+        <div class="filter-section">
+            <h4 class="filter-title">
+                <i class="fas fa-plane"></i> Hãng Hàng Không
+            </h4>
+            <div class="filter-options">
+                <label class="filter-option">
+                    <input type="checkbox" name="airline" value="Vietnam Airlines">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Vietnam Airlines</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="airline" value="VietJet Air">
+                    <span class="checkmark"></span>
+                    <span class="option-text">VietJet Air</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="airline" value="Bamboo Airways">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Bamboo Airways</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="airline" value="Vietravel Airlines">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Vietravel Airlines</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="airline" value="Singapore Airlines">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Singapore Airlines</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="airline" value="Korean Air">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Korean Air</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="airline" value="Japan Airlines">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Japan Airlines</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="airline" value="Cathay Pacific">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Cathay Pacific</span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Bộ lọc Điểm dừng -->
+        <div class="filter-section">
+            <h4 class="filter-title">
+                <i class="fas fa-map-marker-alt"></i> Điểm Dừng
+            </h4>
+            <div class="filter-options">
+                <label class="filter-option">
+                    <input type="checkbox" name="stops" value="Direct">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Bay thẳng</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="stops" value="1 Stop">
+                    <span class="checkmark"></span>
+                    <span class="option-text">1 điểm dừng</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="stops" value="2+ Stops">
+                    <span class="checkmark"></span>
+                    <span class="option-text">2+ điểm dừng</span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Bộ lọc Giờ bay -->
+        <div class="filter-section">
+            <h4 class="filter-title">
+                <i class="far fa-clock"></i> Giờ Bay
+            </h4>
+            <div class="filter-options">
+                <label class="filter-option">
+                    <input type="checkbox" name="time" value="morning">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Sáng sớm (00:00 - 06:00)</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="time" value="day">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Ban ngày (06:00 - 18:00)</span>
+                </label>
+                <label class="filter-option">
+                    <input type="checkbox" name="time" value="evening">
+                    <span class="checkmark"></span>
+                    <span class="option-text">Tối muộn (18:00 - 24:00)</span>
+                </label>
+            </div>
+        </div>
+        
+        <!-- Bộ lọc Giá vé -->
+        <div class="filter-section">
+            <h4 class="filter-title">
+                <i class="fas fa-money-bill-wave"></i> Giá Vé
+            </h4>
+            <div class="price-range">
+                <div class="price-range-values">
+                    <span id="minPrice">0₫</span>
+                    <span id="maxPrice">10,000,000₫</span>
+                </div>
+                <input type="range" min="0" max="10000000" value="5000000" class="price-slider" id="priceSlider">
+                <div class="price-labels">
+                    <span>Thấp nhất</span>
+                    <span>Cao nhất</span>
+                </div>
+            </div>
+        </div>
+        
+        <button type="button" class="apply-filters-btn" onclick="applyFilters()">
+            <i class="fas fa-check"></i> Áp Dụng Bộ Lọc
+        </button>
+    </aside>
+    
+    <section class="results-content">
+        <div class="results-header">
+            <div class="results-info">
+                <h2 id="resultCount">Đang tìm chuyến bay...</h2>
+                <p class="results-subtitle" id="resultsSubtitle">Các chuyến bay tốt nhất cho hành trình của bạn</p>
+            </div>
+            <div class="sort-controls">
+                <label for="sortBy">Sắp xếp theo:</label>
+                <select id="sortBy" onchange="sortFlights()">
+                    <option value="default">Mặc định</option>
+                    <option value="price-asc">Giá thấp nhất</option>
+                    <option value="price-desc">Giá cao nhất</option>
+                    <option value="duration-asc">Thời gian bay ngắn nhất</option>
+                    <option value="depart-asc">Giờ cất cánh sớm nhất</option>
+                    <option value="date-asc">Ngày đi sớm nhất</option>
+                    <option value="date-desc">Ngày đi muộn nhất</option>
+                </select>
+            </div>
+        </div>
+        
+        <div class="flights-container" id="flightsList">
+            <!-- Các chuyến bay sẽ được hiển thị ở đây -->
+        </div>
+        
+        <!-- Section đề xuất -->
+        <div class="suggested-section">
+            <h3><i class="fas fa-lightbulb"></i> Đề Xuất Cho Bạn</h3>
+            <div class="suggested-flights" id="suggestedFlights">
+                <!-- Các chuyến bay đề xuất sẽ được hiển thị ở đây -->
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Modal Đặt Vé -->
+<div id="bookingModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div class="modal-header">
+            <h3>ĐẶT VÉ MÁY BAY</h3>
+            <p class="modal-subtitle" id="modalFlightDetails"></p>
+        </div>
+        <div class="modal-body">
+            <div class="flight-summary" id="flightSummary">
+                <!-- Tóm tắt chuyến bay -->
+            </div>
+            
+            <form id="bookingForm">
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Họ và tên <span class="required">*</span></label>
+                        <input type="text" name="fullname" required placeholder="Nguyễn Văn A">
+                    </div>
+                    <div class="input-group">
+                        <label>Số điện thoại <span class="required">*</span></label>
+                        <input type="tel" name="phone" required placeholder="0901234567">
+                    </div>
+                </div>
+                
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" name="email" required placeholder="example@gmail.com">
+                    </div>
+                    <div class="input-group">
+                        <label>Số hành khách <span class="required">*</span></label>
+                        <input type="number" name="passenger_count" value="1" min="1" max="9" required>
+                    </div>
+                </div>
+                
+                <!-- Lựa chọn hạng ghế trong modal -->
+                <div class="input-group full-width">
+                    <label>Hạng ghế <span class="required">*</span></label>
+                    <div class="cabin-selection" id="cabinSelection">
+                        <!-- Các tùy chọn hạng ghế sẽ được thêm bằng JS -->
+                    </div>
+                </div>
+                
+                <div class="input-group full-width">
+                    <label>Ghi chú thêm</label>
+                    <textarea name="notes" rows="3" placeholder="Yêu cầu đặc biệt (nếu có)..."></textarea>
+                </div>
+                
+                <div class="modal-agree">
+                    <label>
+                        <input type="checkbox" name="agree_terms" required>
+                        Tôi đồng ý với <a href="#" style="color:var(--flight-primary)">điều khoản đặt vé</a>
+                        <span class="required">*</span>
+                    </label>
+                </div>
+                
+                <div class="modal-footer">
+                    <div class="total-price">
+                        <span>Tổng cộng:</span>
+                        <span id="modalTotalPrice">0₫</span>
+                    </div>
+                    <button type="submit" class="submit-btn">
+                        <i class="fas fa-ticket-alt"></i> XÁC NHẬN ĐẶT VÉ
+                    </button>
+                </div>
+            </form>
+            
+            <p id="bookingMessage" class="booking-message"></p>
+        </div>
+    </div>
+</div>
+
+<footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Travel Explorer</h3>
+                    <p>Đối tác tin cậy cho mọi chuyến du lịch của bạn. Chúng tôi cam kết mang đến những trải nghiệm
+                        tuyệt vời nhất.</p>
+                </div>
+        <div class="footer-section">
+            <h3>Liên Kết Nhanh</h3>
+            <a href="tour.html">Tour Du Lịch</a>
+            <a href="hotel.html">Khách Sạn</a>
+            <a href="flight.html">Vé Máy Bay</a>
+            <a href="#">Chính Sách Bảo Mật</a>
+        </div>
+        <div class="footer-section">
+                    <h3>Thông Tin Liên Hệ</h3>
+                    <p>
+                        <i class="fa-solid fa-location-dot 1"></i>
+                        12/5D Đường Lê Lợi, Quận 1
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-phone-volume"></i>
+                        (028) 1234 5678
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-envelope"></i>
+                        info@travelexplorer.vn
+                    </p>
+                </div>
+        <div class="footer-section">
+            <h3>Theo Dõi Chúng Tôi</h3>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                 <a href="#" class="social-link">
+                            <i class="fa-brands fa-telegram"></i> </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">2025 Travel Explorer. Tất cả quyền được bảo lưu.</div>
+</footer>
+
+<script>
+// ========== DỮ LIỆU SÂN BAY  ==========
+const airports = [
+    //Việt Nam
+    { name: "TP.HCM (Tân Sơn Nhất)", code: "SGN", city: "TP.HCM", country: "Việt Nam" },
+    { name: "Hà Nội (Nội Bài)", code: "HAN", city: "Hà Nội", country: "Việt Nam" },
+    { name: "Đà Nẵng", code: "DAD", city: "Đà Nẵng", country: "Việt Nam" },
+    { name: "Phú Quốc", code: "PQC", city: "Phú Quốc", country: "Việt Nam" },
+    { name: "Nha Trang (Cam Ranh)", code: "CXR", city: "Nha Trang", country: "Việt Nam" },
+    { name: "Cần Thơ", code: "VCA", city: "Cần Thơ", country: "Việt Nam" },
+    { name: "Quy Nhơn", code: "UIH", city: "Quy Nhơn", country: "Việt Nam" },
+    { name: "Đà Lạt (Liên Khương)", code: "DLI", city: "Đà Lạt", country: "Việt Nam" },
+    { name: "Huế", code: "HUI", city: "Huế", country: "Việt Nam" },
+
+    // Thái Lan 
+    { name: "Bangkok (Suvarnabhumi)", code: "BKK", city: "Bangkok", country: "Thái Lan" },
+    { name: "Bangkok (Don Mueang)", code: "DMK", city: "Bangkok", country: "Thái Lan" },
+    { name: "Phuket", code: "HKT", city: "Phuket", country: "Thái Lan" },
+    { name: "Chiang Mai", code: "CNX", city: "Chiang Mai", country: "Thái Lan" },
+    { name: "Krabi", code: "KBV", city: "Krabi", country: "Thái Lan" },
+    { name: "Samui", code: "USM", city: "Koh Samui", country: "Thái Lan" },
+    { name: "Hat Yai", code: "HDY", city: "Hat Yai", country: "Thái Lan" },
+    { name: "Udon Thani", code: "UTH", city: "Udon Thani", country: "Thái Lan" },
+    { name: "Chiang Rai", code: "CEI", city: "Chiang Rai", country: "Thái Lan" },
+    { name: "Surat Thani", code: "URT", city: "Surat Thani", country: "Thái Lan" },
+    { name: "Nakhon Si Thammarat", code: "NST", city: "Nakhon Si Thammarat", country: "Thái Lan" },
+    { name: "Ubon Ratchathani", code: "UBP", city: "Ubon Ratchathani", country: "Thái Lan" },
+    { name: "Khon Kaen", code: "KKC", city: "Khon Kaen", country: "Thái Lan" },
+    { name: "Trang", code: "TST", city: "Trang", country: "Thái Lan" },
+    { name: "Mae Sot", code: "MAQ", city: "Mae Sot", country: "Thái Lan" },
+    
+    // Singapore
+    { name: "Singapore (Changi)", code: "SIN", city: "Singapore", country: "Singapore" },
+    
+    // Hàn Quốc 
+    { name: "Seoul (Incheon)", code: "ICN", city: "Seoul", country: "Hàn Quốc" },
+    { name: "Seoul (Gimpo)", code: "GMP", city: "Seoul", country: "Hàn Quốc" },
+    { name: "Busan", code: "PUS", city: "Busan", country: "Hàn Quốc" },
+    { name: "Jeju", code: "CJU", city: "Jeju", country: "Hàn Quốc" },
+    { name: "Daegu", code: "TAE", city: "Daegu", country: "Hàn Quốc" },
+    { name: "Gwangju", code: "KWJ", city: "Gwangju", country: "Hàn Quốc" },
+    { name: "Incheon", code: "ICN", city: "Incheon", country: "Hàn Quốc" },
+    { name: "Cheongju", code: "CJJ", city: "Cheongju", country: "Hàn Quốc" },
+    { name: "Ulsan", code: "USN", city: "Ulsan", country: "Hàn Quốc" },
+    { name: "Yangyang", code: "YNY", city: "Yangyang", country: "Hàn Quốc" },
+    
+    // Nhật Bản 
+    { name: "Tokyo (Narita)", code: "NRT", city: "Tokyo", country: "Nhật Bản" },
+    { name: "Tokyo (Haneda)", code: "HND", city: "Tokyo", country: "Nhật Bản" },
+    { name: "Osaka (Kansai)", code: "KIX", city: "Osaka", country: "Nhật Bản" },
+    { name: "Osaka (Itami)", code: "ITM", city: "Osaka", country: "Nhật Bản" },
+    { name: "Fukuoka", code: "FUK", city: "Fukuoka", country: "Nhật Bản" },
+    { name: "Sapporo (Chitose)", code: "CTS", city: "Sapporo", country: "Nhật Bản" },
+    { name: "Nagoya (Chubu)", code: "NGO", city: "Nagoya", country: "Nhật Bản" },
+    { name: "Okinawa (Naha)", code: "OKA", city: "Okinawa", country: "Nhật Bản" },
+    { name: "Hiroshima", code: "HIJ", city: "Hiroshima", country: "Nhật Bản" },
+    { name: "Sendai", code: "SDJ", city: "Sendai", country: "Nhật Bản" },
+    { name: "Kagoshima", code: "KOJ", city: "Kagoshima", country: "Nhật Bản" },
+    { name: "Kumamoto", code: "KMJ", city: "Kumamoto", country: "Nhật Bản" },
+    { name: "Matsuyama", code: "MYJ", city: "Matsuyama", country: "Nhật Bản" },
+    { name: "Nagasaki", code: "NGS", city: "Nagasaki", country: "Nhật Bản" },
+    { name: "Toyama", code: "TOY", city: "Toyama", country: "Nhật Bản" },
+    
+    // Đài Loan 
+    { name: "Đài Bắc (Taoyuan)", code: "TPE", city: "Đài Bắc", country: "Đài Loan" },
+    { name: "Đài Bắc (Songshan)", code: "TSA", city: "Đài Bắc", country: "Đài Loan" },
+    { name: "Kaohsiung", code: "KHH", city: "Kaohsiung", country: "Đài Loan" },
+    { name: "Taichung", code: "RMQ", city: "Taichung", country: "Đài Loan" },
+    { name: "Tainan", code: "TNN", city: "Tainan", country: "Đài Loan" },
+    { name: "Hualien", code: "HUN", city: "Hualien", country: "Đài Loan" },
+    { name: "Kinmen", code: "KNH", city: "Kinmen", country: "Đài Loan" },
+    { name: "Penghu", code: "MZG", city: "Penghu", country: "Đài Loan" },
+    
+    // Trung Đông 
+    { name: "Dubai", code: "DXB", city: "Dubai", country: "UAE" },
+    { name: "Doha (Hamad)", code: "DOH", city: "Doha", country: "Qatar" },
+    { name: "Abu Dhabi", code: "AUH", city: "Abu Dhabi", country: "UAE" },
+    { name: "Riyadh", code: "RUH", city: "Riyadh", country: "Ả Rập Xê Út" },
+    { name: "Jeddah", code: "JED", city: "Jeddah", country: "Ả Rập Xê Út" },
+    { name: "Kuwait", code: "KWI", city: "Kuwait", country: "Kuwait" },
+    { name: "Muscat", code: "MCT", city: "Muscat", country: "Oman" },
+    { name: "Bahrain", code: "BAH", city: "Bahrain", country: "Bahrain" },
+    { name: "Amman", code: "AMM", city: "Amman", country: "Jordan" },
+    { name: "Beirut", code: "BEY", city: "Beirut", country: "Lebanon" },
+];
+
+const flightData = [
+    // ========== 1-10: Domestic flights (SGN -> HAN) ==========
+    { 
+        id: 1, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "HAN", 
+        depart: "06:00", 
+        arrive: "08:10", 
+        duration: "2h10m", 
+        price: { economy: 1850000, premium_economy: 2300000, business: 3500000, first: 5000000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-15",
+        return_date: "2025-01-20",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 2, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "HAN", 
+        depart: "07:30", 
+        arrive: "09:40", 
+        duration: "2h10m", 
+        price: { economy: 1100000, premium_economy: 1500000, business: 2500000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-15",
+        return_date: "2025-01-20",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 3, 
+        airline: "Bamboo Airways", 
+        logo: "../Images/logo3.webp", 
+        from: "SGN", 
+        to: "HAN", 
+        depart: "08:45", 
+        arrive: "10:55", 
+        duration: "2h10m", 
+        price: { economy: 1550000, premium_economy: 2000000, business: 3200000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321neo",
+        trip_type: "oneway",
+        depart_date: "2025-01-15",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 4, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "HAN", 
+        depart: "10:30", 
+        arrive: "12:40", 
+        duration: "2h10m", 
+        price: { economy: 2100000, premium_economy: 2800000, business: 4500000, first: 6500000 },
+        stops: "Direct", 
+        aircraft: "Airbus A350",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-16",
+        return_date: "2025-01-21",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 5, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "HAN", 
+        depart: "12:00", 
+        arrive: "15:20", 
+        duration: "3h20m", 
+        price: { economy: 1050000, premium_economy: 1400000 },
+        stops: "1 Stop", 
+        aircraft: "Airbus A320",
+        trip_type: "oneway",
+        depart_date: "2025-01-16",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 6, 
+        airline: "Bamboo Airways", 
+        logo: "../Images/logo3.webp", 
+        from: "HAN", 
+        to: "SGN", 
+        depart: "13:30", 
+        arrive: "15:40", 
+        duration: "2h10m", 
+        price: { economy: 1400000, premium_economy: 1800000, business: 3000000 },
+        stops: "Direct", 
+        aircraft: "Embraer E195",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-17",
+        return_date: "2025-01-22",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 7, 
+        airline: "Vietravel Airlines", 
+        logo: "../Images/logo4.webp", 
+        from: "SGN", 
+        to: "HAN", 
+        depart: "15:45", 
+        arrive: "17:55", 
+        duration: "2h10m", 
+        price: { economy: 1200000, premium_economy: 1650000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "oneway",
+        depart_date: "2025-01-18",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 8, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "HAN", 
+        depart: "18:30", 
+        arrive: "20:40", 
+        duration: "2h10m", 
+        price: { economy: 1950000, premium_economy: 2450000, business: 3800000 },
+        stops: "Direct", 
+        aircraft: "Boeing 787",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-19",
+        return_date: "2025-01-24",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 9, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "HAN", 
+        depart: "21:15", 
+        arrive: "23:25", 
+        duration: "2h10m", 
+        price: { economy: 1350000, premium_economy: 1750000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "oneway",
+        depart_date: "2025-01-20",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 10, 
+        airline: "Bamboo Airways", 
+        logo: "../Images/logo3.webp", 
+        from: "HAN", 
+        to: "SGN", 
+        depart: "22:45", 
+        arrive: "00:55", 
+        duration: "2h10m", 
+        price: { economy: 1650000, premium_economy: 2100000, business: 3400000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320neo",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-21",
+        return_date: "2025-01-26",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 11-20: Domestic flights (SGN -> DAD) ==========
+    { 
+        id: 11, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "DAD", 
+        depart: "06:15", 
+        arrive: "07:35", 
+        duration: "1h20m", 
+        price: { economy: 1450000, premium_economy: 1900000, business: 2900000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-15",
+        return_date: "2025-01-20",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 12, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "DAD", 
+        depart: "08:30", 
+        arrive: "09:50", 
+        duration: "1h20m", 
+        price: { economy: 950000, premium_economy: 1350000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "oneway",
+        depart_date: "2025-01-16",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 13, 
+        airline: "Bamboo Airways", 
+        logo: "../Images/logo3.webp", 
+        from: "SGN", 
+        to: "DAD", 
+        depart: "11:00", 
+        arrive: "12:20", 
+        duration: "1h20m", 
+        price: { economy: 1250000, premium_economy: 1700000, business: 2600000 },
+        stops: "Direct", 
+        aircraft: "Embraer E195",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-17",
+        return_date: "2025-01-22",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 14, 
+        airline: "Vietravel Airlines", 
+        logo: "../Images/logo4.webp", 
+        from: "SGN", 
+        to: "DAD", 
+        depart: "14:15", 
+        arrive: "15:35", 
+        duration: "1h20m", 
+        price: { economy: 1050000, premium_economy: 1450000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "oneway",
+        depart_date: "2025-01-18",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 15, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "DAD", 
+        to: "SGN", 
+        depart: "16:45", 
+        arrive: "18:05", 
+        duration: "1h20m", 
+        price: { economy: 1550000, premium_economy: 2000000, business: 3100000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-19",
+        return_date: "2025-01-24",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 16, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "DAD", 
+        depart: "19:30", 
+        arrive: "20:50", 
+        duration: "1h20m", 
+        price: { economy: 1150000, premium_economy: 1550000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "oneway",
+        depart_date: "2025-01-20",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 17, 
+        airline: "Bamboo Airways", 
+        logo: "../Images/logo3.webp", 
+        from: "DAD", 
+        to: "SGN", 
+        depart: "21:15", 
+        arrive: "22:35", 
+        duration: "1h20m", 
+        price: { economy: 1350000, premium_economy: 1800000, business: 2750000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320neo",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-21",
+        return_date: "2025-01-26",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 18-27: International flights (SGN -> BKK) ==========
+    { 
+        id: 18, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "BKK", 
+        depart: "09:15", 
+        arrive: "11:05", 
+        duration: "1h50m", 
+        price: { economy: 2400000, premium_economy: 3200000, business: 5500000, first: 8000000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-18",
+        return_date: "2025-01-25",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 18, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "BKK", 
+        depart: "10:15", 
+        arrive: "12:05", 
+        duration: "1h50m", 
+        price: { economy: 2400000, premium_economy: 3200000, business: 5500000, first: 8000000 },
+        stops: "Direct", 
+        aircraft: "Airbus A322",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-18",
+        return_date: "2025-01-25",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 18, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "BKK", 
+        depart: "11:15", 
+        arrive: "13:05", 
+        duration: "1h50m", 
+        price: { economy: 2400000, premium_economy: 3200000, business: 5500000, first: 8000000 },
+        stops: "Direct", 
+        aircraft: "Airbus A323",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-20",
+        return_date: "2025-01-25",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 20, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "BKK", 
+        depart: "13:15", 
+        arrive: "15:05", 
+        duration: "1h50m", 
+        price: { economy: 2400000, premium_economy: 3200000, business: 5500000, first: 8000000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-19",
+        return_date: "2025-01-25",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 19, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "BKK", 
+        depart: "12:30", 
+        arrive: "14:20", 
+        duration: "1h50m", 
+        price: { economy: 1650000, premium_economy: 2200000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "oneway",
+        depart_date: "2025-01-19",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 20, 
+        airline: "Thai Airways", 
+        logo: "../Images/logo9.webp", 
+        from: "SGN", 
+        to: "BKK", 
+        depart: "15:45", 
+        arrive: "17:35", 
+        duration: "1h50m", 
+        price: { economy: 2800000, premium_economy: 3800000, business: 6500000 },
+        stops: "Direct", 
+        aircraft: "Airbus A330",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-20",
+        return_date: "2025-01-27",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 21, 
+        airline: "Bamboo Airways", 
+        logo: "../Images/logo3.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "18:00", 
+        arrive: "20:10", 
+        duration: "2h10m", 
+        price: { economy: 1950000, premium_economy: 2600000, business: 4200000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321neo",
+        trip_type: "oneway",
+        depart_date: "2025-01-21",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 22, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "08:30", 
+        arrive: "10:40", 
+        duration: "2h10m", 
+        price: { economy: 2200000, premium_economy: 3000000, business: 5200000, first: 7800000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "oneway",
+        depart_date: "2025-01-21",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 23, 
+        airline: "Thai Airways", 
+        logo: "../Images/logo9.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "14:15", 
+        arrive: "16:25", 
+        duration: "2h10m", 
+        price: { economy: 2100000, premium_economy: 2800000, business: 4800000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "oneway",
+        depart_date: "2025-01-21",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 24, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "11:45", 
+        arrive: "13:55", 
+        duration: "2h10m", 
+        price: { economy: 1800000, premium_economy: 2400000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "oneway",
+        depart_date: "2025-01-21",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 22, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "BKK", 
+        to: "SGN", 
+        depart: "21:30", 
+        arrive: "23:20", 
+        duration: "1h50m", 
+        price: { economy: 2550000, premium_economy: 3350000, business: 5800000 },
+        stops: "Direct", 
+        aircraft: "Airbus A350",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-22",
+        return_date: "2025-01-29",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 23-32: International flights (SGN -> SIN) ==========
+    { 
+        id: 23, 
+        airline: "Singapore Airlines", 
+        logo: "../Images/logo5.webp", 
+        from: "SGN", 
+        to: "SIN", 
+        depart: "09:15", 
+        arrive: "12:45", 
+        duration: "3h30m", 
+        price: { economy: 3200000, premium_economy: 4500000, business: 7500000, first: 12000000 },
+        stops: "Direct", 
+        aircraft: "Boeing 777",
+        trip_type: "oneway",
+        depart_date: "2025-01-19",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 24, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "SIN", 
+        depart: "11:30", 
+        arrive: "14:45", 
+        duration: "3h15m", 
+        price: { economy: 2850000, premium_economy: 3800000, business: 6200000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-20",
+        return_date: "2025-01-27",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 25, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "SIN", 
+        depart: "14:00", 
+        arrive: "17:30", 
+        duration: "3h30m", 
+        price: { economy: 2100000, premium_economy: 2900000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "oneway",
+        depart_date: "2025-01-21",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 26, 
+        airline: "Singapore Airlines", 
+        logo: "../Images/logo5.webp", 
+        from: "SIN", 
+        to: "SGN", 
+        depart: "18:45", 
+        arrive: "22:15", 
+        duration: "3h30m", 
+        price: { economy: 3350000, premium_economy: 4700000, business: 7800000 },
+        stops: "Direct", 
+        aircraft: "Boeing 787",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-22",
+        return_date: "2025-01-29",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 33-42: International flights (HAN -> ICN) ==========
+    { 
+        id: 33, 
+        airline: "Korean Air", 
+        logo: "../Images/logo6.webp", 
+        from: "HAN", 
+        to: "ICN", 
+        depart: "08:30", 
+        arrive: "14:00", 
+        duration: "5h30m", 
+        price: { economy: 4500000, premium_economy: 6200000, business: 10500000, first: 16500000 },
+        stops: "Direct", 
+        aircraft: "Boeing 777",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-18",
+        return_date: "2025-01-25",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 34, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "HAN", 
+        to: "ICN", 
+        depart: "11:45", 
+        arrive: "17:15", 
+        duration: "5h30m", 
+        price: { economy: 4200000, premium_economy: 5800000, business: 9500000 },
+        stops: "Direct", 
+        aircraft: "Airbus A350",
+        trip_type: "oneway",
+        depart_date: "2025-01-19",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 35, 
+        airline: "Korean Air", 
+        logo: "../Images/logo6.webp", 
+        from: "ICN", 
+        to: "HAN", 
+        depart: "19:30", 
+        arrive: "22:00", 
+        duration: "5h30m", 
+        price: { economy: 4650000, premium_economy: 6400000, business: 10800000 },
+        stops: "Direct", 
+        aircraft: "Boeing 787",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-20",
+        return_date: "2025-01-27",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 36-45: International flights (HAN -> NRT) ==========
+    { 
+        id: 36, 
+        airline: "Japan Airlines", 
+        logo: "../Images/logo7.webp", 
+        from: "HAN", 
+        to: "NRT", 
+        depart: "09:00", 
+        arrive: "15:30", 
+        duration: "6h30m", 
+        price: { economy: 5200000, premium_economy: 7200000, business: 12500000, first: 19500000 },
+        stops: "Direct", 
+        aircraft: "Boeing 787",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-19",
+        return_date: "2025-01-26",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 37, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "HAN", 
+        to: "NRT", 
+        depart: "13:15", 
+        arrive: "19:45", 
+        duration: "6h30m", 
+        price: { economy: 4800000, premium_economy: 6500000, business: 11000000 },
+        stops: "Direct", 
+        aircraft: "Boeing 787",
+        trip_type: "oneway",
+        depart_date: "2025-01-20",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 38, 
+        airline: "Japan Airlines", 
+        logo: "../Images/logo7.webp", 
+        from: "NRT", 
+        to: "HAN", 
+        depart: "21:00", 
+        arrive: "00:30", 
+        duration: "6h30m", 
+        price: { economy: 5300000, premium_economy: 7300000, business: 12800000 },
+        stops: "Direct", 
+        aircraft: "Boeing 777",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-21",
+        return_date: "2025-01-28",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 39-48: International flights (SGN -> TPE) ==========
+    { 
+        id: 39, 
+        airline: "EVA Air", 
+        logo: "../Images/logo10.webp", 
+        from: "SGN", 
+        to: "TPE", 
+        depart: "08:45", 
+        arrive: "13:15", 
+        duration: "4h30m", 
+        price: { economy: 3800000, premium_economy: 5200000, business: 8800000 },
+        stops: "Direct", 
+        aircraft: "Airbus A330",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-20",
+        return_date: "2025-01-27",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 40, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "TPE", 
+        depart: "12:30", 
+        arrive: "17:00", 
+        duration: "4h30m", 
+        price: { economy: 3500000, premium_economy: 4800000, business: 8200000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "oneway",
+        depart_date: "2025-01-21",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 41-50: International flights (HAN -> HKG) ==========
+    { 
+        id: 41, 
+        airline: "Cathay Pacific", 
+        logo: "../Images/logo8.webp", 
+        from: "HAN", 
+        to: "HKG", 
+        depart: "10:15", 
+        arrive: "13:30", 
+        duration: "3h15m", 
+        price: { economy: 3100000, premium_economy: 4300000, business: 7200000 },
+        stops: "Direct", 
+        aircraft: "Airbus A330",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-21",
+        return_date: "2025-01-28",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 42, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "HAN", 
+        to: "HKG", 
+        depart: "15:00", 
+        arrive: "18:15", 
+        duration: "3h15m", 
+        price: { economy: 2900000, premium_economy: 4000000, business: 6800000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "oneway",
+        depart_date: "2025-01-22",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 51-60: International flights (SGN -> DXB) ==========
+    { 
+        id: 51, 
+        airline: "Emirates", 
+        logo: "../Images/logo11.webp", 
+        from: "SGN", 
+        to: "DXB", 
+        depart: "23:30", 
+        arrive: "05:30", 
+        duration: "8h00m", 
+        price: { economy: 8500000, premium_economy: 12500000, business: 22000000, first: 35000000 },
+        stops: "Direct", 
+        aircraft: "Airbus A380",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-22",
+        return_date: "2025-01-29",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 52, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "DXB", 
+        depart: "01:45", 
+        arrive: "07:45", 
+        duration: "8h00m", 
+        price: { economy: 7800000, premium_economy: 11500000, business: 20500000 },
+        stops: "1 Stop", 
+        aircraft: "Boeing 787",
+        trip_type: "oneway",
+        depart_date: "2025-01-23",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 61-70: Domestic flights (SGN -> PQC) ==========
+    { 
+        id: 61, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "PQC", 
+        depart: "07:00", 
+        arrive: "08:10", 
+        duration: "1h10m", 
+        price: { economy: 850000, premium_economy: 1200000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-15",
+        return_date: "2025-01-20",
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 62, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "PQC", 
+        depart: "10:30", 
+        arrive: "11:40", 
+        duration: "1h10m", 
+        price: { economy: 1250000, premium_economy: 1650000, business: 2500000 },
+        stops: "Direct", 
+        aircraft: "ATR 72",
+        trip_type: "oneway",
+        depart_date: "2025-01-16",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 71-80: Domestic flights (SGN -> CXR) ==========
+    { 
+        id: 71, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "CXR", 
+        depart: "08:15", 
+        arrive: "09:10", 
+        duration: "0h55m", 
+        price: { economy: 750000, premium_economy: 1050000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-17",
+        return_date: "2025-01-22",
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 72, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "CXR", 
+        depart: "13:45", 
+        arrive: "14:40", 
+        duration: "0h55m", 
+        price: { economy: 1150000, premium_economy: 1550000, business: 2350000 },
+        stops: "Direct", 
+        aircraft: "ATR 72",
+        trip_type: "oneway",
+        depart_date: "2025-01-18",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 81-90: Domestic flights (HAN -> DAD) ==========
+    { 
+        id: 81, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "HAN", 
+        to: "DAD", 
+        depart: "07:30", 
+        arrive: "08:50", 
+        duration: "1h20m", 
+        price: { economy: 1350000, premium_economy: 1800000, business: 2750000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-19",
+        return_date: "2025-01-24",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 82, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "HAN", 
+        to: "DAD", 
+        depart: "12:00", 
+        arrive: "13:20", 
+        duration: "1h20m", 
+        price: { economy: 900000, premium_economy: 1300000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "oneway",
+        depart_date: "2025-01-20",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy"]
+    },
+
+    // ========== 91-100: Domestic flights (DAD -> HAN) ==========
+    { 
+        id: 91, 
+        airline: "Bamboo Airways", 
+        logo: "../Images/logo3.webp", 
+        from: "DAD", 
+        to: "HAN", 
+        depart: "15:30", 
+        arrive: "16:50", 
+        duration: "1h20m", 
+        price: { economy: 1200000, premium_economy: 1600000, business: 2450000 },
+        stops: "Direct", 
+        aircraft: "Embraer E195",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-21",
+        return_date: "2025-01-26",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 101-110: Domestic flights (SGN -> HUI) ==========
+    { 
+        id: 101, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "HUI", 
+        depart: "09:45", 
+        arrive: "11:00", 
+        duration: "1h15m", 
+        price: { economy: 800000, premium_economy: 1150000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-22",
+        return_date: "2025-01-27",
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 102, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "HUI", 
+        depart: "14:15", 
+        arrive: "15:30", 
+        duration: "1h15m", 
+        price: { economy: 1100000, premium_economy: 1500000, business: 2300000 },
+        stops: "Direct", 
+        aircraft: "ATR 72",
+        trip_type: "oneway",
+        depart_date: "2025-01-23",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 111-120: Domestic flights (HAN -> PQC) ==========
+    { 
+        id: 111, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "HAN", 
+        to: "PQC", 
+        depart: "06:30", 
+        arrive: "08:40", 
+        duration: "2h10m", 
+        price: { economy: 1150000, premium_economy: 1550000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-24",
+        return_date: "2025-01-29",
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 112, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "HAN", 
+        to: "PQC", 
+        depart: "11:00", 
+        arrive: "13:10", 
+        duration: "2h10m", 
+        price: { economy: 1550000, premium_economy: 2050000, business: 3150000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "oneway",
+        depart_date: "2025-01-25",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 121-130: Domestic flights (SGN -> DLI) ==========
+    { 
+        id: 121, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "DLI", 
+        depart: "08:00", 
+        arrive: "09:10", 
+        duration: "1h10m", 
+        price: { economy: 820000, premium_economy: 1170000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-26",
+        return_date: "2025-01-31",
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 122, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "DLI", 
+        depart: "13:30", 
+        arrive: "14:40", 
+        duration: "1h10m", 
+        price: { economy: 1180000, premium_economy: 1580000, business: 2400000 },
+        stops: "Direct", 
+        aircraft: "ATR 72",
+        trip_type: "oneway",
+        depart_date: "2025-01-27",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 131-140: International flights (SGN -> KUL) ==========
+    { 
+        id: 131, 
+        airline: "Malaysia Airlines", 
+        logo: "../Images/logo12.webp", 
+        from: "SGN", 
+        to: "KUL", 
+        depart: "10:30", 
+        arrive: "13:00", 
+        duration: "2h30m", 
+        price: { economy: 1950000, premium_economy: 2700000, business: 4600000 },
+        stops: "Direct", 
+        aircraft: "Boeing 737",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-28",
+        return_date: "2025-02-04",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 132, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "KUL", 
+        depart: "15:45", 
+        arrive: "18:15", 
+        duration: "2h30m", 
+        price: { economy: 1850000, premium_economy: 2550000, business: 4350000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "oneway",
+        depart_date: "2025-01-29",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 141-150: International flights (HAN -> MNL) ==========
+    { 
+        id: 141, 
+        airline: "Philippine Airlines", 
+        logo: "../Images/logo13.webp", 
+        from: "HAN", 
+        to: "MNL", 
+        depart: "09:15", 
+        arrive: "13:45", 
+        duration: "4h30m", 
+        price: { economy: 2750000, premium_economy: 3800000, business: 6500000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "roundtrip",
+        depart_date: "2025-01-30",
+        return_date: "2025-02-06",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 142, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "HAN", 
+        to: "MNL", 
+        depart: "14:30", 
+        arrive: "19:00", 
+        duration: "4h30m", 
+        price: { economy: 2650000, premium_economy: 3650000, business: 6250000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "oneway",
+        depart_date: "2025-01-31",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 151-160: Domestic flights (SGN -> VCA) ==========
+    { 
+        id: 151, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "VCA", 
+        depart: "07:45", 
+        arrive: "08:40", 
+        duration: "0h55m", 
+        price: { economy: 780000, premium_economy: 1120000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "roundtrip",
+        depart_date: "2025-02-01",
+        return_date: "2025-02-06",
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 152, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "VCA", 
+        depart: "12:15", 
+        arrive: "13:10", 
+        duration: "0h55m", 
+        price: { economy: 1120000, premium_economy: 1520000, business: 2320000 },
+        stops: "Direct", 
+        aircraft: "ATR 72",
+        trip_type: "oneway",
+        depart_date: "2025-02-02",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 161-170: Domestic flights (HAN -> UIH) ==========
+    { 
+        id: 161, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "HAN", 
+        to: "UIH", 
+        depart: "08:30", 
+        arrive: "10:00", 
+        duration: "1h30m", 
+        price: { economy: 950000, premium_economy: 1350000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "roundtrip",
+        depart_date: "2025-02-03",
+        return_date: "2025-02-08",
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 162, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "HAN", 
+        to: "UIH", 
+        depart: "13:45", 
+        arrive: "15:15", 
+        duration: "1h30m", 
+        price: { economy: 1350000, premium_economy: 1800000, business: 2750000 },
+        stops: "Direct", 
+        aircraft: "ATR 72",
+        trip_type: "oneway",
+        depart_date: "2025-02-04",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 171-180: International flights (SGN -> DOH) ==========
+    { 
+        id: 171, 
+        airline: "Qatar Airways", 
+        logo: "../Images/logo14.webp", 
+        from: "SGN", 
+        to: "DOH", 
+        depart: "02:00", 
+        arrive: "06:30", 
+        duration: "8h30m", 
+        price: { economy: 9200000, premium_economy: 13500000, business: 24000000, first: 38000000 },
+        stops: "Direct", 
+        aircraft: "Boeing 777",
+        trip_type: "roundtrip",
+        depart_date: "2025-02-05",
+        return_date: "2025-02-12",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 172, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "DOH", 
+        depart: "23:45", 
+        arrive: "04:15", 
+        duration: "8h30m", 
+        price: { economy: 8500000, premium_economy: 12500000, business: 22500000 },
+        stops: "1 Stop", 
+        aircraft: "Boeing 787",
+        trip_type: "oneway",
+        depart_date: "2025-02-06",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 181-190: International flights (SGN -> DXB) ==========
+    { 
+        id: 181, 
+        airline: "Emirates", 
+        logo: "../Images/logo5.webp", 
+        from: "SGN", 
+        to: "DXB", 
+        depart: "01:30", 
+        arrive: "05:45", 
+        duration: "7h15m", 
+        price: { economy: 10500000, premium_economy: 15500000, business: 28000000, first: 45000000 },
+        stops: "Direct", 
+        aircraft: "Boeing 777",
+        trip_type: "roundtrip",
+        depart_date: "2025-12-01",
+        return_date: "2025-12-11",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 182, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "DXB", 
+        depart: "14:20", 
+        arrive: "18:35", 
+        duration: "7h15m", 
+        price: { economy: 9800000, premium_economy: 14500000, business: 26500000 },
+        stops: "Direct", 
+        aircraft: "Boeing 787",
+        trip_type: "roundtrip",
+        depart_date: "2025-12-01",
+        return_date: "2025-12-11",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 183, 
+        airline: "Emirates", 
+        logo: "../Images/logo5.webp", 
+        from: "SGN", 
+        to: "DXB", 
+        depart: "22:15", 
+        arrive: "02:30", 
+        duration: "7h15m", 
+        price: { economy: 10200000, premium_economy: 15000000, business: 27500000, first: 44000000 },
+        stops: "Direct", 
+        aircraft: "Airbus A380",
+        trip_type: "oneway",
+        depart_date: "2025-12-01",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 184, 
+        airline: "Qatar Airways", 
+        logo: "../Images/logo5.webp", 
+        from: "SGN", 
+        to: "DXB", 
+        depart: "10:00", 
+        arrive: "15:20", 
+        duration: "8h20m", 
+        price: { economy: 9500000, premium_economy: 14000000, business: 25000000 },
+        stops: "1 Stop", 
+        aircraft: "Boeing 777",
+        trip_type: "roundtrip",
+        depart_date: "2025-12-02",
+        return_date: "2025-12-12",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 185, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "DXB", 
+        depart: "08:45", 
+        arrive: "13:00", 
+        duration: "7h15m", 
+        price: { economy: 10000000, premium_economy: 14800000, business: 27000000 },
+        stops: "Direct", 
+        aircraft: "Boeing 787",
+        trip_type: "oneway",
+        depart_date: "2025-12-03",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 186-195: International flights (HAN -> DXB) ==========
+    { 
+        id: 186, 
+        airline: "Emirates", 
+        logo: "../Images/logo5.webp", 
+        from: "HAN", 
+        to: "DXB", 
+        depart: "02:30", 
+        arrive: "06:45", 
+        duration: "7h15m", 
+        price: { economy: 10800000, premium_economy: 15800000, business: 28500000, first: 46000000 },
+        stops: "Direct", 
+        aircraft: "Boeing 777",
+        trip_type: "roundtrip",
+        depart_date: "2025-07-12",
+        return_date: "2025-12-20",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 187, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "HAN", 
+        to: "DXB", 
+        depart: "15:20", 
+        arrive: "19:35", 
+        duration: "7h15m", 
+        price: { economy: 10200000, premium_economy: 15000000, business: 27200000 },
+        stops: "Direct", 
+        aircraft: "Boeing 787",
+        trip_type: "roundtrip",
+        depart_date: "2025-07-12",
+        return_date: "2025-12-20",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 188, 
+        airline: "Emirates", 
+        logo: "../Images/logo5.webp", 
+        from: "HAN", 
+        to: "DXB", 
+        depart: "23:45", 
+        arrive: "04:00", 
+        duration: "7h15m", 
+        price: { economy: 10500000, premium_economy: 15500000, business: 28000000, first: 45000000 },
+        stops: "Direct", 
+        aircraft: "Airbus A380",
+        trip_type: "oneway",
+        depart_date: "2025-07-12",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 189, 
+        airline: "Qatar Airways", 
+        logo: "../Images/logo5.webp", 
+        from: "HAN", 
+        to: "DXB", 
+        depart: "11:00", 
+        arrive: "16:20", 
+        duration: "8h20m", 
+        price: { economy: 9800000, premium_economy: 14200000, business: 25500000 },
+        stops: "1 Stop", 
+        aircraft: "Boeing 777",
+        trip_type: "roundtrip",
+        depart_date: "2025-07-13",
+        return_date: "2025-12-21",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 190, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "HAN", 
+        to: "DXB", 
+        depart: "09:30", 
+        arrive: "13:45", 
+        duration: "7h15m", 
+        price: { economy: 10300000, premium_economy: 15200000, business: 27500000 },
+        stops: "Direct", 
+        aircraft: "Boeing 787",
+        trip_type: "oneway",
+        depart_date: "2025-07-14",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 191, 
+        airline: "Emirates", 
+        logo: "../Images/logo5.webp", 
+        from: "HAN", 
+        to: "DXB", 
+        depart: "01:15", 
+        arrive: "05:30", 
+        duration: "7h15m", 
+        price: { economy: 10700000, premium_economy: 15700000, business: 28300000, first: 45800000 },
+        stops: "Direct", 
+        aircraft: "Boeing 777",
+        trip_type: "roundtrip",
+        depart_date: "2025-07-15",
+        return_date: "2025-12-22",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+
+    // ========== 192-200: International flights (GMP -> HKT) ==========
+    { 
+        id: 192, 
+        airline: "Korean Air", 
+        logo: "../Images/logo6.webp", 
+        from: "GMP", 
+        to: "HKT", 
+        depart: "08:30", 
+        arrive: "13:45", 
+        duration: "6h15m", 
+        price: { economy: 8500000, premium_economy: 12500000, business: 22000000, first: 38000000 },
+        stops: "Direct", 
+        aircraft: "Boeing 777",
+        trip_type: "roundtrip",
+        depart_date: "2025-07-13",
+        return_date: "2025-12-12",
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 193, 
+        airline: "Thai Airways", 
+        logo: "../Images/logo9.webp", 
+        from: "GMP", 
+        to: "HKT", 
+        depart: "14:20", 
+        arrive: "19:35", 
+        duration: "6h15m", 
+        price: { economy: 8200000, premium_economy: 12000000, business: 21500000 },
+        stops: "Direct", 
+        aircraft: "Airbus A330",
+        trip_type: "roundtrip",
+        depart_date: "2025-07-13",
+        return_date: "2025-12-12",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 194, 
+        airline: "Asiana Airlines", 
+        logo: "../Images/logo7.webp", 
+        from: "GMP", 
+        to: "HKT", 
+        depart: "11:15", 
+        arrive: "16:30", 
+        duration: "6h15m", 
+        price: { economy: 8800000, premium_economy: 12800000, business: 22500000 },
+        stops: "Direct", 
+        aircraft: "Boeing 787",
+        trip_type: "roundtrip",
+        depart_date: "2025-07-13",
+        return_date: "2025-12-12",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 195, 
+        airline: "Korean Air", 
+        logo: "../Images/logo6.webp", 
+        from: "GMP", 
+        to: "HKT", 
+        depart: "16:45", 
+        arrive: "22:00", 
+        duration: "6h15m", 
+        price: { economy: 8600000, premium_economy: 12600000, business: 22200000, first: 38500000 },
+        stops: "Direct", 
+        aircraft: "Boeing 777",
+        trip_type: "oneway",
+        depart_date: "2025-07-13",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business", "first"]
+    },
+    { 
+        id: 196, 
+        airline: "Thai Airways", 
+        logo: "../Images/logo9.webp", 
+        from: "GMP", 
+        to: "HKT", 
+        depart: "09:00", 
+        arrive: "14:15", 
+        duration: "6h15m", 
+        price: { economy: 8300000, premium_economy: 12100000, business: 21800000 },
+        stops: "Direct", 
+        aircraft: "Airbus A330",
+        trip_type: "roundtrip",
+        depart_date: "2025-07-14",
+        return_date: "2025-12-13",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+
+    // ========== 197-210: International flights (SGN -> DMK) ==========
+    { 
+        id: 197, 
+        airline: "Thai Airways", 
+        logo: "../Images/logo9.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "08:30", 
+        arrive: "10:20", 
+        duration: "1h50m", 
+        price: { economy: 2400000, premium_economy: 3200000, business: 5500000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "roundtrip",
+        depart_date: "2025-12-01",
+        return_date: "2025-12-31",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 198, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "14:15", 
+        arrive: "16:05", 
+        duration: "1h50m", 
+        price: { economy: 2200000, premium_economy: 3000000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "roundtrip",
+        depart_date: "2025-12-01",
+        return_date: "2025-12-31",
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 199, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "19:45", 
+        arrive: "21:35", 
+        duration: "1h50m", 
+        price: { economy: 2600000, premium_economy: 3400000, business: 5800000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "roundtrip",
+        depart_date: "2025-12-02",
+        return_date: "2025-12-30",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 200, 
+        airline: "Thai Airways", 
+        logo: "../Images/logo9.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "06:00", 
+        arrive: "07:50", 
+        duration: "1h50m", 
+        price: { economy: 2300000, premium_economy: 3100000, business: 5400000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "oneway",
+        depart_date: "2025-12-03",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 201, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "11:20", 
+        arrive: "13:10", 
+        duration: "1h50m", 
+        price: { economy: 2100000, premium_economy: 2900000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "roundtrip",
+        depart_date: "2025-12-05",
+        return_date: "2025-12-28",
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 202, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "16:30", 
+        arrive: "18:20", 
+        duration: "1h50m", 
+        price: { economy: 2500000, premium_economy: 3300000, business: 5700000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "roundtrip",
+        depart_date: "2025-12-06",
+        return_date: "2025-12-27",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 203, 
+        airline: "Thai Airways", 
+        logo: "../Images/logo9.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "22:15", 
+        arrive: "00:05", 
+        duration: "1h50m", 
+        price: { economy: 2350000, premium_economy: 3150000, business: 5450000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "oneway",
+        depart_date: "2025-12-10",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 204, 
+        airline: "VietJet Air", 
+        logo: "../Images/logo2.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "09:45", 
+        arrive: "11:35", 
+        duration: "1h50m", 
+        price: { economy: 2250000, premium_economy: 3050000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "roundtrip",
+        depart_date: "2025-12-15",
+        return_date: "2025-12-25",
+        available_cabins: ["economy", "premium_economy"]
+    },
+    { 
+        id: 205, 
+        airline: "Vietnam Airlines", 
+        logo: "../Images/logo1.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "13:00", 
+        arrive: "14:50", 
+        duration: "1h50m", 
+        price: { economy: 2550000, premium_economy: 3350000, business: 5750000 },
+        stops: "Direct", 
+        aircraft: "Airbus A321",
+        trip_type: "roundtrip",
+        depart_date: "2025-12-20",
+        return_date: "2025-12-31",
+        available_cabins: ["economy", "premium_economy", "business"]
+    },
+    { 
+        id: 206, 
+        airline: "Thai Airways", 
+        logo: "../Images/logo9.webp", 
+        from: "SGN", 
+        to: "DMK", 
+        depart: "17:20", 
+        arrive: "19:10", 
+        duration: "1h50m", 
+        price: { economy: 2450000, premium_economy: 3250000, business: 5600000 },
+        stops: "Direct", 
+        aircraft: "Airbus A320",
+        trip_type: "oneway",
+        depart_date: "2025-12-25",
+        return_date: null,
+        available_cabins: ["economy", "premium_economy", "business"]
+    }
+];
+
+// ========== HÀM TIỆN ÍCH ==========
+function getUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    return {
+        from_code: params.get('from_code') || 'SGN',
+        to_code: params.get('to_code') || 'HAN',
+        depart_date: params.get('depart_date'),
+        return_date: params.get('return_date'),
+        passengers: params.get('passengers') || 1,
+        cabin_class: params.get('cabin_class') || 'economy',
+        trip_type: params.get('trip_type') || 'roundtrip'
+    };
+}
+
+function formatPrice(price) {
+    return price.toLocaleString('vi-VN') + '₫';
+}
+
+function formatDate(dateString) {
+    if (!dateString) return '';
+    const date = new Date(dateString);
+    return date.toLocaleDateString('vi-VN', { weekday: 'long', day: '2-digit', month: '2-digit', year: 'numeric' });
+}
+
+function getCabinClassText(cabin) {
+    const cabinMap = {
+        'economy': 'Phổ thông',
+        'premium_economy': 'Phổ thông Đặc biệt',
+        'business': 'Thương gia',
+        'first': 'Hạng Nhất'
+    };
+    return cabinMap[cabin] || cabin;
+}
+
+// ========== TẠO CARD CHUYẾN BAY ==========
+function createFlightCard(flight) {
+    const stopsText = flight.stops === 'Direct' ? 'Bay thẳng' : flight.stops;
+    const stopsColor = flight.stops === 'Direct' ? '#10b981' : '#ff9800';
+    const isInternational = flight.to !== 'SGN' && flight.to !== 'HAN' && flight.to !== 'DAD' && flight.to !== 'PQC' && flight.to !== 'CXR';
+    const toAirport = airports.find(a => a.code === flight.to);
+    const fromAirport = airports.find(a => a.code === flight.from);
+    
+    // Lấy giá thấp nhất trong các hạng ghế
+    const minPrice = Math.min(...Object.values(flight.price));
+    
+    // Tạo HTML cho các hạng ghế có sẵn
+    const cabinOptions = flight.available_cabins.map(cabin => {
+        const price = flight.price[cabin];
+        const className = getCabinClassText(cabin);
+        return `<span class="cabin-option" data-cabin="${cabin}" data-price="${price}">${className}: ${formatPrice(price)}</span>`;
+    }).join('');
+    
+    return `
+        <div class="flight-card" data-id="${flight.id}" data-price="${minPrice}" data-duration="${flight.duration}" data-depart="${flight.depart}" data-date="${flight.depart_date}" data-trip-type="${flight.trip_type}">
+            <div class="flight-card-header">
+                <div class="airline-section">
+                    <img src="${flight.logo}" alt="${flight.airline}" class="airline-logo">
+                    <div class="airline-info">
+                        <h4>${flight.airline}</h4>
+                        <span class="flight-number">VN${flight.id.toString().padStart(3, '0')}</span>
+                    </div>
+                </div>
+                <div class="flight-type-badge" style="background: ${stopsColor}20; color: ${stopsColor}">
+                    <i class="fas fa-${flight.stops === 'Direct' ? 'plane' : 'exchange-alt'}"></i> ${stopsText}
+                </div>
+                <div class="trip-type-badge ${flight.trip_type}">
+                    <i class="fas fa-${flight.trip_type === 'roundtrip' ? 'exchange-alt' : 'arrow-right'}"></i> 
+                    ${flight.trip_type === 'roundtrip' ? 'Khứ hồi' : 'Một chiều'}
+                </div>
+            </div>
+            
+            <div class="flight-date-info">
+                <div class="date-item">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>Ngày đi: ${formatDate(flight.depart_date)}</span>
+                </div>
+                ${flight.return_date ? `
+                <div class="date-item">
+                    <i class="far fa-calendar-check"></i>
+                    <span>Ngày về: ${formatDate(flight.return_date)}</span>
+                </div>
+                ` : ''}
+            </div>
+            
+            <div class="flight-route-details">
+                <div class="departure-info">
+                    <div class="time">${flight.depart}</div>
+                    <div class="airport-code">${flight.from}</div>
+                    <div class="city-name">${fromAirport?.city || flight.from}</div>
+                </div>
+                
+                <div class="flight-path">
+                    <div class="duration">${flight.duration}</div>
+                    <div class="path-line">
+                        <div class="line"></div>
+                        <i class="fas fa-plane"></i>
+                    </div>
+                    <div class="stops-info">${flight.stops !== 'Direct' ? flight.stops : 'Không dừng'}</div>
+                </div>
+                
+                <div class="arrival-info">
+                    <div class="time">${flight.arrive}</div>
+                    <div class="airport-code">${flight.to}</div>
+                    <div class="city-name">${toAirport?.city || flight.to}</div>
+                    ${isInternational ? '<span class="international-badge"><i class="fas fa-globe"></i> Quốc tế</span>' : ''}
+                </div>
+            </div>
+            
+            <div class="flight-extra-info">
+                <div class="info-item">
+                    <i class="fas fa-plane"></i>
+                    <span>${flight.aircraft}</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-suitcase"></i>
+                    <span>Hành lý: 20kg</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-utensils"></i>
+                    <span>Bao gồm ăn uống</span>
+                </div>
+                <div class="info-item">
+                    <i class="fas fa-chair"></i>
+                    <span>Các hạng ghế có sẵn</span>
+                </div>
+            </div>
+            
+            <div class="cabin-selection-preview">
+                <h5>Chọn hạng ghế:</h5>
+                <div class="cabin-options">
+                    ${cabinOptions}
+                </div>
+            </div>
+            
+            <div class="flight-card-footer">
+                <div class="price-section">
+                    <div class="price-label">Giá từ</div>
+                    <div class="price">${formatPrice(minPrice)}</div>
+                    <div class="tax-info">Đã bao gồm thuế và phí</div>
+                </div>
+                <button type="button" class="book-now-btn" onclick="openBookingModal(${flight.id})">
+                    <i class="fas fa-ticket-alt"></i> Chọn Vé
+                </button>
+            </div>
+        </div>
+    `;
+}
+
+// ========== CÁC HÀM CHỨC NĂNG CHÍNH ==========
+
+// HÀM RENDERFLIGHTS MỚI - CẢI THIỆN LOGIC LỌC
+function renderFlights() {
+    const params = getUrlParams();
+    let flights = [...flightData];
+    
+    // BƯỚC 1: Lọc cơ bản theo tuyến đường từ URL
+    flights = flights.filter(f => 
+        f.from === params.from_code && f.to === params.to_code
+    );
+    
+    // Kiểm tra xem có chuyến bay nào khớp với tuyến đường không
+    if (flights.length === 0) {
+        displayNoResults('Không có chuyến bay nào từ ' + params.from_code + ' đến ' + params.to_code);
+        return;
+    }
+    
+    // BƯỚC 2: Lọc theo ngày đi từ URL (nếu có)
+    if (params.depart_date) {
+        const filteredByDepartDate = flights.filter(f => f.depart_date === params.depart_date);
+        if (filteredByDepartDate.length > 0) {
+            flights = filteredByDepartDate;
+        }
+    }
+    
+    // BƯỚC 3: Lọc theo loại chuyến bay từ URL (nếu có)
+    if (params.trip_type) {
+        const filteredByTripType = flights.filter(f => f.trip_type === params.trip_type);
+        if (filteredByTripType.length > 0) {
+            flights = filteredByTripType;
+        }
+    }
+    
+    // BƯỚC 4: Lọc theo hạng ghế từ sidebar filter - FIXED
+    const selectedCabins = getSelectedCheckboxValues('cabin_class');
+    if (selectedCabins.length > 0) {
+        // Đảm bảo rằng chỉ hiển thị chuyến bay CÓ hạng ghế đã chọn
+        flights = flights.filter(f => {
+            // Kiểm tra xem chuyến bay có chứa ÍT NHẤT MỘT trong các hạng ghế đã chọn
+            return selectedCabins.some(selectedCabin => {
+                return f.available_cabins.includes(selectedCabin);
+            });
+        });
+    }
+    
+    // BƯỚC 5: Lọc theo hãng hàng không từ sidebar filter - FIXED
+    const selectedAirlines = getSelectedCheckboxValues('airline');
+    if (selectedAirlines.length > 0) {
+        flights = flights.filter(f => selectedAirlines.includes(f.airline));
+    }
+    
+    // BƯỚC 6: Lọc theo điểm dừng từ sidebar filter
+    const selectedStops = getSelectedCheckboxValues('stops');
+    if (selectedStops.length > 0) {
+        flights = flights.filter(f => selectedStops.includes(f.stops));
+    }
+    
+    // BƯỚC 7: Lọc theo giờ bay từ sidebar filter
+    const selectedTimes = getSelectedCheckboxValues('time');
+    if (selectedTimes.length > 0) {
+        flights = flights.filter(f => {
+            const hour = parseInt(f.depart.split(':')[0]);
+            for (const time of selectedTimes) {
+                if (time === 'morning' && hour >= 0 && hour < 6) return true;
+                if (time === 'day' && hour >= 6 && hour < 18) return true;
+                if (time === 'evening' && hour >= 18) return true;
+            }
+            return false;
+        });
+    }
+    
+    // BƯỚC 8: Lọc theo giá từ slider
+    const priceSlider = document.getElementById('priceSlider');
+    if (priceSlider) {
+        const maxPrice = parseInt(priceSlider.value);
+        flights = flights.filter(f => {
+            const minFlightPrice = Math.min(...Object.values(f.price));
+            return minFlightPrice <= maxPrice;
+        });
+    }
+    
+    // BƯỚC 9: Sắp xếp kết quả
+    flights = sortFlightsList(flights, document.getElementById('sortBy').value);
+    
+    // BƯỚC 10: Xử lý khi không có kết quả
+    if (flights.length === 0) {
+        // Thử lọc lại với tiêu chí linh hoạt hơn
+        flights = getFallbackFlights(params);
+    }
+    
+    // BƯỚC 11: Hiển thị kết quả
+    displayFlights(flights, params);
+}
+
+// Hàm helper để lấy giá trị các checkbox đã chọn
+function getSelectedCheckboxValues(name) {
+    const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+    return Array.from(checkboxes).map(cb => cb.value);
+}
+
+// Hàm sắp xếp chuyến bay
+function sortFlightsList(flights, sortBy) {
+    const sortedFlights = [...flights];
+    
+    switch (sortBy) {
+        case 'price-asc':
+            sortedFlights.sort((a, b) => {
+                const aPrice = Math.min(...Object.values(a.price));
+                const bPrice = Math.min(...Object.values(b.price));
+                return aPrice - bPrice;
+            });
+            break;
+        case 'price-desc':
+            sortedFlights.sort((a, b) => {
+                const aPrice = Math.min(...Object.values(a.price));
+                const bPrice = Math.min(...Object.values(b.price));
+                return bPrice - aPrice;
+            });
+            break;
+        case 'duration-asc':
+            sortedFlights.sort((a, b) => {
+                const aDur = parseInt(a.duration.replace(/\D/g, ''));
+                const bDur = parseInt(b.duration.replace(/\D/g, ''));
+                return aDur - bDur;
+            });
+            break;
+        case 'depart-asc':
+            sortedFlights.sort((a, b) => {
+                const aTime = a.depart.replace(':', '');
+                const bTime = b.depart.replace(':', '');
+                return aTime - bTime;
+            });
+            break;
+        case 'date-asc':
+            sortedFlights.sort((a, b) => new Date(a.depart_date) - new Date(b.depart_date));
+            break;
+        case 'date-desc':
+            sortedFlights.sort((a, b) => new Date(b.depart_date) - new Date(a.depart_date));
+            break;
+        // default: giữ nguyên thứ tự
+    }
+    
+    return sortedFlights;
+}
+
+// Hàm fallback khi không có kết quả
+function getFallbackFlights(params) {
+    let fallbackFlights = [];
+    
+    // 1. Tìm chuyến bay cùng tuyến đường
+    fallbackFlights = flightData.filter(f => 
+        f.from === params.from_code && f.to === params.to_code
+    );
+    
+    if (fallbackFlights.length === 0) {
+        // 2. Tìm chuyến bay từ điểm đi
+        fallbackFlights = flightData.filter(f => f.from === params.from_code);
+    }
+    
+    if (fallbackFlights.length === 0) {
+        // 3. Tìm chuyến bay đến điểm đến
+        fallbackFlights = flightData.filter(f => f.to === params.to_code);
+    }
+    
+    if (fallbackFlights.length === 0) {
+        // 4. Lấy một số chuyến bay phổ biến
+        fallbackFlights = flightData
+            .filter(f => f.trip_type === params.trip_type || !params.trip_type)
+            .slice(0, 10);
+    }
+    
+    return fallbackFlights;
+}
+
+// Hàm hiển thị thông báo không có kết quả
+function displayNoResults(message) {
+    const container = document.getElementById('flightsList');
+    container.innerHTML = `
+        <div class="no-results">
+            <div class="no-results-icon">
+                <i class="fas fa-plane-slash"></i>
+            </div>
+            <h3>Không tìm thấy chuyến bay</h3>
+            <p>${message}</p>
+            <button type="button" class="retry-btn" onclick="window.location.href='flight.html'">
+                <i class="fas fa-search"></i> Tìm kiếm lại
+            </button>
+        </div>
+    `;
+    document.getElementById('resultCount').textContent = 'Không tìm thấy chuyến bay';
+}
+
+// Hàm hiển thị danh sách chuyến bay
+function displayFlights(flights, params) {
+    const container = document.getElementById('flightsList');
+    
+    if (flights.length === 0) {
+        displayNoResults('Vui lòng thử điều chỉnh bộ lọc hoặc tìm kiếm lại với tiêu chí khác');
+        return;
+    }
+    
+    container.innerHTML = flights.map(createFlightCard).join('');
+    
+    // Cập nhật số lượng kết quả
+    document.getElementById('resultCount').textContent = `Tìm thấy ${flights.length} chuyến bay`;
+    
+    // Cập nhật subtitle
+    const fromCity = airports.find(a => a.code === params.from_code)?.city || params.from_code;
+    const toCity = airports.find(a => a.code === params.to_code)?.city || params.to_code;
+    const dateText = params.depart_date ? formatDate(params.depart_date) : 'Ngày linh hoạt';
+    document.getElementById('resultsSubtitle').textContent = `Từ ${fromCity} đến ${toCity} • ${dateText}`;
+}
+
+// ========== KHỞI TẠO TRANG ==========
+document.addEventListener('DOMContentLoaded', () => {
+    const params = getUrlParams();
+    
+    // Tìm thông tin sân bay
+    const fromAirport = airports.find(a => a.code === params.from_code);
+    const toAirport = airports.find(a => a.code === params.to_code);
+    
+    // Cập nhật thông tin route
+    const routeInfo = document.getElementById('routeInfo');
+    if (fromAirport && toAirport) {
+        routeInfo.innerHTML = `
+            <div class="route-display">
+                <div class="route-from">
+                    <span class="city">${fromAirport.city}</span>
+                    <span class="code">(${fromAirport.code})</span>
+                </div>
+                <div class="route-arrow">
+                    <i class="fas fa-long-arrow-alt-right"></i>
+                </div>
+                <div class="route-to">
+                    <span class="city">${toAirport.city}</span>
+                    <span class="code">(${toAirport.code})</span>
+                </div>
+                ${toAirport.country !== 'Việt Nam' ? '<span class="international-tag">Quốc tế</span>' : ''}
+            </div>
+        `;
+        
+        // Cập nhật form tìm lại
+        document.getElementById('fromInputR').value = `${fromAirport.city} (${fromAirport.code})`;
+        document.getElementById('toInputR').value = `${toAirport.city} (${toAirport.code})`;
+        document.getElementById('fromCodeR').value = params.from_code;
+        document.getElementById('toCodeR').value = params.to_code;
+        document.getElementById('tripTypeR').value = params.trip_type;
+    }
+    
+    // Cập nhật thông tin ngày
+    const dateInfo = document.getElementById('dateInfo');
+    if (params.depart_date) {
+        dateInfo.textContent = formatDate(params.depart_date);
+        document.getElementById('departDateR').value = params.depart_date;
+    }
+    
+    if (params.return_date) {
+        document.getElementById('returnDateR').value = params.return_date;
+    }
+    
+    // Cập nhật thông tin hành khách, hạng ghế và loại chuyến bay
+    document.getElementById('passengerInfo').textContent = `${params.passengers} hành khách`;
+    document.getElementById('classInfo').textContent = getCabinClassText(params.cabin_class);
+    document.getElementById('tripTypeInfo').textContent = params.trip_type === 'roundtrip' ? 'Khứ hồi' : 'Một chiều';
+    
+    // Set cabin class và passengers trong form
+    const cabinSelect = document.getElementById('cabinClassR');
+    const passengerInput = document.getElementById('passengersR');
+    const tripTypeSelect = document.getElementById('tripTypeR');
+    
+    if (cabinSelect) cabinSelect.value = params.cabin_class;
+    if (passengerInput) passengerInput.value = params.passengers;
+    if (tripTypeSelect) tripTypeSelect.value = params.trip_type;
+    
+    // Đồng bộ hạng ghế từ URL params với sidebar checkbox
+    if (params.cabin_class) {
+        // Bỏ check tất cả hạng ghế trước
+        document.querySelectorAll('input[name="cabin_class"]').forEach(cb => {
+            cb.checked = false;
+        });
+        // Check hạng ghế từ URL params
+        const cabinCheckbox = document.querySelector(`input[name="cabin_class"][value="${params.cabin_class}"]`);
+        if (cabinCheckbox) {
+            cabinCheckbox.checked = true;
+        } else {
+            // Nếu không tìm thấy, check economy mặc định
+            const economyCheckbox = document.querySelector('input[name="cabin_class"][value="economy"]');
+            if (economyCheckbox) economyCheckbox.checked = true;
+        }
+    }
+    
+    // Xử lý hiển thị ngày về dựa trên loại chuyến bay
+    const returnDateGroup = document.getElementById('returnDateGroupR');
+    const returnDateInput = document.getElementById('returnDateR');
+    
+    function updateReturnDateVisibility() {
+        if (tripTypeSelect.value === 'oneway') {
+            returnDateGroup.style.display = 'none';
+            returnDateInput.removeAttribute('required');
+        } else {
+            returnDateGroup.style.display = 'block';
+            returnDateInput.setAttribute('required', 'required');
+        }
+    }
+    
+    tripTypeSelect.addEventListener('change', updateReturnDateVisibility);
+    updateReturnDateVisibility();
+    
+    // Khởi tạo price slider
+    updatePriceDisplay();
+    const priceSlider = document.getElementById('priceSlider');
+    if (priceSlider) {
+        priceSlider.addEventListener('input', updatePriceDisplay);
+        // Thêm event listener để lọc khi kéo slider
+        priceSlider.addEventListener('change', renderFlights);
+    }
+    
+    // Render dữ liệu ban đầu
+    renderFlights();
+    
+    // Thêm event listeners cho các checkbox
+document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.addEventListener('change', renderFlights);
+    });
+
+// Thêm event listener cho price slider
+if (priceSlider) {
+    priceSlider.addEventListener('input', updatePriceDisplay);
+    // Thêm event listener để lọc khi kéo slider
+    priceSlider.addEventListener('change', renderFlights);
+}
+    
+    // Airport dropdown event listeners
+    const fromInputR = document.getElementById('fromInputR');
+    const toInputR = document.getElementById('toInputR');
+    const fromDropdownR = document.getElementById('fromDropdownR');
+    const toDropdownR = document.getElementById('toDropdownR');
+    
+    // Các hàm dropdown
+    function showAirportDropdown(inputElement, dropdownElement, hiddenInput) {
+        const query = inputElement.value.toLowerCase().trim();
+        dropdownElement.innerHTML = '';
+        
+        let filtered = [];
+        
+        if (query.length < 1) {
+            // Nếu không có query, hiển thị tất cả sân bay (ưu tiên sân bay Việt Nam)
+            filtered = airports
+                .sort((a, b) => {
+                    if (a.country === 'Việt Nam' && b.country !== 'Việt Nam') return -1;
+                    if (a.country !== 'Việt Nam' && b.country === 'Việt Nam') return 1;
+                    return a.city.localeCompare(b.city);
+                })
+                .slice(0, 15);
+        } else {
+            // Lọc và sắp xếp theo độ khớp
+            filtered = airports
+                .map(airport => {
+                    const nameMatch = airport.name.toLowerCase().includes(query);
+                    const cityMatch = airport.city.toLowerCase().includes(query);
+                    const codeMatch = airport.code.toLowerCase().includes(query);
+                    const countryMatch = airport.country.toLowerCase().includes(query);
+                    
+                    let score = 0;
+                    if (codeMatch) score += 10; // Code match có điểm cao nhất
+                    if (cityMatch) score += 5;
+                    if (nameMatch) score += 3;
+                    if (countryMatch) score += 1;
+                    
+                    return { airport, score, codeMatch, cityMatch };
+                })
+                .filter(item => item.score > 0)
+                .sort((a, b) => {
+                    // Ưu tiên code match, sau đó city match, sau đó điểm số
+                    if (a.codeMatch && !b.codeMatch) return -1;
+                    if (!a.codeMatch && b.codeMatch) return 1;
+                    if (a.cityMatch && !b.cityMatch) return -1;
+                    if (!a.cityMatch && b.cityMatch) return 1;
+                    return b.score - a.score;
+                })
+                .map(item => item.airport)
+                .slice(0, 10);
+        }
+        
+        if (filtered.length > 0) {
+            filtered.forEach(airport => {
+                const item = document.createElement('div');
+                item.className = 'airport-item';
+                item.innerHTML = `
+                    <strong>${airport.city} (${airport.code})</strong>
+                    <small>${airport.name}, ${airport.country}</small>
+                `;
+                item.onclick = (e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    inputElement.value = `${airport.city} (${airport.code})`;
+                    hiddenInput.value = airport.code;
+                    dropdownElement.style.display = 'none';
+                    updateRouteInfo();
+                };
+                dropdownElement.appendChild(item);
+            });
+            dropdownElement.style.display = 'block';
+        } else {
+            dropdownElement.style.display = 'none';
+        }
+    }
+    
+    fromInputR.addEventListener('input', () => {
+        showAirportDropdown(fromInputR, fromDropdownR, document.getElementById('fromCodeR'));
+    });
+    
+    fromInputR.addEventListener('focus', () => {
+        if (fromInputR.value.trim().length === 0) {
+            showAirportDropdown(fromInputR, fromDropdownR, document.getElementById('fromCodeR'));
+        }
+    });
+    
+    toInputR.addEventListener('input', () => {
+        showAirportDropdown(toInputR, toDropdownR, document.getElementById('toCodeR'));
+    });
+    
+    toInputR.addEventListener('focus', () => {
+        if (toInputR.value.trim().length === 0) {
+            showAirportDropdown(toInputR, toDropdownR, document.getElementById('toCodeR'));
+        }
+    });
+    
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', (e) => {
+        const fromInputGroup = fromInputR.closest('.airport-input-group');
+        const toInputGroup = toInputR.closest('.airport-input-group');
+        
+        if (fromInputGroup && !fromInputGroup.contains(e.target)) {
+            fromDropdownR.style.display = 'none';
+        }
+        if (toInputGroup && !toInputGroup.contains(e.target)) {
+            toDropdownR.style.display = 'none';
+        }
+    });
+    
+    // Đóng dropdown khi focus ra ngoài
+    fromInputR.addEventListener('blur', () => {
+        setTimeout(() => {
+            if (document.activeElement !== fromInputR && !fromDropdownR.contains(document.activeElement)) {
+                fromDropdownR.style.display = 'none';
+            }
+        }, 200);
+    });
+    
+    toInputR.addEventListener('blur', () => {
+        setTimeout(() => {
+            if (document.activeElement !== toInputR && !toDropdownR.contains(document.activeElement)) {
+                toDropdownR.style.display = 'none';
+            }
+        }, 200);
+    });
+    
+    // Thêm event listener cho form tìm kiếm
+    document.getElementById('reSearchForm').addEventListener('submit', handleReSearchSubmit);
+});
+
+// ========== CÁC HÀM KHÁC ==========
+function updatePriceDisplay() {
+    const priceSlider = document.getElementById('priceSlider');
+    if (priceSlider) {
+        const price = parseInt(priceSlider.value);
+        document.getElementById('maxPrice').textContent = formatPrice(price);
+    }
+}
+
+function applyFilters() {
+    renderFlights();
+    
+    const applyBtn = document.querySelector('.apply-filters-btn');
+    applyBtn.innerHTML = '<i class="fas fa-check"></i> Đã Áp Dụng';
+    applyBtn.style.background = '#10b981';
+    
+    setTimeout(() => {
+        applyBtn.innerHTML = '<i class="fas fa-check"></i> Áp Dụng Bộ Lọc';
+        applyBtn.style.background = '';
+    }, 2000);
+}
+
+function clearAllFilters() {
+    // Reset tất cả checkbox
+    document.querySelectorAll('input[type="checkbox"]').forEach(cb => {
+        cb.checked = false;
+    });
+    
+    // Check lại các hạng ghế mặc định (economy)
+    const economyCheckbox = document.querySelector('input[name="cabin_class"][value="economy"]');
+    if (economyCheckbox) economyCheckbox.checked = true;
+    
+    const priceSlider = document.getElementById('priceSlider');
+    if (priceSlider) {
+        priceSlider.value = 5000000;
+        updatePriceDisplay();
+    }
+    
+    document.getElementById('sortBy').value = 'default';
+    
+    renderFlights();
+    
+    const clearBtn = document.querySelector('.clear-filters-btn');
+    clearBtn.innerHTML = '<i class="fas fa-check"></i> Đã Xóa';
+    
+    setTimeout(() => {
+        clearBtn.innerHTML = '<i class="fas fa-redo"></i> Xóa hết';
+    }, 2000);
+}
+
+function sortFlights() {
+    renderFlights();
+}
+// ========== FORM TÌM KIẾM LẠI ==========
+function handleReSearchSubmit(e) {
+    e.preventDefault();
+    
+    // Lấy giá trị từ form
+    const formData = {
+        from_code: document.getElementById('fromCodeR').value,
+        to_code: document.getElementById('toCodeR').value,
+        trip_type: document.getElementById('tripTypeR').value,
+        depart_date: document.getElementById('departDateR').value,
+        return_date: document.getElementById('tripTypeR').value === 'roundtrip' ? document.getElementById('returnDateR').value : '',
+        passengers: document.getElementById('passengersR').value,
+        cabin_class: document.getElementById('cabinClassR').value
+    };
+    
+    // Validate ngày về
+    if (formData.trip_type === 'roundtrip' && formData.return_date && formData.return_date < formData.depart_date) {
+        alert('Ngày về phải sau ngày đi!');
+        document.getElementById('returnDateR').focus();
+        return false;
+    }
+    
+    // Tạo URL params
+    const params = new URLSearchParams();
+    Object.entries(formData).forEach(([key, value]) => {
+        if (value) {
+            params.append(key, value);
+        }
+    });
+    
+    // Chuyển hướng đến trang kết quả với params mới
+    window.location.href = 'flight-results.html?' + params.toString();
+}
+
+// ========== UPDATE ROUTE INFO ==========
+function updateRouteInfo() {
+    const fromCode = document.getElementById('fromCodeR').value;
+    const toCode = document.getElementById('toCodeR').value;
+    const fromAirport = airports.find(a => a.code === fromCode);
+    const toAirport = airports.find(a => a.code === toCode);
+    
+    if (fromAirport && toAirport) {
+        const routeInfo = document.getElementById('routeInfo');
+        routeInfo.innerHTML = `
+            <div class="route-display">
+                <div class="route-from">
+                    <span class="city">${fromAirport.city}</span>
+                    <span class="code">(${fromAirport.code})</span>
+                </div>
+                <div class="route-arrow">
+                    <i class="fas fa-long-arrow-alt-right"></i>
+                </div>
+                <div class="route-to">
+                    <span class="city">${toAirport.city}</span>
+                    <span class="code">(${toAirport.code})</span>
+                </div>
+                ${toAirport.country !== 'Việt Nam' ? '<span class="international-tag">Quốc tế</span>' : ''}
+            </div>
+        `;
+    }
+}
+
+// ========== MODAL FUNCTIONS ==========
+let currentFlight = null;
+
+function openBookingModal(flightId) {
+    // Tìm chuyến bay chỉ trong flightData
+    const flight = flightData.find(f => f.id === flightId);
+    if (!flight) return;
+    
+    currentFlight = flight;
+    const modal = document.getElementById('bookingModal');
+    const summaryDiv = document.getElementById('flightSummary');
+    const modalDetails = document.getElementById('modalFlightDetails');
+    const totalPrice = document.getElementById('modalTotalPrice');
+    const cabinSelection = document.getElementById('cabinSelection');
+    
+    // Cập nhật chi tiết chuyến bay
+    const fromAirport = airports.find(a => a.code === flight.from);
+    const toAirport = airports.find(a => a.code === flight.to);
+    
+    modalDetails.textContent = `${fromAirport?.city || flight.from} → ${toAirport?.city || flight.to}`;
+    
+    // Tạo các tùy chọn hạng ghế
+    cabinSelection.innerHTML = flight.available_cabins.map(cabin => `
+        <label class="cabin-option-modal">
+            <input type="radio" name="selected_cabin" value="${cabin}" ${cabin === 'economy' ? 'checked' : ''}>
+            <span class="cabin-info">
+                <span class="cabin-name">${getCabinClassText(cabin)}</span>
+                <span class="cabin-price">${formatPrice(flight.price[cabin])}</span>
+            </span>
+        </label>
+    `).join('');
+    
+    // Cập nhật giá tổng ban đầu
+    const selectedCabin = document.querySelector('input[name="selected_cabin"]:checked').value;
+    totalPrice.textContent = formatPrice(flight.price[selectedCabin]);
+    
+    summaryDiv.innerHTML = `
+        <div class="summary-header">
+            <div class="airline-summary">
+                <img src="${flight.logo}" alt="${flight.airline}">
+                <div>
+                    <h4>${flight.airline}</h4>
+                    <p>Chuyến bay: VN${flight.id.toString().padStart(3, '0')}</p>
+                    <p class="trip-type-summary">
+                        <i class="fas fa-${flight.trip_type === 'roundtrip' ? 'exchange-alt' : 'arrow-right'}"></i>
+                        ${flight.trip_type === 'roundtrip' ? 'Khứ hồi' : 'Một chiều'}
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="summary-details">
+            <div class="date-summary">
+                <div class="date-item">
+                    <i class="far fa-calendar-alt"></i>
+                    <span>Ngày đi: ${formatDate(flight.depart_date)}</span>
+                </div>
+                ${flight.return_date ? `
+                <div class="date-item">
+                    <i class="far fa-calendar-check"></i>
+                    <span>Ngày về: ${formatDate(flight.return_date)}</span>
+                </div>
+                ` : ''}
+            </div>
+            
+            <div class="route-summary">
+                <div class="depart-summary">
+                    <div class="time">${flight.depart}</div>
+                    <div class="airport">${flight.from} • ${fromAirport?.name || flight.from}</div>
+                </div>
+                
+                <div class="path-summary">
+                    <div class="duration">${flight.duration}</div>
+                    <div class="line-summary">
+                        <div class="dot"></div>
+                        <div class="line"></div>
+                        <div class="dot"></div>
+                    </div>
+                    <div class="stops">${flight.stops === 'Direct' ? 'Bay thẳng' : flight.stops}</div>
+                </div>
+                
+                <div class="arrive-summary">
+                    <div class="time">${flight.arrive}</div>
+                    <div class="airport">${flight.to} • ${toAirport?.name || flight.to}</div>
+                </div>
+            </div>
+            
+            <div class="extra-summary">
+                <div class="extra-item">
+                    <i class="fas fa-plane"></i>
+                    <span>${flight.aircraft}</span>
+                </div>
+                <div class="extra-item">
+                    <i class="fas fa-suitcase"></i>
+                    <span>Hành lý: 20kg</span>
+                </div>
+                <div class="extra-item">
+                    <i class="fas fa-utensils"></i>
+                    <span>Bao gồm ăn uống</span>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Hiển thị modal
+    modal.classList.add('active');
+    modal.style.display = 'block';
+}
+
+// Xử lý thay đổi hạng ghế trong modal
+document.addEventListener('change', (e) => {
+    if (e.target.name === 'selected_cabin' && currentFlight) {
+        const selectedCabin = e.target.value;
+        const totalPrice = document.getElementById('modalTotalPrice');
+        totalPrice.textContent = formatPrice(currentFlight.price[selectedCabin]);
+    }
+});
+
+// MODAL CONTROLS
+document.querySelector('.close-btn').addEventListener('click', () => {
+    closeBookingModal();
+});
+
+window.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('bookingModal')) {
+        closeBookingModal();
+    }
+});
+
+// Hàm đóng modal hoàn chỉnh
+function closeBookingModal() {
+    const modal = document.getElementById('bookingModal');
+    const form = document.getElementById('bookingForm');
+    const message = document.getElementById('bookingMessage');
+    
+    // Ẩn modal
+    modal.classList.remove('active');
+    modal.style.display = 'none';
+    
+    // Reset form
+    form.reset();
+    
+    // Ẩn thông báo
+    message.style.display = 'none';
+    message.textContent = '';
+    
+    // Reset biến trạng thái
+    currentFlight = null;
+}
+
+// BOOKING FORM
+document.getElementById('bookingForm').addEventListener('submit', (e) => {
+    e.preventDefault();
+    const selectedCabin = document.querySelector('input[name="selected_cabin"]:checked').value;
+    const msg = document.getElementById('bookingMessage');
+    msg.textContent = `✅ Đặt vé thành công! Vé hạng ${getCabinClassText(selectedCabin)} đã được xác nhận. Chúng tôi sẽ gửi email xác nhận trong vài phút.`;
+    msg.style.color = '#10b981';
+    msg.style.display = 'block';
+    
+    setTimeout(() => {
+        document.getElementById('bookingModal').classList.remove('active');
+        msg.style.display = 'none';
+        e.target.reset();
+    }, 3000);
+});
+
+// HAMBURGER MENU
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-menu').classList.toggle('active');
+});
+
+// RESPONSIVE SIDEBAR
+function handleSidebarResponsive() {
+    const sidebar = document.querySelector('.results-sidebar');
+    const content = document.querySelector('.results-content');
+    
+    if (window.innerWidth < 992) {
+        sidebar.style.position = 'static';
+        content.style.marginLeft = '0';
+    }
+}
+
+window.addEventListener('resize', handleSidebarResponsive);
+window.addEventListener('load', handleSidebarResponsive);
+
+// Thêm vào file JavaScript hiện có
+
+// Xử lý responsive cho search bar
+function handleSearchBarResponsive() {
+    const stickyBar = document.querySelector('.sticky-search-bar');
+    const mobileBar = document.querySelector('.mobile-search-bar');
+    const mobileContent = document.querySelector('.mobile-search-content');
+    
+    if (window.innerWidth <= 768) {
+        // Trên mobile: Ẩn sticky, hiện mobile
+        if (stickyBar) stickyBar.style.display = 'none';
+        if (mobileBar) mobileBar.style.display = 'block';
+    } else {
+        // Trên desktop: Hiện sticky, ẩn mobile
+        if (stickyBar) stickyBar.style.display = 'block';
+        if (mobileBar) mobileBar.style.display = 'none';
+        if (mobileContent) mobileContent.style.display = 'none';
+    }
+}
+
+// Toggle mobile search content
+document.addEventListener('DOMContentLoaded', () => {
+    const toggleBtn = document.querySelector('.mobile-search-toggle');
+    const mobileContent = document.querySelector('.mobile-search-content');
+    
+    if (toggleBtn && mobileContent) {
+        toggleBtn.addEventListener('click', () => {
+            const isVisible = mobileContent.style.display === 'block';
+            mobileContent.style.display = isVisible ? 'none' : 'block';
+            toggleBtn.innerHTML = isVisible 
+                ? '<i class="fas fa-sliders-h"></i> Tùy chỉnh tìm kiếm'
+                : '<i class="fas fa-times"></i> Đóng tìm kiếm';
+        });
+    }
+    
+    // Gọi hàm responsive
+    handleSearchBarResponsive();
+    window.addEventListener('resize', handleSearchBarResponsive);
+});
+
+</script>
+
+
+</body>
+</html>
