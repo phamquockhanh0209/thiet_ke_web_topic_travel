@@ -1,2054 +1,992 @@
-/*TOUR AND HOTEL*/
-:root {
-    --primary: #4361ee;
-    --accent: #e11d48;
-    --success: #10b981;
-    --text: #1e293b;
-    --text-light: #64748b;
-    --bg: #f8fafc;
-    --white: #ffffff;
-    --border: #e2e8f0;
-    --radius: 20px;
-    --shadow: 0 10px 40px rgba(0,0,0,0.1);
-}
-
-.search-section {
-    padding: 120px 0 60px;
-    background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
-}
-
-.search-form-elegant {
-    display: grid;
-    grid-template-columns: 2.5fr 1.2fr 1fr 1.2fr;
-    gap: 1rem;
-    max-width: 1200px;
-    margin: 0 auto;
-    background: white;
-    padding: 1.5rem 2rem;
-    border-radius: 28px;
-    box-shadow: 0 20px 60px rgba(67,97,238,0.15);
-}
-
-.search-input-group {
-    position: relative;
-}
-
-.search-input-group i {
-    position: absolute;
-    left: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--primary);
-    font-size: 1.3rem;
-    z-index: 2;
-}
-
-.search-input-group input,
-.search-input-group select {
-    width: 100%;
-    padding: 18px 18px 18px 56px;
-    border: 2px solid var(--border);
-    border-radius: 16px;
-    font-size: 1.05rem;
-    transition: all 0.3s;
-}
-
-.search-input-group input:focus,
-.search-input-group select:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 5px rgba(67,97,238,0.15);
-}
-
-.search-btn {
-    background: var(--primary);
-    color: white;
-    border: none;
-    padding: 0 2.5rem;
-    border-radius: 16px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.search-btn:hover {
-    background: #3651d4;
-    transform: translateY(-2px);
-}
-
-.main-container {
-    display: flex;
-    gap: 2rem;
-    padding: 2rem 0;
-}
-
-.sidebar {
-    flex: 0 0 300px;
-    background: white;
-    padding: 2rem;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    height: fit-content;
-    position: sticky;
-    top: 100px;
-}
-
-.sidebar h3 {
-    color: var(--primary);
-    font-size: 1.4rem;
-    margin-bottom: 1.5rem;
-}
-
-.filter-group label {
-    display: block;
-    padding: 0.7rem 0;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.filter-group label:hover {
-    color: var(--primary);
-}
-
-.apply-btn {
-    width: 100%;
-    margin-top: 1.5rem;
-    padding: 1rem;
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-}
-
-.results-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2rem;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-#sortBy {
-    padding: 0.8rem 1.2rem;
-    border-radius: 12px;
-    border: 2px solid var(--border);
-    font-size: 1rem;
-}
-
-.tour-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-    gap: 2rem;
-}
-
-.tour-card {
-    background: white;
-    border-radius: var(--radius);
-    overflow: hidden;
-    box-shadow: var(--shadow);
-    transition: all 0.4s;
-    position: relative;
-}
-
-.tour-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 25px 60px rgba(0,0,0,0.15);
-}
-
-.tour-image img {
-    width: 100%;
-    height: 240px;
-    object-fit: cover;
-}
-
-.tour-content {
-    padding: 1.5rem;
-}
-
-.tour-title {
-    font-size: 1.4rem;
-    margin: 0 0 0.8rem;
-    color: var(--text);
-    line-height: 1.4;
-}
-
-.tour-desc {
-    color: var(--text-light);
-    margin-bottom: 1rem;
-    line-height: 1.6;
-    font-size: 0.95rem;
-}
-
-.tour-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    margin-bottom: 1rem;
-    font-size: 0.9rem;
-    color: var(--text-light);
-}
-
-.tour-meta i {
-    color: var(--primary);
-    margin-right: 6px;
-}
-
-.tour-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 1rem;
-    padding-top: 1rem;
-    border-top: 1px dashed var(--border);
-}
-
-.tour-rating {
-    background: #fff8e1;
-    color: #f59e0b;
-    padding: 6px 14px;
-    border-radius: 30px;
-    font-weight: 600;
-    font-size: 0.9rem;
-}
-
-.price-label {
-    font-size: 0.85rem;
-    color: var(--text-light);
-}
-
-.price {
-    font-size: 1.8rem;
-    font-weight: 800;
-    color: var(--accent);
-}
-
-.book-btn {
-    background: var(--accent);
-    color: white;
-    border: none;
-    padding: 0.9rem 1.8rem;
-    border-radius: 12px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.book-btn:hover {
-    background: #c81e43;
-    transform: translateY(-2px);
-}
-
-.badge-hot {
-    position: absolute;
-    top: 16px;
-    left: 16px;
-    background: var(--accent);
-    color: white;
-    padding: 8px 16px;
-    border-radius: 30px;
-    font-size: 0.85rem;
-    font-weight: 700;
-    z-index: 10;
-}
-
-/* Responsive */
-@media (max-width: 992px) {
-    .main-container { flex-direction: column; }
-    .sidebar { position: static; }
-    .search-form-elegant { grid-template-columns: 1fr; }
-    .search-btn { height: 60px; }
-}
-
-@media (max-width: 576px) {
-    .tour-grid { grid-template-columns: 1fr; }
-}
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 1000;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    backdrop-filter: blur(8px);
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.modal.active {
-    display: flex;
-    opacity: 1;
-}
-
-.modal-content {
-    background: white;
-    width: 90%;
-    max-width: 520px;
-    border-radius: 24px;
-    overflow: hidden;
-    box-shadow: 0 30px 80px rgba(0,0,0,0.25);
-    animation: modalShow 0.4s ease-out;
-}
-
-@keyframes modalShow {
-    from { transform: scale(0.8); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-}
-
-.close-btn {
-    position: absolute;
-    top: 16px; right: 20px;
-    font-size: 2rem;
-    color: #aaa;
-    cursor: pointer;
-    z-index: 10;
-}
-
-.close-btn:hover { color: #333; }
-
-.modal-title {
-    background: var(--primary);
-    color: white;
-    padding: 1.5rem;
-    margin: 0;
-    font-size: 1.4rem;
-    text-align: center;
-}
-
-.booking-form {
-    padding: 2rem;
-}
-
-.form-row {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 1.2rem;
-}
-
-.input-group {
-    flex: 1;
-}
-
-.input-group label {
-    display: block;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--text);
-}
-
-.input-group input {
-    width: 100%;
-    padding: 0.9rem 1rem;
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    font-size: 1rem;
-    transition: all 0.3s;
-}
-
-.input-group input:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(67,97,238,0.15);
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 1rem;
-    background: var(--primary);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    margin-top: 1rem;
-}
-
-.submit-btn:hover {
-    background: #3651d4;
-}
-
-.booking-message {
-    margin-top: 1rem;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.1rem;
-    display: none;
-}
-/* Modal Đặt Tour  */
-.modal-header {
-    background: linear-gradient(135deg, var(--primary), #0056b3);
-    color: white;
-    padding: 1.8rem 1.5rem;
-    text-align: center;
-    border-radius: 20px 20px 0 0;
-}
-.modal-header h3 {
-    margin: 0;
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-.modal-body {
-    padding: 2rem;
-}
-
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
-    margin-bottom: 1rem;
-}
-
-.full-width {
-    grid-column: 1 / -1;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.input-group label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #333;
-}
-
-.required {
-    color: var(--accent);
-}
-
-.input-group input,
-.input-group textarea,
-.input-group select {
-    padding: 0.9rem 1rem;
-    border: 2px solid #e2e8f0;
-    border-radius: 12px;
-    font-size: 1rem;
-    transition: all 0.3s;
-}
-
-.input-group input:focus,
-.input-group textarea:focus {
-    outline: none;
-    border-color: var(--primary);
-    box-shadow: 0 0 0 4px rgba(67,97,238,0.15);
-}
-
-.modal-agree {
-    margin: 1.5rem 0;
-    font-size: 0.95rem;
-}
-
-.submit-btn {
-    width: 100%;
-    padding: 1rem;
-    background: var(--accent);
-    color: white;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.submit-btn:hover {
-    background: #e11d48;
-    transform: translateY(-2px);
-}
-
-.booking-message {
-    margin-top: 1rem;
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.1rem;
-    display: none;
-}
-/* ==================== TOUR GỢI Ý ==================== */
-.suggested-tours-section .tour-card-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
-}
-
-.tour-card {
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-    transition: all 0.4s;
-    cursor: pointer;
-}
-
-.tour-card:hover {
-    transform: translateY(-12px);
-    box-shadow: 0 20px 50px rgba(67,97,238,0.2);
-}
-
-.tour-card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.tour-card-content {
-    padding: 1.5rem;
-}
-
-.tour-card h3 {
-    font-size: 1.25rem;
-    margin: 0 0 0.8rem;
-    color: #1e293b;
-}
-
-.tour-card .price {
-    font-size: 1.4rem;
-    font-weight: 700;
-    color: #e11d48;
-    margin: 0.5rem 0;
-}
-
-.tour-card .duration {
-    color: #64748b;
-    font-size: 0.95rem;
-}
-
-.tour-card .btn-book {
-    margin-top: 1rem;
-    padding: 0.8rem 1.5rem;
-    background: #4361ee;
-    color: white;
-    border: none;
-    border-radius: 12px;
-    cursor: pointer;
-    font-weight: 600;
-    width: 100%;
-    transition: 0.3s;
-}
-
-.tour-card .btn-book:hover {
-    background: #3651d4;
-}
-.contact-consult-section input:focus {
-    outline: none;
-    border-color: #4361ee !important;
-    box-shadow: 0 0 0 5px rgba(67,97,238,0.15) !important;
-}
-
-.contact-consult-section button:hover {
-    background: #c81e43 !important;
-    transform: translateY(-3px);
-    box-shadow: 0 15px 40px rgba(225,29,72,0.5) !important;
-}
-/* --- CONTACT TOUR SECTION --- */
-.contact-tour-section {
-    background-color: var(--light); /* Nền nhẹ để làm nổi bật */
-    padding: 4rem 0;
-    border-top: 1px solid var(--gray-light);
-}
-
-.contact-tour-content {
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-}
-
-/* Phần Thông tin Liên hệ */
-.contact-info {
-    flex: 1;
-    padding: 30px;
-}
-
-.contact-info h2 {
-    color: var(--cta-color);
-    font-size: 2rem;
-    margin-bottom: 15px;
-}
-
-.contact-info p {
-    font-size: 1.1rem;
-    line-height: 1.8;
-    margin-bottom: 30px;
-    color: var(--gray);
-}
-
-.contact-info ul {
-    list-style: none;
-    padding: 0;
-}
-
-.contact-info ul li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 15px;
-    font-size: 1.05rem;
-}
-
-.contact-info ul li i {
-    color: var(--main-color);
-    margin-right: 15px;
-    min-width: 20px; /* Đảm bảo icon không bị lệch */
-    text-align: center;
-}
-
-/* Phần Form */
-.contact-form-wrapper {
-    flex: 1;
-    background-color: var(--white);
-    padding: 30px;
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-md);
-}
-
-.contact-form-wrapper h3 {
-    text-align: center;
-    color: var(--main-color);
-    margin-bottom: 25px;
-    font-size: 1.5rem;
-}
-
-.contact-form-wrapper .form-group {
-    margin-bottom: 15px;
-}
-
-.contact-form-wrapper label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-    color: var(--dark);
-    font-size: 0.95rem;
-}
-
-.contact-form-wrapper input[type="text"],
-.contact-form-wrapper input[type="email"],
-.contact-form-wrapper input[type="tel"],
-.contact-form-wrapper textarea {
-    width: 100%;
-    padding: 12px;
-    border: 1px solid var(--gray-light);
-    border-radius: var(--radius-sm);
-    font-size: 1rem;
-    transition: border-color 0.3s;
-}
-
-.contact-form-wrapper input:focus,
-.contact-form-wrapper textarea:focus {
-    border-color: var(--main-color);
-    outline: none;
-}
-
-.contact-form-wrapper textarea {
-    resize: vertical;
-}
-
-/* Nút Gửi */
-.contact-form-wrapper .cta-button {
-    width: 100%;
-    padding: 12px;
-    background-color: var(--cta-color);
-    color: var(--white);
-    border: none;
-    border-radius: var(--radius-sm);
-    font-size: 1.1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: var(--transition);
-}
-
-.contact-form-wrapper .cta-button:hover {
-    background-color: #e55c5c; 
-    box-shadow: var(--shadow-sm);
-}
-
-/* Responsive cho Mobile */
-@media (max-width: 768px) {
-    .contact-tour-content {
-        flex-direction: column;
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kết Quả Tìm Kiếm Tour - Travel Explorer</title>
+    <link rel="stylesheet" href="../Styles/index.css">
+    <link rel="stylesheet" href="../Styles/tour-results.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<header class="header">
+    <div class="container nav-container">
+        <a href="main.html" class="logo">Travel Explorer</a>
+        <div class="hamburger-menu"><i class="fas fa-bars"></i></div>
+        <ul class="nav-menu">
+            <li><a href="../main.html" class="nav-link">Trang Chủ</a></li>
+            <li><a href="tour.html" class="nav-link active">Tour</a></li>
+            <li><a href="hotel.html" class="nav-link">Khách Sạn</a></li>
+            <li><a href="flight.html" class="nav-link">Vé Máy Bay</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="main-container container">
+    <aside class="sidebar">
+        </aside>
+
+    <section class="results-section">
+        </section>
+</main>
+
+<button id="jumpToTopBtn" class="jump-to-top" title="Lên đầu trang">
+    <i class="fas fa-arrow-up"></i>
+</button>
+<!-- Thanh tìm kiếm -->
+<section class="search-section">
+    <div class="container">
+        <form id="tourSearchForm" class="search-form-elegant">
+<div class="search-input-group">
+    <i class="fas fa-map-marker-alt"></i>
+    <input type="text" id="location" name="location" placeholder="Bạn muốn đi đâu?" class="search-input" required>
+</div>
+            <div class="search-input-group">
+                <i class="fas fa-calendar-alt"></i>
+                <input type="date" id="date" >
+                <small id="dateError" class="error-message"></small>
+            </div>
+            <div class="search-input-group">
+                <i class="fas fa-clock"></i>
+                <select id="duration">
+                    <option value="">Số ngày</option>
+                    <option value="1-3">1-3 ngày</option>
+                    <option value="4-7">4-7 ngày</option>
+                    <option value="8-14">8-14 ngày</option>
+                    <option value="15+">15+ ngày</option>
+                </select>
+            </div>
+            <!-- THÊM DROPDOWN MỨC GIÁ -->
+            <div class="search-input-group">
+                <i class="fas fa-money-bill-wave"></i>
+                <select id="priceRange">
+                    <option value="">Mức giá</option>
+                    <option value="5">Dưới 5 triệu</option>
+                    <option value="5-10">5-10 triệu</option>
+                    <option value="10-20">10-20 triệu</option>
+                    <option value="20-50">20-50 triệu</option>
+                    <option value="50+">Trên 50 triệu</option>
+                </select>
+            </div>
+            <button type="submit" class="search-btn">
+                <i class="fas fa-search"></i> Tìm Tour
+            </button>
+        </form>
+    </div>
+</section>
+
+<main class="main-container container">
+    <aside class="sidebar">
+        <h3><i class="fas fa-sliders-h"></i> Bộ Lọc Tìm Kiếm</h3>
+        <div class="filter-group">
+            <h4>Khoảng Giá</h4>
+            <label><input type="checkbox" name="price" value="<10"> Dưới 10 triệu</label>
+            <label><input type="checkbox" name="price" value="10-20"> 10 - 20 triệu</label>
+            <label><input type="checkbox" name="price" value="20-50"> 20 - 50 triệu</label>
+            <label><input type="checkbox" name="price" value="50+"> Trên 50 triệu</label>
+        </div>
+        <div class="filter-group">
+            <h4>Loại Tour</h4>
+            <label><input type="checkbox" name="type" value="domestic"> Nội Địa</label>
+            <label><input type="checkbox" name="type" value="international"> Quốc Tế</label>
+        </div>
+        <div class="filter-group">
+            <h4>Số Ngày</h4>
+            <label><input type="checkbox" name="duration_filter" value="1-3"> 1-3 ngày</label>
+            <label><input type="checkbox" name="duration_filter" value="4-7"> 4-7 ngày</label>
+            <label><input type="checkbox" name="duration_filter" value="8-14"> 8-14 ngày</label>
+            <label><input type="checkbox" name="duration_filter" value="15+"> 15+ ngày</label>
+        </div>
+        <button class="apply-btn">Áp Dụng Bộ Lọc</button>
+    </aside>
+
+    <section class="results-section">
+        <div class="results-header">
+            <h2 id="resultInfo">Đang tìm tour phù hợp...</h2>
+            <select id="sortBy">
+                <option value="default">Khởi hành sớm nhất</option>
+                <option value="price-asc">Giá tăng dần</option>
+                <option value="price-desc">Giá giảm dần</option>
+                <option value="duration-asc">Số ngày ngắn → dài</option>
+            </select>
+        </div>
+
+        <div class="tour-grid" id="tourListGrid"></div>
+    </section>
+</main>
+
+<!-- MODAL ĐẶT TOUR -->
+<div id="tourModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn">&times;</span>
+        <div class="modal-header">
+            <h3>ĐẶT TOUR: <span id="modalTourName"></span></h3>
+        </div>
+        <div class="modal-body">
+            <form id="bookingForm">
+                <input type="hidden" id="tName">
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Họ và tên <span class="required">*</span></label>
+                        <input type="text" id="fullName" required placeholder="Nguyễn Văn A">
+                    </div>
+                    <div class="input-group">
+                        <label>Số điện thoại <span class="required">*</span></label>
+                        <input type="tel" id="phone" required placeholder="0901234567">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Ngày khởi hành mong muốn <span class="required">*</span></label>
+                        <input type="date" id="departDate" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Email <span class="required">*</span></label>
+                        <input type="email" id="email" required placeholder="example@gmail.com">
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="input-group">
+                        <label>Số người lớn <span class="required">*</span></label>
+                        <input type="number" id="adults" value="1" min="1" required>
+                    </div>
+                    <div class="input-group">
+                        <label>Số trẻ em (2-11 tuổi)</label>
+                        <input type="number" id="children" value="0" min="0">
+                    </div>
+                </div>
+
+                <div class="input-group full-width">
+                    <label>Yêu cầu thêm (không bắt buộc)</label>
+                    <textarea id="notes" rows="3" placeholder="Ví dụ: Phòng view biển, ăn chay, xe đưa đón sân bay..."></textarea>
+                </div>
+
+                <div class="modal-agree">
+                    <label><input type="checkbox" id="agree" required> Tôi đồng ý với <a href="#" style="color:var(--primary); text-decoration:underline;">điều khoản đặt tour</a> <span class="required">*</span></label>
+                </div>
+
+                <button type="submit" class="submit-btn">GỬI YÊU CẦU ĐẶT TOUR</button>
+            </form>
+            <p id="bookingMessage" class="booking-message"></p>
+        </div>
+    </div>
+</div>
+
+<script>
+// DỮ LIỆU TOUR
+const tourData = [
+    //TRONG NƯỚC
+    
+    // Sapa
+    { name: "Sapa - Fansipan 3N2Đ", location: "Sapa", duration: 3, price: 4900000, rating: 4.8, departure: "2025-12-15", type: "domestic", hot: true, image: "https://statics.vinpearl.com/Fansipan-Mountain-01_1682415440.jpg", desc: "được mệnh danh là “Nóc nhà Đông Dương”. Với độ cao 3.143 mét, đây là đỉnh núi cao nhất ở Việt Nam và khu vực Đông Nam Á. Để chinh phục Fansipan, bạn có thể lựa chọn một trong hai cách: đi bộ theo các tuyến đường trekking hoặc trải nghiệm cảm giác bay bổng với cáp treo. " },
+    { name: "Sapa - Bản Tả Phìn 4N3Đ", location: "Sapa", duration: 4, price: 6500000, rating: 4.7, departure: "2025-12-18", type: "domestic", image: "https://mia.vn/media/uploads/blog-du-lich/ban-ta-phin-ban-lang-hoang-so-moc-mac-giua-nui-rung-tay-bac-2-1620746166.jpg", desc: "Khám phá bản Tả Phìn, thung lũng Mường Hoa, đèo Ô Quy Hồ." },
+    { name: "Sapa Mùa Tuyết 3N2Đ", location: "Sapa", duration: 3, price: 5800000, rating: 4.9, departure: "2026-01-10", type: "domestic", hot: true, image: "https://truongsatour.com/uploads/images/di-sapa-san-tuyet.jpg", desc: "Trải nghiệm mùa tuyết rơi, check-in Fansipan Legend, khám phá văn hóa dân tộc." },
+    { name: "Sapa - Bắc Hà 5N4Đ", location: "Sapa", duration: 5, price: 8900000, rating: 4.6, departure: "2025-12-25", type: "domestic", image: "https://bazantravel.com/cdn/medias/uploads/83/83552-mu-cang-chai-670x446.jpg", desc: "Chợ phiên Bắc Hà, bản Lùng Phìn, thác Bạc, đèo Ô Quy Hồ." },
+    { name: "Sapa Cao Cấp 4N3Đ", location: "Sapa", duration: 4, price: 12900000, rating: 5.0, departure: "2026-01-05", type: "domestic", image: "https://puolotrip.com/uploads/images/sapa.jpg", desc: "Resort 5 sao, dịch vụ cao cấp, ẩm thực đặc sản vùng cao." },
+    { name: "Sapa - Y Tý 4N3Đ", location: "Sapa", duration: 4, price: 7500000, rating: 4.7, departure: "2026-02-08", type: "domestic", hot: true, image: "https://vov2.vov.vn/sites/default/files/styles/large/public/2021-12/lao-chai-village-04.jpg", desc: "Y Tý - nơi có mây vờn đỉnh núi, chợ phiên độc đáo." },
+    { name: "Sapa Trekking 3N2Đ", location: "Sapa", duration: 3, price: 5200000, rating: 4.6, departure: "2026-01-18", type: "domestic", image: "https://mia.vn/media/uploads/blog-du-lich/hanh-trinh-trekking-sapa-3n1d-cho-cac-tin-do-yeu-kham-pha-2-1669274182.jpg", desc: "Trekking bản Tả Van, Lao Chải, homestay người H'Mông." },
+    { name: "Sapa - Thác Bạc 3N2Đ", location: "Sapa", duration: 3, price: 4800000, rating: 4.5, departure: "2025-12-29", type: "domestic", image: "https://sinhtour.vn/wp-content/uploads/2022/01/thac-bac-sapa.jpg", desc: "Thác Bạc hùng vĩ, cầu Mây Sapa, nhà thờ đá cổ." },
+    { name: "Sapa Family 4N3Đ", location: "Sapa", duration: 4, price: 6900000, rating: 4.7, departure: "2025-12-26", type: "domestic", hot: true, image: "https://owa.bestprice.vn/images/tours/large/chinh-phuc-nui-rung-tay-bac-4n3d-sapa-lai-chau-dien-bien-moc-chau-mai-chau-65a7a083475a5-848x477.jpg", desc: "Tour gia đình, Sun World Fansipan Legend, cáp treo, tàu hỏa leo núi." },
+    { name: "Sapa - Mường Hoa 3N2Đ", location: "Sapa", duration: 3, price: 4500000, rating: 4.6, departure: "2026-01-25", type: "domestic", image: "https://dulichviet.com.vn/images/bandidau/du%20l%E1%BB%8Bch%20Sapa.png", desc: "Thung lũng Mường Hoa, bãi đá cổ, khám phá bản Lao Chải." },
+    { name: "Sapa Honeymoon 4N3Đ", location: "Sapa", duration: 4, price: 11900000, rating: 5.0, departure: "2026-02-14", type: "domestic", image: "https://www.vietnambooking.com/wp-content/uploads/2021/01/combo-khach-san-amazing-sapa-nha-hang-8.jpg", desc: "Honeymoon lãng mạn, resort view núi, dịch vụ riêng tư." },
+    { name: "Sapa - Bản Cát Cát 2N1Đ", location: "Sapa", duration: 2, price: 3500000, rating: 4.4, departure: "2025-12-31", type: "domestic", image: "https://www.homepaylater.vn/static/82749bf019efba4ea4a7b218bd0f6584/9d72c/1_chiem_nguong_canh_sac_thien_nhien_tuyet_dep_tai_khu_du_lich_cat_cat_sapa_221acdee99.jpg", desc: "Bản Cát Cát, thác Cát Cát, văn hóa dân tộc H'Mông, tour ngắn ngày." },
+    
+    // Phú Quốc 
+    { name: "Phú Quốc 4N3Đ - Vinpearl Safari", location: "Phú Quốc", duration: 4, price: 8900000, rating: 4.9, departure: "2025-12-20", type: "domestic", hot: true, image: "https://dulichviet.com.vn/images/bandidau/du-lich-vinpeal-safari-phu-quoc.jpeg", desc: "Vinpearl Resort & Spa Phú Quốc được thiết kế theo kiến trúc Á Đông với mái ngói đỏ tươi, nổi bật. Khu nghỉ dưỡng gồm 630 phòng khách sạn & biệt thự." },
+    { name: "Phú Quốc 3N2Đ - Biển Bãi Sao", location: "Phú Quốc", duration: 3, price: 5900000, rating: 4.7, departure: "2025-12-22", type: "domestic", image: "https://puolotrip.com/uploads/images/2019/12/du-lich-phu-quoc-1024x693.jpg", desc: "Biển Bãi Sao trong xanh, nhà tù Phú Quốc, làng chài Hàm Ninh." },
+    { name: "Phú Quốc 5N4Đ - Đảo Hoàng Tử", location: "Phú Quốc", duration: 5, price: 11900000, rating: 4.8, departure: "2025-12-28", type: "domestic", image: "https://phuquoctravel.vn/wp-content/uploads/2024/07/dao-nam-du-phu-quoc.jpg?v=1721709393", desc: "Đảo Hoàng Tử, vườn tiêu, cơ sở sản xuất nước mắm." },
+    { name: "Phú Quốc Honeymoon 4N3Đ", location: "Phú Quốc", duration: 4, price: 14900000, rating: 5.0, departure: "2026-01-15", type: "domestic", image: "https://www.arttravel.com.vn/upload/news/sol-beach-arttravel-(2)-1060.jpg", desc: "Honeymoon đặc biệt, resort riêng tư, dịch vụ VIP." },
+    { name: "Phú Quốc 6N5Đ - Khám Phá Toàn Đảo", location: "Phú Quốc", duration: 6, price: 15900000, rating: 4.9, departure: "2026-01-20", type: "domestic", image: "https://res.klook.com/images/fl_lossy.progressive,q_65/c_fill,w_700,h_525/w_80,x_15,y_15,g_south_west,l_Klook_water_br_trans_yhcmh3/activities/rfrlrvp5eshityeu0vkt/Tourtr%E1%BB%8Dng%C3%B3ikh%C3%A1mph%C3%A1Ph%C3%BAQu%E1%BB%91c6N5%C4%90,Vi%E1%BB%87tNam-KlookVi%E1%BB%87tNam.jpg", desc: "Khám phá toàn bộ đảo ngọc, từ Bắc tới Nam, trải nghiệm đầy đủ." },
+    { name: "Phú Quốc - Nam Đảo 3N2Đ", location: "Phú Quốc", duration: 3, price: 6900000, rating: 4.6, departure: "2026-01-08", type: "domestic", image: "https://ik.imagekit.io/tvlk/blog/2021/04/phu-quoc-2.jpg", desc: "Trải nghiệm khu vực Nam đảo, bãi Dài, mũi Ông Đội." },
+    { name: "Phú Quốc Family 5N4Đ", location: "Phú Quốc", duration: 5, price: 12900000, rating: 4.8, departure: "2025-12-26", type: "domestic", image: "https://halalholidays.asia/wp-content/uploads/2025/08/WhatsApp-Image-2025-08-27-at-13.24.31-3.jpeg", desc: "Tour gia đình, nhiều hoạt động cho trẻ em, an toàn tiện lợi." },
+    { name: "Phú Quốc - Bắc Đảo 4N3Đ", location: "Phú Quốc", duration: 4, price: 7900000, rating: 4.7, departure: "2026-02-10", type: "domestic", hot: true, image: "https://rootytrip.com/wp-content/uploads/2024/12/vinwonders-choi-gi-o-bac-dao-phu-quoc.jpg", desc: "Vịnh Bãi Thơm, rừng nguyên sinh, làng chài cổ Gành Dầu." },
+    { name: "Phú Quốc - Đảo Ngọc Vừa 3N2Đ", location: "Phú Quốc", duration: 3, price: 5500000, rating: 4.6, departure: "2026-01-25", type: "domestic", image: "https://mia.vn/media/uploads/blog-du-lich/dao-ngoc-phu-quoc-thien-duong-nghi-duong-tai-phuong-nam-1754534991.jpg", desc: "Đảo Ngọc Vừa, bãi Ông Lang, trải nghiệm câu mực đêm." },
+    { name: "Phú Quốc Golf 5N4Đ", location: "Phú Quốc", duration: 5, price: 18900000, rating: 4.9, departure: "2026-02-18", type: "domestic", image: "https://elinkgolf.vn/wp-content/uploads/2020/11/vinpearl-golf-resort-phu-quoc.jpg", desc: "Sân golf Vinpearl 27 hố, resort 5 sao, dịch vụ golf cao cấp." },
+    { name: "Phú Quốc - Grand World 4N3Đ", location: "Phú Quốc", duration: 4, price: 9900000, rating: 4.8, departure: "2026-02-25", type: "domestic", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/2a/39/1c/42/caption.jpg?w=1200&h=1200&s=1", desc: "Grand World Phú Quốc, Venice thu nhỏ, show The Quintessence." },
+
+    // Đà Nẵng 
+    { name: "Đà Nẵng - Hội An - Bà Nà 4N3Đ", location: "Đà Nẵng", duration: 4, price: 6900000, rating: 4.7, departure: "2025-12-18", type: "domestic", image: "https://datviettour.com.vn/uploads/images/mien-trung/da-nang/hinh-danh-thang/du-lich-ba-na-hill-800px-2.jpg", desc: "Cầu Vàng nổi tiếng thế giới, phố cổ đèn lồng, biển Mỹ Khê, Fantasy Park." },
+    { name: "Đà Nẵng 3N2Đ - Biển Mỹ Khê", location: "Đà Nẵng", duration: 3, price: 4500000, rating: 4.6, departure: "2025-12-22", type: "domestic", hot: true, image: "https://mia.vn/media/uploads/blog-du-lich/bai-bien-my-khe-da-nang-lang-nguoi-ngam-nhin-1-trong-6-bai-bien-dep-nhat-hanh-tinh-05-1636298582.jpeg", desc: "Tận hưởng kỳ nghỉ tuyệt vời – nơi biển xanh, cát trắng, nắng vàng, và cùng nhau lưu giữ những khoảnh khắc yêu thương, thư giãn tại Travel Explorer nhé." },
+    { name: "Đà Nẵng - Hội An 5N4Đ", location: "Đà Nẵng", duration: 5, price: 8900000, rating: 4.8, departure: "2025-12-25", type: "domestic", image: "https://dulichviet.com.vn/images/bandidau/pho-co-hoi-an-da-nang.jpg", desc: "Hội An đêm rực rỡ, làng rau Trà Quế, làm gốm Thanh Hà." },
+    { name: "Đà Nẵng Luxury 4N3Đ", location: "Đà Nẵng", duration: 4, price: 12900000, rating: 5.0, departure: "2026-01-12", type: "domestic", hot: true, image: "https://images2.thanhnien.vn/528068263637045248/2025/6/18/the-legend-danang-1-17502421275011965589401.jpg", desc: "Resort 5 sao biển, dịch vụ VIP, ẩm thực cao cấp." },
+    { name: "Đà Nẵng - Bà Nà Hills 2N1Đ", location: "Đà Nẵng", duration: 2, price: 3900000, rating: 4.5, departure: "2025-12-28", type: "domestic", image: "https://mientrungtravel.vn/img_data/images/dn---hoi-an/Anh-27-1-1.jpg", desc: "Cáp treo Bà Nà, làng Pháp, vườn hoa Le Jardin D'Amour." },
+    { name: "Đà Nẵng - Cù Lao Chàm 3N2Đ", location: "Đà Nẵng", duration: 3, price: 5900000, rating: 4.7, departure: "2026-01-08", type: "domestic", image: "https://bizweb.dktcdn.net/100/514/927/products/tour-ghep-da-nang-hoi-an-ba-na-cu-lao-cham-3n2d-phan-van-travel.jpg?v=1749540820817", desc: "Đảo Cù Lao Chàm, lặn ngắm san hô, bảo tồn biển UNESCO." },
+    
+    // Hạ Long 
+    { name: "Hạ Long 2N1Đ - Du thuyền 5 sao", location: "Hạ Long", duration: 2, price: 5900000, rating: 5.0, departure: "2025-12-25", type: "domestic", hot: true, image: "https://luhanhvietnam.com.vn/tour-du-lich/vnt_upload/tour/07_2019/du_thuyYn_1.jpg", desc: "Ngủ đêm trên vịnh di sản, hang Sửng Sốt, chèo kayak, tắm biển Titop." },
+    { name: "Hạ Long - Bái Tử Long 3N2Đ", location: "Hạ Long", duration: 3, price: 7900000, rating: 4.8, departure: "2025-12-28", type: "domestic", image: "https://mia.vn/media/uploads/blog-du-lich/vinh-bai-tu-long-ngo-ngang-canh-sac-tua-chon-bong-lai-tien-canh-3-1641549879.jpg", desc: "Vịnh Bái Tử Long hoang sơ, hang động kỳ vĩ, làng chài Vung Viêng." },
+    { name: "Hạ Long - Cát Bà 4N3Đ", location: "Hạ Long", duration: 4, price: 9900000, rating: 4.7, departure: "2026-01-03", type: "domestic", image: "https://sotc.haiphong.gov.vn/wp-content/uploads/2023/12/z4963583850070_32e7be71fb96dc51dd065765b2fa962b.jpg", desc: "Đảo Cát Bà, vườn quốc gia, bãi biển đẹp, khám phá đảo khỉ." },
+    { name: "Hạ Long Luxury Cruise 3N2Đ", location: "Hạ Long", duration: 3, price: 14900000, rating: 5.0, departure: "2026-01-10", type: "domestic", hot: true, image: "https://www.duthuyen-halong.com/sites/t/to/tourduthuyenhalong/uploads/ckupload/images/cruises/Le-journey-luxury-overview1.jpg?c=1", desc: "Paradise Luxury Cruise Hạ Long được đánh giá là Tàu – Du Thuyền 5 sao đẹp tại Vịnh Hạ Long là du thuyền gỗ truyền thống pha trộn hài hòa nét hiện đại, sang trọng và bản sắc dân tộc. Nội thất trên tàu hoàn toàn bằng gỗ đem lại cảm giác ấm áp, cổ điển vô cùng quyến rũ nhưng vẫn đảm bảo tiện nghi tối đa cho du khách." },
+    { name: "Hạ Long 1N0Đ - Ngắm Vịnh", location: "Hạ Long", duration: 1, price: 2900000, rating: 4.4, departure: "2025-12-30", type: "domestic", image: "https://www.wyndhamhalong.com/uploads/THAO/check-in-vinh-ha-long-hon-trong-mai.jpg", desc: "Tour ngắn ngày, phù hợp người bận rộn, vẫn ngắm trọn vịnh." },
+    { name: "Hạ Long - Yên Tử 3N2Đ", location: "Hạ Long", duration: 3, price: 6900000, rating: 4.6, departure: "2026-01-15", type: "domestic", image: "https://mia.vn/media/uploads/blog-du-lich/Giai-ngo-voi-kinh-nghiem-di-chua-Yen-Tu-tu-A-Z-khi-du-lich-Ha-Long-01-1641593463.jpg", desc: "Kết hợp vịnh Hạ Long và núi Yên Tử - quần thể tâm linh." },
+    { name: "Hạ Long - Tuần Châu 3N2Đ", location: "Hạ Long", duration: 3, price: 5500000, rating: 4.7, departure: "2026-02-05", type: "domestic", hot: true, image: "https://catbaduky.vn/image/catalog/%C4%90%E1%BA%A2O%20TU%E1%BA%A6N%20CH%C3%82U/Dao-tuan-chau-1-1.jpg", desc: "Đảo Tuần Châu, công viên giải trí, show nhạc nước, ẩm thực." },
+    { name: "Hạ Long - Vịnh Lan Hạ 4N3Đ", location: "Hạ Long", duration: 4, price: 8900000, rating: 4.8, departure: "2026-01-22", type: "domestic", image: "https://storage.googleapis.com/blogvxr-uploads/2025/05/70f25c30-vinh-lan-ha-hai-phong-5243444.jpg", desc: "Vịnh Lan Hạ yên bình, bãi biển hoang sơ, lặn ngắm san hô." },
+    { name: "Hạ Long Family 3N2Đ", location: "Hạ Long", duration: 3, price: 6500000, rating: 4.6, departure: "2025-12-27", type: "domestic", image: "https://statics.vinpearl.com/kinh-nghiem-du-lich-ha-long-1_1674039271.jpg", desc: "Tour gia đình, Sun World Halong Complex, cáp treo Queen." },
+    { name: "Hạ Long - Quảng Ninh 4N3Đ", location: "Hạ Long", duration: 4, price: 7200000, rating: 4.5, departure: "2026-02-12", type: "domestic", image: "https://hitour.vn/storage/images/upload/tour-du-lich-vinh-ha-long-4-ngay-3-dem-gallery-1666029593-3.webp", desc: "Bảo tàng Quảng Ninh, chùa Ba Vàng, thành phố Hạ Long." },
+    { name: "Hạ Long Honeymoon 3N2Đ", location: "Hạ Long", duration: 3, price: 11900000, rating: 5.0, departure: "2026-01-30", type: "domestic", hot: true, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/28/d0/77/3b/caption.jpg?w=400&h=300&s=1", desc: "Honeymoon trên du thuyền 5 sao, dịch vụ riêng tư lãng mạn." },
+    { name: "Hạ Long - Vân Đồn 4N3Đ", location: "Hạ Long", duration: 4, price: 8500000, rating: 4.7, departure: "2026-02-20", type: "domestic", image: "https://www.wyndhamhalong.com/uploads/blog/2016/T12/van-don-ha-long.jpg", desc: "Sân bay Vân Đồn, đảo Quan Lạn, bãi biển Sơn Hào." },
+
+    // Đà Lạt 
+    { name: "Đà Lạt 3N2Đ - Mùa Hoa Phượng Tím", location: "Đà Lạt", duration: 3, price: 3900000, rating: 4.7, departure: "2025-12-16", type: "domestic", image: "https://vietluxtour.com/Upload/images/2025/camnangdulich/Hoa%20ph%C6%B0%E1%BB%A3ng%20t%C3%ADm%20%E1%BB%9F%20%C4%90%C3%A0%20L%E1%BA%A1t/hoa-phuong-tim-o-da-lat%20(9)-min.jpg", desc: "Thành phố ngàn hoa, đồi chè trái tim, cà phê view núi cực chill." },
+    { name: "Đà Lạt 4N3Đ - Mùa Xuân", location: "Đà Lạt", duration: 4, price: 5500000, rating: 4.8, departure: "2026-02-01", type: "domestic", hot: true, image: "https://tiki.vn/blog/wp-content/uploads/2023/02/san-may-da-lat.jpg", desc: "Mùa xuân Đà Lạt, hoa anh đào nở, không khí trong lành." },
+    { name: "Đà Lạt Honeymoon 5N4Đ", location: "Đà Lạt", duration: 5, price: 10900000, rating: 5.0, departure: "2026-01-20", type: "domestic", image: "https://letsflytravel.vn/wp-content/uploads/2024/12/tiem-ca-phe-hoang-hon-chieu-da-lat-740x490.webp", desc: "Honeymoon lãng mạn, resort view hồ, dịch vụ đặc biệt cho cặp đôi." },
+    { name: "Đà Lạt Adventure 4N3Đ", location: "Đà Lạt", duration: 4, price: 6900000, rating: 4.7, departure: "2026-01-08", type: "domestic", image: "https://product.hstatic.net/1000365351/product/tour_kham_pha_da_lat_4n3d_c55b4ba7734847eca32e969f54f7229e_master.jpg", desc: "Trekking rừng thông, đạp xe địa hình, trải nghiệm mạo hiểm." },
+    { name: "Đà Lạt - Langbiang 3N2Đ", location: "Đà Lạt", duration: 3, price: 4900000, rating: 4.6, departure: "2025-12-24", type: "domestic", image: "https://mia.vn/media/uploads/blog-du-lich/kham-pha-dinh-langbiang-noc-nha-cua-da-lat-4-1634525380.jpg", desc: "Chinh phục đỉnh Langbiang, thung lũng Tình Yêu, hồ Xuân Hương." },
+    { name: "Đà Lạt 2N1Đ - Tiết Kiệm", location: "Đà Lạt", duration: 2, price: 2900000, rating: 4.5, departure: "2025-12-29", type: "domestic", hot: true, image: "https://bazantravel.com/cdn/medias/uploads/81/81303-di-da-lat-chi-voi-2-trieu-lich-trinh-2-ngay-1-dem-700x858.jpg", desc: "Tour ngắn ngày, giá tốt, phù hợp sinh viên, người trẻ." },
+    { name: "Đà Lạt - Thác Datanla 3N2Đ", location: "Đà Lạt", duration: 3, price: 4200000, rating: 4.7, departure: "2026-01-12", type: "domestic", image: "https://dulichviet.com.vn/images/bandidau/thac-datanla-dia-diem-du-lich-duoc-du-khach-yeu-thich-tai-da-lat.jpg", desc: "Nếu bạn đang tìm một thác nước đẹp nằm ngay trong thành phố thì hãy đến ngay thác Datanla, nơi có hệ thống máng trượt băng rừng dài nhất Đông Nam Á cùng các trò chơi hấp dẫn khác." },
+    { name: "Đà Lạt - Đồi Chè Cầu Đất 4N3Đ", location: "Đà Lạt", duration: 4, price: 5900000, rating: 4.8, departure: "2026-02-15", type: "domestic", hot: true, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRHTzRp0rBUGr5Pa6ukbMYmBnsrCpoeYsoO8Q&s", desc: "Đồi chè Cầu Đất xanh mướt, trải nghiệm hái chè, làm trà." },
+    { name: "Đà Lạt - Hồ Tuyền Lâm 3N2Đ", location: "Đà Lạt", duration: 3, price: 4500000, rating: 4.6, departure: "2026-01-25", type: "domestic", image: "https://dulichviet.com.vn/images/bandidau/ho-tuyen-lam-diem-den-du-lich-da-lat-day-thu-vi-danh-cho-du-khach.jpg", desc: "Hồ Tuyền Lâm thơ mộng, thiền viện Trúc Lâm, cáp treo." },
+    { name: "Đà Lạt Family 5N4Đ", location: "Đà Lạt", duration: 5, price: 8900000, rating: 4.9, departure: "2025-12-26", type: "domestic", image: "https://pix10.agoda.net/hotelImages/31664008/0/fde79b87230c36616040fb099a539518.jpg?ca=29&ce=0&s=414x232", desc: "Tour gia đình, Valley of Love, vườn hoa mini, hoạt động trẻ em." },
+    { name: "Đà Lạt - Chợ Đêm 3N2Đ", location: "Đà Lạt", duration: 3, price: 3800000, rating: 4.5, departure: "2025-12-31", type: "domestic", image: "https://mia.vn/media/uploads/blog-du-lich/cho-dem-da-lat-1-1752122082.jpg", desc: "Khám phá ẩm thực chợ đêm Đà Lạt, đồ nướng, bánh tráng nướng." },
+    { name: "Đà Lạt Luxury 4N3Đ", location: "Đà Lạt", duration: 4, price: 12900000, rating: 5.0, departure: "2026-02-28", type: "domestic", hot: true, image: "https://dulichyenviet.com/wp-content/uploads/2023/06/269624702_1085981002191971_605535495422406138_n.jpg", desc: "Resort 5 sao Ana Mandara, dịch vụ spa, ẩm thực cao cấp." },
+    
+    // NHA TRANG 
+    { name: "Nha Trang 3N2Đ - Đảo Hòn Mun", location: "Nha Trang", duration: 3, price: 4500000, rating: 4.6, departure: "2025-12-22", type: "domestic", image: "https://statics.vinpearl.com/hon-mun-nha-trang-2_1627541859.jpg", desc: "Hòn Mun là điểm đến đẹp nhất để lặn, ngắm san hô cách cảng cầu đá 12 km. Với sự giao thoa của 2 dòng hải lưu nóng, đảo có khoảng 2.000 loài san hô cùng nhiều sinh vật biển nhiệt đới." },
+    { name: "Nha Trang 4N3Đ - Vinpearl", location: "Nha Trang", duration: 4, price: 6900000, rating: 4.8, departure: "2025-12-26", type: "domestic", hot: true, image: "https://www.vn.kayak.com/rimg/himg/38/97/60/expediav2-132173-15c1bf-239135.jpg?width=836&height=607&crop=true", desc: "Vinpearl Resort 5 sao, công viên nước, thủy cung, cáp treo." },
+    { name: "Nha Trang - Đảo Khỉ 3N2Đ", location: "Nha Trang", duration: 3, price: 4900000, rating: 4.5, departure: "2026-01-05", type: "domestic", image: "https://bizweb.dktcdn.net/thumb/grande/100/410/190/products/tour-dao-khi-suoi-hoa-lan-12.jpg?v=1668660744563", desc: "Đảo Khỉ Hòn Lao, vịnh Nha Phu, làng chài, suối nước nóng." },
+    { name: "Nha Trang Luxury 5N4Đ", location: "Nha Trang", duration: 5, price: 12900000, rating: 5.0, departure: "2026-01-15", type: "domestic", image: "https://cf.bstatic.com/xdata/images/hotel/max1024x768/418142776.jpg?k=5945559ba2b925899fd7bdd4d2136d68d37a0899382df0fa08ee941fa3d2190f&o=", desc: "Resort 5 sao bãi biển, dịch vụ spa, ẩm thực cao cấp." },
+    { name: "Nha Trang 2N1Đ - Biển Đẹp", location: "Nha Trang", duration: 2, price: 3500000, rating: 4.4, departure: "2025-12-30", type: "domestic", image: "https://xaviahotel.com/vnt_upload/news/11_2017/nha-trang_1.jpg", desc: "Tour ngắn ngày, tắm biển, tham quan thành phố biển." },
+    { name: "Nha Trang - Cam Ranh 4N3Đ", location: "Nha Trang", duration: 4, price: 7900000, rating: 4.7, departure: "2026-01-10", type: "domestic", hot: true, image: "https://m.dichungtaxi.com/blog/wp-content/uploads/2018/07/Nha20trang201.jpg", desc: "Bãi Dài Cam Ranh, vịnh Vĩnh Hy, vườn nho Ba Mọi." },
+    { name: "Nha Trang Family 5N4Đ", location: "Nha Trang", duration: 5, price: 10900000, rating: 4.8, departure: "2025-12-28", type: "domestic", image: "https://daivietourist.vn/wp-content/uploads/2024/08/tour-nha-trang-5ngay-4-dem-c1.jpg", desc: "Tour gia đình, nhiều hoạt động cho trẻ em, an toàn vui vẻ." },
+    { name: "Nha Trang - Vịnh Ninh Vân 3N2Đ", location: "Nha Trang", duration: 3, price: 5900000, rating: 4.7, departure: "2026-02-05", type: "domestic", image: "https://ik.imagekit.io/tvlk/blog/2023/01/vinh-ninh-van-8.jpg?tr=q-70,c-at_max,w-1000,h-600", desc: "Vịnh Ninh Vân hoang sơ, resort Six Senses, snorkeling." },
+    { name: "Nha Trang - Đảo Bình Ba 3N2Đ", location: "Nha Trang", duration: 3, price: 5200000, rating: 4.6, departure: "2026-01-20", type: "domestic", hot: true, image: "https://mia.vn/media/uploads/blog-du-lich/dao-binh-ba-tr-tren-cao-1697413493.jpg", desc: "Đảo Bình Ba - đảo tôm hùm, ẩm thực hải sản tươi sống." },
+    { name: "Nha Trang - Suối Khoáng Tháp Bà 4N3Đ", location: "Nha Trang", duration: 4, price: 6500000, rating: 4.5, departure: "2026-02-12", type: "domestic", image: "https://mia.vn/media/uploads/blog-du-lich/suoi-khoang-nong-thap-ba-nha-trang-thien-duong-thu-gian-van-nguoi-me--1622786292.jpg", desc: "Suối khoáng nóng Tháp Bà, I-Resort, mud bath thư giãn." },
+    { name: "Nha Trang - Hòn Tằm 3N2Đ", location: "Nha Trang", duration: 3, price: 4800000, rating: 4.6, departure: "2026-01-28", type: "domestic", image: "https://mia.vn/media/uploads/blog-du-lich/tam-bun-hon-tam-03-1700401349.jpg", desc: "Đảo Hòn Tằm, lặn ống thở, beach club, thể thao nước." },
+    { name: "Nha Trang MICE 4N3Đ", location: "Nha Trang", duration: 4, price: 8900000, rating: 4.8, departure: "2026-02-20", type: "domestic", hot: true, image: "https://www.hoangviettravel.com.vn/sites/default/files/hinh-anh-Tour%20Du%20L%E1%BB%8Bch%20Mice%20H%C3%A0%20N%E1%BB%99i%20-%20Nha%20Trang%204%20Ng%C3%A0y%203%20%C4%90%C3%AAm%20.jpg", desc: "Tour hội nghị, team building, resort hội nghị đẳng cấp." },
+    
+    // Huế
+    { name: "Huế 3N2Đ - Cố Đô Di Sản", location: "Huế", duration: 3, price: 3500000, rating: 4.5, departure: "2025-12-19", type: "domestic", image: "https://datviettour.com.vn/uploads/images/tin-tuc-SEO/mien-trung/hue/noi-dung/co-do-hue-1.jpg", desc: "Đại nội Huế, lăng tẩm các vua, sông Hương thơ mộng, ẩm thực cung đình." },
+    { name: "Huế 4N3Đ - Đêm Hoàng Cung", location: "Huế", duration: 4, price: 5900000, rating: 4.7, departure: "2025-12-24", type: "domestic", hot: true, image: "https://hue.gov.vn/Portals/0/Medias/Nam2018/T3/Thai%20Hoa.jpg", desc: "Chương trình ca múa nhạc cung đình, đêm trên sông Hương." },
+    { name: "Huế - Đà Nẵng 5N4Đ", location: "Huế", duration: 5, price: 7900000, rating: 4.8, departure: "2026-01-05", type: "domestic", image: "https://api.sovaba.travel/uploads/hue_da_nang_va_hoi_an_co_vi_tri_gan_nhau_ef83cd783d.jpg", desc: "Hành trình di sản miền Trung: Huế cổ kính và Đà Nẵng hiện đại." },
+    { name: "Huế 2N1Đ - Tiết Kiệm", location: "Huế", duration: 2, price: 2500000, rating: 4.3, departure: "2025-12-29", type: "domestic", image: "https://sinhtour.vn/wp-content/uploads/2025/05/chi-phi-di-hue-2-ngay-1-dem-7.jpg", desc: "Tour ngắn ngày, giá tốt, tham quan chính các điểm di sản." },
+    { name: "Huế Luxury 4N3Đ", location: "Huế", duration: 4, price: 8900000, rating: 4.9, departure: "2026-01-12", type: "domestic", image: "https://luxurytravel.vn/wp-content/uploads/2023/04/du-lich-Hue-800px-1-800x540.jpg", desc: "Khách sạn 5 sao, ẩm thực cung đình đẳng cấp, dịch vụ VIP." },
+    
+    // Hội An 
+    { name: "Hội An 3N2Đ - Phố Cổ", location: "Hội An", duration: 3, price: 3900000, rating: 4.7, departure: "2025-12-20", type: "domestic", image: "https://hoianheritage.net/uploads/bao-chi/2020_10/3142_hoiantown.jpg", desc: "Phố cổ Hội An, chùa Cầu Nhật Bản, làng rau Trà Quế, đêm lễ hội." },
+    { name: "Hội An 4N3Đ - Lễ Hội Đèn Lồng", location: "Hội An", duration: 4, price: 5900000, rating: 4.8, departure: "2025-12-28", type: "domestic", hot: true, image: "https://mia.vn/media/uploads/blog-du-lich/Le_hoi_den_long_Hoi_An_Su_kien_dac_sac_duoc_mong_doi_nhat_o_pho_Hoi_1-1620148890.jpg", desc: "Lễ hội đèn lồng hàng tháng, thả hoa đăng sông Hoài." },
+    { name: "Hội An - Cù Lao Chàm 4N3Đ", location: "Hội An", duration: 4, price: 6900000, rating: 4.6, departure: "2026-01-05", type: "domestic", image: "https://owa.bestprice.vn/images/tours/large/du-lich-son-tra-ba-nathan-tai-cu-lao-chamrung-dua-hoi-an-4n3d-63d7466a2f826-848x477.jpg", desc: "Kết hợp phố cổ và đảo Cù Lao Chàm - khu dự trữ sinh quyển." },
+    { name: "Hội An Honeymoon 5N4Đ", location: "Hội An", duration: 5, price: 9900000, rating: 5.0, departure: "2026-01-15", type: "domestic", image: "https://cdn.dnqtravel.com/wp-content/uploads/2018/04/HOIAN-SIGHTSEEING-TOURS.jpg?strip=all&lossy=1&ssl=1", desc: "Honeymoon lãng mạn, resort ven sông, ảnh cưới phố cổ." },
+    { name: "Hội An 2N1Đ - Cuối Tuần", location: "Hội An", duration: 2, price: 2900000, rating: 4.4, departure: "2025-12-30", type: "domestic", image: "https://anabasrestaurant.vn/wp-content/uploads/2024/07/du-lich-da-nang-hoi-an-2n1d-1.jpg", desc: "Tour cuối tuần, thư giãn phố cổ, giá cả phải chăng." },
+    { name: "Hội An - Mỹ Sơn 3N2Đ", location: "Hội An", duration: 3, price: 4900000, rating: 4.7, departure: "2026-01-08", type: "domestic", image: "https://viettrans.vn/wp-content/uploads/2019/03/my-son-hoi-an-tour.jpg", desc: "Thánh địa Mỹ Sơn, phố cổ Hội An, di sản văn hóa thế giới." },
+    { name: "Hội An - Làng Rau Trà Quế 3N2Đ", location: "Hội An", duration: 3, price: 4200000, rating: 4.6, departure: "2026-02-10", type: "domestic", hot: true, image: "https://daivietourist.vn/wp-content/uploads/2025/06/lang-rau-tra-que-2.jpg", desc: "Trải nghiệm làm nông dân, hái rau, nấu ăn với rau organic." },
+    { name: "Hội An - Làng Gốm Thanh Hà 3N2Đ", location: "Hội An", duration: 3, price: 4100000, rating: 4.5, departure: "2026-01-22", type: "domestic", image: "https://culaochamtour.com/wp-content/uploads/2021/10/lang-gom-thanh-ha-hoi-an-d.jpg", desc: "Làng gốm Thanh Hà 500 năm, tự tay làm gốm, làng nghề truyền thống." },
+    { name: "Hội An Food Tour 3N2Đ", location: "Hội An", duration: 3, price: 4500000, rating: 4.8, departure: "2026-02-15", type: "domestic", hot: true, image: "https://danangbest.com/uploads/thumb/1693833384am-thuc-hoi-an.webp", desc: "Ẩm thực Hội An: cao lầu, bánh mì Phượng, bánh bao bánh vạc." },
+    { name: "Hội An - Biển An Bàng 4N3Đ", location: "Hội An", duration: 4, price: 6500000, rating: 4.7, departure: "2026-02-25", type: "domestic", image: "https://ik.imagekit.io/tvlk/blog/2023/03/bien-an-bang-6.jpg?tr=q-70,c-at_max,w-1000,h-600", desc: "Biển An Bàng hoang sơ, resort bãi biển, kết hợp phố cổ." },
+    { name: "Hội An - Làng Đèn Lồng 3N2Đ", location: "Hội An", duration: 3, price: 4400000, rating: 4.6, departure: "2026-01-30", type: "domestic", image: "https://www.aseantraveller.net/source/img_news/3615.jpg", desc: "Làm đèn lồng truyền thống, may áo dài, văn hóa thủ công." },
+    { name: "Hội An Family 4N3Đ", location: "Hội An", duration: 4, price: 7200000, rating: 4.7, departure: "2025-12-26", type: "domestic", image: "https://mia.vn/media/uploads/blog-du-lich/pho-co-hoi-an-4-1722851828.jpg", desc: "Tour gia đình, làm bánh xèo, đạp xe làng quê, hoạt động trẻ em." },
+    
+    // Quy Nhơn
+    { name: "Quy Nhơn 3N2Đ - Kỳ Co & Eo Gió", location: "Quy Nhơn", duration: 3, price: 4200000, rating: 4.7, departure: "2025-12-23", type: "domestic", image: "https://cdn.xanhsm.com/2024/12/cb3c221f-ky-co-eo-gio-1.jpg", desc: "Biển Kỳ Co trong vắt, Eo Gió hùng vĩ, ẩm thực Bình Định đặc sắc." },
+    { name: "Quy Nhơn 4N3Đ - Resort Biển", location: "Quy Nhơn", duration: 4, price: 6900000, rating: 4.8, departure: "2025-12-28", type: "domestic", hot: true, image: "https://summittravel.com.vn/upload/images/quy-nhon-2.jpg", desc: "Resort bãi biển đẹp, thư giãn tuyệt đối, ẩm thực hải sản tươi." },
+    { name: "Quy Nhơn - Phú Yên 5N4Đ", location: "Quy Nhơn", duration: 5, price: 8900000, rating: 4.7, departure: "2026-01-05", type: "domestic", image: "https://mia.vn/media/uploads/blog-du-lich/review-lich-trinh-kham-pha-quy-nhon-phu-yen-5N4D-tu-tuc-03-1637570835.jpg", desc: "Ghềnh Đá Đĩa Phú Yên, mũi Điện, đảo Nhất Tự Sơn." },
+    
+    // QUỐC TẾ
+
+    // Hàn Quốc 
+    { name: "Hàn Quốc 5N4Đ - Seoul & Jeju", location: "Hàn Quốc", duration: 5, price: 21900000, rating: 4.9, departure: "2025-12-30", type: "international", image: "https://www.vietourist.com.vn/public/frontend/uploads/files/tour/jeju_island_korea.jpg", desc: "Đảo Nami lãng mạn, Seoul Tower, đảo Jeju - thiên đường nghỉ dưỡng." },
+    { name: "Hàn Quốc 6N5Đ - Mùa Thu Lá Đỏ", location: "Hàn Quốc", duration: 6, price: 25900000, rating: 4.9, departure: "2025-10-15", type: "international", hot: true, image: "https://owa.bestprice.vn/images/articles/uploads/chiem-nguong-mua-la-do-han-quoc-ruc-ro-kinh-nghiem-du-lich-moi-nhat-2024-66027a442b5ec.jpg", desc: "Mùa thu lá đỏ rực rỡ, Nami Island, N Seoul Tower, Lotte World." },
+    { name: "Hàn Quốc 7N6Đ - Trọn Vẹn", location: "Hàn Quốc", duration: 7, price: 29900000, rating: 5.0, departure: "2026-04-10", type: "international", image: "https://maytravel.vn/wp-content/uploads/2023/09/lich-trinh-du-lich-han-quoc-1.jpg.webp", desc: "Seoul, Busan, Jeju - trải nghiệm trọn vẹn đất nước Hàn Quốc." },
+    { name: "Hàn Quốc 4N3Đ - Seoul Focus", location: "Hàn Quốc", duration: 4, price: 17900000, rating: 4.7, departure: "2026-03-05", type: "international", hot: true, image: "https://ik.imgkit.net/3vlqs5axxjf/external/http://images.ntmllc.com/v4/destination/South-Korea/Seoul/219740_SCN_Seoul_iStock521707831_ZC35CD.jpg?tr=w-1200%2Cfo-auto", desc: "Tập trung khám phá Seoul: shopping, ẩm thực, văn hóa Hallyu." },
+    { name: "Hàn Quốc 8N7Đ - Mùa Đông Tuyết Trắng", location: "Hàn Quốc", duration: 8, price: 32900000, rating: 4.8, departure: "2026-01-20", type: "international", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTJQYquuMZXa9nVtucRw9DD082vZnGuc9ykBw&s", desc: "Trượt tuyết, suối nước nóng, lễ hội mùa đông Hàn Quốc." },
+    { name: "Hàn Quốc Honeymoon 6N5Đ", location: "Hàn Quốc", duration: 6, price: 35900000, rating: 5.0, departure: "2026-05-20", type: "international", image: "https://s3.centours.vn/centours/file-gallery/1eb42888b37b69334a7f23ebec6e3e9b.jpg", desc: "Honeymoon lãng mạn, photoshoot Hanbok, resort cao cấp Jeju." },
+    { name: "Hàn Quốc 5N4Đ - Busan & Seoul", location: "Hàn Quốc", duration: 5, price: 23900000, rating: 4.8, departure: "2026-06-15", type: "international", image: "https://www.vietourist.com.vn/public/frontend/uploads/files/tour/du-lich-busan-2-1.jpg", desc: "Thành phố biển Busan, chợ Jagalchi, làng văn hóa Gamcheon." },
+    { name: "Hàn Quốc - Đảo Jeju 6N5Đ", location: "Hàn Quốc", duration: 6, price: 26900000, rating: 4.8, departure: "2026-08-15", type: "international", image: "https://dulichviet.com.vn/images/bandidau/TIN-TUC/du-lich-han-quoc/di-du-lich-dao-jeju-han-du-lich-viet.jpg", desc: "Focus đảo Jeju - núi Hallasan, bảo tàng Teddy Bear, Loveland." },
+    { name: "Hàn Quốc - DMZ 5N4Đ", location: "Hàn Quốc", duration: 5, price: 24900000, rating: 4.7, departure: "2026-09-20", type: "international", hot: true, image: "https://nhatrang-tourist.com/image/catalog/TOUR%20N%C6%AF%E1%BB%9AC%20NGO%C3%80I/H%C3%80N%20QU%E1%BB%90C/m%C3%B9a%20thu%205n4%C4%91/tour-han-quoc-mua-thu-5n4d%20(6).jpg", desc: "Khu phi quân sự DMZ, làng văn hóa Hàn Quốc truyền thống." },
+    { name: "Hàn Quốc - Mùa Hoa Anh Đào 5N4Đ", location: "Hàn Quốc", duration: 5, price: 28900000, rating: 4.9, departure: "2026-04-01", type: "international", image: "https://vj-prod-website-cms.s3.ap-southeast-1.amazonaws.com/1242886240-1674664637790.jpg", desc: "Mùa hoa anh đào nở rộ, Yeouido, công viên núi Namsan." },
+
+    // NHẬT BẢN 
+    { name: "Nhật Bản 6N5Đ - Tokyo & Fuji", location: "Nhật Bản", duration: 6, price: 39900000, rating: 5.0, departure: "2026-03-20", type: "international", image: "https://happyvivu.com/wp-content/uploads/2023/11/Ha-Noi-Tokyo-Kawazu-Fuji-Kyoto-Nagoya-6.jpg", desc: "Mùa hoa anh đào, núi Phú Sĩ huyền thoại, Tokyo Disneyland." },
+    { name: "Nhật Bản 7N6Đ - Mùa Thu", location: "Nhật Bản", duration: 7, price: 42900000, rating: 4.9, departure: "2025-11-10", type: "international", hot: true, image: "https://bizweb.dktcdn.net/thumb/grande/100/444/252/products/5-nui-phu-si.jpg?v=1758517725373", desc: "Mùa thu lá đỏ Kyoto, Tokyo hiện đại, Osaka ẩm thực." },
+    { name: "Nhật Bản 5N4Đ - Tokyo Focus", location: "Nhật Bản", duration: 5, price: 35900000, rating: 4.8, departure: "2026-05-10", type: "international", image: "https://viettourist.com//resources/images/NHATBAN/Nhatban-lado/nhatban-lado-2025/chuanuoc-5.jpg", desc: "Khám phá sâu Tokyo: Shibuya, Shinjuku, Akihabara, Asakusa." },
+    { name: "Nhật Bản 9N8Đ - Mùa Đông", location: "Nhật Bản", duration: 9, price: 55900000, rating: 4.9, departure: "2026-01-15", type: "international", hot: true, image: "https://vacationtravel.com.vn/CustomFolder/images/Tour%20nuoc%20ngoai/dulichnhatban0.JPG", desc: "Trượt tuyết Hokkaido, suối nước nóng Onsen, lễ hội mùa đông." },
+    { name: "Nhật Bản Honeymoon 7N6Đ", location: "Nhật Bản", duration: 7, price: 59900000, rating: 5.0, departure: "2026-06-01", type: "international", image: "https://viettourist.com//resources/images/NHATBAN/Nhatban-hoaanhdao/hoangcung-4.jpg", desc: "Honeymoon sang trọng, ryokan truyền thống, dịch vụ cao cấp." },
+    { name: "Nhật Bản 6N5Đ - Kyoto Cổ Kính", location: "Nhật Bản", duration: 6, price: 41900000, rating: 4.9, departure: "2026-04-25", type: "international", image: "https://assets.hldycdn.com/cdn-cgi/image/format=webp,width=1024,quality=75/articles/4eeb57_e6f835f83fa640c48d991d3f3b8c8017~mv2.jpg", desc: "Kyoto - cố đô Nhật Bản, đền chùa cổ, geisha, văn hóa truyền thống." },
+    { name: "Nhật Bản - Hokkaido 7N6Đ", location: "Nhật Bản", duration: 7, price: 51900000, rating: 4.8, departure: "2026-02-10", type: "international", image: "https://dulichviet.com.vn/images/bandidau/hokkaido-dia-diem-du-lich-nhat-ban-hap-dan-nhat-vao-mua-dong.jpg", desc: "Sapporo, Otaru, Asahikawa - khám phá Hokkaido mùa đông." },
+    { name: "Nhật Bản - Okinawa 6N5Đ", location: "Nhật Bản", duration: 6, price: 45900000, rating: 4.7, departure: "2026-08-15", type: "international", hot: true, image: "https://cdn.saigontimestravel.com/storage/images/retail/wp-content/uploads/2024/05/Okinawa-Nhat-Ban.jpg", desc: "Đảo Okinawa, biển trong xanh, văn hóa Ryukyu độc đáo." },
+    { name: "Nhật Bản - Hiroshima 7N6Đ", location: "Nhật Bản", duration: 7, price: 43900000, rating: 4.7, departure: "2026-09-25", type: "international", image: "https://asset.japan.travel/image/upload/v1645000949/hiroshima/Hiroshima2202_main.jpg", desc: "Hiroshima, Miyajima, Itsukushima - lịch sử và văn hóa." },
+    { name: "Nhật Bản - Mùa Hoa Anh Đào 6N5Đ", location: "Nhật Bản", duration: 6, price: 48900000, rating: 5.0, departure: "2026-04-05", type: "international", hot: true, image: "https://dulichviet.com.vn/images/bandidau/du-lich-chau-a-ha-noi/nhat-ban-ha-noi/phu-sy-hoa-anh-dao-nhat-du-lich-viet.jpg", desc: "Hanami - ngắm hoa anh đào, công viên Ueno, núi Yoshino." },
+    
+    // Thái Lan
+    { name: "Thái Lan 5N4Đ - Bangkok & Pattaya", location: "Thái Lan", duration: 5, price: 13900000, rating: 4.8, departure: "2025-12-26", type: "international", hot: true, image: "https://hptravel.com.vn/img_data/images/N%C6%B0%E1%BB%9Bc%20Ngo%C3%A0i/thailand/bangkok-pattaya.jpg", desc: "Chợ nổi Damnoen Saduak, đảo san hô Coral, show Alcazar hoành tráng." },
+    { name: "Thái Lan 6N5Đ - Phuket & Krabi", location: "Thái Lan", duration: 6, price: 17900000, rating: 4.9, departure: "2026-01-15", type: "international", image: "https://phuketsailtours.com/wp-content/uploads/2023/04/Koh-Tup-and-Koh-Mor-krabi-thailand-must-visit-destination-in-thailand-phuket-sail-tours.jpg", desc: "Biển Phuket, vịnh Phang Nga, đảo Phi Phi, Krabi tuyệt đẹp." },
+    { name: "Thái Lan 7N6Đ - Toàn Cảnh", location: "Thái Lan", duration: 7, price: 19900000, rating: 4.8, departure: "2026-02-10", type: "international", hot: true, image: "https://baogiaothong.mediacdn.vn/upload/4-2021/images/2021-11-01/9-danh-lam-thang-canh-mang-tinh-bieu-tuong-cua-Thai-Lan-2-1635757360-738-width800height533.jpg", desc: "Bangkok, Pattaya, Phuket - khám phá trọn vẹn Thái Lan." },
+    { name: "Thái Lan 4N3Đ - Bangkok", location: "Thái Lan", duration: 4, price: 11900000, rating: 4.7, departure: "2026-03-05", type: "international", image: "https://media-cdn-v2.laodong.vn/Storage/NewsPortal/2023/2/17/1148784/1638870928_Bangkok-T.jpg", desc: "Chùa Vàng, chùa Bình Minh, sông Chao Phraya, shopping Siam." },
+    { name: "Thái Lan 8N7Đ - Đảo Phuket", location: "Thái Lan", duration: 8, price: 21900000, rating: 4.9, departure: "2026-04-20", type: "international", image: "https://viettourist.com//resources/images/THAILAN-PHUKET/phuket-2022/phangnga%20(10).jpg", desc: "Nghỉ dưỡng đảo Phuket, các đảo lân cận, resort 5 sao." },
+    { name: "Thái Lan Honeymoon 6N5Đ", location: "Thái Lan", duration: 6, price: 23900000, rating: 5.0, departure: "2026-05-15", type: "international", image: "https://puolotrip.com/images/pro/package-tour-thai-lan-campuchia-6n5d--tE60_1606.jpg", desc: "Honeymoon lãng mạn, resort private pool, dịch vụ riêng tư." },
+    { name: "Thái Lan Family 7N6Đ", location: "Thái Lan", duration: 7, price: 18900000, rating: 4.8, departure: "2026-06-10", type: "international", hot: true, image: "https://trieuhaotravel.vn/Uploads/images/LMDUC/Thai/Muang_Boran.jpg", desc: "Công viên nước, sở thú Safari World, hoạt động cho trẻ em." },
+    
+    // Singapore 
+    { name: "Singapore 4N3Đ - Marina Bay Sands", location: "Singapore", duration: 4, price: 18900000, rating: 4.9, departure: "2025-12-28", type: "international", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRhEWRQ1gaTwV8XT7Ads86YKdM0xJmoFLXTgw&s", desc: "Khách sạn hồ bơi vô cực nổi tiếng, Universal Studio, Garden by the Bay." },
+    { name: "Singapore 5N4Đ - Thủy cung S.E.A Aquarium", location: "Singapore", duration: 5, price: 21900000, rating: 4.9, departure: "2026-01-20", type: "international", hot: true, image: "https://cdn3.ivivu.com/2024/01/thuy-cung-sea-ivivu11.webp", desc: "Một trong những thủy cung lớn trên thế giới nằm tại đảo Sentosa." },
+    { name: "Singapore 3N2Đ - Sở thú Night Safari Singapore", location: "Singapore", duration: 3, price: 15900000, rating: 4.7, departure: "2026-02-15", type: "international", image: "https://dulichviet.com.vn/images/bandidau/du-lich-singapore-kham-pha-vuon-thu-dem-Night-Safari-co-gi-thu-vi.jpg", desc: "Night Safari Singapore là sở thú cho phép du khách thăm quan vào ban đêm đầu tiên trên thế giới.." },
+    { name: "Singapore - Jewel Changi", location: "Singapore", duration: 6, price: 25900000, rating: 4.8, departure: "2026-03-10", type: "international", hot: true, image: "https://assets.architecturaldigest.in/photos/68c7adc8a066a2ff558e15bf/16:9/w_2560%2Cc_limit/cover%2520image%2520template%25203%2520(2).jpg", desc: "Nơi có thác nước trong nhà cao nhất thế giới.." },
+    { name: "Singapore - Cụm nhà hát Esplanade", location: "Singapore", duration: 5, price: 23900000, rating: 4.9, departure: "2026-04-05", type: "international", image: "https://bizweb.dktcdn.net/100/539/761/files/nha-hat-victoria4.jpg?v=1741140912571", desc: "Kiến trúc độc đáo được thiết kế dựa trên nhà hát opera hình móng ngựa." },
+    { name: "Singapore - Công viên Merlion", location: "Singapore", duration: 4, price: 26900000, rating: 5.0, departure: "2026-05-01", type: "international", image: "https://luhanhvietnam.com.vn/du-lich/vnt_upload/news/07_2020/cong-vien-merlion-3.jpg", desc: "Công viên Merlion được xem là biểu tượng của Quốc đảo Sư Tử – nơi có bức tượng đầu sư tử thân cá ở ngay trung tâm của công viên." },
+    
+    // ẤN ĐỘ 
+    { name: "Ấn Độ 7N6Đ - Taj Mahal & Delhi", location: "Ấn Độ", duration: 7, price: 25900000, rating: 4.7, departure: "2026-02-10", type: "international", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTF2EGe91ckCXWd76lBlmIVq34f-qdY0q8XJQ&s", desc: "Tham gia tour trong ngày tới các nơi tiêu biểu nhất ở Agra. Ngắm Taj Mahal nổi tiếng thế giới và làm chuyến tham quan pháo đài Agra với hướng dẫn nói ..." },
+    { name: "Ấn Độ 8N7Đ - Golden Triangle", location: "Ấn Độ", duration: 8, price: 28900000, rating: 4.8, departure: "2026-03-15", type: "international", hot: true, image: "https://tour.dulichvietnam.com.vn/uploads/tour/1571979360_den-hoa-sen.jpg", desc: "Delhi, Agra, Jaipur - tam giác vàng Ấn Độ, di sản thế giới." },
+    { name: "Ấn Độ 10N9Đ - Thung lũng hoa Uttaranchal", location: "Ấn Độ", duration: 10, price: 35900000, rating: 4.7, departure: "2026-04-20", type: "international", image: "https://ceford.vn/Upload/images/thung%20lung%20hoa%20An%20do-5.jpg", desc: "Với cảnh quang hài hòa giữa mây, núi, sương mù, kết hợp cùng màu sắc rực rỡ của các loài hoa như huệ, đỗ quyên, lan, anh túc,... thung lũng hoa Uttaranchal từng được UNESCO công nhận là Di sản Văn hóa Thế giới." },
+    { name: "Ấn Độ 6N5Đ - Rajasthan", location: "Ấn Độ", duration: 6, price: 23900000, rating: 4.6, departure: "2026-05-25", type: "international", image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/15/33/fc/f9/rajasthan.jpg?w=600&h=500&s=1", desc: "Jaipur, Udaipur, Jodhpur - các thành phố hoàng gia Rajasthan." },
+    { name: "Ấn Độ 9N8Đ - Himalayan", location: "Ấn Độ", duration: 9, price: 31900000, rating: 4.8, departure: "2026-06-30", type: "international", hot: true, image: "https://www.sgotours.vn/images/news/202492385812-2.jpg", desc: "Dharamshala, Leh Ladakh - khám phá dãy Himalaya hùng vĩ." },
+    { name: "Ấn Độ - Varanasi 8N7Đ", location: "Ấn Độ", duration: 8, price: 27900000, rating: 4.7, departure: "2026-07-15", type: "international", image: "https://pystravel.vn/_next/image?url=https%3A%2F%2Fbooking.pystravel.vn%2Fuploads%2Fposts%2Favatar%2F1732121219.jpg&w=3840&q=75", desc: "Varanasi - thành phố linh thiêng bên sông Hằng, nghi lễ Ganga Aarti." },
+    { name: "Ấn Độ - Kerala Backwaters 7N6Đ", location: "Ấn Độ", duration: 7, price: 29900000, rating: 4.8, departure: "2026-08-20", type: "international", hot: true, image: "https://media.daidoanket.vn/w1200/uploaded/images/2025/09/09/fc8af668-fb32-413e-8528-40be83898db0.jpg", desc: "Houseboat trên kênh Kerala, Alleppey, Cochin - thiên đường phương Nam." },
+    { name: "Ấn Độ - Mumbai & Goa 9N8Đ", location: "Ấn Độ", duration: 9, price: 32900000, rating: 4.7, departure: "2026-09-25", type: "international", image: "https://pystravel.vn/_next/image?url=https%3A%2F%2Fobjectstorage.omzcloud.vn%2Fpys-object-storage%2Fweb%2Fuploads%2Fposts%2Favatar%2F1669090289.jpeg&w=3840&q=75", desc: "Mumbai hiện đại và Goa nghỉ dưỡng - hai mặt Ấn Độ." },
+    { name: "Ấn Độ Yoga Retreat 10N9Đ", location: "Ấn Độ", duration: 10, price: 37900000, rating: 4.9, departure: "2026-10-10", type: "international", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQNqkfGc8aKNlGH0_1z47UBa5pQyqgNgTjUKQ&s", desc: "Rishikesh - thủ đô yoga thế giới, thiền định, Ayurveda." },
+    { name: "Ấn Độ Wildlife 8N7Đ", location: "Ấn Độ", duration: 8, price: 34900000, rating: 4.8, departure: "2026-11-05", type: "international", hot: true, image: "https://viettourist.com//resources/images/980-ando/new-delhi-moi-2024/Ranthambore-National-Park24.jpg", desc: "Công viên quốc gia Ranthambore, Bandhavgarh - safari hổ Bengal." },
+    
+    // TRUNG QUỐC
+    { name: "Trung Quốc 6N5Đ - Great Wall of China", location: "Trung Quốc", duration: 6, price: 17900000, rating: 4.6, departure: "2026-01-15", type: "international", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/The_Great_Wall_of_China_at_Jinshanling-edit.jpg/330px-The_Great_Wall_of_China_at_Jinshanling-edit.jpg", desc: "Vạn Lý Trường Thành hùng vĩ, Tử Cấm Thành Bắc Kinh, Thượng Hải hiện đại." },
+    { name: "Trung Quốc 7N6Đ - Bắc Kinh & Thượng Hải", location: "Trung Quốc", duration: 7, price: 19900000, rating: 4.7, departure: "2026-02-20", type: "international", hot: true, image: "https://vj-prod-website-cms.s3.ap-southeast-1.amazonaws.com/depositphotos156818788xl-1739928547918.jpg", desc: "Bắc Kinh cổ kính và Thượng Hải hiện đại - hai mặt Trung Quốc." },
+    { name: "Trung Quốc 8N7Đ - Quảng Châu & Thâm Quyến", location: "Trung Quốc", duration: 8, price: 18900000, rating: 4.6, departure: "2026-03-25", type: "international", image: "https://www.hoangviettravel.com.vn/sites/default/files/hinh-anh-chuong-trinh-du-lich-hong-kong-quang-chau-tham-quyen.jpg", desc: "Quảng Châu ẩm thực, Thâm Quyến công nghệ, shopping sầm uất." },
+    { name: "Trung Quốc 9N8Đ - Tứ Xuyên & Trùng Khánh", location: "Trung Quốc", duration: 9, price: 21900000, rating: 4.8, departure: "2026-04-30", type: "international", image: "https://viettourist.com//resources/images/TRUNG-KHANH/trungkhanh-2023/hongnhaidong-3.jpg", desc: "Núi Nga My, Trùng Khánh, ẩm thực Tứ Xuyên cay nồng." },
+    { name: "Trung Quốc 5N4Đ - Hồng Kông", location: "Trung Quốc", duration: 5, price: 16900000, rating: 4.7, departure: "2026-05-15", type: "international", hot: true, image: "https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0e/0c/30/1d/kowloon-city.jpg?w=900&h=500&s=1", desc: "Hồng Kông - thành phố không ngủ, Victoria Peak, Disneyland." },
+    { name: "Trung Quốc 10N9Đ - Con Đường Tơ Lụa", location: "Trung Quốc", duration: 10, price: 28900000, rating: 4.9, departure: "2026-06-20", type: "international", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTfnc7-Eec4eTihEuwfpL35rhV0wscQLAdMRg&s", desc: "Tây An, Đôn Hoàng, Turpan - hành trình Con đường tơ lụa huyền thoại." },
+    { name: "Trung Quốc - Vân Nam 8N7Đ", location: "Trung Quốc", duration: 8, price: 23900000, rating: 4.7, departure: "2026-07-25", type: "international", hot: true, image: "https://owa.bestprice.vn/images/articles/uploads/hot-van-nam-trung-quoc-kinh-nghiem-du-lich-tu-tuc-cho-nguoi-di-chua-lanh-6860b9a02b54e.jpg", desc: "Côn Minh, Lệ Giang, Shangri-La - vùng đất thiên đường Vân Nam." },
+    { name: "Trung Quốc - Tây Tạng 11N10Đ", location: "Trung Quốc", duration: 11, price: 32900000, rating: 4.9, departure: "2026-08-30", type: "international", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTP2owSmRvJOI-rq47bdlDHWLVO4cgk-g8LLw&s", desc: "Lhasa, cung điện Potala, hồ Yamdrok - vùng đất tâm linh Tây Tạng." },
+    { name: "Trung Quốc - Quế Lâm 6N5Đ", location: "Trung Quốc", duration: 6, price: 19900000, rating: 4.8, departure: "2026-09-15", type: "international", image: "https://viettourist.com//resources/images/NAMNINH-QUELAM/namninh-quelam-muathu/ruongbacthang-longthang-6.jpg", desc: "Quế Lâm, sông Li, Dương Sóc - phong cảnh sơn thủy hữu tình." },
+    { name: "Trung Quốc - Lăng mộ Tần Thủy Hoàng 5N4Đ", location: "Trung Quốc", duration: 5, price: 15900000, rating: 4.6, departure: "2026-10-20", type: "international", hot: true, image: "https://cdn.vntrip.vn/cam-nang/wp-content/uploads/2018/09/lang-mo-tan-thuy-hoang-trung-quoc-vntrip4.jpg", desc: "Đến đây bạn sẽ được chiêm ngưỡng hơn 8 ngàn tượng lính gác bằng đất nung - biểu tượng quyền lực của vua Tần Thủy Hoàng khi xưa. Những bức tượng này được mô phỏng đúng kích thước như người thật, năm 1987 đạo quân đất nung này được UNESCO công nhận là Di sản Văn hóa Thế giới bởi." },
+    
+    // Châu Âu 
+    { name: "Châu Âu 10N9Đ - Pháp & Ý & Thụy Sĩ", location: "Châu Âu", duration: 10, price: 69900000, rating: 5.0, departure: "2026-01-05", type: "international", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWLyTbrmJnp4zqW0yaJa2jG1VophTy6Dz_-A&s", desc: "Paris - Tháp Eiffel, Rome - Vatican, Zurich - hồ Lucerne thơ mộng." },
+    { name: "Châu Âu 12N11Đ - Thành phố cảng Hamburg, Đức", location: "Châu Âu", duration: 12, price: 79900000, rating: 5.0, departure: "2026-03-15", type: "international", hot: true, image: "https://eurotravel.com.vn/wp-content/uploads/2023/02/1-qmKdj1hs.jpg", desc: "Địa điểm du lịch châu Âu này nằm bên dòng sông Elbe thơ mộng, Hamburg không chỉ là thành phố lớn thứ hai của Đức mà còn là một trong những cảng biển lớn nhất châu Âu. Nơi đây được mệnh danh là Cổng vào thế giới của Đức." },
+    { name: "Châu Âu 14N13Đ - Ngôi làng Giethoorn, Hà Lan", location: "Châu Âu", duration: 14, price: 89900000, rating: 5.0, departure: "2026-05-20", type: "international", image: "https://vcdn1-dulich.vnecdn.net/2019/05/15/Discover-Holland-1557904368.jpg?w=1200&h=0&q=100&dpr=1&fit=crop&s=ywwD--VmW5XcNysjqt3RSA", desc: " Là một ngôi làng nhỏ đẹp như tranh vẽ nằm ở tỉnh Overijssel của Hà Lan. Nơi đây nổi tiếng với hệ thống kênh đào chằng chịt và những ngôi nhà mái tranh được nối liền với nhau bằng những cây cầu gỗ." },
+    { name: "Châu Âu 8N7Đ -  Luxembourg", location: "Châu Âu", duration: 8, price: 59900000, rating: 4.9, departure: "2026-07-10", type: "international", image: "https://dulichviet.com.vn/images/bandidau/quang-truong-romerberg.jpg", desc: "Nơi đây nổi tiếng với những thị trấn lịch sử quyến rũ, khung cảnh thiên nhiên tuyệt đẹp và nền văn hóa đa dạng. Những điểm đến nổi bật ở Luxembourg bao gồm: Thành phố Luxembourg: Thủ đô của Luxembourg" },
+    { name: "Châu Âu 9N8Đ - Tháp nghiêng Pisa, Ý", location: "Châu Âu", duration: 9, price: 65900000, rating: 4.9, departure: "2026-04-25", type: "international", hot: true, image: "https://dulichviet.com.vn/images/bandidau/kham-pha-thap-nghieng-Pisa.png", desc: "Tháp nghiêng Pisa là một trong những điểm du lịch nổi tiếng nhất trên thế giới, được biết đến với cấu trúc nghiêng đặc biệt. Tháp được xây dựng vào thế kỷ 12 và bắt đầu nghiêng ngay sau khi bắt đầu xây dựng do nền đất mềm." },
+    { name: "Châu Âu 10N9Đ - Lâu đài Neuschwanstein, Đức", location: "Châu Âu", duration: 10, price: 99900000, rating: 5.0, departure: "2026-06-01", type: "international", image: "https://ik.imagekit.io/tvlk/blog/2023/09/lau-dai-neuschwanstein-15.webp", desc: "Lấy cảm hứng từ những câu chuyện cổ tích và huyền thoại, lâu đài Neuschwanstein trở thành biểu tượng cho sự lãng mạn và trí tưởng tượng của Vua Ludwig II." },
+    { name: "Châu Âu 11N10Đ - Thành phố Madrid, Tây Ban Nha", location: "Châu Âu", duration: 11, price: 75900000, rating: 4.8, departure: "2026-08-15", type: "international", image: "https://dulichviet.com.vn/images/bandidau/thu-do-Madrid-tay-ban-nha-co-lich-su-hinh-thanh-lau-doi.jpg", desc: "Cung điện Hoàng gia Madrid là nơi ở chính thức của Hoàng gia Tây Ban Nha. Đây là một trong những cung điện lớn nhất châu Âu và mở cửa cho công chúng tham quan." },
+    { name: "Châu Âu - Thành Vatican 12N11Đ", location: "Châu Âu", duration: 12, price: 85900000, rating: 4.9, departure: "2026-07-20", type: "international", hot: true, image: "https://dulichminhanh.com.vn/wp-content/uploads/2023/08/toa-thanh-vatican.jpg", desc: "Thành Vatican là quốc gia nhỏ nhất thế giới về diện tích và dân số, nằm trong lòng thành phố Rome, Ý. Nó là nơi ở của Giáo hoàng và Giáo triều, chính phủ trung ương của Giáo hội Công giáo. Thành Vatican là một điểm đến du lịch nổi tiếng, thu hút du khách từ khắp nơi trên thế giới bởi lịch sử phong phú, văn hóa sôi động và kiến ​​trúc tuyệt đẹp." },
+    
+     // CHÂU PHI
+    { name: "Châu Phi 8N7Đ - Safari Kenya", location: "Châu Phi", duration: 8, price: 45900000, rating: 4.9, departure: "2026-02-20", type: "international", hot: true, image: "https://www.holidaymonk.com/wp-content/uploads/2025/09/Travel-Guide-to-Kenya.webp", desc: "Tận mắt chứng kiến ​​đàn linh dương đầu bò sấm sét trên sa mạc đang di cư hàng loạt ở Maasai Mara, một con voi khổng lồ tại Amboseli, hoặc ngạc nhiên tại hồ Nakuru với hàng ngàn con hồng hạc quả là những trải nghiệm tuyệt vời." },
+    { name: "Châu Phi 10N9Đ - Nam Phi", location: "Châu Phi", duration: 10, price: 55900000, rating: 4.9, departure: "2026-04-15", type: "international", image: "https://hanoitourist.vn/sites/default/files/2024/05/z5404417843371_5267cae0a6fad13918352a70688ca66a.jpg", desc: "Cape Town, Safari Kruger, mũi Hảo Vọng, vườn nho Stellenbosch." },
+    { name: "Châu Phi 7N6Đ - Tanzania", location: "Châu Phi", duration: 7, price: 49900000, rating: 4.8, departure: "2026-06-10", type: "international", hot: true, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrDtBlXM8onDCAllebtrrMvMPI4ykbxvubqw&s", desc: "Serengeti, Ngorongoro, leo núi Kilimanjaro (chân núi)." },
+    { name: "Châu Phi 9N8Đ - Ai Cập", location: "Châu Phi", duration: 9, price: 42900000, rating: 4.7, departure: "2026-03-25", type: "international", image: "https://dulichviet.com.vn/images/bandidau/kinh-nghiem-du-lich-ai-cap-mua-nao-dep.png", desc: "Kim tự tháp Giza, sông Nile, bảo tàng Ai Cập, đền Karnak." },
+    { name: "Châu Phi 12N11Đ - Đông Phi", location: "Châu Phi", duration: 12, price: 65900000, rating: 5.0, departure: "2026-05-30", type: "international", image: "https://vietmytravel.com/wp-content/uploads/2017/12/du-lich-dong-phi.jpg", desc: "Kenya, Tanzania, Zanzibar - safari và biển đảo tuyệt đẹp." },
+    { name: "Châu Phi - Morocco 9N8Đ", location: "Châu Phi", duration: 9, price: 48900000, rating: 4.8, departure: "2026-07-15", type: "international", hot: true, image: "https://lp-cms-production.imgix.net/2025-04/GettyImages-1450546518-16.9.jpg?auto=format,compress&q=72&w=1440&h=810&fit=crop", desc: "Marrakech, Sahara, Fes - văn hóa Ả Rập, đêm trong lều Berber." },
+    { name: "Châu Phi - Victoria Falls 8N7Đ", location: "Châu Phi", duration: 8, price: 51900000, rating: 4.9, departure: "2026-08-20", type: "international", image: "https://media.istockphoto.com/id/1081365424/vi/anh/nh%C3%ACn-t%E1%BB%AB-tr%C3%AAn-kh%C3%B4ng-c%E1%BB%A7a-th%C3%A1c-victoria-n%E1%BB%95i-ti%E1%BA%BFng-zimbabwe-v%C3%A0-zambia.jpg?s=612x612&w=0&k=20&c=JX1zPBhcWx4VUJ0Xg_g3UM5GOzQDvBWYf_xOtpVBZq4=", desc: "Thác Victoria (Zimbabwe/Zambia), sông Zambezi, Chobe National Park." },
+    { name: "Châu Phi - Madagascar 10N9Đ", location: "Châu Phi", duration: 10, price: 59900000, rating: 4.8, departure: "2026-09-25", type: "international", hot: true, image: "https://media.vietravel.com/images/Content/dia-diem-du-lich-madagascar-2.png", desc: "Đảo Madagascar - vương quốc động thực vật độc đáo, baobab." },
+    { name: "Châu Phi - Rwanda Gorilla 7N6Đ", location: "Châu Phi", duration: 7, price: 68900000, rating: 5.0, departure: "2026-10-10", type: "international", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSEQ6KlfJcgR0kDXgK1D3I4BX79IhIL6Q0mrg&s", desc: "Trekking khỉ đột núi (gorilla) tại Volcanoes National Park, Rwanda." },
+    { name: "Châu Phi - Safari Premium 11N10Đ", location: "Châu Phi", duration: 11, price: 79900000, rating: 5.0, departure: "2026-11-15", type: "international", hot: true, image: "https://viettourist.com//resources/images/CHAUPHI-KENYA-2024/gamedrive-Maasai-Mara-20.jpg", desc: "Safari cao cấp, lodge 5 sao, máy bay riêng, dịch vụ VIP." },
+    
+    // NGA
+    { name: "Nga 7N6Đ - Moscow & St. Petersburg", location: "Nga", duration: 7, price: 32900000, rating: 4.8, departure: "2026-03-10", type: "international", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ__13HKBEBy_T38uMmcFFcud7JvmzfPrjf0Q&s", desc: "Điện Kremlin, Quảng trường Đỏ, cung điện Mùa Đông, kiến trúc Nga hoàng." },
+    { name: "Nga 9N8Đ - Mùa Đông", location: "Nga", duration: 9, price: 38900000, rating: 4.7, departure: "2026-01-20", type: "international", hot: true, image: "https://dulichviet.com.vn/images/bandidau/di-tour-du-lich-nga-mua-dong-co-gi-dep.png", desc: "Trải nghiệm mùa đông Nga, băng tuyết, lễ hội mùa đông." },
+    { name: "Nga 6N5Đ - Quảng Trường Đỏ Nga", location: "Nga", duration: 6, price: 29900000, rating: 4.6, departure: "2026-05-15", type: "international", image: "https://dulichphuonghoang.vn/upload/images/du-lich-nga-1(3).jpg", desc: "Quảng Trường Đỏ Nga nằm ở trung tâm của thủ đô Moscow và được xem là niềm tự hào của nước Nga. Đây cũng là nơi diễn ra những sự kiện quan trọng của đất nước như lễ đăng quang của các tầng lớp Sa Hoàng Nga. Không những thế, Quảng Trường Đỏ Nga còn được sử dụng để làm lễ duyệt binh lớn nhất thế giới tại nơi đây." },
+    { name: "Nga 8N7Đ - Siberia", location: "Nga", duration: 8, price: 35900000, rating: 4.7, departure: "2026-07-10", type: "international", hot: true, image: "https://bizweb.dktcdn.net/thumb/grande/100/444/252/products/2-bao-tang-kien-truc-va-dan-toc-hoc-taltsy-nga.jpg?v=1760001952673", desc: "Hồ Baikal, Irkutsk, Trans-Siberian Railway (một phần)." },
+    { name: "Nga 10N9Đ - Vành Đai Vàng", location: "Nga", duration: 10, price: 41900000, rating: 4.8, departure: "2026-06-25", type: "international", image: "https://bizweb.dktcdn.net/thumb/grande/100/444/252/products/6-66f33b65-d2a8-4b8d-bbb3-ee5b379c97a1.jpg?v=1719914192043", desc: "Moscow, St. Petersburg, Suzdal, Vladimir - vành đai vàng nước Nga." },
+    { name: "Nga - Sochi 8N7Đ", location: "Nga", duration: 8, price: 37900000, rating: 4.7, departure: "2026-08-15", type: "international", hot: true, image: "https://danhnamtravel.vn/Uploads/images/nga%202020/Sochi-port-Russia-016c40e2eef4.jpg", desc: "Sochi - thành phố biển Nga, Olympic Park, vùng Caucasus." },
+    { name: "Nga - Thế Vận Hội Mùa Đông 7N6Đ", location: "Nga", duration: 7, price: 40900000, rating: 4.8, departure: "2026-02-05", type: "international", image: "https://viettourist.com//resources/images/backinh-capnhitan-langtuyet5n4d/capnhitan-muaxuan/lang-nga-13.jpg", desc: "Trải nghiệm các địa điểm Thế vận hội mùa đông Sochi 2014." },
+    { name: "Nga - Kazan 9N8Đ", location: "Nga", duration: 9, price: 34900000, rating: 4.6, departure: "2026-09-20", type: "international", image: "https://etrip4utravel.s3-ap-southeast-1.amazonaws.com/images/article/2024/03/6035d552-60f5-4d67-a62c-503b9b59ab52.jpg", desc: "Kazan - thủ đô của Tatarstan, sự giao thoa văn hóa Hồi giáo - Chính thống giáo." },
+    { name: "Nga - Vườn Alexandrovsky 8N7Đ", location: "Nga", duration: 8, price: 45900000, rating: 5.0, departure: "2026-06-01", type: "international", hot: true, image: "https://dulichviet.com.vn/images/bandidau/AU-UC-MY-HA-NOI/du-lich-nga-ha-noi/vuon-alexandrovsky-du-lich-viet.jpg", desc: "Vườn được đặt tên theo tên của hoàng đế Aleksandr I – là người có công phá tan cường địch trong cuộc chiến tranh năm 1812. Vườn Alexandrovsky đầy sắc màu được tô thắm bởi đủ các loại hoa và cây biểu tượng cho sức sống, tâm hồn người Nga như sồi, bạch dương, thùy dương, lipa." },
+    { name: "Nga - Đêm Trắng 7N6Đ", location: "Nga", duration: 7, price: 33900000, rating: 4.8, departure: "2026-06-20", type: "international", image: "https://vigotour.com.vn/wp-content/uploads/2024/05/dem-trang-nuoc-nga-1.jpg", desc: "Trải nghiệm Đêm Trắng St. Petersburg, cầu mở, lễ hội mùa hè." },
+    
+    // Úc
+    { name: "Úc 9N8Đ - Sydney & Great Barrier Reef", location: "Úc", duration: 9, price: 52900000, rating: 4.9, departure: "2026-01-25", type: "international", hot: true, image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRWa7iR9W4J0b_3aoGZn6pAioEejg4QSdi-7A&s", desc: "Nhà hát Opera Sydney, Great Barrier Reef, thành phố Melbourne sôi động." },
+    { name: "Úc 11N10Đ -  Công viên quốc gia Kakadu", location: "Úc", duration: 11, price: 65900000, rating: 5.0, departure: "2026-03-20", type: "international", image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs5YYyt5A3qyRqrf-Fl_93gsNx0o9xM6DoHw&s", desc: "Nằm ở miền Bắc nước Úc, Kakadu là công viên quốc gia lớn nhất tại đây, với diện tích gần 20.000km². Nơi đây không chỉ sở hữu vẻ đẹp hùng vĩ của thiên nhiên mà còn mang giá trị văn hóa sâu sắc với những bức tranh đá cổ xưa của thổ dân." },
+    { name: "Úc 7N6Đ -  Rạn san hô Great Barrier", location: "Úc", duration: 7, price: 48900000, rating: 4.8, departure: "2026-05-15", type: "international", hot: true, image: "https://mia.vn/media/uploads/blog-du-lich/ran-san-ho-great-barrier-2-1705369180.jpeg", desc: "Great Barrier Reef là rạn san hô lớn nhất thế giới, trải dài hơn 3000km ngoài khơi Queensland. Với hơn 3000 rạn san hô và 1500 loài cá, nằm sâu dưới làn nước xanh ngắt, nơi đây tựa như một chiếc kính vạn hoa dưới lòng đại dương được thắp lên bởi hàng nghìn rạng san hô độc đáo." },
+    { name: "Úc 8N7Đ - Perth & Western Australia", location: "Úc", duration: 8, price: 56900000, rating: 4.7, departure: "2026-07-10", type: "international", image: "https://reccedu.com/wp-content/uploads/2023/07/gioi-thieu-ve-Perth-Western-Australia-01.jpg", desc: "Perth, Rottnest Island, Wave Rock, Pinnacles Desert." },
+    { name: "Úc - Đảo Tasmania 10N9Đ", location: "Úc", duration: 10, price: 79900000, rating: 5.0, departure: "2026-06-01", type: "international", image: "https://dulichviet.com.vn/images/bandidau/du-lich-dao-tasmania-mua-he.jpg", desc: "Tasmania chắc chắn nổi bật với vẻ đẹp riêng biệt khi là bang đảo duy nhất của đất nước. Được bao quanh bởi Ấn Độ Dương và Thái Bình Dương, nơi đây như một “viên ngọc quý” ẩn mình giữa lòng đại dương mênh mông." },
+    
+    // Dubai
+    { name: "Dubai 6N5Đ - Sa mạc & Siêu đô thị", location: "Dubai", duration: 6, price: 28900000, rating: 4.9, departure: "2026-02-15", type: "international", hot: true, image: "https://onlinebooking.vn/wp-content/uploads/tour-dubai-6-ngay-5-dem-1.jpg", desc: "Burj Khalifa, đảo nhân tạo Palm, trượt cát sa mạc, mua sắm sang trọng." },
+    { name: "Dubai 5N4Đ - Tòa nhà Burj Khalifa", location: "Dubai", duration: 5, price: 35900000, rating: 5.0, departure: "2026-04-20", type: "international", image: "https://datviettour.com.vn/uploads/images/tin-tuc-SEO-NN-chau-a/dubai/danh-thang/Burj_Khalifa-bieu-tuong-cua-dubai.jpg", desc: "Tòa nhà Burj Khalifa vốn được xem là biểu tượng du lịch của Dubai, mỗi năm tiếp đón khoảng 10.000.000 lượt khách du lịch tìm đến tham quan. Công trình kiến trúc đặc sắc này cao khoảng 828m và được xem là tòa nhà cao nhất trên thế giới, trở thành biểu tượng và là niềm kiêu hãnh của người dân Dubai." },
+    { name: "Dubai - Pháo đài Al Fahidi Fort 7N6Đ", location: "Dubai", duration: 7, price: 32900000, rating: 4.8, departure: "2026-06-15", type: "international", hot: true, image: "https://dulichdisanviet.vn/lib/ckeditor/images/net-co-kinh-bao-tang-dubai.jpg", desc: "Pháo đài Al Fahidi Fort thuộc bảo tàng Dubai, là một công trình kiến trúc cổ kính tiêu biểu của thành phố tráng lệ này. Pháo đài Al Fahidi Fort vốn là một trong những thành lũy kiên cố được xây dựng trong công cuộc phòng chống quân xâm lược của người Emiratis xưa kia. Bên trong pháo đài Al Fahidi Fort hiện đang trưng bày rất nhiều những trang phục truyền thống, vũ khí và các công cụ sinh hoạt thời xa xưa để du khách có thể thỏa sức tham quan và khám phá nếu có dịp đến đây.." },
+    
+];
+
+
+function formatPrice(p) { return p.toLocaleString('vi-VN') + '₫'; }
+
+function createTourCard(t) {
+    const hot = t.hot ? '<div class="badge-hot">HOT DEAL</div>' : '';
+    return `
+        <div class="tour-card">
+            ${hot}
+            <div class="tour-image">
+                <img src="${t.image}" alt="${t.name}">
+            </div>
+            <div class="tour-content">
+                <h3 class="tour-title">${t.name}</h3>
+                <p class="tour-desc">${t.desc}</p>
+                <div class="tour-meta">
+                    <span><i class="fas fa-map-marker-alt"></i> ${t.location}</span>
+                    <span><i class="fas fa-clock"></i> ${t.duration} ngày</span>
+                    <span><i class="fas fa-calendar-alt"></i> ${new Date(t.departure).toLocaleDateString('vi-VN')}</span>
+                </div>
+                <div class="tour-footer">
+                    <div class="tour-rating">
+                        <i class="fas fa-star"></i> ${t.rating}
+                    </div>
+                    <div class="tour-price-info">
+                        <div class="price-label">Chỉ từ</div>
+                        <div class="price">${formatPrice(t.price)}</div>
+                    </div>
+                    <button class="book-btn open-modal-tour" data-name="${t.name}">Đặt Ngay</button>
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+function isPriceInRange(price, ranges) {
+    if (ranges.length === 0) return true;
+    for (const r of ranges) {
+        if (r === '<5' && price < 5000000) return true;
+        if (r === '5-10' && price >= 5000000 && price < 10000000) return true;
+        if (r === '10-20' && price >= 10000000 && price <= 20000000) return true;
+        if (r === '20-50' && price > 20000000 && price <= 50000000) return true;
+        if (r === '50+' && price > 50000000) return true;
+        
+        // Hỗ trợ cả giá trị cũ từ checkbox (nếu có)
+        if (r === '<10' && price < 10000000) return true;
     }
+    return false;
+}
 
-    .contact-info {
-        padding: 20px 0;
+function isDurationInRange(dur, ranges) {
+    if (ranges.length === 0) return true;
+    for (const r of ranges) {
+        if (r === '1-3' && dur <= 3) return true;
+        if (r === '4-7' && dur >= 4 && dur <= 7) return true;
+        if (r === '8-14' && dur >= 8 && dur <= 14) return true;
+        if (r === '15+' && dur >= 15) return true;
     }
-
-    .contact-info h2 {
-        font-size: 1.8rem;
-    }
-
-    .contact-form-wrapper {
-        width: 100%;
-        padding: 20px;
-    }
-}
-/* ==================== FLIGHT RESULTS PAGE STYLES ==================== */
-:root {
-    --flight-primary: #005a96;
-    --flight-accent: #ff6b6b;
-    --flight-success: #10b981;
-    --flight-warning: #f59e0b;
-    --flight-info: #3b82f6;
-    --flight-gray: #6b7280;
-    --flight-light: #f9fafb;
-    --flight-border: #e5e7eb;
-    --flight-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-}
-
-/* Hero Section */
-.flight-results-hero {
-    background: linear-gradient(135deg, rgba(0, 90, 150, 0.9), rgba(0, 120, 200, 0.8)),
-                url('https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=1600') center/cover;
-    padding: 120px 0 60px;
-    color: white;
-    text-align: center;
-    position: relative;
-}
-
-.flight-results-hero h1 {
-    font-size: 2.5rem;
-    font-weight: 700;
-    margin-bottom: 1.5rem;
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-.flight-route-info {
-    background: rgba(255, 255, 255, 0.15);
-    backdrop-filter: blur(10px);
-    border-radius: 20px;
-    padding: 1.5rem;
-    max-width: 800px;
-    margin: 0 auto;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.route-details {
-    margin-bottom: 1rem;
-}
-
-.route-display {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1.5rem;
-    font-size: 1.3rem;
-    font-weight: 600;
-}
-
-.route-from, .route-to {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.city {
-    font-size: 1.5rem;
-    font-weight: 700;
-}
-
-.code {
-    font-size: 1rem;
-    opacity: 0.9;
-    margin-top: 0.3rem;
-}
-
-.route-arrow {
-    color: var(--flight-accent);
-    font-size: 1.5rem;
-}
-
-.international-tag {
-    background: var(--flight-accent);
-    color: white;
-    padding: 0.3rem 1rem;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 600;
-    margin-left: 1rem;
-}
-
-.search-meta {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    font-size: 0.95rem;
-    opacity: 0.9;
-}
-
-.search-meta span {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.loading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    font-size: 1.1rem;
-}
-
-/* Sticky Search Bar */
-.sticky-search-bar {
-    position: sticky;
-    top: 70px;
-    background: white;
-    padding: 1rem 0;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    z-index: 100;
-    margin-bottom: 2rem;
-}
-
-.compact-search-wrapper {
-    background: white;
-    border-radius: 15px;
-    padding: 1rem;
-    box-shadow: var(--flight-shadow);
-}
-
-.compact-search-form {
-    width: 100%;
-}
-
-.search-form-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 0.8rem;
-    align-items: end;
-}
-
-.search-input-group {
-    position: relative;
-}
-
-.search-input-group i {
-    position: absolute;
-    left: 12px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--flight-primary);
-    font-size: 1rem;
-}
-
-.search-input-group input,
-.search-input-group select {
-    width: 100%;
-    padding: 0.8rem 0.8rem 0.8rem 2.5rem;
-    border: 2px solid var(--flight-border);
-    border-radius: 10px;
-    font-size: 0.9rem;
-    transition: all 0.3s;
-}
-
-.search-input-group input:focus,
-.search-input-group select:focus {
-    outline: none;
-    border-color: var(--flight-primary);
-    box-shadow: 0 0 0 3px rgba(0, 90, 150, 0.1);
-}
-
-.search-submit-btn {
-    background: linear-gradient(135deg, var(--flight-accent), #ff8787);
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    height: 44px;
-}
-
-.search-submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
-}
-
-/* Main Container */
-.results-main-container {
-    display: flex;
-    gap: 2rem;
-    padding: 2rem 0;
-    align-items: flex-start;
-}
-
-/* Sidebar */
-.results-sidebar {
-    flex: 0 0 300px;
-    background: white;
-    border-radius: 20px;
-    padding: 1.5rem;
-    box-shadow: var(--flight-shadow);
-    position: sticky;
-    top: 150px;
-    height: fit-content;
-}
-
-.sidebar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 2px solid var(--flight-border);
-}
-
-.sidebar-header h3 {
-    color: var(--flight-primary);
-    font-size: 1.3rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.clear-filters-btn {
-    background: none;
-    border: 1px solid var(--flight-border);
-    color: var(--flight-gray);
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-size: 0.85rem;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.clear-filters-btn:hover {
-    background: #f3f4f6;
-    color: var(--flight-primary);
-}
-
-.filter-section {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--flight-border);
-}
-
-.filter-section:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.filter-title {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--flight-primary);
-    margin-bottom: 1rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.filter-options {
-    display: flex;
-    flex-direction: column;
-    gap: 0.8rem;
-}
-
-.filter-option {
-    display: flex;
-    align-items: center;
-    cursor: pointer;
-    font-size: 0.9rem;
-    color: var(--flight-gray);
-    transition: color 0.3s;
-    position: relative;
-    padding-left: 30px;
-}
-
-.filter-option:hover {
-    color: var(--flight-primary);
-}
-
-.filter-option input[type="checkbox"] {
-    position: absolute;
-    opacity: 0;
-    cursor: pointer;
-    height: 0;
-    width: 0;
-}
-
-.checkmark {
-    position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 20px;
-    width: 20px;
-    background-color: white;
-    border: 2px solid var(--flight-border);
-    border-radius: 4px;
-    transition: all 0.3s;
-}
-
-.filter-option:hover .checkmark {
-    border-color: var(--flight-primary);
-}
-
-.filter-option input:checked ~ .checkmark {
-    background-color: var(--flight-primary);
-    border-color: var(--flight-primary);
-}
-
-.checkmark:after {
-    content: "";
-    position: absolute;
-    display: none;
-}
-
-.filter-option input:checked ~ .checkmark:after {
-    display: block;
-    left: 6px;
-    top: 2px;
-    width: 5px;
-    height: 10px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    transform: rotate(45deg);
-}
-
-.option-text {
-    flex: 1;
-}
-
-/* Price Range */
-.price-range {
-    padding: 0.5rem 0;
-}
-
-.price-range-values {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
-    color: var(--flight-primary);
-}
-
-.price-slider {
-    width: 100%;
-    height: 6px;
-    -webkit-appearance: none;
-    background: linear-gradient(to right, var(--flight-success), var(--flight-warning), var(--flight-accent));
-    border-radius: 3px;
-    outline: none;
-    margin: 1rem 0;
-}
-
-.price-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 20px;
-    height: 20px;
-    background: var(--flight-primary);
-    border-radius: 50%;
-    cursor: pointer;
-    border: 3px solid white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.price-slider::-moz-range-thumb {
-    width: 20px;
-    height: 20px;
-    background: var(--flight-primary);
-    border-radius: 50%;
-    cursor: pointer;
-    border: 3px solid white;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-}
-
-.price-labels {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.8rem;
-    color: var(--flight-gray);
-    margin-top: 0.3rem;
-}
-
-.apply-filters-btn {
-    width: 100%;
-    padding: 1rem;
-    background: var(--flight-primary);
-    color: white;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    margin-top: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.apply-filters-btn:hover {
-    background: #004d7f;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0, 90, 150, 0.2);
-}
-
-/* Results Content */
-.results-content {
-    flex: 1;
-}
-
-.results-header {
-    background: white;
-    border-radius: 15px;
-    padding: 1.5rem;
-    margin-bottom: 1.5rem;
-    box-shadow: var(--flight-shadow);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.results-info h2 {
-    color: var(--flight-primary);
-    font-size: 1.4rem;
-    margin-bottom: 0.5rem;
-}
-
-.results-subtitle {
-    color: var(--flight-gray);
-    font-size: 0.95rem;
-}
-
-.sort-controls {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.sort-controls label {
-    font-weight: 600;
-    color: var(--flight-gray);
-}
-
-.sort-controls select {
-    padding: 0.7rem 1rem;
-    border: 2px solid var(--flight-border);
-    border-radius: 8px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    background: white;
-    min-width: 180px;
-}
-
-.sort-controls select:focus {
-    outline: none;
-    border-color: var(--flight-primary);
-}
-
-/* Flights Container */
-.flights-container {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-}
-
-/* Flight Card */
-.flight-card {
-    background: white;
-    border-radius: 15px;
-    padding: 1.5rem;
-    box-shadow: var(--flight-shadow);
-    border: 2px solid transparent;
-    transition: all 0.3s;
-}
-
-.flight-card:hover {
-    border-color: var(--flight-primary);
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 90, 150, 0.15);
-}
-
-.flight-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--flight-border);
-}
-
-.airline-section {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.airline-logo {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-    background: var(--flight-light);
-    padding: 0.5rem;
-    border-radius: 10px;
-    border: 1px solid var(--flight-border);
-}
-
-.airline-info h4 {
-    font-size: 1.1rem;
-    color: var(--flight-primary);
-    margin-bottom: 0.2rem;
-}
-
-.flight-number {
-    font-size: 0.85rem;
-    color: var(--flight-gray);
-    background: var(--flight-light);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-}
-
-.flight-type-badge {
-    padding: 0.5rem 1rem;
-    border-radius: 20px;
-    font-size: 0.85rem;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-/* Flight Route Details */
-.flight-route-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: var(--flight-light);
-    border-radius: 10px;
-}
-
-.departure-info,
-.arrival-info {
-    text-align: center;
-    flex: 1;
-}
-
-.time {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--flight-primary);
-    margin-bottom: 0.3rem;
-}
-
-.airport-code {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 0.2rem;
-}
-
-.city-name {
-    font-size: 0.9rem;
-    color: var(--flight-gray);
-}
-
-.international-badge {
-    display: inline-block;
-    background: var(--flight-accent);
-    color: white;
-    padding: 0.2rem 0.8rem;
-    border-radius: 12px;
-    font-size: 0.75rem;
-    margin-top: 0.3rem;
-    display: flex;
-    align-items: center;
-    gap: 0.3rem;
-}
-
-.flight-path {
-    flex: 2;
-    text-align: center;
-    padding: 0 2rem;
-}
-
-.duration {
-    font-size: 0.9rem;
-    color: var(--flight-gray);
-    margin-bottom: 0.5rem;
-}
-
-.path-line {
-    position: relative;
-    height: 2px;
-    background: linear-gradient(to right, var(--flight-primary), var(--flight-accent));
-    margin: 0.5rem 0;
-}
-
-.path-line .line {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, var(--flight-primary), var(--flight-accent));
-}
-
-.path-line i {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background: white;
-    color: var(--flight-primary);
-    padding: 0.5rem;
-    border-radius: 50%;
-    font-size: 1rem;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.stops-info {
-    font-size: 0.85rem;
-    color: var(--flight-gray);
-    margin-top: 0.5rem;
-}
-
-/* Flight Extra Info */
-.flight-extra-info {
-    display: flex;
-    justify-content: space-around;
-    margin-bottom: 1.5rem;
-    padding: 1rem;
-    background: var(--flight-light);
-    border-radius: 10px;
-    flex-wrap: wrap;
-    gap: 1rem;
-}
-
-.info-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--flight-gray);
-}
-
-.info-item i {
-    color: var(--flight-primary);
-}
-
-/* Flight Card Footer */
-.flight-card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-top: 1rem;
-    border-top: 1px dashed var(--flight-border);
-}
-
-.price-section {
-    text-align: right;
-}
-
-.price-label {
-    font-size: 0.85rem;
-    color: var(--flight-gray);
-    margin-bottom: 0.3rem;
-}
-
-.price {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--flight-accent);
-    line-height: 1;
-}
-
-.tax-info {
-    font-size: 0.8rem;
-    color: var(--flight-gray);
-    margin-top: 0.3rem;
-}
-
-.book-now-btn {
-    background: linear-gradient(135deg, var(--flight-primary), #0077cc);
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    min-width: 140px;
-    justify-content: center;
-}
-
-.book-now-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 90, 150, 0.3);
-}
-
-/* Suggested Section */
-.suggested-section {
-    margin-top: 3rem;
-    padding-top: 2rem;
-    border-top: 2px solid var(--flight-border);
-}
-
-.suggested-section h3 {
-    color: var(--flight-primary);
-    font-size: 1.3rem;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.suggested-flights {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1rem;
-}
-
-.suggested-flight-card {
-    background: white;
-    border-radius: 10px;
-    padding: 1rem;
-    box-shadow: var(--flight-shadow);
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    transition: all 0.3s;
-}
-
-.suggested-flight-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-.suggested-airline {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.suggested-airline img {
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
-}
-
-.suggested-airline span {
-    font-size: 0.8rem;
-    color: var(--flight-gray);
-    text-align: center;
-    max-width: 60px;
-}
-
-.suggested-route {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-    font-weight: 600;
-    color: var(--flight-primary);
-}
-
-.suggested-price {
-    font-weight: 700;
-    color: var(--flight-accent);
-    font-size: 1.1rem;
-}
-
-.suggested-btn {
-    background: var(--flight-primary);
-    color: white;
-    border: none;
-    padding: 0.5rem 1rem;
-    border-radius: 8px;
-    font-size: 0.9rem;
-    cursor: pointer;
-    transition: all 0.3s;
-}
-
-.suggested-btn:hover {
-    background: #004d7f;
-}
-
-/* No Results */
-.no-results {
-    text-align: center;
-    padding: 4rem 2rem;
-    background: white;
-    border-radius: 15px;
-    box-shadow: var(--flight-shadow);
-}
-
-.no-results-icon {
-    font-size: 4rem;
-    color: var(--flight-border);
-    margin-bottom: 1.5rem;
-}
-
-.no-results h3 {
-    color: var(--flight-gray);
-    margin-bottom: 1rem;
-}
-
-.no-results p {
-    color: var(--flight-gray);
-    margin-bottom: 2rem;
-    max-width: 400px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.retry-btn {
-    background: var(--flight-primary);
-    color: white;
-    border: none;
-    padding: 0.8rem 1.5rem;
-    border-radius: 8px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    margin: 0 auto;
-}
-
-.retry-btn:hover {
-    background: #004d7f;
-    transform: translateY(-2px);
-}
-
-/* Modal Booking */
-.modal {
-    display: none;
-    position: fixed;
-    z-index: 2000;
-    left: 0; top: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(5px);
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.3s;
-}
-
-.modal.active {
-    display: flex;
-}
-
-.modal-content {
-    background: white;
-    width: 90%;
-    max-width: 600px;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.3);
-    animation: slideUp 0.4s;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-@keyframes slideUp {
-    from { transform: translateY(50px) scale(0.9); opacity: 0; }
-    to { transform: translateY(0) scale(1); opacity: 1; }
-}
-
-.modal-header {
-    background: linear-gradient(135deg, var(--flight-primary), #0077cc);
-    color: white;
-    padding: 1.5rem;
-    text-align: center;
-}
-
-.modal-header h3 {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.modal-subtitle {
-    font-size: 0.9rem;
-    opacity: 0.9;
-}
-
-.close-btn {
-    position: absolute;
-    top: 1rem;
-    right: 1.5rem;
-    font-size: 1.8rem;
-    color: white;
-    cursor: pointer;
-    transition: color 0.3s;
-}
-
-.close-btn:hover {
-    color: #ffdddd;
-}
-
-.modal-body {
-    padding: 2rem;
-}
-
-.flight-summary {
-    background: var(--flight-light);
-    border-radius: 15px;
-    padding: 1.5rem;
-    margin-bottom: 2rem;
-}
-
-.summary-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid var(--flight-border);
-}
-
-.airline-summary {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-}
-
-.airline-summary img {
-    width: 50px;
-    height: 50px;
-    object-fit: contain;
-    background: white;
-    padding: 0.5rem;
-    border-radius: 10px;
-    border: 1px solid var(--flight-border);
-}
-
-.airline-summary h4 {
-    color: var(--flight-primary);
-    margin-bottom: 0.2rem;
-}
-
-.airline-summary p {
-    font-size: 0.85rem;
-    color: var(--flight-gray);
-}
-
-.price-summary {
-    text-align: right;
-}
-
-.price-label {
-    display: block;
-    font-size: 0.9rem;
-    color: var(--flight-gray);
-    margin-bottom: 0.3rem;
-}
-
-.price-amount {
-    font-size: 1.8rem;
-    font-weight: 700;
-    color: var(--flight-accent);
-}
-
-.summary-details {
-    padding-top: 1rem;
-}
-
-.route-summary {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.depart-summary,
-.arrive-summary {
-    flex: 1;
-}
-
-.depart-summary {
-    text-align: left;
-}
-
-.arrive-summary {
-    text-align: right;
-}
-
-.path-summary {
-    flex: 2;
-    text-align: center;
-    padding: 0 1rem;
-}
-
-.line-summary {
-    position: relative;
-    height: 2px;
-    background: linear-gradient(to right, var(--flight-primary), var(--flight-accent));
-    margin: 0.5rem 0;
-}
-
-.line-summary .dot {
-    position: absolute;
-    width: 10px;
-    height: 10px;
-    background: var(--flight-primary);
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.line-summary .dot:first-child {
-    left: 0;
-}
-
-.line-summary .dot:last-child {
-    right: 0;
-    background: var(--flight-accent);
-}
-
-.line-summary .line {
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, var(--flight-primary), var(--flight-accent));
-}
-
-.extra-summary {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.extra-item {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: var(--flight-gray);
-}
-
-.extra-item i {
-    color: var(--flight-primary);
-}
-
-/* Form trong modal */
-.form-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-    margin-bottom: 1rem;
-}
-
-.full-width {
-    grid-column: 1 / -1;
-}
-
-.input-group {
-    display: flex;
-    flex-direction: column;
-}
-
-.input-group label {
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: #333;
-    font-size: 0.9rem;
-}
-
-.required {
-    color: var(--flight-accent);
-}
-
-.input-group input,
-.input-group textarea {
-    padding: 0.8rem 1rem;
-    border: 2px solid var(--flight-border);
-    border-radius: 8px;
-    font-size: 0.95rem;
-    transition: all 0.3s;
-}
-
-.input-group input:focus,
-.input-group textarea:focus {
-    outline: none;
-    border-color: var(--flight-primary);
-    box-shadow: 0 0 0 3px rgba(0, 90, 150, 0.1);
-}
-
-.modal-agree {
-    margin: 1.5rem 0;
-    font-size: 0.9rem;
-}
-
-.modal-agree label {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    cursor: pointer;
-}
-
-.modal-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 2rem;
-    padding-top: 1.5rem;
-    border-top: 1px solid var(--flight-border);
-}
-
-.total-price {
-    font-size: 1.2rem;
-    font-weight: 600;
-    color: var(--flight-primary);
-}
-
-.total-price span:last-child {
-    font-size: 1.5rem;
-    color: var(--flight-accent);
-    margin-left: 0.5rem;
-}
-
-.submit-btn {
-    background: linear-gradient(135deg, var(--flight-accent), #ff8787);
-    color: white;
-    border: none;
-    padding: 1rem 2rem;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.submit-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(255, 107, 107, 0.3);
-}
-
-.booking-message {
-    text-align: center;
-    font-weight: 600;
-    font-size: 1.1rem;
-    margin-top: 1rem;
-    padding: 1rem;
-    border-radius: 10px;
-    background: #f0fdf4;
-    color: #10b981;
-    display: none;
-}
-
-/* Footer */
-.footer-content {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-bottom: 2rem;
-}
-
-.footer-section h3 {
-    color: var(--flight-primary);
-    margin-bottom: 1rem;
-    font-size: 1.2rem;
-}
-
-.footer-section a {
-    display: block;
-    color: #9ca3af;
-    text-decoration: none;
-    margin-bottom: 0.5rem;
-    transition: color 0.3s;
-}
-
-.footer-section a:hover {
-    color: white;
-}
-
-.social-links {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-}
-
-.social-links a {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    font-size: 1.2rem;
-    transition: all 0.3s;
-}
-
-.social-links a:hover {
-    background: var(--flight-primary);
-    transform: translateY(-3px);
-}
-
-.partner-logos {
-    display: flex;
-    gap: 1rem;
-    margin-top: 1rem;
-    flex-wrap: wrap;
-}
-
-.partner-logos img {
-    height: 40px;
-    object-fit: contain;
-    filter: grayscale(100%);
-    opacity: 0.7;
-    transition: all 0.3s;
-}
-
-.partner-logos img:hover {
-    filter: grayscale(0);
-    opacity: 1;
-}
-
-.footer-bottom {
-    text-align: center;
-    padding-top: 2rem;
-    border-top: 1px solid #374151;
-    color: #9ca3af;
-    font-size: 0.9rem;
-}
-
-.footer-bottom p {
-    margin-bottom: 0.5rem;
-}
-
-/* Responsive */
-@media (max-width: 1200px) {
-    .search-form-grid {
-        grid-template-columns: repeat(4, 1fr);
-    }
-}
-
-@media (max-width: 992px) {
-    .results-main-container {
-        flex-direction: column;
+    return false;
+}
+// Hàm kiểm tra form tìm kiếm
+function validateSearchForm() {
+    const location = document.getElementById('location').value.trim();
+    const date = document.getElementById('date').value;
+    const locationError = document.getElementById('locationError');
+    const dateError = document.getElementById('dateError');
+    let isValid = true;
+    
+    // Reset errors
+    locationError.textContent = '';
+    dateError.textContent = '';
+    
+    // Kiểm tra địa điểm
+    if (!location) {
+        locationError.textContent = 'Vui lòng nhập địa điểm bạn muốn đến';
+        locationError.style.display = 'block';
+        isValid = false;
     }
     
-    .results-sidebar {
-        position: static;
-        width: 100%;
-        margin-bottom: 2rem;
+    // Kiểm tra ngày
+    if (!date) {
+        dateError.textContent = 'Vui lòng chọn ngày khởi hành';
+        dateError.style.display = 'block';
+        isValid = false;
+    } else {
+        const selectedDate = new Date(date);
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+        
+        if (selectedDate < today) {
+            dateError.textContent = 'Ngày khởi hành không được là ngày trong quá khứ';
+            dateError.style.display = 'block';
+            isValid = false;
+        }
     }
     
-    .search-form-grid {
-        grid-template-columns: repeat(3, 1fr);
+    return isValid;
+}
+
+//LỌC KẾT QUẢ
+function renderResults() {
+    let result = [...tourData];
+    
+    // Đọc giá trị từ form
+    const query = document.getElementById('location').value.trim().toLowerCase();
+    const durationSelect = document.getElementById('duration').value;
+    const dateSelect = document.getElementById('date').value;
+    const priceRangeSelect = document.getElementById('priceRange').value; // THÊM NÀY
+    
+    // Đọc giá trị từ checkbox/select sidebar
+    const prices = Array.from(document.querySelectorAll('input[name="price"]:checked')).map(i => i.value);
+    const types = Array.from(document.querySelectorAll('input[name="type"]:checked')).map(i => i.value);
+    const durations = Array.from(document.querySelectorAll('input[name="duration_filter"]:checked')).map(i => i.value);
+    const sort = document.getElementById('sortBy').value;
+
+    // ===== VALIDATION =====
+    const locationError = document.getElementById('locationError');
+    const dateError = document.getElementById('dateError');
+    let isValid = true;
+    
+    // Reset errors
+    if (locationError) locationError.textContent = '';
+    if (dateError) dateError.textContent = '';
+    
+    // Kiểm tra địa điểm (bắt buộc)
+    if (!query) {
+        if (locationError) {
+            locationError.textContent = 'Vui lòng nhập địa điểm bạn muốn đến';
+            locationError.style.display = 'block';
+        }
+        isValid = false;
     }
     
-    .flight-route-details {
-        flex-direction: column;
-        gap: 1.5rem;
+    // Kiểm tra ngày (bắt buộc)
+    
+    // Nếu validation fail, dừng lại
+    if (!isValid) {
+        document.getElementById('resultInfo').textContent = 'Vui lòng điền đầy đủ thông tin tìm kiếm';
+        document.getElementById('tourListGrid').innerHTML = '<p class="no-results">Vui lòng kiểm tra lại thông tin tìm kiếm</p>';
+        return;
     }
     
-    .flight-path {
-        width: 100%;
-        padding: 1rem 0;
+    // ===== LỌC KẾT QUẢ =====
+    
+    // 1. Lọc theo location VỚI THUẬT TOÁN CHÍNH XÁC
+    if (query) {
+        result = result.filter(t => {
+            const tourName = t.name.toLowerCase();
+            const tourLocation = t.location.toLowerCase();
+            
+            // Tạo bộ từ khóa tìm kiếm
+            const searchWords = query.toLowerCase().split(/\s+/).filter(w => w.length > 0);
+            
+            // Tách tên tour và địa điểm thành các từ riêng biệt
+            const nameWords = tourName.split(/[\s\-&,()]+/).filter(w => w.length > 0);
+            const locationWords = tourLocation.split(/[\s\-&,()]+/).filter(w => w.length > 0);
+            
+            // Hàm kiểm tra xem từ khóa có khớp với mục tiêu không
+            const wordMatches = (keyword, targetWords) => {
+                // Nếu từ khóa dài ít nhất 3 ký tự
+                if (keyword.length >= 3) {
+                    // Kiểm tra khớp chính xác từ
+                    if (targetWords.includes(keyword)) return true;
+                    
+                    // Kiểm tra từ bắt đầu bằng keyword
+                    if (targetWords.some(word => word.startsWith(keyword))) return true;
+                    
+                    // Kiểm tra keyword có trong từ nào đó
+                    if (targetWords.some(word => word.includes(keyword))) return true;
+                }
+                // Nếu từ khóa là 2 ký tự (như "ng", "ph", "đà")
+                else if (keyword.length === 2) {
+                    // Chỉ kiểm tra từ bắt đầu bằng keyword
+                    return targetWords.some(word => word.startsWith(keyword));
+                }
+                return false;
+            };
+            
+            // Kiểm tra từng từ khóa tìm kiếm
+            return searchWords.every(searchWord => {
+                // Đặc biệt xử lý các từ dễ nhầm lẫn
+                if (searchWord === 'nga') {
+                    // "nga" chỉ match với "Nga", không match với "Singapore"
+                    return tourLocation.includes('nga') && 
+                           !tourLocation.includes('singapore') &&
+                           !tourLocation.includes('singapor');
+                }
+                if (searchWord === 'cam') {
+                    // "cam" chỉ match với "Campuchia", không match với "Cam Ranh" trừ khi tìm cụ thể "cam ranh"
+                    if (query.includes('cam ranh') || query.includes('camranh')) {
+                        return tourLocation.includes('cam ranh') || tourName.includes('cam ranh');
+                    }
+                    return tourLocation.includes('campuchia') || 
+                           (tourLocation.includes('cam') && tourLocation.includes('ranh') && query.includes('ranh'));
+                }
+                
+                // Kiểm tra thông thường
+                return wordMatches(searchWord, nameWords) || wordMatches(searchWord, locationWords);
+            });
+        });
+    }
+    
+    // 2. Lọc theo type (domestic/international)
+    if (types.length) {
+        result = result.filter(t => types.includes(t.type));
+    }
+    
+    // 3. Lọc theo ngày khởi hành
+    if (dateSelect) {
+        const searchDate = new Date(dateSelect).toISOString().split('T')[0];
+        result = result.filter(t => t.departure >= searchDate);
+    }
+    
+    // 4. Lọc theo giá TỪ DROPDOWN (ưu tiên dropdown hơn checkbox sidebar)
+    if (priceRangeSelect) {
+        result = result.filter(t => isPriceInRange(t.price, [priceRangeSelect]));
+    } else if (prices.length) {
+        // Nếu không chọn từ dropdown thì dùng checkbox sidebar
+        result = result.filter(t => isPriceInRange(t.price, prices));
+    }
+    
+    // 5. Lọc theo duration từ dropdown tìm kiếm (ưu tiên)
+    if (durationSelect) {
+        result = result.filter(t => isDurationInRange(t.duration, [durationSelect]));
+    } else if (durations.length) {
+        // Nếu không chọn từ dropdown thì dùng checkbox sidebar
+        result = result.filter(t => isDurationInRange(t.duration, durations));
+    }
+
+    // ===== SẮP XẾP =====
+    if (sort === 'price-asc') result.sort((a,b) => a.price - b.price);
+    else if (sort === 'price-desc') result.sort((a,b) => b.price - a.price);
+    else if (sort === 'duration-asc') result.sort((a,b) => a.duration - b.duration);
+    else result.sort((a,b) => new Date(a.departure) - new Date(b.departure));
+
+    // ===== HIỂN THỊ KẾT QUẢ =====
+    const searchQuery = document.getElementById('location').value;
+    document.getElementById('resultInfo').textContent = result.length 
+        ? `Tìm thấy ${result.length} tour phù hợp với "${searchQuery}"` 
+        : `Không tìm thấy tour nào phù hợp với "${searchQuery}"`;
+        
+    if (result.length) {
+        document.getElementById('tourListGrid').innerHTML = result.map(createTourCard).join('');
+    } else {
+        document.getElementById('tourListGrid').innerHTML = `
+            <div class="no-results" style="text-align: center; padding: 3rem; background: #f8fafc; border-radius: 20px;">
+                <i class="fas fa-search" style="font-size: 4rem; color: #94a3b8; margin-bottom: 1.5rem;"></i>
+                <h3 style="color: #334155; margin-bottom: 1rem;">Không tìm thấy kết quả</h3>
+                <p style="color: #64748b; max-width: 500px; margin: 0 auto 1.5rem;">
+                    Không có tour nào khớp với từ khóa "<strong>${searchQuery}</strong>".<br>
+                    Thử tìm kiếm với từ khóa khác hoặc điều chỉnh bộ lọc.
+                </p>
+                <button onclick="document.getElementById('location').value=''; document.getElementById('location').focus();" 
+                        style="background: #4361ee; color: white; border: none; padding: 12px 24px; border-radius: 10px; cursor: pointer;">
+                    <i class="fas fa-redo"></i> Thử tìm kiếm khác
+                </button>
+            </div>
+        `;
+    }
+
+    // Gắn sự kiện mở modal cho các button mới
+    document.querySelectorAll('.open-modal-tour').forEach(btn => {
+        btn.onclick = function() {
+            const name = this.dataset.name;
+            document.getElementById('tName').value = name;
+            document.getElementById('modalTourName').textContent = name;
+            document.getElementById('tourModal').classList.add('active');
+        };
+    });
+}
+
+// ===== ĐỌC URL PARAMETERS KHI LOAD TRANG =====
+function loadFromURL() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const locationParam = urlParams.get('location');
+    const durationParam = urlParams.get('duration'); // THÊM DÒNG NÀY
+    
+    // Điền vào ô input nếu có parameter
+    if (locationParam) {
+        document.getElementById('location').value = locationParam;
+    }
+    
+    // Điền vào dropdown duration nếu có - THÊM ĐOẠN NÀY
+    if (durationParam) {
+        document.getElementById('duration').value = durationParam;
+    }
+    
+    // Render kết quả ngay lập tức
+    renderResults();
+}
+
+// ===== SỰ KIỆN KHI TRANG LOAD =====
+document.addEventListener('DOMContentLoaded', () => {
+    // Load kết quả từ URL khi vào trang
+    loadFromURL();
+    
+    // Xử lý form tìm kiếm
+    document.getElementById('tourSearchForm').onsubmit = e => { 
+        e.preventDefault(); 
+        renderResults(); 
+    };
+    
+    // Xử lý thay đổi bộ lọc (CẬP NHẬT: thêm #priceRange)
+    document.querySelectorAll('input[type="checkbox"], #sortBy, #priceRange').forEach(el => {
+        el.addEventListener('change', renderResults);
+    });
+    
+    // Xử lý nút "Áp dụng bộ lọc" trong sidebar
+    document.querySelector('.apply-btn').addEventListener('click', renderResults);
+});
+
+// ===== XỬ LÝ MODAL =====
+document.querySelector('.close-btn').onclick = () => {
+    document.getElementById('tourModal').classList.remove('active');
+};
+
+window.onclick = e => { 
+    if (e.target === document.getElementById('tourModal')) {
+        document.getElementById('tourModal').classList.remove('active');
+    }
+};
+
+document.getElementById('bookingForm').onsubmit = function(e) {
+    e.preventDefault();
+    const msg = document.getElementById('bookingMessage');
+    msg.textContent = 'Đặt tour thành công! Chúng tôi sẽ liên hệ ngay.';
+    msg.style.color = '#10b981';
+    msg.style.display = 'block';
+    
+    setTimeout(() => {
+        msg.style.display = 'none';
+        this.reset();
+        document.getElementById('tourModal').classList.remove('active');
+    }, 3000);
+};
+
+// ===== XỬ LÝ HAMBURGER MENU =====
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-menu').classList.toggle('active');
+});
+</script>
+<script>
+// Đóng modal
+document.querySelector('.close-btn').onclick = () => 
+    document.getElementById('tourModal').classList.remove('active');
+
+window.onclick = e => {
+    if (e.target === document.getElementById('tourModal'))
+        document.getElementById('tourModal').classList.remove('active');
+};
+
+// Xử lý đặt tour
+document.getElementById('bookingForm').onsubmit = function(e) {
+    e.preventDefault();
+
+    const msg = document.getElementById('bookingMessage');
+    msg.textContent = 'Đặt tour thành công! Chúng tôi sẽ liên hệ ngay trong vài phút.';
+    msg.style.color = '#10b981';
+    msg.style.display = 'block';
+
+    setTimeout(() => {
+        this.reset();
+        msg.style.display = 'none';
+        document.getElementById('tourModal').classList.remove('active');
+    }, 3000);
+};
+</script>
+    <!-- ==================== FORM LIÊN HỆ CHÚNG TÔI ==================== -->
+<section class="contact-tour-section">
+    <div class="container contact-tour-content">
+        <div class="contact-info">
+            <h2>CẦN TƯ VẤN TOUR RIÊNG?</h2>
+            <p>Hãy để lại thông tin, chuyên viên du lịch của chúng tôi sẽ liên hệ lại với bạn trong vòng 30 phút để thiết kế hành trình hoàn hảo cho bạn.</p>
+            <ul>
+                <li><i class="fas fa-phone"></i> **Hotline:** 1900 6789</li>
+                <li><i class="fas fa-envelope"></i> **Email:** support@travelexplorer.com</li>
+                <li><i class="fas fa-map-marker-alt"></i> **Văn phòng:** 123 Đường Du Lịch, Quận 1, TP. HCM</li>
+            </ul>
+        </div>
+        <div class="contact-form-wrapper">
+            <h3>Gửi Yêu Cầu Tư Vấn</h3>
+            <form id="contactForm">
+                <div class="form-group">
+                    <label for="cName">Họ và Tên (*)</label>
+                    <input type="text" id="cName" name="cName" required>
+                </div>
+                <div class="form-group">
+                    <label for="cEmail">Email (*)</label>
+                    <input type="email" id="cEmail" name="cEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="cPhone">Số Điện Thoại (*)</label>
+                    <input type="tel" id="cPhone" name="cPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="cDestination">Điểm Đến Yêu Thích</label>
+                    <input type="text" id="cDestination" name="cDestination" placeholder="Ví dụ: Phú Quốc, Châu Âu...">
+                </div>
+                <div class="form-group">
+                    <label for="cMessage">Nội Dung Yêu Cầu</label>
+                    <textarea id="cMessage" name="cMessage" rows="4" placeholder="Bạn muốn đi bao nhiêu người? Thời gian nào?"></textarea>
+                </div>
+                <button type="submit" class="cta-button">Gửi Yêu Cầu</button>
+            </form>
+            <p id="formMessage" style="text-align: center; margin-top: 15px; display: none; color: var(--main-color); font-weight: bold;"></p>
+        </div>
+    </div>
+</section>
+    <script>
+const suggestedTours = [
+    { name: "Phú Quốc 3N3Đ - Vinpearl Safari + Cáp Treo", price: "6.990.000", duration: "3 ngày 3 đêm", img: "https://images.unsplash.com/photo-1577717904356-3058c23b7e91?w=800" },
+    { name: "Đà Lạt Mộng Mơ - 3N3Đ Khởi Hành Hàng Ngày", price: "4.590.000", duration: "3 ngày 3 đêm", img: "https://images.unsplash.com/photo-1583417136848-9ddde675c98a?w=800" },
+    { name: "Hà Nội - Hạ Long - Ninh Bình 4N4Đ", price: "8.890.000", duration: "4 ngày 4 đêm", img: "https://images.unsplash.com/photo-1570545906912-2dd4a9e7d5bb?w=800" },
+    { name: "Singapore - Malaysia 5N4Đ Bay Vietnam Airlines", price: "15.990.000", duration: "5 ngày 4 đêm", img: "https://images.unsplash.com/photo-1516496636080-14c9a69611f8?w=800" },
+    { name: "Hàn Quốc Mùa Thu Lá Đỏ 5N5Đ", price: "22.990.000", duration: "5 ngày 5 đêm", img: "https://images.unsplash.com/photo-1542272209-6d40db738c20?w=800" },
+    { name: "Châu Âu 4 Nước: Pháp - Thụy Sĩ - Ý - Vatican", price: "69.900.000", duration: "10 ngày 9 đêm", img: "https://images.unsplash.com/photo-1519904981063-bfd50b734b1e?w=800" }
+];
+
+
+
+function getUrlParams() {
+    const params = new URLSearchParams(window.location.search);
+    return { q: (params.get('q') || '').trim() };
+    }
+
+// Hàm tạo card tour gợi ý
+function createSuggestedCard(tour) {
+    return `
+        <div class="tour-card open-modal-tour" data-name="${tour.name}">
+            <img src="${tour.img}" alt="${tour.name}">
+            <div class="tour-card-content">
+                <h3>${tour.name}</h3>
+                <p class="duration"><i class="fas fa-clock"></i> ${tour.duration}</p>
+                <p class="price">Chỉ từ <strong>${tour.price}₫</strong>/khách</p>
+                <button class="btn-book">ĐẶT NGAY</button>
+            </div>
+        </div>
+    `;
+}
+
+// Hiển thị tour gợi ý khi trang tải xong hoặc sau khi tìm kiếm
+function loadSuggestedTours() {
+    const container = document.getElementById('suggestedTours');
+    if (container) {
+        container.innerHTML = suggestedTours.map(createSuggestedCard).join('');
+        
+        // Gắn lại sự kiện mở modal cho các tour gợi ý
+        document.querySelectorAll('#suggestedTours .open-modal-tour').forEach(btn => {
+            btn.onclick = function() {
+                const name = this.dataset.name;
+                document.getElementById('tName').value = name;
+                document.getElementById('modalTourName').textContent = name;
+                document.getElementById('tourModal').classList.add('active');
+            };
+        });
     }
 }
 
-@media (max-width: 768px) {
-    .flight-results-hero h1 {
-        font-size: 2rem;
-    }
-    
-    .search-form-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-    
-    .results-header {
-        flex-direction: column;
-        gap: 1rem;
-        align-items: flex-start;
-    }
-    
-    .flight-card-header {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    
-    .flight-card-footer {
-        flex-direction: column;
-        gap: 1.5rem;
-        align-items: stretch;
-    }
-    
-    .price-section {
-        text-align: center;
-    }
-    
-    .book-now-btn {
-        width: 100%;
-    }
-    
-    .form-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .modal-footer {
-        flex-direction: column;
-        gap: 1.5rem;
-        align-items: stretch;
-    }
-    
-    .total-price {
-        text-align: center;
-    }
-    
-    .submit-btn {
-        width: 100%;
-    }
+// Tự động cuộn xuống kết quả sau khi tìm kiếm
+function scrollToResults() {
+    document.querySelector('.main-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-@media (max-width: 576px) {
-    .search-form-grid {
-        grid-template-columns: 1fr;
-    }
+// Gọi hàm khi trang tải xong và sau mỗi lần tìm kiếm
+document.addEventListener('DOMContentLoaded', () => {
+    loadSuggestedTours();
+    // Override lại hàm renderResults cũ để cuộn mượt
+    const originalRender = renderResults;
+    window.renderResults = function() {
+        originalRender();
+        setTimeout(scrollToResults, 300);
+        loadSuggestedTours(); // Cập nhật lại sự kiện modal
+    };
+});
+document.getElementById('departDate').addEventListener('change', function() {
+    const selectedDate = new Date(this.value);
+    const today = new Date();
+    today.setHours(0,0,0,0);
     
-    .search-meta {
-        flex-direction: column;
-        gap: 0.5rem;
-        align-items: center;
+    if (selectedDate < today) {
+        alert('Ngày khởi hành không được là ngày trong quá khứ');
+        this.value = '';
     }
+});
+
+// Xử lý form liên hệ
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formMessage = document.getElementById('formMessage');
+        formMessage.style.display = 'block';
+        formMessage.style.color = 'green';
+        formMessage.textContent = 'Yêu cầu của bạn đã được gửi thành công! Chúng tôi sẽ liên hệ lại sớm nhất.';
+        
+        // --- PHẦN CẦN THÊM/THAY ĐỔI ---
+        this.reset(); // Dùng `this` để reset form hiện tại
+        // -----------------------------
+
+        setTimeout(() => {
+            formMessage.style.display = 'none';
+        }, 5000);
+    });
+    document.querySelector('.hamburger-menu').addEventListener('click', () => document.querySelector('.nav-menu').classList.toggle('active'));
+    window.onclick = e => { if (e.target === document.getElementById('tourModal')) document.getElementById('tourModal').classList.remove('active'); };
+    const jumpToTopBtn = document.getElementById('jumpToTopBtn');
+
+window.onscroll = function() {
+    // Show button when scrolled down 300px
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        jumpToTopBtn.style.display = "flex";
+    } else {
+        jumpToTopBtn.style.display = "none";
+    }
+};
+
+jumpToTopBtn.addEventListener('click', function() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+});
+document.addEventListener('DOMContentLoaded', function() {
+    const filterToggleBtn = document.getElementById('filterToggleBtn');
+    const sidebar = document.querySelector('.sidebar');
     
-    .route-display {
-        flex-direction: column;
-        gap: 0.5rem;
+    if (filterToggleBtn && sidebar) {
+        // Mở/Đóng sidebar
+        filterToggleBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('active');
+        });
+        
+        // Đóng sidebar khi click vào nút "Áp dụng"
+        const applyBtn = sidebar.querySelector('.apply-btn');
+        if (applyBtn) {
+            applyBtn.addEventListener('click', function() {
+                if (window.innerWidth <= 768) {
+                    sidebar.classList.remove('active');
+                }
+            });
+        }
     }
-    
-    .extra-summary {
-        grid-template-columns: 1fr;
-    }
-    
-    .suggested-flights {
-        grid-template-columns: 1fr;
-    }
-    
-    .footer-content {
-        grid-template-columns: 1fr;
-    }
-}
+});
+document.querySelector('.hamburger-menu').addEventListener('click', () => {
+    document.querySelector('.nav-menu').classList.toggle('active');
+});
+</script>
+
+</body>
+<footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Travel Explorer</h3>
+                    <p>Đối tác tin cậy cho mọi chuyến du lịch của bạn. Chúng tôi cam kết mang đến những trải nghiệm
+                        tuyệt vời nhất.</p>
+                </div>
+        <div class="footer-section">
+            <h3>Liên Kết Nhanh</h3>
+            <a href="tour.html">Tour Du Lịch</a>
+            <a href="hotel.html">Khách Sạn</a>
+            <a href="flight.html">Vé Máy Bay</a>
+            <a href="#">Chính Sách Bảo Mật</a>
+        </div>
+        <div class="footer-section">
+                    <h3>Thông Tin Liên Hệ</h3>
+                    <p>
+                        <i class="fa-solid fa-location-dot 1"></i>
+                        12/5D Đường Lê Lợi, Quận 1
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-phone-volume"></i>
+                        (028) 1234 5678
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-envelope"></i>
+                        info@travelexplorer.vn
+                    </p>
+                </div>
+        <div class="footer-section">
+            <h3>Theo Dõi Chúng Tôi</h3>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                 <a href="#" class="social-link">
+                            <i class="fa-brands fa-telegram"></i> </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">2025 Travel Explorer. Tất cả quyền được bảo lưu.</div>
+</footer>
+</html>
