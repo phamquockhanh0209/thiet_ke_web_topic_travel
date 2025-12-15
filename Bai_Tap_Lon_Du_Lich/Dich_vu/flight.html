@@ -12,7 +12,7 @@
 <body>
     <header class="header">
         <div class="container nav-container">
-            <a href="../main.html" class="logo">
+            <a href="../index.html" class="logo">
                 <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" viewBox="0 0 16 16">
                     <path fill-rule="evenodd"
                         d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6" />
@@ -20,7 +20,7 @@
                 Travel <span>Explorer</span></a>
             <div class="hamburger-menu"><i class="fas fa-bars"></i></div>
             <ul class="nav-menu">
-                <li><a href="../main.html" class="nav-link">Trang Chủ</a></li>
+                <li><a href="../index.html" class="nav-link">Trang Chủ</a></li>
                 <li><a href="tour.html" class="nav-link">Tour</a></li>
                 <li><a href="hotel.html" class="nav-link">Khách Sạn</a></li>
                 <li><a href="flight.html" class="nav-link active">Vé Máy Bay</a></li>
@@ -44,70 +44,72 @@
                 </div>
 
                 <form id="flightSearchForm" action="flight-results.html" method="GET">
-                    <div class="flight-form-grid">
-                        <div class="flight-input-wrapper" style="grid-column: span 2; position: relative;">
-                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; position: relative;">
-                                <div class="airport-input-group">
-                                    <label>Điểm khởi hành</label>
-                                    <div style="position: relative;">
-                                        <i class="fas fa-plane-departure"></i>
-                                        <input type="text" id="fromInput" placeholder="Nhập tên sân bay..." required
-                                            autocomplete="off">
-                                        <input type="hidden" id="fromCode" name="from_code">
-                                        <div class="airport-dropdown" id="fromDropdown"></div>
-                                    </div>
-                                </div>
+<div class="flight-form-grid">
+    <!-- Điểm khởi hành - Điểm đến -->
+    <div class="flight-input-wrapper" style="grid-column: span 2;">
+        <div class="airport-input-group">
+            <label>Điểm khởi hành</label>
+            <div style="position: relative;">
+                <i class="fas fa-plane-departure input-icon"></i>
+                <input type="text" id="fromInput" placeholder="Nhập tên sân bay..." required autocomplete="off">
+                <input type="hidden" id="fromCode" name="from_code">
+                <div class="airport-dropdown" id="fromDropdown"></div>
+            </div>
+        </div>
+        
+        <button type="button" class="swap-locations-btn" id="swapBtn">
+            <i class="fas fa-exchange-alt"></i>
+        </button>
+        
+        <div class="airport-input-group">
+            <label>Điểm đến</label>
+            <div style="position: relative;">
+                <i class="fas fa-plane-arrival input-icon"></i>
+                <input type="text" id="toInput" placeholder="Nhập tên sân bay..." required autocomplete="off">
+                <input type="hidden" id="toCode" name="to_code">
+                <div class="airport-dropdown" id="toDropdown"></div>
+            </div>
+        </div>
+    </div>
 
-                                <button type="button" class="swap-locations-btn" id="swapBtn">
-                                    <i class="fas fa-exchange-alt"></i>
-                                </button>
+    <!-- Ngày đi -->
+    <div class="flight-input-wrapper">
+        <label>Ngày đi</label>
+        <i class="fas fa-calendar-alt input-icon"></i>
+        <input type="date" name="depart_date" id="departDate" required>
+    </div>
 
-                                <div class="airport-input-group">
-                                    <label>Điểm đến</label>
-                                    <div style="position: relative;">
-                                        <i class="fas fa-plane-arrival"></i>
-                                        <input type="text" id="toInput" placeholder="Nhập tên sân bay..." required
-                                            autocomplete="off">
-                                        <input type="hidden" id="toCode" name="to_code">
-                                        <div class="airport-dropdown" id="toDropdown"></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <!-- Ngày về -->
+    <div class="flight-input-wrapper" id="returnDateWrapper">
+        <label>Ngày về</label>
+        <i class="fas fa-calendar-alt input-icon"></i>
+        <input type="date" name="return_date" id="returnDate">
+    </div>
 
-                        <div class="flight-input-wrapper">
-                            <label>Ngày đi</label>
-                            <i class="fas fa-calendar-alt"></i>
-                            <input type="date" name="depart_date" id="departDate" required>
-                        </div>
+    <!-- Số hành khách -->
+    <div class="flight-input-wrapper">
+        <label>Số hành khách</label>
+        <i class="fas fa-user input-icon"></i>
+        <input type="number" name="passengers" min="1" max="9" value="1" required>
+    </div>
 
-                        <div class="flight-input-wrapper" id="returnDateWrapper">
-                            <label>Ngày về</label>
-                            <i class="fas fa-calendar-alt"></i>
-                            <input type="date" name="return_date" id="returnDate">
-                        </div>
+    <!-- Hạng ghế -->
+    <div class="flight-input-wrapper">
+        <label>Hạng ghế</label>
+        <i class="fas fa-chair input-icon"></i>
+        <select name="cabin_class" id="cabinClass" required>
+            <option value="economy">Phổ thông</option>
+            <option value="premium_economy">Phổ thông Đặc biệt</option>
+            <option value="business">Thương gia</option>
+            <option value="first">Hạng Nhất</option>
+        </select>
+    </div>
 
-                        <div class="flight-input-wrapper">
-                            <label>Số hành khách</label>
-                            <i class="fas fa-user"></i>
-                            <input type="number" name="passengers" min="1" max="9" value="1" required>
-                        </div>
-
-                        <div class="flight-input-wrapper">
-                            <label>Hạng ghế</label>
-                            <i class="fas fa-chair"></i>
-                            <select name="cabin_class" id="cabinClass" required>
-                                <option value="economy">Phổ thông</option>
-                                <option value="premium_economy">Phổ thông Đặc biệt</option>
-                                <option value="business">Thương gia</option>
-                                <option value="first">Hạng Nhất</option>
-                            </select>
-                        </div>
-
-                        <button type="submit" class="flight-search-btn">
-                            <i class="fas fa-search"></i> Tìm Chuyến Bay
-                        </button>
-                    </div>
+    <!-- Nút tìm kiếm -->
+    <button type="submit" class="flight-search-btn" style="grid-column: span 2;">
+        <i class="fas fa-search"></i> Tìm Chuyến Bay
+    </button>
+</div>
                 </form>
             </div>
         </div>
@@ -120,11 +122,11 @@
             <p class="section-subtitle">Khám phá các ưu đãi vé máy bay hấp dẫn nhất hiện nay</p>
 
             <!-- Tabs chính: Trong nước và Quốc tế -->
-            <div class="main-flight-tabs">
-                <button class="main-flight-tab active" data-tab="domestic">
+            <div class="index-flight-tabs">
+                <button class="index-flight-tab active" data-tab="domestic">
                     <i class="fas fa-home"></i> Trong Nước
                 </button>
-                <button class="main-flight-tab" data-tab="international">
+                <button class="index-flight-tab" data-tab="international">
                     <i class="fas fa-globe-asia"></i> Quốc Tế
                 </button>
             </div>
@@ -236,10 +238,7 @@
             <div class="flight-tab-content" data-tab="international">
                 <!-- Tabs quốc gia quốc tế -->
                 <div class="country-tabs">
-                    <button class="country-tab active" data-country="all">
-                        <i class="fas fa-globe"></i> Tất Cả
-                    </button>
-                    <button class="country-tab" data-country="thailand">
+                    <button class="country-tab active" data-country="thailand">
                         <i class="fas fa-flag"></i> Thái Lan
                     </button>
                     <button class="country-tab" data-country="singapore">
@@ -251,29 +250,19 @@
                     <button class="country-tab" data-country="japan">
                         <i class="fas fa-flag"></i> Nhật Bản
                     </button>
-                    <button class="country-tab" data-country="taiwan">
-                        <i class="fas fa-flag"></i> Đài Loan
+                    <button class="country-tab" data-country="china">
+                        <i class="fas fa-flag"></i> Trung Quốc
+                    </button>
+                    <button class="country-tab" data-country="india">
+                        <i class="fas fa-flag"></i> Ấn Độ
+                    </button>
+                    <button class="country-tab" data-country="russia">
+                        <i class="fas fa-flag"></i> Nga
                     </button>
                 </div>
 
                 <!-- Nội dung các quốc gia -->
-                <div class="country-content active" data-country="all">
-                    <div class="tour-carousel-wrapper">
-                        <button class="arrow prev" onclick="scrollCarousel('all-flights', -300)">
-                            <i class="fas fa-chevron-left"></i>
-                        </button>
-
-                        <div class="tour-list-horizontal" id="all-flights">
-                            <!-- Nội dung sẽ được thêm bằng JavaScript -->
-                        </div>
-
-                        <button class="arrow next" onclick="scrollCarousel('all-flights', 300)">
-                            <i class="fas fa-chevron-right"></i>
-                        </button>
-                    </div>
-                </div>
-
-                <div class="country-content" data-country="thailand">
+                <div class="country-content active" data-country="thailand">
                     <div class="tour-carousel-wrapper">
                         <button class="arrow prev" onclick="scrollCarousel('thailand-flights', -300)">
                             <i class="fas fa-chevron-left"></i>
@@ -337,17 +326,49 @@
                     </div>
                 </div>
 
-                <div class="country-content" data-country="taiwan">
+                <div class="country-content" data-country="china">
                     <div class="tour-carousel-wrapper">
-                        <button class="arrow prev" onclick="scrollCarousel('taiwan-flights', -300)">
+                        <button class="arrow prev" onclick="scrollCarousel('china-flights', -300)">
                             <i class="fas fa-chevron-left"></i>
                         </button>
 
-                        <div class="tour-list-horizontal" id="taiwan-flights">
+                        <div class="tour-list-horizontal" id="china-flights">
                             <!-- Nội dung sẽ được thêm bằng JavaScript -->
                         </div>
 
-                        <button class="arrow next" onclick="scrollCarousel('taiwan-flights', 300)">
+                        <button class="arrow next" onclick="scrollCarousel('china-flights', 300)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="country-content" data-country="india">
+                    <div class="tour-carousel-wrapper">
+                        <button class="arrow prev" onclick="scrollCarousel('india-flights', -300)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+
+                        <div class="tour-list-horizontal" id="india-flights">
+                            <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                        </div>
+
+                        <button class="arrow next" onclick="scrollCarousel('india-flights', 300)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="country-content" data-country="russia">
+                    <div class="tour-carousel-wrapper">
+                        <button class="arrow prev" onclick="scrollCarousel('russia-flights', -300)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+
+                        <div class="tour-list-horizontal" id="russia-flights">
+                            <!-- Nội dung sẽ được thêm bằng JavaScript -->
+                        </div>
+
+                        <button class="arrow next" onclick="scrollCarousel('russia-flights', 300)">
                             <i class="fas fa-chevron-right"></i>
                         </button>
                     </div>
@@ -393,35 +414,54 @@
     </section>
 
     <!-- MODAL ĐẶT VÉ -->
-    <div id="flightModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn">&times;</span>
-            <h3 class="modal-header">ĐẶT VÉ MÁY BAY</h3>
-            <form id="bookingForm" class="booking-form">
-                <input type="hidden" id="modalFrom" name="from">
-                <div class="form-group">
-                    <label for="fullName">Họ và tên (*)</label>
-                    <input type="text" id="fullName" name="fullName" required>
-                </div>
-                <div class="form-group">
-                    <label for="phone">Số điện thoại (*)</label>
-                    <input type="tel" id="phone" name="phone" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email (*)</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="notes">Ghi chú thêm</label>
-                    <textarea id="notes" name="notes" rows="3"></textarea>
-                </div>
-                <p id="bookingMessage"
-                    style="color: var(--main-color); display: none; margin-bottom: 15px; font-weight: 600;">Đặt vé thành
-                    công!</p>
-                <button type="submit" class="cta-button">Gửi Yêu Cầu</button>
-            </form>
-        </div>
+    <div id="flightModal" class="modal-overlay">
+    <div class="modal-container">
+        <button class="modal-close">&times;</button>
+        <h3 class="modal-header">ĐẶT VÉ MÁY BAY</h3>
+        <form id="bookingForm" class="booking-form">
+            <input type="hidden" id="modalFlightInfo" name="flightInfo">
+            
+            <div class="form-group">
+                <label for="fullName">Họ và tên (*)</label>
+                <input type="text" id="fullName" name="fullName" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Số điện thoại (*)</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email (*)</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="passengerCount">Số lượng vé (*)</label>
+                <select id="passengerCount" name="passengerCount" required>
+                    <option value="1">1 vé</option>
+                    <option value="2">2 vé</option>
+                    <option value="3">3 vé</option>
+                    <option value="4">4 vé</option>
+                    <option value="5">5 vé</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="notes">Ghi chú thêm</label>
+                <textarea id="notes" name="notes" rows="3" placeholder="Yêu cầu đặc biệt..."></textarea>
+            </div>
+            
+            <div id="bookingMessage" class="booking-message" style="display: none;">
+                <i class="fas fa-check-circle"></i> Đặt vé thành công! Chúng tôi sẽ liên hệ với bạn trong ít phút.
+            </div>
+            
+            <button type="submit" class="cta-button submit-btn">
+                <i class="fas fa-paper-plane"></i> Gửi Yêu Cầu Đặt Vé
+            </button>
+        </form>
     </div>
+</div>
 
     <!-- SECTION LIÊN HỆ -->
     <section class="contact-section">
@@ -447,7 +487,7 @@
                         <textarea name="message" rows="4" placeholder="Nội dung cần hỗ trợ"></textarea>
                     </div>
                     <p id="formMessage"
-                        style="color: var(--main-color); display: none; margin-bottom: 15px; font-weight: 600;">Yêu cầu
+                        style="color: var(--index-color); display: none; margin-bottom: 15px; font-weight: 600;">Yêu cầu
                         của bạn đã được gửi thành công!</p>
                     <button type="submit" class="cta-button">GỬI YÊU CẦU</button>
                 </form>
@@ -455,13 +495,50 @@
         </div>
     </section>
 
-    <footer class="footer">
+   <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 Travel Explorer. All rights reserved.</p>
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Travel Explorer</h3>
+                    <p>Đối tác tin cậy cho mọi chuyến du lịch của bạn. Chúng tôi cam kết mang đến những trải nghiệm
+                        tuyệt vời nhất.</p>
+                </div>
+        <div class="footer-section">
+            <h3>Liên Kết Nhanh</h3>
+            <a href="tour.html">Tour Du Lịch</a>
+            <a href="hotel.html">Khách Sạn</a>
+            <a href="flight.html">Vé Máy Bay</a>
+            <a href="#">Chính Sách Bảo Mật</a>
         </div>
-    </footer>
+        <div class="footer-section">
+                    <h3>Thông Tin Liên Hệ</h3>
+                    <p>
+                        <i class="fa-solid fa-location-dot 1"></i>
+                        12/5D Đường Lê Lợi, Quận 1
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-phone-volume"></i>
+                        (028) 1234 5678
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-envelope"></i>
+                        info@travelexplorer.vn
+                    </p>
+                </div>
+        <div class="footer-section">
+            <h3>Theo Dõi Chúng Tôi</h3>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                 <a href="#" class="social-link">
+                            <i class="fa-brands fa-telegram"></i> </a>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">2025 Travel Explorer. Tất cả quyền được bảo lưu.</div>
+</footer>
 
-    <!-- JavaScript giữ nguyên như cũ -->
     <script>
         // Dữ liệu sân bay
         const airports = [
@@ -474,22 +551,25 @@
             { code: 'SIN', name: 'Singapore (SIN)', city: 'Singapore', country: 'Singapore' },
             { code: 'ICN', name: 'Seoul (ICN)', city: 'Seoul', country: 'Hàn Quốc' },
             { code: 'NRT', name: 'Tokyo (NRT)', city: 'Tokyo', country: 'Nhật Bản' },
-            { code: 'TPE', name: 'Đài Bắc (TPE)', city: 'Đài Bắc', country: 'Đài Loan' },
+            { code: 'PEK', name: 'Bắc Kinh (PEK)', city: 'Bắc Kinh', country: 'Trung Quốc' },
+            { code: 'PVG', name: 'Thượng Hải (PVG)', city: 'Thượng Hải', country: 'Trung Quốc' },
+            { code: 'DEL', name: 'New Delhi (DEL)', city: 'New Delhi', country: 'Ấn Độ' },
+            { code: 'SVO', name: 'Moscow (SVO)', city: 'Moscow', country: 'Nga' },
         ];
 
         // Dữ liệu điểm đến quốc tế
         const internationalDestinations = [
-            { id: 1, name: "Bangkok, Thái Lan", image: "https://images.unsplash.com/photo-1563492065599-3520f775eeed?w=400&h-250&fit=crop", code: "BKK", country: "Thái Lan" },
-            { id: 2, name: "Singapore", image: "https://images.unsplash.com/photo-1532228117458-9a55e1ee2a03?w=400&h-250&fit=crop", code: "SIN", country: "Singapore" },
-            { id: 3, name: "Seoul, Hàn Quốc", image: "https://images.unsplash.com/photo-1516496636080-14fb876e029d?w=400&h-250&fit=crop", code: "ICN", country: "Hàn Quốc" },
+            { id: 1, name: "Bangkok, Thái Lan", image: "https://vlink.vn/wp-content/uploads/2025/01/SanBayThaiLan.jpg", code: "BKK", country: "Thái Lan" },
+            { id: 2, name: "Singapore", image: "https://dulichviet.com.vn/images/bandidau/top-32-dia-diem-du-lich-singapore-dep-khien-ban-say-me-quen-loi-ve.jpg", code: "SIN", country: "Singapore" },
+            { id: 3, name: "Seoul, Hàn Quốc", image: "https://www.agoda.com/wp-content/uploads/2024/04/seoul-korea.jpg", code: "ICN", country: "Hàn Quốc" },
             { id: 4, name: "Tokyo, Nhật Bản", image: "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=400&h-250&fit=crop", code: "NRT", country: "Nhật Bản" },
-            { id: 5, name: "Đài Bắc, Đài Loan", image: "https://images.unsplash.com/photo-1591862711636-4cdfa99ae63b?w=400&h-250&fit=crop", code: "TPE", country: "Đài Loan" },
-            { id: 6, name: "Paris, Pháp", image: "https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400&h-250&fit=crop", code: "CDG", country: "Pháp" },
+            { id: 5, name: "Bắc Kinh, Trung Quốc", image: "https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=400&h-250&fit=crop", code: "PEK", country: "Trung Quốc" },
+            { id: 6, name: "New Delhi, Ấn Độ", image: "https://images.unsplash.com/photo-1587474260584-136574528ed5?w=400&h-250&fit=crop", code: "DEL", country: "Ấn Độ" },
         ];
 
-        // Dữ liệu deal bay (giữ nguyên)
-        const flightDeals = [
-            // Deal bay từ Hà Nội
+        // Dữ liệu deal bay với 96 deals
+               const flightDeals = [
+            // Deal bay từ Hà Nội - 8 deals
             {
                 id: 1, from: "HAN", to: "SGN", fromCity: "Hà Nội", toCity: "TP.HCM", airline: "Vietnam Airlines",
                 departTime: "06:00", arriveTime: "08:10", duration: "2h10m", price: 1850000, oldPrice: 2200000,
@@ -506,389 +586,833 @@
                 type: "domestic", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee"
             },
             {
-                id: 4, from: "HAN", to: "BKK", fromCity: "Hà Nội", toCity: "Bangkok", airline: "Vietnam Airlines",
-                departTime: "14:00", arriveTime: "16:30", duration: "2h30m", price: 2890000, oldPrice: 3500000,
-                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Thái Lan"
+                id: 4, from: "HAN", to: "CXR", fromCity: "Hà Nội", toCity: "Nha Trang", airline: "Vietnam Airlines",
+                departTime: "11:00", arriveTime: "13:00", duration: "2h", price: 1250000, oldPrice: 1650000,
+                type: "domestic", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981"
+            },
+            {
+                id: 5, from: "HAN", to: "SGN", fromCity: "Hà Nội", toCity: "TP.HCM", airline: "VietJet Air",
+                departTime: "14:30", arriveTime: "16:40", duration: "2h10m", price: 1680000, oldPrice: 2100000,
+                type: "domestic", tripType: "oneway", badge: "HOT", badgeColor: "#e11d48"
+            },
+            {
+                id: 6, from: "HAN", to: "DAD", fromCity: "Hà Nội", toCity: "Đà Nẵng", airline: "Bamboo Airways",
+                departTime: "16:45", arriveTime: "18:15", duration: "1h30m", price: 950000, oldPrice: 1300000,
+                type: "domestic", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee"
+            },
+            {
+                id: 7, from: "HAN", to: "PQC", fromCity: "Hà Nội", toCity: "Phú Quốc", airline: "VietJet Air",
+                departTime: "19:00", arriveTime: "21:15", duration: "2h15m", price: 1580000, oldPrice: 2000000,
+                type: "domestic", tripType: "oneway", badge: "SALE", badgeColor: "#10b981"
+            },
+            {
+                id: 8, from: "HAN", to: "CXR", fromCity: "Hà Nội", toCity: "Nha Trang", airline: "Bamboo Airways",
+                departTime: "20:30", arriveTime: "22:30", duration: "2h", price: 1180000, oldPrice: 1550000,
+                type: "domestic", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48"
             },
 
-            // Deal bay từ TP.HCM
+            // Deal bay từ TP.HCM - 8 deals
             {
-                id: 5, from: "SGN", to: "HAN", fromCity: "TP.HCM", toCity: "Hà Nội", airline: "VietJet Air",
+                id: 9, from: "SGN", to: "HAN", fromCity: "TP.HCM", toCity: "Hà Nội", airline: "VietJet Air",
                 departTime: "07:30", arriveTime: "09:40", duration: "2h10m", price: 1100000, oldPrice: 1500000,
                 type: "domestic", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48"
             },
             {
-                id: 6, from: "SGN", to: "DAD", fromCity: "TP.HCM", toCity: "Đà Nẵng", airline: "Vietravel Airlines",
+                id: 10, from: "SGN", to: "DAD", fromCity: "TP.HCM", toCity: "Đà Nẵng", airline: "Vietravel Airlines",
                 departTime: "10:45", arriveTime: "12:15", duration: "1h30m", price: 750000, oldPrice: 980000,
                 type: "domestic", tripType: "oneway", badge: "SALE", badgeColor: "#10b981"
             },
             {
-                id: 7, from: "SGN", to: "SIN", fromCity: "TP.HCM", toCity: "Singapore", airline: "Singapore Airlines",
-                departTime: "13:20", arriveTime: "16:50", duration: "3h30m", price: 3800000, oldPrice: 4500000,
-                type: "international", tripType: "roundtrip", badge: "SPECIAL", badgeColor: "#f59e0b", country: "Singapore"
+                id: 11, from: "SGN", to: "PQC", fromCity: "TP.HCM", toCity: "Phú Quốc", airline: "Vietnam Airlines",
+                departTime: "08:00", arriveTime: "09:05", duration: "1h05m", price: 980000, oldPrice: 1350000,
+                type: "domestic", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee"
             },
-
-            // Deal bay từ Đà Nẵng
             {
-                id: 8, from: "DAD", to: "SGN", fromCity: "Đà Nẵng", toCity: "TP.HCM", airline: "VietJet Air",
-                departTime: "18:00", arriveTime: "19:30", duration: "1h30m", price: 620000, oldPrice: 850000,
+                id: 12, from: "SGN", to: "CXR", fromCity: "TP.HCM", toCity: "Nha Trang", airline: "Bamboo Airways",
+                departTime: "12:30", arriveTime: "13:35", duration: "1h05m", price: 820000, oldPrice: 1100000,
                 type: "domestic", tripType: "oneway", badge: "SALE", badgeColor: "#10b981"
             },
             {
-                id: 9, from: "DAD", to: "HAN", fromCity: "Đà Nẵng", toCity: "Hà Nội", airline: "Bamboo Airways",
-                departTime: "20:15", arriveTime: "21:45", duration: "1h30m", price: 680000, oldPrice: 900000,
+                id: 13, from: "SGN", to: "HAN", fromCity: "TP.HCM", toCity: "Hà Nội", airline: "Vietnam Airlines",
+                departTime: "15:15", arriveTime: "17:25", duration: "2h10m", price: 1350000, oldPrice: 1750000,
                 type: "domestic", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48"
             },
-
-            // Deal bay quốc tế
             {
-                id: 10, from: "SGN", to: "ICN", fromCity: "TP.HCM", toCity: "Seoul", airline: "Korean Air",
-                departTime: "22:30", arriveTime: "06:00+1", duration: "5h30m", price: 5900000, oldPrice: 7500000,
+                id: 14, from: "SGN", to: "DAD", fromCity: "TP.HCM", toCity: "Đà Nẵng", airline: "VietJet Air",
+                departTime: "17:45", arriveTime: "19:15", duration: "1h30m", price: 680000, oldPrice: 920000,
+                type: "domestic", tripType: "oneway", badge: "NEW", badgeColor: "#4361ee"
+            },
+            {
+                id: 15, from: "SGN", to: "PQC", fromCity: "TP.HCM", toCity: "Phú Quốc", airline: "Bamboo Airways",
+                departTime: "19:00", arriveTime: "20:05", duration: "1h05m", price: 1050000, oldPrice: 1400000,
+                type: "domestic", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981"
+            },
+            {
+                id: 16, from: "SGN", to: "CXR", fromCity: "TP.HCM", toCity: "Nha Trang", airline: "VietJet Air",
+                departTime: "21:00", arriveTime: "22:05", duration: "1h05m", price: 760000, oldPrice: 1050000,
+                type: "domestic", tripType: "oneway", badge: "HOT", badgeColor: "#e11d48"
+            },
+
+            // Deal bay từ Đà Nẵng - 8 deals
+            {
+                id: 17, from: "DAD", to: "SGN", fromCity: "Đà Nẵng", toCity: "TP.HCM", airline: "VietJet Air",
+                departTime: "06:00", arriveTime: "07:30", duration: "1h30m", price: 620000, oldPrice: 850000,
+                type: "domestic", tripType: "oneway", badge: "SALE", badgeColor: "#10b981"
+            },
+            {
+                id: 18, from: "DAD", to: "HAN", fromCity: "Đà Nẵng", toCity: "Hà Nội", airline: "Bamboo Airways",
+                departTime: "08:15", arriveTime: "09:45", duration: "1h30m", price: 680000, oldPrice: 900000,
+                type: "domestic", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48"
+            },
+            {
+                id: 19, from: "DAD", to: "SGN", fromCity: "Đà Nẵng", toCity: "TP.HCM", airline: "Vietnam Airlines",
+                departTime: "10:30", arriveTime: "12:00", duration: "1h30m", price: 720000, oldPrice: 950000,
+                type: "domestic", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee"
+            },
+            {
+                id: 20, from: "DAD", to: "HAN", fromCity: "Đà Nẵng", toCity: "Hà Nội", airline: "VietJet Air",
+                departTime: "13:00", arriveTime: "14:30", duration: "1h30m", price: 650000, oldPrice: 880000,
+                type: "domestic", tripType: "oneway", badge: "SALE", badgeColor: "#10b981"
+            },
+            {
+                id: 21, from: "DAD", to: "SGN", fromCity: "Đà Nẵng", toCity: "TP.HCM", airline: "Bamboo Airways",
+                departTime: "15:45", arriveTime: "17:15", duration: "1h30m", price: 690000, oldPrice: 920000,
+                type: "domestic", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48"
+            },
+            {
+                id: 22, from: "DAD", to: "HAN", fromCity: "Đà Nẵng", toCity: "Hà Nội", airline: "Vietnam Airlines",
+                departTime: "18:00", arriveTime: "19:30", duration: "1h30m", price: 750000, oldPrice: 980000,
+                type: "domestic", tripType: "oneway", badge: "NEW", badgeColor: "#4361ee"
+            },
+            {
+                id: 23, from: "DAD", to: "SGN", fromCity: "Đà Nẵng", toCity: "TP.HCM", airline: "VietJet Air",
+                departTime: "20:00", arriveTime: "21:30", duration: "1h30m", price: 600000, oldPrice: 820000,
+                type: "domestic", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981"
+            },
+            {
+                id: 24, from: "DAD", to: "HAN", fromCity: "Đà Nẵng", toCity: "Hà Nội", airline: "Bamboo Airways",
+                departTime: "21:45", arriveTime: "23:15", duration: "1h30m", price: 670000, oldPrice: 890000,
+                type: "domestic", tripType: "oneway", badge: "HOT", badgeColor: "#e11d48"
+            },
+
+            // Deal bay từ Phú Quốc - 8 deals
+            {
+                id: 25, from: "PQC", to: "SGN", fromCity: "Phú Quốc", toCity: "TP.HCM", airline: "Vietnam Airlines",
+                departTime: "06:30", arriveTime: "07:35", duration: "1h05m", price: 890000, oldPrice: 1200000,
+                type: "domestic", tripType: "oneway", badge: "SALE", badgeColor: "#10b981"
+            },
+            {
+                id: 26, from: "PQC", to: "HAN", fromCity: "Phú Quốc", toCity: "Hà Nội", airline: "VietJet Air",
+                departTime: "09:00", arriveTime: "11:15", duration: "2h15m", price: 1380000, oldPrice: 1800000,
+                type: "domestic", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48"
+            },
+            {
+                id: 27, from: "PQC", to: "SGN", fromCity: "Phú Quốc", toCity: "TP.HCM", airline: "Bamboo Airways",
+                departTime: "11:30", arriveTime: "12:35", duration: "1h05m", price: 950000, oldPrice: 1280000,
+                type: "domestic", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee"
+            },
+            {
+                id: 28, from: "PQC", to: "HAN", fromCity: "Phú Quốc", toCity: "Hà Nội", airline: "Bamboo Airways",
+                departTime: "13:45", arriveTime: "16:00", duration: "2h15m", price: 1420000, oldPrice: 1850000,
+                type: "domestic", tripType: "oneway", badge: "SALE", badgeColor: "#10b981"
+            },
+            {
+                id: 29, from: "PQC", to: "SGN", fromCity: "Phú Quốc", toCity: "TP.HCM", airline: "VietJet Air",
+                departTime: "16:00", arriveTime: "17:05", duration: "1h05m", price: 920000, oldPrice: 1250000,
+                type: "domestic", tripType: "oneway", badge: "HOT", badgeColor: "#e11d48"
+            },
+            {
+                id: 30, from: "PQC", to: "HAN", fromCity: "Phú Quốc", toCity: "Hà Nội", airline: "Vietnam Airlines",
+                departTime: "18:15", arriveTime: "20:30", duration: "2h15m", price: 1500000, oldPrice: 1950000,
+                type: "domestic", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee"
+            },
+            {
+                id: 31, from: "PQC", to: "SGN", fromCity: "Phú Quốc", toCity: "TP.HCM", airline: "Vietnam Airlines",
+                departTime: "20:00", arriveTime: "21:05", duration: "1h05m", price: 980000, oldPrice: 1320000,
+                type: "domestic", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981"
+            },
+            {
+                id: 32, from: "PQC", to: "HAN", fromCity: "Phú Quốc", toCity: "Hà Nội", airline: "VietJet Air",
+                departTime: "21:30", arriveTime: "23:45", duration: "2h15m", price: 1350000, oldPrice: 1780000,
+                type: "domestic", tripType: "oneway", badge: "HOT", badgeColor: "#e11d48"
+            },
+
+            // Deal bay từ Nha Trang - 8 deals
+            {
+                id: 33, from: "CXR", to: "SGN", fromCity: "Nha Trang", toCity: "TP.HCM", airline: "VietJet Air",
+                departTime: "06:15", arriveTime: "07:20", duration: "1h05m", price: 720000, oldPrice: 980000,
+                type: "domestic", tripType: "oneway", badge: "SALE", badgeColor: "#10b981"
+            },
+            {
+                id: 34, from: "CXR", to: "HAN", fromCity: "Nha Trang", toCity: "Hà Nội", airline: "Vietnam Airlines",
+                departTime: "08:45", arriveTime: "10:45", duration: "2h", price: 1150000, oldPrice: 1520000,
+                type: "domestic", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48"
+            },
+            {
+                id: 35, from: "CXR", to: "SGN", fromCity: "Nha Trang", toCity: "TP.HCM", airline: "Bamboo Airways",
+                departTime: "11:00", arriveTime: "12:05", duration: "1h05m", price: 780000, oldPrice: 1050000,
+                type: "domestic", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee"
+            },
+            {
+                id: 36, from: "CXR", to: "HAN", fromCity: "Nha Trang", toCity: "Hà Nội", airline: "Bamboo Airways",
+                departTime: "13:30", arriveTime: "15:30", duration: "2h", price: 1200000, oldPrice: 1580000,
+                type: "domestic", tripType: "oneway", badge: "SALE", badgeColor: "#10b981"
+            },
+            {
+                id: 37, from: "CXR", to: "SGN", fromCity: "Nha Trang", toCity: "TP.HCM", airline: "Vietnam Airlines",
+                departTime: "16:00", arriveTime: "17:05", duration: "1h05m", price: 850000, oldPrice: 1150000,
+                type: "domestic", tripType: "oneway", badge: "HOT", badgeColor: "#e11d48"
+            },
+            {
+                id: 38, from: "CXR", to: "HAN", fromCity: "Nha Trang", toCity: "Hà Nội", airline: "VietJet Air",
+                departTime: "18:15", arriveTime: "20:15", duration: "2h", price: 1080000, oldPrice: 1450000,
+                type: "domestic", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee"
+            },
+            {
+                id: 39, from: "CXR", to: "SGN", fromCity: "Nha Trang", toCity: "TP.HCM", airline: "VietJet Air",
+                departTime: "20:00", arriveTime: "21:05", duration: "1h05m", price: 690000, oldPrice: 950000,
+                type: "domestic", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981"
+            },
+            {
+                id: 40, from: "CXR", to: "HAN", fromCity: "Nha Trang", toCity: "Hà Nội", airline: "Vietnam Airlines",
+                departTime: "21:30", arriveTime: "23:30", duration: "2h", price: 1250000, oldPrice: 1650000,
+                type: "domestic", tripType: "oneway", badge: "HOT", badgeColor: "#e11d48"
+            },
+
+            // Deal bay quốc tế - Thái Lan (8 deals)
+            {
+                id: 41, from: "SGN", to: "BKK", fromCity: "TP.HCM", toCity: "Bangkok", airline: "Vietnam Airlines",
+                departTime: "06:00", arriveTime: "08:00", duration: "2h", price: 2590000, oldPrice: 3200000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Thái Lan"
+            },
+            {
+                id: 42, from: "HAN", to: "BKK", fromCity: "Hà Nội", toCity: "Bangkok", airline: "Thai Airways",
+                departTime: "09:30", arriveTime: "12:00", duration: "2h30m", price: 2890000, oldPrice: 3500000,
+                type: "international", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981", country: "Thái Lan"
+            },
+            {
+                id: 43, from: "SGN", to: "BKK", fromCity: "TP.HCM", toCity: "Bangkok", airline: "VietJet Air",
+                departTime: "12:45", arriveTime: "14:45", duration: "2h", price: 2350000, oldPrice: 2950000,
+                type: "international", tripType: "oneway", badge: "NEW", badgeColor: "#4361ee", country: "Thái Lan"
+            },
+            {
+                id: 44, from: "DAD", to: "BKK", fromCity: "Đà Nẵng", toCity: "Bangkok", airline: "Bangkok Airways",
+                departTime: "15:00", arriveTime: "17:15", duration: "2h15m", price: 2750000, oldPrice: 3400000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Thái Lan"
+            },
+            {
+                id: 45, from: "HAN", to: "BKK", fromCity: "Hà Nội", toCity: "Bangkok", airline: "VietJet Air",
+                departTime: "17:30", arriveTime: "20:00", duration: "2h30m", price: 2650000, oldPrice: 3300000,
+                type: "international", tripType: "oneway", badge: "SALE", badgeColor: "#10b981", country: "Thái Lan"
+            },
+            {
+                id: 46, from: "SGN", to: "BKK", fromCity: "TP.HCM", toCity: "Bangkok", airline: "Thai Airways",
+                departTime: "19:00", arriveTime: "21:00", duration: "2h", price: 2990000, oldPrice: 3650000,
+                type: "international", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee", country: "Thái Lan"
+            },
+            {
+                id: 47, from: "HAN", to: "BKK", fromCity: "Hà Nội", toCity: "Bangkok", airline: "Bamboo Airways",
+                departTime: "21:00", arriveTime: "23:30", duration: "2h30m", price: 2780000, oldPrice: 3450000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Thái Lan"
+            },
+            {
+                id: 48, from: "SGN", to: "BKK", fromCity: "TP.HCM", toCity: "Bangkok", airline: "Vietnam Airlines",
+                departTime: "23:00", arriveTime: "01:00+1", duration: "2h", price: 2450000, oldPrice: 3100000,
+                type: "international", tripType: "oneway", badge: "SALE", badgeColor: "#10b981", country: "Thái Lan"
+            },
+
+            // Deal bay quốc tế - Singapore (8 deals)
+            {
+                id: 49, from: "SGN", to: "SIN", fromCity: "TP.HCM", toCity: "Singapore", airline: "Singapore Airlines",
+                departTime: "07:00", arriveTime: "10:30", duration: "2h30m", price: 3800000, oldPrice: 4500000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Singapore"
+            },
+            {
+                id: 50, from: "HAN", to: "SIN", fromCity: "Hà Nội", toCity: "Singapore", airline: "VietJet Air",
+                departTime: "09:30", arriveTime: "13:30", duration: "4h", price: 4200000, oldPrice: 5000000,
+                type: "international", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981", country: "Singapore"
+            },
+            {
+                id: 51, from: "SGN", to: "SIN", fromCity: "TP.HCM", toCity: "Singapore", airline: "VietJet Air",
+                departTime: "12:00", arriveTime: "15:30", duration: "2h30m", price: 3500000, oldPrice: 4200000,
+                type: "international", tripType: "oneway", badge: "NEW", badgeColor: "#4361ee", country: "Singapore"
+            },
+            {
+                id: 52, from: "HAN", to: "SIN", fromCity: "Hà Nội", toCity: "Singapore", airline: "Singapore Airlines",
+                departTime: "14:30", arriveTime: "18:30", duration: "4h", price: 4500000, oldPrice: 5300000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Singapore"
+            },
+            {
+                id: 53, from: "SGN", to: "SIN", fromCity: "TP.HCM", toCity: "Singapore", airline: "Vietnam Airlines",
+                departTime: "16:45", arriveTime: "20:15", duration: "2h30m", price: 3900000, oldPrice: 4600000,
+                type: "international", tripType: "oneway", badge: "SALE", badgeColor: "#10b981", country: "Singapore"
+            },
+            {
+                id: 54, from: "DAD", to: "SIN", fromCity: "Đà Nẵng", toCity: "Singapore", airline: "Singapore Airlines",
+                departTime: "18:00", arriveTime: "21:45", duration: "3h45m", price: 4100000, oldPrice: 4900000,
+                type: "international", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee", country: "Singapore"
+            },
+            {
+                id: 55, from: "HAN", to: "SIN", fromCity: "Hà Nội", toCity: "Singapore", airline: "Bamboo Airways",
+                departTime: "20:00", arriveTime: "00:00+1", duration: "4h", price: 4000000, oldPrice: 4800000,
+                type: "international", tripType: "oneway", badge: "HOT", badgeColor: "#e11d48", country: "Singapore"
+            },
+            {
+                id: 56, from: "SGN", to: "SIN", fromCity: "TP.HCM", toCity: "Singapore", airline: "Bamboo Airways",
+                departTime: "22:00", arriveTime: "01:30+1", duration: "2h30m", price: 3650000, oldPrice: 4400000,
+                type: "international", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981", country: "Singapore"
+            },
+
+            // Deal bay quốc tế - Hàn Quốc (8 deals)
+            {
+                id: 57, from: "SGN", to: "ICN", fromCity: "TP.HCM", toCity: "Seoul", airline: "Korean Air",
+                departTime: "00:30", arriveTime: "08:00", duration: "5h30m", price: 5900000, oldPrice: 7500000,
                 type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Hàn Quốc"
             },
             {
-                id: 11, from: "HAN", to: "NRT", fromCity: "Hà Nội", toCity: "Tokyo", airline: "Japan Airlines",
-                departTime: "23:45", arriveTime: "08:30+1", duration: "5h45m", price: 8900000, oldPrice: 10500000,
-                type: "international", tripType: "roundtrip", badge: "SPECIAL", badgeColor: "#f59e0b", country: "Nhật Bản"
+                id: 58, from: "HAN", to: "ICN", fromCity: "Hà Nội", toCity: "Seoul", airline: "Vietnam Airlines",
+                departTime: "08:00", arriveTime: "15:00", duration: "5h", price: 6200000, oldPrice: 7800000,
+                type: "international", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981", country: "Hàn Quốc"
             },
             {
-                id: 12, from: "SGN", to: "TPE", fromCity: "TP.HCM", toCity: "Đài Bắc", airline: "EVA Air",
-                departTime: "08:15", arriveTime: "12:30", duration: "4h15m", price: 3900000, oldPrice: 4800000,
-                type: "international", tripType: "oneway", badge: "NEW", badgeColor: "#4361ee", country: "Đài Loan"
+                id: 59, from: "SGN", to: "ICN", fromCity: "TP.HCM", toCity: "Seoul", airline: "VietJet Air",
+                departTime: "10:30", arriveTime: "18:00", duration: "5h30m", price: 5500000, oldPrice: 7000000,
+                type: "international", tripType: "oneway", badge: "NEW", badgeColor: "#4361ee", country: "Hàn Quốc"
+            },
+            {
+                id: 60, from: "HAN", to: "ICN", fromCity: "Hà Nội", toCity: "Seoul", airline: "Korean Air",
+                departTime: "13:00", arriveTime: "20:00", duration: "5h", price: 6500000, oldPrice: 8100000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Hàn Quốc"
+            },
+            {
+                id: 61, from: "DAD", to: "ICN", fromCity: "Đà Nẵng", toCity: "Seoul", airline: "Vietnam Airlines",
+                departTime: "15:30", arriveTime: "22:30", duration: "5h", price: 6300000, oldPrice: 7900000,
+                type: "international", tripType: "oneway", badge: "SALE", badgeColor: "#10b981", country: "Hàn Quốc"
+            },
+            {
+                id: 62, from: "SGN", to: "ICN", fromCity: "TP.HCM", toCity: "Seoul", airline: "Bamboo Airways",
+                departTime: "18:00", arriveTime: "01:30+1", duration: "5h30m", price: 5800000, oldPrice: 7400000,
+                type: "international", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee", country: "Hàn Quốc"
+            },
+            {
+                id: 63, from: "HAN", to: "ICN", fromCity: "Hà Nội", toCity: "Seoul", airline: "VietJet Air",
+                departTime: "20:00", arriveTime: "03:00+1", duration: "5h", price: 6000000, oldPrice: 7600000,
+                type: "international", tripType: "oneway", badge: "HOT", badgeColor: "#e11d48", country: "Hàn Quốc"
+            },
+            {
+                id: 64, from: "SGN", to: "ICN", fromCity: "TP.HCM", toCity: "Seoul", airline: "Vietnam Airlines",
+                departTime: "22:30", arriveTime: "06:00+1", duration: "5h30m", price: 6100000, oldPrice: 7700000,
+                type: "international", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981", country: "Hàn Quốc"
+            },
+
+            // Deal bay quốc tế - Nhật Bản (8 deals)
+            {
+                id: 65, from: "HAN", to: "NRT", fromCity: "Hà Nội", toCity: "Tokyo", airline: "Japan Airlines",
+                departTime: "23:45", arriveTime: "08:30+1", duration: "5h45m", price: 8900000, oldPrice: 10500000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Nhật Bản"
+            },
+            {
+                id: 66, from: "SGN", to: "NRT", fromCity: "TP.HCM", toCity: "Tokyo", airline: "Vietnam Airlines",
+                departTime: "09:00", arriveTime: "17:30", duration: "6h30m", price: 9200000, oldPrice: 11000000,
+                type: "international", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981", country: "Nhật Bản"
+            },
+            {
+                id: 67, from: "HAN", to: "NRT", fromCity: "Hà Nội", toCity: "Tokyo", airline: "VietJet Air",
+                departTime: "11:30", arriveTime: "19:15", duration: "5h45m", price: 8500000, oldPrice: 10200000,
+                type: "international", tripType: "oneway", badge: "NEW", badgeColor: "#4361ee", country: "Nhật Bản"
+            },
+            {
+                id: 68, from: "SGN", to: "NRT", fromCity: "TP.HCM", toCity: "Tokyo", airline: "Japan Airlines",
+                departTime: "14:00", arriveTime: "22:30", duration: "6h30m", price: 9500000, oldPrice: 11300000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Nhật Bản"
+            },
+            {
+                id: 69, from: "HAN", to: "NRT", fromCity: "Hà Nội", toCity: "Tokyo", airline: "Vietnam Airlines",
+                departTime: "16:30", arriveTime: "01:15+1", duration: "5h45m", price: 9100000, oldPrice: 10900000,
+                type: "international", tripType: "oneway", badge: "SALE", badgeColor: "#10b981", country: "Nhật Bản"
+            },
+            {
+                id: 70, from: "DAD", to: "NRT", fromCity: "Đà Nẵng", toCity: "Tokyo", airline: "Japan Airlines",
+                departTime: "18:45", arriveTime: "03:00+1", duration: "6h15m", price: 9300000, oldPrice: 11100000,
+                type: "international", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee", country: "Nhật Bản"
+            },
+            {
+                id: 71, from: "SGN", to: "NRT", fromCity: "TP.HCM", toCity: "Tokyo", airline: "VietJet Air",
+                departTime: "20:00", arriveTime: "04:30+1", duration: "6h30m", price: 8700000, oldPrice: 10400000,
+                type: "international", tripType: "oneway", badge: "HOT", badgeColor: "#e11d48", country: "Nhật Bản"
+            },
+            {
+                id: 72, from: "HAN", to: "NRT", fromCity: "Hà Nội", toCity: "Tokyo", airline: "Bamboo Airways",
+                departTime: "22:00", arriveTime: "06:45+1", duration: "5h45m", price: 8800000, oldPrice: 10600000,
+                type: "international", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981", country: "Nhật Bản"
+            },
+
+            // Deal bay quốc tế - Trung Quốc (8 deals)
+            {
+                id: 73, from: "SGN", to: "PEK", fromCity: "TP.HCM", toCity: "Bắc Kinh", airline: "Air China",
+                departTime: "07:00", arriveTime: "13:30", duration: "4h30m", price: 4900000, oldPrice: 6200000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Trung Quốc"
+            },
+            {
+                id: 74, from: "HAN", to: "PVG", fromCity: "Hà Nội", toCity: "Thượng Hải", airline: "China Eastern",
+                departTime: "09:30", arriveTime: "14:30", duration: "3h", price: 4200000, oldPrice: 5500000,
+                type: "international", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981", country: "Trung Quốc"
+            },
+            {
+                id: 75, from: "SGN", to: "CAN", fromCity: "TP.HCM", toCity: "Quảng Châu", airline: "Vietnam Airlines",
+                departTime: "11:45", arriveTime: "15:45", duration: "2h", price: 3800000, oldPrice: 4900000,
+                type: "international", tripType: "oneway", badge: "NEW", badgeColor: "#4361ee", country: "Trung Quốc"
+            },
+            {
+                id: 76, from: "HAN", to: "PEK", fromCity: "Hà Nội", toCity: "Bắc Kinh", airline: "Vietnam Airlines",
+                departTime: "14:00", arriveTime: "19:30", duration: "3h30m", price: 4500000, oldPrice: 5800000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Trung Quốc"
+            },
+            {
+                id: 77, from: "DAD", to: "PVG", fromCity: "Đà Nẵng", toCity: "Thượng Hải", airline: "China Southern",
+                departTime: "16:30", arriveTime: "21:00", duration: "2h30m", price: 4100000, oldPrice: 5400000,
+                type: "international", tripType: "oneway", badge: "SALE", badgeColor: "#10b981", country: "Trung Quốc"
+            },
+            {
+                id: 78, from: "SGN", to: "PVG", fromCity: "TP.HCM", toCity: "Thượng Hải", airline: "VietJet Air",
+                departTime: "18:15", arriveTime: "23:45", duration: "3h30m", price: 3900000, oldPrice: 5100000,
+                type: "international", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee", country: "Trung Quốc"
+            },
+            {
+                id: 79, from: "HAN", to: "CAN", fromCity: "Hà Nội", toCity: "Quảng Châu", airline: "Bamboo Airways",
+                departTime: "20:00", arriveTime: "23:30", duration: "1h30m", price: 3700000, oldPrice: 4800000,
+                type: "international", tripType: "oneway", badge: "HOT", badgeColor: "#e11d48", country: "Trung Quốc"
+            },
+            {
+                id: 80, from: "SGN", to: "PEK", fromCity: "TP.HCM", toCity: "Bắc Kinh", airline: "China Southern",
+                departTime: "22:30", arriveTime: "05:00+1", duration: "4h30m", price: 4700000, oldPrice: 6000000,
+                type: "international", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981", country: "Trung Quốc"
+            },
+
+            // Deal bay quốc tế - Ấn Độ (8 deals)
+            {
+                id: 81, from: "SGN", to: "DEL", fromCity: "TP.HCM", toCity: "New Delhi", airline: "Air India",
+                departTime: "08:00", arriveTime: "12:30", duration: "4h30m", price: 7500000, oldPrice: 9200000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Ấn Độ"
+            },
+            {
+                id: 82, from: "HAN", to: "BOM", fromCity: "Hà Nội", toCity: "Mumbai", airline: "Vietnam Airlines",
+                departTime: "10:30", arriveTime: "15:30", duration: "5h", price: 7900000, oldPrice: 9600000,
+                type: "international", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981", country: "Ấn Độ"
+            },
+            {
+                id: 83, from: "SGN", to: "BLR", fromCity: "TP.HCM", toCity: "Bangalore", airline: "IndiGo",
+                departTime: "12:45", arriveTime: "17:00", duration: "4h15m", price: 7200000, oldPrice: 8900000,
+                type: "international", tripType: "oneway", badge: "NEW", badgeColor: "#4361ee", country: "Ấn Độ"
+            },
+            {
+                id: 84, from: "HAN", to: "DEL", fromCity: "Hà Nội", toCity: "New Delhi", airline: "VietJet Air",
+                departTime: "15:00", arriveTime: "19:30", duration: "4h30m", price: 7400000, oldPrice: 9100000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Ấn Độ"
+            },
+            {
+                id: 85, from: "SGN", to: "BOM", fromCity: "TP.HCM", toCity: "Mumbai", airline: "Air India",
+                departTime: "17:30", arriveTime: "22:30", duration: "5h", price: 8100000, oldPrice: 9800000,
+                type: "international", tripType: "oneway", badge: "SALE", badgeColor: "#10b981", country: "Ấn Độ"
+            },
+            {
+                id: 86, from: "HAN", to: "BLR", fromCity: "Hà Nội", toCity: "Bangalore", airline: "Bamboo Airways",
+                departTime: "19:00", arriveTime: "23:15", duration: "4h15m", price: 7300000, oldPrice: 9000000,
+                type: "international", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee", country: "Ấn Độ"
+            },
+            {
+                id: 87, from: "DAD", to: "DEL", fromCity: "Đà Nẵng", toCity: "New Delhi", airline: "Vietnam Airlines",
+                departTime: "20:30", arriveTime: "01:00+1", duration: "4h30m", price: 7600000, oldPrice: 9300000,
+                type: "international", tripType: "oneway", badge: "HOT", badgeColor: "#e11d48", country: "Ấn Độ"
+            },
+            {
+                id: 88, from: "SGN", to: "DEL", fromCity: "TP.HCM", toCity: "New Delhi", airline: "IndiGo",
+                departTime: "22:00", arriveTime: "02:30+1", duration: "4h30m", price: 7250000, oldPrice: 8950000,
+                type: "international", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981", country: "Ấn Độ"
+            },
+
+            // Deal bay quốc tế - Nga (8 deals)
+            {
+                id: 89, from: "HAN", to: "SVO", fromCity: "Hà Nội", toCity: "Moscow", airline: "Aeroflot",
+                departTime: "09:00", arriveTime: "16:30", duration: "7h30m", price: 12500000, oldPrice: 15000000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Nga"
+            },
+            {
+                id: 90, from: "SGN", to: "SVO", fromCity: "TP.HCM", toCity: "Moscow", airline: "Vietnam Airlines",
+                departTime: "11:30", arriveTime: "19:30", duration: "8h", price: 13200000, oldPrice: 15800000,
+                type: "international", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981", country: "Nga"
+            },
+            {
+                id: 91, from: "HAN", to: "LED", fromCity: "Hà Nội", toCity: "St. Petersburg", airline: "Aeroflot",
+                departTime: "13:45", arriveTime: "22:00", duration: "8h15m", price: 12800000, oldPrice: 15400000,
+                type: "international", tripType: "oneway", badge: "NEW", badgeColor: "#4361ee", country: "Nga"
+            },
+            {
+                id: 92, from: "SGN", to: "LED", fromCity: "TP.HCM", toCity: "St. Petersburg", airline: "Vietnam Airlines",
+                departTime: "15:30", arriveTime: "00:15+1", duration: "8h45m", price: 13500000, oldPrice: 16200000,
+                type: "international", tripType: "roundtrip", badge: "HOT", badgeColor: "#e11d48", country: "Nga"
+            },
+            {
+                id: 93, from: "HAN", to: "SVO", fromCity: "Hà Nội", toCity: "Moscow", airline: "Vietnam Airlines",
+                departTime: "17:00", arriveTime: "00:30+1", duration: "7h30m", price: 12300000, oldPrice: 14900000,
+                type: "international", tripType: "oneway", badge: "SALE", badgeColor: "#10b981", country: "Nga"
+            },
+            {
+                id: 94, from: "DAD", to: "SVO", fromCity: "Đà Nẵng", toCity: "Moscow", airline: "Aeroflot",
+                departTime: "19:30", arriveTime: "03:30+1", duration: "8h", price: 13000000, oldPrice: 15600000,
+                type: "international", tripType: "roundtrip", badge: "NEW", badgeColor: "#4361ee", country: "Nga"
+            },
+            {
+                id: 95, from: "SGN", to: "SVO", fromCity: "TP.HCM", toCity: "Moscow", airline: "Aeroflot",
+                departTime: "21:00", arriveTime: "05:00+1", duration: "8h", price: 12900000, oldPrice: 15500000,
+                type: "international", tripType: "oneway", badge: "HOT", badgeColor: "#e11d48", country: "Nga"
+            },
+            {
+                id: 96, from: "HAN", to: "LED", fromCity: "Hà Nội", toCity: "St. Petersburg", airline: "Vietnam Airlines",
+                departTime: "23:00", arriveTime: "07:15+1", duration: "8h15m", price: 12650000, oldPrice: 15250000,
+                type: "international", tripType: "roundtrip", badge: "SALE", badgeColor: "#10b981", country: "Nga"
             },
         ];
+        // Function to format price in VND
+function formatPrice(price) {
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+}
 
-        // Format giá tiền
-        function formatPrice(price) {
-            return price.toLocaleString('vi-VN') + '₫';
-        }
-
-        // Tạo HTML cho deal bay (card)
-        function createFlightCard(deal) {
-            const discount = Math.round((1 - deal.price / deal.oldPrice) * 100);
-
-            return `
-            <div class="tour-card" data-type="${deal.type}" data-trip="${deal.tripType}">
-                <div class="tour-tag-absolute" style="background: ${deal.badgeColor}">${deal.badge}</div>
-                <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=400&h=200&fit=crop" alt="${deal.fromCity} to ${deal.toCity}">
-                <div class="card-content">
-                    <h4>${deal.fromCity} → ${deal.toCity}</h4>
-                    <p><i class="fas fa-plane"></i> ${deal.airline} • ${deal.duration}</p>
-                    <p><i class="far fa-clock"></i> ${deal.departTime} - ${deal.arriveTime}</p>
-                    <p><i class="fas fa-suitcase-rolling"></i> ${deal.tripType === 'roundtrip' ? 'Khứ hồi' : 'Một chiều'}</p>
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 1rem;">
-                        <div>
-                            <span style="text-decoration: line-through; color: #999; font-size: 0.9rem;">${formatPrice(deal.oldPrice)}</span>
-                            <div class="tour-price" style="color: #e11d48; font-size: 1.5rem;">${formatPrice(deal.price)}</div>
-                        </div>
-                        <span style="background: #10b981; color: white; padding: 2px 8px; border-radius: 12px; font-size: 0.8rem;">
-                            -${discount}%
-                        </span>
+// Function to create a flight card HTML
+function createFlightCard(deal) {
+    const isRoundtrip = deal.tripType === 'roundtrip';
+    const badgeHTML = deal.badge ? `<span class="badge" style="background-color: ${deal.badgeColor};">${deal.badge}</span>` : '';
+    
+    // Thêm URL ảnh cho các hãng bay
+    const airlineImages = {
+        'Vietnam Airlines': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Anh-2-15222236062661656996940.jpg/1200px-Anh-2-15222236062661656996940.jpg',
+        'VietJet Air': 'https://vj-prod-website-cms.s3.ap-southeast-1.amazonaws.com/photo-4-large-1721699537188.jpeg',
+        'Bamboo Airways': 'https://vlink.vn/wp-content/uploads/2023/10/ve-may-bay-bamboo-airways-22-08-2018-1.jpg',
+        'Thai Airways': 'https://vlink.vn/wp-content/uploads/2025/01/SanBayThaiLan.jpg',
+        'Singapore Airlines': 'https://content.r9cdn.net/rimg/dimg/e3/8c/b2054a39-al-SQ-17b5e5d2d3b.png?width=1366&height=768&xhint=1731&yhint=397&crop=true',
+        'Korean Air': 'https://osky.1cdn.vn/thumbs/1200x630/2025/06/09/korean-air-airbus-a380-861-hl7615-2-.jpg',
+        'Japan Airlines': 'https://www.jal.com/en/corporate/air/img/aircraft/pic_aircraft_787-8.jpg',
+        'Air China': 'https://aivivu.com/wp-content/uploads/2024/07/So-dien-thoai-tong-dai-Air-China.webp',
+        'default': 'https://baodongnai.com.vn/file/e7837c02876411cd0187645a2551379f/dataimages/202305/original/images2527860_17__3_.jpg'
+    };
+    
+    const imageUrl = airlineImages[deal.airline] || airlineImages['default'];
+    
+    return `
+        <div class="tour-card flight-card" data-id="${deal.id}">
+            <img src="${imageUrl}" alt="${deal.airline}">
+            ${badgeHTML}
+            <div class="card-content">
+                <div class="flight-info">
+                    <div class="flight-route">
+                        <span class="from"><i class="fas fa-plane-departure"></i> ${deal.fromCity} (${deal.from})</span>
+                        <i class="fas fa-long-arrow-alt-right" style="margin: 0 10px; color: var(--cta-color);"></i>
+                        <span class="to"><i class="fas fa-plane-arrival"></i> ${deal.toCity} (${deal.to})</span>
                     </div>
-                    <button class="cta-button book-flight-btn" data-deal-id="${deal.id}">
-                        <i class="fas fa-ticket-alt"></i> Đặt Ngay
+                    <div class="flight-details">
+                        <span><i class="fas fa-plane"></i> ${deal.airline}</span>
+                        <span><i class="fas fa-clock"></i> ${deal.duration}</span>
+                    </div>
+                    <div class="flight-times">
+                        <span><i class="far fa-clock"></i> Đi: ${deal.departTime}</span>
+                        <span><i class="far fa-clock"></i> Đến: ${deal.arriveTime}</span>
+                    </div>
+                    <div class="flight-price" style="margin-top: 15px;">
+                        <span class="tour-price">${formatPrice(deal.price)}</span>
+                        <span class="old-price" style="text-decoration: line-through; color: var(--gray); font-size: 0.9rem;">${formatPrice(deal.oldPrice)}</span>
+                    </div>
+                    <span class="trip-type" style="display: block; text-align: center; margin-top: 10px; color: var(--index-color); font-weight: 600;">
+                        <i class="fas ${isRoundtrip ? 'fa-exchange-alt' : 'fa-arrow-right'}"></i> ${isRoundtrip ? 'Khứ hồi' : 'Một chiều'}
+                    </span>
+                    <button class="cta-button book-flight-btn" style="margin-top: 15px;" 
+                            onclick="openFlightModal('${deal.fromCity}', '${deal.toCity}', '${deal.airline}', ${deal.price})">
+                        <i class="fas fa-ticket-alt"></i> Đặt Vé Ngay
                     </button>
                 </div>
             </div>
-        `;
+        </div>
+    `;
+}
+
+// Function to populate flights for a specific container
+function populateFlights(containerId, filterFn) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    const filteredDeals = flightDeals.filter(filterFn);
+    container.innerHTML = filteredDeals.map(createFlightCard).join('');
+}
+
+// Populate domestic flights by city
+function populateDomesticFlights() {
+    // Hà Nội (from HAN)
+    populateFlights('hanoi-flights', deal => deal.from === 'HAN');
+    // TP.HCM (from SGN)
+    populateFlights('hcm-flights', deal => deal.from === 'SGN');
+    // Đà Nẵng (from DAD)
+    populateFlights('danang-flights', deal => deal.from === 'DAD');
+    // Phú Quốc (from PQC)
+    populateFlights('phuquoc-flights', deal => deal.from === 'PQC');
+    // Nha Trang (from CXR)
+    populateFlights('nhatrang-flights', deal => deal.from === 'CXR');
+}
+
+// Populate international flights by country
+function populateInternationalFlights() {
+    // Thái Lan
+    populateFlights('thailand-flights', deal => deal.country === 'Thái Lan');
+    // Singapore
+    populateFlights('singapore-flights', deal => deal.country === 'Singapore');
+    // Hàn Quốc
+    populateFlights('korea-flights', deal => deal.country === 'Hàn Quốc');
+    // Nhật Bản
+    populateFlights('japan-flights', deal => deal.country === 'Nhật Bản');
+    // Trung Quốc
+    populateFlights('china-flights', deal => deal.country === 'Trung Quốc');
+    // Ấn Độ
+    populateFlights('india-flights', deal => deal.country === 'Ấn Độ');
+    // Nga
+    populateFlights('russia-flights', deal => deal.country === 'Nga');
+}
+
+// Populate cheapest flights (select top 10 cheapest)
+function populateCheapestFlights() {
+    const container = document.getElementById('cheapest-flights');
+    if (!container) return;
+    const sortedDeals = [...flightDeals].sort((a, b) => a.price - b.price).slice(0, 10);
+    container.innerHTML = sortedDeals.map(createFlightCard).join('');
+}
+
+// Function to create destination card
+function createDestinationCard(dest) {
+    return `
+        <a href="flight-results.html?to_code=${dest.code}" class="destination-card">
+            <img src="${dest.image}" alt="${dest.name}">
+            <div class="destination-info">
+                <h3>${dest.name}</h3>
+            </div>
+        </a>
+    `;
+}
+
+// Populate international destinations grid
+function populateInternationalDestinations() {
+    const container = document.getElementById('international-destinations');
+    if (!container) return;
+    container.innerHTML = internationalDestinations.map(createDestinationCard).join('');
+}
+
+// Function to scroll carousel
+function scrollCarousel(id, amount) {
+    const carousel = document.getElementById(id);
+    if (carousel) {
+        carousel.scrollBy({ left: amount, behavior: 'smooth' });
+    }
+}
+
+// Airport dropdown functions
+function showDropdown(input, dropdown, type) {
+    const query = input.value.toLowerCase();
+    const filtered = airports.filter(airport => 
+        airport.name.toLowerCase().includes(query) || 
+        airport.code.toLowerCase().includes(query) ||
+        airport.city.toLowerCase().includes(query)
+    );
+    dropdown.innerHTML = filtered.map(airport => `
+        <div class="airport-item" data-code="${airport.code}">
+            <span class="airport-code">${airport.code}</span>
+            <span class="airport-name">${airport.name}</span>
+            <span class="airport-city">${airport.city}</span>
+        </div>
+    `).join('');
+    dropdown.style.display = filtered.length > 0 ? 'block' : 'none';
+}
+
+function selectAirport(item, input, codeInput) {
+    input.value = item.querySelector('.airport-name').textContent;
+    codeInput.value = item.dataset.code;
+    item.parentElement.style.display = 'none';
+}
+
+// Setup airport inputs
+const fromInput = document.getElementById('fromInput');
+const fromDropdown = document.getElementById('fromDropdown');
+const fromCode = document.getElementById('fromCode');
+
+const toInput = document.getElementById('toInput');
+const toDropdown = document.getElementById('toDropdown');
+const toCode = document.getElementById('toCode');
+
+fromInput.addEventListener('input', () => showDropdown(fromInput, fromDropdown, 'from'));
+toInput.addEventListener('input', () => showDropdown(toInput, toDropdown, 'to'));
+
+fromDropdown.addEventListener('click', e => {
+    const item = e.target.closest('.airport-item');
+    if (item) selectAirport(item, fromInput, fromCode);
+});
+
+toDropdown.addEventListener('click', e => {
+    const item = e.target.closest('.airport-item');
+    if (item) selectAirport(item, toInput, toCode);
+});
+
+// Swap button
+document.getElementById('swapBtn').addEventListener('click', () => {
+    const tempValue = fromInput.value;
+    const tempCode = fromCode.value;
+    fromInput.value = toInput.value;
+    fromCode.value = toCode.value;
+    toInput.value = tempValue;
+    toCode.value = tempCode;
+});
+
+// Flight tabs (return/oneway)
+const flightTabs = document.querySelectorAll('.flight-tab-btn');
+const returnDateWrapper = document.getElementById('returnDateWrapper');
+const returnDate = document.getElementById('returnDate');
+
+flightTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        flightTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        const type = tab.dataset.type;
+        if (type === 'oneway') {
+            returnDateWrapper.style.display = 'none';
+            returnDate.removeAttribute('required');
+        } else {
+            returnDateWrapper.style.display = 'block';
+            returnDate.setAttribute('required', '');
         }
+    });
+});
 
-        // Tạo HTML cho điểm đến quốc tế
-        function createDestinationCard(destination) {
-            return `
-            <a href="flight-results.html?to_code=${destination.code}" class="destination-card">
-                <div class="destination-image">
-                    <img src="${destination.image}" alt="${destination.name}">
-                    <div class="destination-overlay">
-                        <h4>${destination.name}</h4>
-                        <p><i class="fas fa-plane"></i> Khám phá ngay</p>
-                    </div>
-                </div>
-            </a>
-        `;
-        }
+// index flight tabs (domestic/international)
+const indexFlightTabs = document.querySelectorAll('.index-flight-tab');
+const flightTabContents = document.querySelectorAll('.flight-tab-content');
 
-        // Render deals vào container
-        function renderDeals(containerId, deals) {
-            const container = document.getElementById(containerId);
-            if (!container) return;
+indexFlightTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        indexFlightTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        flightTabContents.forEach(content => {
+            content.classList.toggle('active', content.dataset.tab === tab.dataset.tab);
+        });
+    });
+});
 
-            container.innerHTML = deals.map(createFlightCard).join('');
+// City tabs for domestic
+const cityTabs = document.querySelectorAll('.city-tab');
+const cityContents = document.querySelectorAll('.city-content');
 
-            // Thêm event listeners cho các nút đặt vé
-            container.querySelectorAll('.book-flight-btn').forEach(btn => {
-                btn.addEventListener('click', function () {
-                    const dealId = this.getAttribute('data-deal-id');
-                    const deal = flightDeals.find(d => d.id == dealId);
-                    if (deal) {
-                        openBookingModal(deal);
-                    }
-                });
-            });
-        }
+cityTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        cityTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        cityContents.forEach(content => {
+            content.classList.toggle('active', content.dataset.city === tab.dataset.city);
+        });
+    });
+});
 
-        // Render điểm đến quốc tế
-        function renderDestinations() {
-            const container = document.getElementById('international-destinations');
-            if (!container) return;
+// Country tabs for international
+const countryTabs = document.querySelectorAll('.country-tab');
+const countryContents = document.querySelectorAll('.country-content');
 
-            container.innerHTML = internationalDestinations.map(createDestinationCard).join('');
-        }
+countryTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        countryTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        countryContents.forEach(content => {
+            content.classList.toggle('active', content.dataset.country === tab.dataset.country);
+        });
+    });
+});
 
-        // Lọc deals theo tiêu chí
-        function filterDeals(filters = {}) {
-            let filtered = [...flightDeals];
+// Modal handling
+const modal = document.getElementById('flightModal');
+const modalClose = document.querySelector('.modal-close');
+const modalFlightInfo = document.getElementById('modalFlightInfo');
+const bookingMessage = document.getElementById('bookingMessage');
 
-            if (filters.type) {
-                filtered = filtered.filter(deal => deal.type === filters.type);
-            }
+// Hàm mở modal với thông tin chuyến bay
+function openFlightModal(fromCity, toCity, airline, price) {
+    // Ngăn chặn sự kiện click lan ra ngoài
+    event.stopPropagation();
+    
+    // Hiển thị thông tin chuyến bay
+    modalFlightInfo.value = `${fromCity} → ${toCity} | ${airline} | ${formatPrice(price)}`;
+    
+    // Hiển thị modal
+    modal.classList.add('active');
+    
+    // Ẩn message nếu có
+    bookingMessage.style.display = 'none';
+}
 
-            if (filters.fromCity) {
-                filtered = filtered.filter(deal => deal.fromCity === filters.fromCity);
-            }
+// Đóng modal
+function closeModal() {
+    modal.classList.remove('active');
+}
 
-            if (filters.country && filters.country !== 'all') {
-                filtered = filtered.filter(deal => deal.country === filters.country);
-            }
+// Sự kiện đóng modal
+modalClose.addEventListener('click', closeModal);
 
-            // Lấy 5 deal rẻ nhất cho section Deal Bay Rẻ Nhất
-            if (filters.sortByPrice) {
-                filtered.sort((a, b) => a.price - b.price);
-                filtered = filtered.slice(0, 6); // Lấy 6 deal đầu tiên
-            }
+// Đóng modal khi click bên ngoài
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        closeModal();
+    }
+});
 
-            return filtered;
-        }
+// Sự kiện submit form
+bookingForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    
+    // Hiển thị thông báo thành công
+    bookingMessage.style.display = 'block';
+    bookingMessage.style.color = '#10b981'; // Màu xanh lá
+    
+    // Reset form sau 3 giây
+    setTimeout(() => {
+        bookingMessage.style.display = 'none';
+        closeModal();
+        bookingForm.reset();
+    }, 3000);
+});
 
-        // Khởi tạo dữ liệu
-        function initFlightData() {
-            // Render deals theo thành phố trong nước
-            renderDeals('hanoi-flights', filterDeals({ type: 'domestic', fromCity: 'Hà Nội' }));
-            renderDeals('hcm-flights', filterDeals({ type: 'domestic', fromCity: 'TP.HCM' }));
-            renderDeals('danang-flights', filterDeals({ type: 'domestic', fromCity: 'Đà Nẵng' }));
-            renderDeals('phuquoc-flights', filterDeals({ type: 'domestic', fromCity: 'Phú Quốc' }));
-            renderDeals('nhatrang-flights', filterDeals({ type: 'domestic', fromCity: 'Nha Trang' }));
-
-            // Render deals theo quốc gia quốc tế
-            renderDeals('all-flights', filterDeals({ type: 'international' }));
-            renderDeals('thailand-flights', filterDeals({ type: 'international', country: 'Thái Lan' }));
-            renderDeals('singapore-flights', filterDeals({ type: 'international', country: 'Singapore' }));
-            renderDeals('korea-flights', filterDeals({ type: 'international', country: 'Hàn Quốc' }));
-            renderDeals('japan-flights', filterDeals({ type: 'international', country: 'Nhật Bản' }));
-            renderDeals('taiwan-flights', filterDeals({ type: 'international', country: 'Đài Loan' }));
-
-            // Render deal bay rẻ nhất
-            renderDeals('cheapest-flights', filterDeals({ sortByPrice: true }));
-
-            // Render điểm đến quốc tế
-            renderDestinations();
-        }
-
-        // Scroll carousel
-        function scrollCarousel(containerId, amount) {
-            const container = document.getElementById(containerId);
-            if (container) {
-                container.scrollBy({ left: amount, behavior: 'smooth' });
-            }
-        }
-
-        // Airport dropdown functions
-        function showDropdown(input, dropdown) {
-            dropdown.innerHTML = '';
-            const query = input.value.toLowerCase();
-            if (query.length < 2) {
-                dropdown.style.display = 'none';
-                return;
-            }
-
-            const filtered = airports.filter(a =>
-                a.name.toLowerCase().includes(query) ||
-                a.code.toLowerCase().includes(query) ||
-                a.city.toLowerCase().includes(query)
-            );
-
-            if (filtered.length > 0) {
-                filtered.forEach(airport => {
-                    const item = document.createElement('div');
-                    item.className = 'airport-item';
-                    item.innerHTML = `
-                    <div>
-                        <strong>${airport.name}</strong>
-                        <small>${airport.city}${airport.country ? `, ${airport.country}` : ''}</small>
-                    </div>
-                    <span>${airport.code}</span>
-                `;
-                    item.onclick = () => {
-                        input.value = airport.name;
-                        input.nextElementSibling.value = airport.code;
-                        dropdown.style.display = 'none';
-                    };
-                    dropdown.appendChild(item);
-                });
-                dropdown.style.display = 'block';
-            } else {
-                dropdown.style.display = 'none';
-            }
-        }
-
-        // Mở modal đặt vé
-        function openBookingModal(deal) {
-            document.getElementById('modalFrom').value = `${deal.from}-${deal.to}`;
-            document.getElementById('flightModal').classList.add('active');
-        }
-
-        // DOM Content Loaded
-        document.addEventListener('DOMContentLoaded', function () {
-            // Khởi tạo dữ liệu
-            initFlightData();
-
-            // Airport dropdowns
-            const fromInput = document.getElementById('fromInput');
-            const fromDropdown = document.getElementById('fromDropdown');
-            const toInput = document.getElementById('toInput');
-            const toDropdown = document.getElementById('toDropdown');
-
-            if (fromInput && fromDropdown) {
-                fromInput.addEventListener('input', () => showDropdown(fromInput, fromDropdown));
-            }
-
-            if (toInput && toDropdown) {
-                toInput.addEventListener('input', () => showDropdown(toInput, toDropdown));
-            }
-
-            document.addEventListener('click', (e) => {
-                if (fromInput && !fromInput.contains(e.target) && fromDropdown && !fromDropdown.contains(e.target))
-                    fromDropdown.style.display = 'none';
-                if (toInput && !toInput.contains(e.target) && toDropdown && !toDropdown.contains(e.target))
-                    toDropdown.style.display = 'none';
-            });
-
-            // Swap locations
-            const swapBtn = document.getElementById('swapBtn');
-            if (swapBtn) {
-                swapBtn.addEventListener('click', () => {
-                    [fromInput.value, toInput.value] = [toInput.value, fromInput.value];
-                    [document.getElementById('fromCode').value, document.getElementById('toCode').value] =
-                        [document.getElementById('toCode').value, document.getElementById('fromCode').value];
-                });
-            }
-
-            // Flight type tabs
-            document.querySelectorAll('.flight-tab-btn').forEach(btn => {
-                btn.addEventListener('click', () => {
-                    document.querySelectorAll('.flight-tab-btn').forEach(b => b.classList.remove('active'));
-                    btn.classList.add('active');
-                    const returnWrapper = document.getElementById('returnDateWrapper');
-                    const returnDate = document.getElementById('returnDate');
-                    if (btn.dataset.type === 'oneway') {
-                        returnWrapper.style.display = 'none';
-                        returnDate.removeAttribute('required');
-                        returnDate.value = '';
-                    } else {
-                        returnWrapper.style.display = 'block';
-                        returnDate.setAttribute('required', '');
-                    }
-                });
-            });
-
-            // Set min date for date inputs
-            const today = new Date().toISOString().split('T')[0];
-            const departDate = document.getElementById('departDate');
-            const returnDate = document.getElementById('returnDate');
-
-            if (departDate) departDate.min = today;
-            if (returnDate) returnDate.min = today;
-
-            if (departDate) {
-                departDate.addEventListener('change', () => {
-                    if (returnDate) returnDate.min = departDate.value;
-                });
-            }
-
-            // Main flight tabs (Trong nước / Quốc tế)
-            document.querySelectorAll('.main-flight-tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const section = tab.closest('.best-flights-section');
-                    section.querySelectorAll('.main-flight-tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    section.querySelectorAll('.flight-tab-content').forEach(c => c.classList.remove('active'));
-                    section.querySelector(`.flight-tab-content[data-tab="${tab.dataset.tab}"]`).classList.add('active');
-                });
-            });
-
-            // City tabs (Trong nước)
-            document.querySelectorAll('.city-tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const content = tab.closest('.flight-tab-content');
-                    content.querySelectorAll('.city-tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    content.querySelectorAll('.city-content').forEach(c => c.classList.remove('active'));
-                    content.querySelector(`.city-content[data-city="${tab.dataset.city}"]`).classList.add('active');
-                });
-            });
-
-            // Country tabs (Quốc tế)
-            document.querySelectorAll('.country-tab').forEach(tab => {
-                tab.addEventListener('click', () => {
-                    const content = tab.closest('.flight-tab-content');
-                    content.querySelectorAll('.country-tab').forEach(t => t.classList.remove('active'));
-                    tab.classList.add('active');
-                    content.querySelectorAll('.country-content').forEach(c => c.classList.remove('active'));
-                    content.querySelector(`.country-content[data-country="${tab.dataset.country}"]`).classList.add('active');
-                });
-            });
-
-            // Hamburger menu
-            const hamburgerMenu = document.querySelector('.hamburger-menu');
-            if (hamburgerMenu) {
-                hamburgerMenu.addEventListener('click', () => {
-                    document.querySelector('.nav-menu').classList.toggle('active');
-                });
-            }
-
-            // Contact form
-            const contactForm = document.getElementById('contactForm');
-            if (contactForm) {
-                contactForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    document.getElementById('formMessage').style.display = 'block';
-                    e.target.reset();
-                    setTimeout(() => document.getElementById('formMessage').style.display = 'none', 5000);
-                });
-            }
-
-            // Booking form
-            const bookingForm = document.getElementById('bookingForm');
-            if (bookingForm) {
-                bookingForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    document.getElementById('bookingMessage').style.display = 'block';
-                    e.target.reset();
-                    setTimeout(() => {
-                        document.getElementById('bookingMessage').style.display = 'none';
-                        document.getElementById('flightModal').classList.remove('active');
-                    }, 3000);
-                });
-            }
-
-            // Close modal
-            const closeBtn = document.querySelector('.close-btn');
-            if (closeBtn) {
-                closeBtn.addEventListener('click', () => {
-                    document.getElementById('flightModal').classList.remove('active');
-                });
-            }
-
-            const flightModal = document.getElementById('flightModal');
-            if (flightModal) {
-                window.addEventListener('click', (e) => {
-                    if (e.target === flightModal) {
-                        flightModal.classList.remove('active');
-                    }
-                });
+// Ngăn chặn sự kiện click trên card lan ra ngoài
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.flight-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            // Ngăn chặn click trên card mở modal trừ khi click vào nút đặt vé
+            if (!e.target.closest('.book-flight-btn')) {
+                e.stopPropagation();
             }
         });
-    </script>
-</body>
+    });
+});
+// Hamburger menu
+const hamburger = document.querySelector('.hamburger-menu');
+const navMenu = document.querySelector('.nav-menu');
 
+hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('active');
+});
+
+// Initialize all sections on load
+window.addEventListener('DOMContentLoaded', () => {
+    populateDomesticFlights();
+    populateInternationalFlights();
+    populateCheapestFlights();
+    populateInternationalDestinations();
+});
+
+function fixDropdownZIndex() {
+    const dropdowns = document.querySelectorAll('.airport-dropdown');
+    dropdowns.forEach(dropdown => {
+        dropdown.style.zIndex = '1000';
+    });
+}
+
+</script>
+</body>
 </html>
