@@ -134,10 +134,11 @@
   --primary: #10b981;      /* Màu chủ đạo: Xanh lá cây */
   --accent: #22c55e;
   --ring: rgba(16, 185, 129, .35); /* Vòng focus màu xanh lá */
-  --text-dark: #1f2937;    /* Màu chữ chính: Rất đậm */
+  --text-dark: #080808;    /* Màu chữ chính: Rất đậm */
   --text-light: #4b5563;   /* Màu chữ phụ: Xám đậm */
   --border: #e5e7eb;       /* Màu đường viền: Xám rất nhạt */
   --header-bg: rgba(255, 255, 255, 0.9); /* Nền Header trong suốt sáng */
+  --blue: #0407a7;
 }
 
 * {
@@ -196,7 +197,7 @@ img {
 }
 
 .logo span {
-  color: var(--primary)
+  color: var(--blue);
 }
 
 .nav-links {
@@ -690,3 +691,5 @@ textarea:focus {
   /* tạo dấu gạch ngang */
   color: #9CA3AF;
 }
+.error-message { color: #dc2626; font-size: 0.875rem; margin-top: -6px; margin-bottom: 6px; }
+.input-error { border-color: #dc2626 !important; }
