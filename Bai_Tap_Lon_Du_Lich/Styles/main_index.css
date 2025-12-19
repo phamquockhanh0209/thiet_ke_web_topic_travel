@@ -61,9 +61,9 @@ body {
     display: flex;
     align-items: center;
     gap: 10px;
-    font-size: 3rem;
+    font-size: 1.5rem;
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--text-dark);
     transition: var(--transition);
     text-decoration: none;
 }
@@ -71,6 +71,10 @@ body {
 .logo i {
     font-size: 2rem;
     animation: rotate 20s linear infinite;
+}
+
+.logo span {
+    color: var(--primary-color);
 }
 
 .nav-menu {
@@ -338,7 +342,7 @@ body {
 .about-text h3 {
     font-size: clamp(1.3rem, 3vw, 1.8rem);
     margin-bottom: 1rem;
-    color: var(--primary-color);
+    color: var(--text-dark);
 }
 
 .about-text p {
